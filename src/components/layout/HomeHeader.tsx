@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { HomeAction } from "@/components/features/home/HomeAction";
@@ -17,7 +18,16 @@ export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
   const { language, setLanguage, t } = useLanguage();
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.headerBrand} aria-label="Eureka! Sport & Fitness — Home">EUREKA!<span>SPORT &amp; FITNESS</span></Link>
+      <Link href="/" className={styles.headerBrand} aria-label="Eureka! Sport & Fitness Academy — Home">
+        <Image
+          src="/images/logo/eureka-logo-bianco.png"
+          alt="Eureka! Sport & Fitness Academy"
+          width={142}
+          height={45}
+          className={styles.headerLogoImage}
+          priority
+        />
+      </Link>
       <nav id="home-navigation" aria-label="Navigazione principale" className={cn(styles.navigation, menuOpen && styles.navigationOpen)} onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setMenuOpen(false); }}>
         <Link href="/" className={cn(activePage === "home" && styles.activeLink)} aria-current={activePage === "home" ? "page" : undefined}>Home</Link>
         <Link href="/academy" className={cn(activePage === "academy" && styles.activeLink)} aria-current={activePage === "academy" ? "page" : undefined}>Academy</Link>

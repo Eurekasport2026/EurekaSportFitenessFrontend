@@ -10,8 +10,8 @@ import homeStyles from "@/components/features/home/home.module.css";
 import styles from "@/components/features/contact/contact.module.css";
 
 export const metadata: Metadata = {
-  title: "Contatti | Eureka! Sport & Fitness",
-  description: "Contatta il team Eureka! Sport & Fitness per informazioni su corsi, allenamento e app.",
+  title: "Contatti | Eureka! Sport & Fitness Academy",
+  description: "Contatta il team Eureka! Sport & Fitness Academy per informazioni su corsi, allenamento e app.",
 };
 
 export default function ContactPage() {

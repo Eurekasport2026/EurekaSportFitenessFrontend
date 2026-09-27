@@ -22,8 +22,12 @@ export default function Home() {
       <HomeHeader />
       <main id="main" className={styles.main}>
         <section className={styles.hero} aria-labelledby="hero-title">
-          <Image className={styles.symbol} src="/eureka-symbol.svg" width={96} height={80} alt="" />
-          <h1 id="hero-title" className={styles.wordmark}>EUREKA!<span>SPORT &amp; FITNESS</span></h1>
+          <Image className={styles.symbol} src="/eureka-symbol.svg" width={82} height={85} alt="" priority />
+          <h1 id="hero-title" className={styles.wordmark}>
+            EUREKA!
+            <span className={styles.wordmarkSub}>SPORT &amp; FITNESS</span>
+            <span className={styles.wordmarkAcademy}>ACADEMY</span>
+          </h1>
           <h2 className={styles.headline}><T>FORMA. ALLENA. EVOLVI.</T></h2>
           <p className={styles.intro}><T>La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi.</T></p>
         </section>
