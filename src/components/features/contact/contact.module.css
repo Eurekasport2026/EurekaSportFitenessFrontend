@@ -1,0 +1,35 @@
+.page.page { display: flex; flex-direction: column; background: #fbfdff; color: #10233b; color-scheme: light; }
+.page > header { background: #050e15; border-bottom: 1px solid #193346; }
+.main { flex: 1; width: 90%; max-width: 1320px; margin: 0 auto; padding: 1.8em 0 2.8em; }
+.intro { margin: 0 auto 2.1em; text-align: center; }
+.intro h1 { margin: 0 0 .45em; color: #0c2343; font-size: 1.85em; font-weight: 800; }
+.intro p { max-width: 32em; margin: 0 auto; color: #526780; font-size: .76em; line-height: 1.5; }
+.columns { display: grid; grid-template-columns: 1fr 1fr; gap: 2em; align-items: start; }
+.form { display: flex; flex-direction: column; padding: 1.2em; border: 1px solid #e3eaf2; border-radius: .6em; background: #fff; box-shadow: 0 3px 10px #10294207; }
+.form label { margin: 0 0 .45em; color: #1c304b; font-size: .67em; font-weight: 700; }
+.form :is(input, select, textarea) { display: block; width: 100%; min-height: 2.65em; padding: .65em .75em; margin: 0 0 1em; border: 1px solid #dce5ef; border-radius: .38em; background: #fff; color: #172f47; font: inherit; font-size: .68em; outline: none; }
+.form :is(input, select, textarea):focus { border-color: #0066ff; box-shadow: 0 0 0 3px #0066ff1e; }
+.form textarea { min-height: 6em; resize: vertical; }
+.form > button { min-height: 2.7em; border: 0; border-radius: .4em; background: #0072ff; color: white; font-size: .7em; font-weight: 700; box-shadow: 0 3px 8px #0066ff21; }
+.form > button:hover { background: #0052cc; }
+.formStatus { margin: 1em 0 0; padding: .8em; border-left: 3px solid #0066ff; background: #edf5ff; color: #203d5b; font-size: .69em; line-height: 1.5; }
+.formStatus a { color: #005bd9; font-weight: 700; overflow-wrap: anywhere; }
+.info { padding: .6em 0 0; }
+.infoItem { display: grid; grid-template-columns: 2em 1fr; gap: .85em; align-items: start; margin: 0 0 1.35em; }
+.infoItem > svg { width: 1.75em; height: 1.75em; color: #0066ff; }
+.infoItem h2 { margin: 0 0 .35em; color: #132a46; font-size: .74em; font-weight: 800; }
+.infoItem p, .infoItem a { margin: 0; color: #52677e; font-size: .67em; line-height: 1.45; text-decoration: none; }
+.infoItem a:hover { color: #0066ff; text-decoration: underline; }
+.socialSection { padding-top: .9em; border-top: 1px solid #e0e8f0; }
+.socialSection h2 { margin: 0 0 .8em; color: #17304d; font-size: .8em; font-weight: 800; }
+.socials { display: flex; flex-wrap: wrap; gap: .65em; }
+.socials button { display: inline-grid; place-items: center; width: 1.5em; height: 1.5em; padding: 0; border: 0; border-radius: 50%; background: #0066ff; color: white; font-size: 1em; font-weight: 800; line-height: 1; }
+.socials button svg { display: block; width: .9em; height: .9em; }
+.socials button:nth-of-type(1) { background: radial-gradient(circle at 22% 100%, #ffd84f, #ed3977 52%, #7355cc); }
+.socials button:nth-of-type(3) { background: #07090b; }
+.socials button:nth-of-type(4) { background: #030609; }
+.socials button:nth-of-type(5) { background: #1175ba; font-size: .82em; width: 1.83em; height: 1.83em; }
+.page :is(.main button, .main a):focus-visible { outline-color: #0066ff; }
+
+@media (min-width: 1000px) { .main { padding: 2.4em 0 3.2em; } .intro h1 { font-size: 2.1em; } .form label { font-size: .75em; } .form :is(input, select, textarea) { font-size: .73em; } .infoItem h2 { font-size: .83em; } .infoItem p, .infoItem a { font-size: .74em; } }
+@media (max-width: 580px) { .main { width: 90%; padding: 28px 0 42px; } .intro { margin-bottom: 28px; } .intro h1 { font-size: 29px; } .intro p { font-size: 14px; } .columns { grid-template-columns: 1fr; gap: 30px; } .form { padding: 18px; } .form label { font-size: 13px; } .form :is(input, select, textarea) { min-height: 44px; font-size: 14px; margin-bottom: 16px; } .form > button { min-height: 44px; font-size: 14px; } .formStatus { font-size: 13px; } .infoItem > svg { width: 27px; height: 27px; } .infoItem h2 { font-size: 15px; } .infoItem p, .infoItem a { font-size: 14px; } .socialSection h2 { font-size: 16px; } .socials button { font-size: 21px; } }

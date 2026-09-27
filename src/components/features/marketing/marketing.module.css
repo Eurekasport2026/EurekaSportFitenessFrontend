@@ -1,0 +1,119 @@
+.page.page {
+  background: #fbfdff;
+  color: #101e30;
+  color-scheme: light;
+}
+
+.page > header {
+  background: #050e15;
+  border-bottom: 1px solid #193346;
+}
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 19.2em;
+  overflow: hidden;
+  background: #08131b;
+  color: white;
+}
+
+.heroImage { object-fit: cover; object-position: center top; z-index: -2; }
+.heroShade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #020b13e8 0%, #020b13b3 25%, #020b1333 48%, #020b131a 73%, #020b1355 100%); }
+.heroContent { position: relative; width: 88%; max-width: 1440px; margin: 0 auto; padding: 3.15em 0 2.1em; }
+.heroContent h1 { width: fit-content; margin: 0; font-size: 2.65em; line-height: .95; font-weight: 800; letter-spacing: -.025em; }
+.heroContent h1 span { display: block; color: #17b9ec; }
+.heroContent h2 { margin: .7em 0 .6em; font-size: 1.05em; line-height: 1.25; font-weight: 700; }
+.heroContent > p { max-width: 27em; margin: 0 0 1.35em; font-size: .69em; line-height: 1.5; color: #e1e7ea; }
+.heroButton { display: inline-flex; align-items: center; justify-content: center; gap: .45em; min-width: 12em; padding: .85em 1.3em; border-radius: .55em; background: var(--eureka-blue); color: white; font-size: .7em; font-weight: 600; line-height: 1.2; text-decoration: none; transition: background 180ms; }
+.heroButton > svg { width: 1.2em; height: 1.2em; }
+.heroButton:hover { background: #0052cc; }
+.manifesto { position: absolute; top: 4.1em; right: 5%; margin: 0; font-size: .81em; font-weight: 700; line-height: 1.85; text-align: right; text-shadow: 0 2px 8px #0009; }
+.training .hero { min-height: 20.8em; }
+.training .heroContent { padding-top: 3.25em; padding-bottom: 1.4em; }
+.training .heroContent h1 span { color: #16c3e6; }
+.training .heroButton { background: var(--eureka-mint); color: #032c25; }
+.training .heroButton:hover { background: #00a97c; }
+.training .manifesto { top: auto; bottom: 2.45em; font-size: .86em; line-height: 1.65; }
+.stores { display: flex; align-items: center; gap: .5em; margin-top: .8em; }
+.storeBadge { display: inline-flex; align-items: center; justify-content: center; gap: .3em; min-width: 5.8em; height: 2.05em; padding: .2em .5em; border: 1px solid #657580; border-radius: .3em; background: #030506; color: white; text-align: left; transition: border-color 180ms; }
+.storeBadge:hover { border-color: #c2d7e5; }
+.storeBadge > svg { width: 1.3em; height: 1.3em; }
+.storeBadge > span { display: block; }
+.storeBadge small { display: block; font-size: .36em; line-height: 1.1; }
+.storeBadge strong { display: block; font-size: .73em; font-weight: 600; line-height: 1.1; }
+.benefits { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1em; width: 94%; max-width: 1480px; margin: 0 auto; padding: 1em 0 1.3em; color: #101e30; }
+.benefit { text-align: center; }
+.benefit > svg { display: block; width: 1.5em; height: 1.5em; margin: 0 auto .55em; color: #0066ff; }
+.benefit h2 { margin: 0 0 .4em; font-size: .65em; font-weight: 700; line-height: 1.3; }
+.benefit p { max-width: 15em; margin: 0 auto; color: #526173; font-size: .6em; line-height: 1.4; }
+.catalog { width: 93%; max-width: 1480px; margin: 0 auto; padding: .25em 0 1.5em; color: #101e30; }
+.sectionHeading { display: flex; align-items: center; justify-content: space-between; gap: 1em; margin: 0 0 .85em; }
+.sectionHeading h2 { margin: 0; color: #0a2244; font-size: 1.16em; line-height: 1.3; font-weight: 800; letter-spacing: -.025em; }
+.sectionHeading > a { display: inline-flex; align-items: center; gap: .25em; color: var(--eureka-blue); font-size: .63em; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.sectionHeading > a svg { width: 1.2em; height: 1.2em; }
+.sectionHeading > a:hover { text-decoration: underline; }
+.cardGrid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: .5em; }
+.goalGrid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.card { display: flex; flex-direction: column; min-width: 0; overflow: hidden; border: 1px solid #e2e9f1; border-radius: .35em; background: #fff; box-shadow: 0 1px 2px #12334a04; }
+.cardPhoto { width: 100%; aspect-ratio: 1 / 1; background-image: url('/images/eureka-course-goals.webp'); background-size: 400% 300%; background-repeat: no-repeat; background-color: #d6e1e9; }
+.cardBody { display: flex; flex: 1; flex-direction: column; align-items: flex-start; padding: .65em .5em .6em; }
+.cardBody > h3 { margin: 0 0 .6em; color: #14243a; font-size: .67em; line-height: 1.2; font-weight: 700; letter-spacing: -.025em; }
+.cardBody > p { margin: 0 0 1.5em; color: #526173; font-size: .56em; line-height: 1.5; }
+.cardAction { display: inline-flex; align-items: center; gap: .3em; padding: 0; margin-top: auto; border: 0; background: none; color: var(--eureka-blue); font-size: .56em; font-weight: 700; line-height: 1.5; }
+.cardAction > svg { width: 1.2em; height: 1.2em; }
+.cardAction:hover { color: #003b9f; text-decoration: underline; }
+.page .catalog :is(a, button):focus-visible { outline-color: #0066ff; }
+.goalGrid .cardBody { min-height: 3.25em; }
+.goalGrid .cardBody > h3 { font-size: .63em; }
+.goalGrid .cardAction { color: #17334b; }
+
+@media (min-width: 1000px) {
+  .hero { min-height: 23em; }
+  .training .hero { min-height: 24em; }
+  .heroContent, .training .heroContent { padding-top: 3.6em; padding-bottom: 2.75em; }
+  .heroContent h1 { font-size: 3.3em; }
+  .heroContent h2 { font-size: 1.15em; }
+  .heroContent > p { font-size: .8em; }
+  .heroButton { font-size: .8em; }
+  .manifesto { right: 6%; font-size: .95em; }
+  .training .manifesto { font-size: .95em; }
+  .benefits { padding: 1.4em 0 1.6em; }
+  .benefit h2 { font-size: .75em; }
+  .benefit p { font-size: .67em; }
+  .cardBody > h3 { font-size: .8em; }
+  .cardBody > p, .cardAction { font-size: .67em; }
+  .goalGrid .cardBody > h3 { font-size: .75em; }
+}
+
+@media (max-width: 580px) {
+  .hero, .training .hero { min-height: 440px; }
+  .heroImage { object-position: 60% center; }
+  .heroShade { background: linear-gradient(90deg, #020b13ed, #020b1399 55%, #020b1333); }
+  .heroContent, .training .heroContent { padding: 44px 0 110px; }
+  .heroContent h1 { font-size: clamp(38px, 9vw, 48px); }
+  .heroContent h2 { font-size: 18px; }
+  .heroContent > p { max-width: 270px; font-size: 13px; }
+  .desktopBreak { display: none; }
+  .heroButton { min-height: 44px; font-size: 13px; }
+  .manifesto, .training .manifesto { top: auto; bottom: 20px; right: 6%; font-size: 11px; line-height: 1.6; }
+  .storeBadge { height: 37px; min-width: 106px; }
+  .storeBadge small { font-size: 7px; }
+  .storeBadge strong { font-size: 13px; }
+  .benefits { width: 88%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; padding: 28px 0; }
+  .benefit > svg { width: 28px; height: 28px; }
+  .benefit h2 { font-size: 13px; }
+  .benefit p { font-size: 12px; }
+  .catalog { width: 90%; padding-bottom: 28px; }
+  .sectionHeading h2 { font-size: 20px; }
+  .sectionHeading > a { font-size: 12px; }
+  .cardGrid, .goalGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .cardBody { padding: 12px; }
+  .cardBody > h3, .goalGrid .cardBody > h3 { font-size: 14px; }
+  .cardBody > p { font-size: 12px; }
+  .cardAction { min-height: 32px; font-size: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .heroButton, .storeBadge { transition: none; }
+}

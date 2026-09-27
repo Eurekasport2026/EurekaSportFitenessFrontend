@@ -1,68 +1,56 @@
 import Image from "next/image";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { HomeHeader } from "@/components/layout/HomeHeader";
+import { HomeIcon } from "@/components/features/home/HomeIcon";
+import { T } from "@/components/layout/LanguageProvider";
+import styles from "@/components/features/home/home.module.css";
+
+const benefits = [
+  { icon: "medal", title: "Formazione certificata", description: "Corsi riconosciuti e aggiornati" },
+  { icon: "people", title: "Professionisti del settore", description: "Docenti esperti e qualificati" },
+  { icon: "growth", title: "Risultati reali", description: "Per la tua carriera e il tuo benessere" },
+] as const;
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div className={styles.page} id="home">
+      <a className={styles.skipLink} href="#main"><T>Vai al contenuto</T></a>
+      <div className={styles.backdrop} aria-hidden="true">
+        <Image src="/images/eureka-athletes.webp" alt="" fill unoptimized preload className={styles.photograph} />
+      </div>
+      <HomeHeader />
+      <main id="main" className={styles.main}>
+        <section className={styles.hero} aria-labelledby="hero-title">
+          <Image className={styles.symbol} src="/eureka-symbol.svg" width={96} height={80} alt="" />
+          <h1 id="hero-title" className={styles.wordmark}>EUREKA!<span>SPORT &amp; FITNESS</span></h1>
+          <h2 className={styles.headline}><T>FORMA. ALLENA. EVOLVI.</T></h2>
+          <p className={styles.intro}><T>La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi.</T></p>
+        </section>
+        <section className={styles.paths} aria-label="Scegli il tuo percorso">
+          <article className={cn(styles.pathCard, styles.academy)} id="academy">
+            <p className={styles.eyebrow}><T>VOGLIO DIVENTARE</T><br /><T>UN PROFESSIONISTA</T></p>
+            <HomeIcon name="graduation" className={styles.pathIcon} />
+            <h2>EUREKA! <span>ACADEMY</span></h2>
+            <Link href="/academy" className={styles.cta}><T>Scopri i corsi</T> <HomeIcon name="arrow" /></Link>
+          </article>
+          <article className={cn(styles.pathCard, styles.training)} id="training">
+            <p className={styles.eyebrow}><T>VOGLIO ALLENARMI</T></p>
+            <HomeIcon name="dumbbell" className={styles.pathIcon} />
+            <h2>EUREKA! <span>TRAINING</span></h2>
+            <Link href="/training" className={styles.cta}><T>Scopri l'app</T> <HomeIcon name="arrow" /></Link>
+          </article>
+        </section>
+        <section id="benefits" className={styles.benefits} aria-label="Perché scegliere Eureka">
+          {benefits.map((benefit) => (
+            <div className={styles.benefit} key={benefit.icon}>
+              <HomeIcon name={benefit.icon} />
+              <h2><T>{benefit.title}</T></h2>
+              <p><T>{benefit.description}</T></p>
+            </div>
+          ))}
+        </section>
+        <blockquote className={styles.quote}><T>“Impara. Allenati. Supera i tuoi limiti.”</T></blockquote>
       </main>
     </div>
   );
