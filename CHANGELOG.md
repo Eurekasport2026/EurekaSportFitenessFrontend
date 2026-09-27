@@ -5,8 +5,6 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- Standardized header background (`#050e15`) and bottom divider border (`1px solid #193346`) in `src/components/features/home/home.module.css` to match Academy and secondary pages, eliminating header margin inconsistencies and backdrop image bleeding behind the homepage header.
-- Prevented public-page content from colliding with the iOS Safari status bar, Dynamic Island, and home indicator by declaring an edge-to-edge viewport and applying shared safe-area guards and inset-aware header/footer spacing.
 - Resolved `INVALID_KEY: Namespace keys cannot contain the character "."` exception in `NextIntlClientProvider` by sanitizing sentence keys with unicode one-dot leader normalization across message bundles, `src/i18n/request.ts`, and `LanguageProvider.tsx`.
 - Resolved Next.js dev overlay "50 Issues" error by switching `LanguageProvider` to direct dictionary lookup via `useMessages()`, eliminating runtime `MISSING_MESSAGE` errors caused by punctuation in translation keys.
 - Implemented localized URL pathnames in `src/i18n/routing.ts` so English routes display clean English slugs (`/en/pricing`, `/en/contact`, `/en/about-us`, `/en/academy/courses`) instead of Italian path segments.
@@ -18,12 +16,6 @@ All notable changes to this project will be documented in this file.
 - Removed the homepage's white outer gutter and rounded frame, made its dark canvas fill the viewport, and corrected the hero background to span the full width. Changed the compressed hero WebP to direct loading to avoid the optimized-image URL implicated in the reported broken image; the original browser failure was not reproduced in local HTTP checks.
 
 ### Added
-- Integrated official brand identity and logo artwork from `EUREKA SPORT & FITNESS ACADEMY LOGO/` provided by the client:
-  - Extracted exact mathematical vector curves from Adobe Illustrator source streams into `public/eureka-symbol.svg` (brand gradient runner), `public/eureka-symbol-white.svg`, `public/eureka-logo.svg` (full color logo), `public/eureka-logo-white.svg`, and `public/eureka-logo-nero.svg`.
-  - Generated high-resolution 300 PPI transparent PNG and WebP assets in `public/images/logo/`.
-    - Deployed official `EUREKA SPORT & FITNESS ACADEMY - LOGO BIANCO PNG` directly in `HomeHeader` and `SiteFooter`, ensuring 100% authentic typography and eliminating text line-height overlap.
-    - Calibrated homepage hero `.symbol` aspect ratio to `4.5em × 4.65em` and added balanced margins to `.wordmarkSub` and `.wordmarkAcademy`.
-- Created PowerShell startup script `run.ps1` to easily launch the Next.js development server (`npm run dev`).
 - Replaced the default Vercel tab favicon with the official Eureka! brand emblem (`/eureka-symbol.svg`) via `src/app/icon.svg` and `metadata.icons` in root layout, removing the starter `src/app/favicon.ico`.
 - Migrated internationalization architecture to `next-intl` (`^4.14.7`) with subpath routing (`/[locale]/...`) for `it` and `en`.
 - Extracted and established JSON message bundles in `messages/it.json` and `messages/en.json`.

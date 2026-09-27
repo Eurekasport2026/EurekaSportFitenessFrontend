@@ -5,7 +5,7 @@
 .heroShade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #06131ddb 0%, #081723bc 28%, #0b1c2829 48%, transparent 75%); }
 .heroContent { position: relative; width: 88%; max-width: 1440px; margin: 0 auto; padding: 3.1em 0 2.4em; }
 .brandRow { display: flex; align-items: center; gap: .65em; }
-.brandRow img { width: auto; height: 5.2em; max-height: 85px; object-fit: contain; flex-shrink: 0; }
+.brandRow img { width: 5.2em; height: 5.2em; flex-shrink: 0; }
 .brandRow h1 { margin: 0; font-size: 1.75em; font-weight: 800; line-height: .97; letter-spacing: -.04em; }
 .brandRow h1 span { display: block; color: #168bff; font-size: 2.1em; font-style: italic; line-height: .86; letter-spacing: -.08em; }
 .heroContent > h2 { margin: .7em 0 .55em; font-size: 1.6em; line-height: 1.12; font-weight: 800; letter-spacing: -.025em; }
@@ -34,7 +34,7 @@
 @media (min-width: 1000px) {
   .hero { min-height: 31em; }
   .heroContent { padding-top: 4em; }
-  .brandRow img { width: auto; height: 5.8em; max-height: 96px; }
+  .brandRow img { width: 6em; height: 6em; }
   .heroContent > p { font-size: .8em; }
   .feature h2 { font-size: .78em; }
 }

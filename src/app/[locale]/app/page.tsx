@@ -32,7 +32,7 @@ export default function AppPage() {
           <div className={styles.heroShade} aria-hidden="true" />
           <div className={styles.heroContent}>
             <div className={styles.brandRow}>
-              <Image src="/eureka-symbol.svg" width={82} height={85} alt="" priority />
+              <Image src="/eureka-fit-symbol.svg" width={86} height={86} alt="" />
               <h1 id="app-title">EUREKA!<span>FIT</span></h1>
             </div>
             <h2><T>La tua palestra</T><br /><T>sempre con te.</T></h2>
