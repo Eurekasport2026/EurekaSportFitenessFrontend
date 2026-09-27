@@ -22,6 +22,11 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Eureka! Sport & Fitness | Forma. Allena. Evolvi.",
   description: "La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi. Scopri Eureka! Academy e Eureka! Training.",
+  icons: {
+    icon: "/eureka-symbol.svg",
+    shortcut: "/eureka-symbol.svg",
+    apple: "/eureka-symbol.svg",
+  },
 };
 
 export function generateStaticParams() {
