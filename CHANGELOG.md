@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - Removed the homepage's white outer gutter and rounded frame, made its dark canvas fill the viewport, and corrected the hero background to span the full width. Changed the compressed hero WebP to direct loading to avoid the optimized-image URL implicated in the reported broken image; the original browser failure was not reproduced in local HTTP checks.
 
 ### Added
+- Replaced the default Vercel tab favicon with the official Eureka! brand emblem (`/eureka-symbol.svg`) via `src/app/icon.svg` and `metadata.icons` in root layout, removing the starter `src/app/favicon.ico`.
 - Migrated internationalization architecture to `next-intl` (`^4.14.7`) with subpath routing (`/[locale]/...`) for `it` and `en`.
 - Extracted and established JSON message bundles in `messages/it.json` and `messages/en.json`.
 - Implemented `src/i18n/routing.ts`, `src/i18n/request.ts`, `src/middleware.ts`, and wrapped `next.config.ts` with `createNextIntlPlugin`.
