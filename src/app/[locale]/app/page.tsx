@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";

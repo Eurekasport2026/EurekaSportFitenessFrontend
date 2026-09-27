@@ -1,0 +1,76 @@
+.page.page { background: #fbfdff; color: #10233b; color-scheme: light; }
+.page > header { background: #050e15; border-bottom: 1px solid #193346; }
+
+.hero { position: relative; isolation: isolate; min-height: 24em; overflow: hidden; background: #06131c; color: white; }
+.heroImage { z-index: -2; object-fit: cover; object-position: center 35%; }
+.heroShade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #030c15ec 0%, #030c15c7 35%, #030c1590 62%, #030c15b0 100%), linear-gradient(0deg, #030c15aa, transparent 35%); }
+.heroContent { width: min(88%, 1320px); margin: 0 auto; padding: 4.5em 0 4.2em; }
+.eyebrow, .sectionEyebrow { margin: 0; color: #007dff; font-size: .65em; font-weight: 800; letter-spacing: .18em; }
+.hero .eyebrow { color: #36c5ff; }
+.hero h1 { max-width: 13em; margin: .4em 0 .45em; font-size: clamp(2em, 4.2vw, 3.25em); font-weight: 800; line-height: 1.08; letter-spacing: -.035em; }
+.hero h1 span { display: block; color: #36c5ff; }
+.heroLead { max-width: 35em; margin: 0 0 1.8em; color: #e3edf3; font-size: .82em; line-height: 1.55; }
+.heroButton, .contact > a { display: inline-flex; align-items: center; justify-content: center; gap: .55em; min-height: 3em; padding: .7em 1.25em; border-radius: .45em; background: #0066ff; color: white; font-size: .72em; font-weight: 700; text-decoration: none; transition: background 180ms, transform 180ms; }
+.heroButton:hover, .contact > a:hover { background: #0052cc; transform: translateY(-2px); }
+.heroButton svg, .contact > a svg { width: 1.2em; height: 1.2em; }
+
+.idea { width: min(88%, 1320px); margin: 0 auto; padding: 3.7em 0 4em; }
+.ideaIntro { max-width: 46em; margin-bottom: 2.1em; }
+.ideaIntro h2, .pathsHeading h2, .contact h2 { margin: .35em 0 .4em; color: #0b2344; font-size: 1.85em; font-weight: 800; line-height: 1.15; letter-spacing: -.03em; }
+.ideaIntro > p:last-child { margin: 0; color: #52677d; font-size: .78em; line-height: 1.65; }
+.values { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .8em; }
+.value { padding: 1.25em; border: 1px solid #dfe9f2; border-radius: .6em; background: #fff; box-shadow: 0 5px 24px #10294208; }
+.valueIcon { display: grid; place-items: center; width: 2.4em; height: 2.4em; margin-bottom: .85em; border-radius: .5em; background: #eaf4ff; color: #0066ff; }
+.valueIcon svg { width: 1.35em; height: 1.35em; }
+.value h3 { margin: 0 0 .55em; color: #102b4b; font-size: .85em; font-weight: 800; }
+.value p { margin: 0; color: #586e83; font-size: .67em; line-height: 1.55; }
+
+.paths { padding: 3.2em max(6%, calc((100% - 1320px) / 2)) 3.8em; background: #eef5fb; }
+.pathsHeading { margin-bottom: 1.4em; }
+.pathsHeading h2 { margin-bottom: 0; }
+.pathGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .9em; }
+.pathCard { position: relative; isolation: isolate; display: flex; align-items: flex-end; min-height: 14em; overflow: hidden; border-radius: .6em; background: #081825; color: white; }
+.pathImage { z-index: -2; object-fit: cover; object-position: center; transition: transform 250ms; }
+.pathCard:hover .pathImage { transform: scale(1.035); }
+.pathShade { position: absolute; inset: 0; z-index: -1; background: linear-gradient(0deg, #020b13f5 0%, #020b1399 48%, #020b1322 100%); }
+.pathContent { width: 100%; padding: 1.35em; }
+.pathContent > p { margin: 0 0 .45em; color: #8fd4ff; font-size: .61em; font-weight: 800; letter-spacing: .12em; }
+.trainingCard .pathContent > p { color: #68e6c4; }
+.pathContent h3 { max-width: 15em; margin: 0 0 .7em; font-size: 1.15em; font-weight: 800; line-height: 1.2; }
+.pathContent a { display: inline-flex; align-items: center; gap: .4em; color: white; font-size: .68em; font-weight: 700; text-decoration: none; }
+.pathContent a:hover { text-decoration: underline; }
+.pathContent a svg { width: 1.15em; height: 1.15em; }
+
+.contact { display: flex; align-items: center; justify-content: space-between; gap: 2em; padding: 2.35em max(6%, calc((100% - 1320px) / 2)); background: #0a1b2b; color: white; }
+.contact .sectionEyebrow { color: #49c2ff; }
+.contact h2 { margin-bottom: .3em; color: white; font-size: 1.55em; }
+.contact p:last-child { margin: 0; color: #c0d1df; font-size: .7em; line-height: 1.5; }
+.contact > a { flex-shrink: 0; }
+
+@media (max-width: 700px) {
+  .hero { min-height: 430px; }
+  .heroImage { object-position: 55% center; }
+  .heroShade { background: linear-gradient(90deg, #030c15ed, #030c1599 70%, #030c1555); }
+  .heroContent { width: 88%; padding: 66px 0 70px; }
+  .hero h1 { font-size: clamp(34px, 7.7vw, 52px); }
+  .heroLead { max-width: 430px; font-size: 15px; }
+  .heroButton, .contact > a { min-height: 44px; font-size: 14px; }
+  .eyebrow, .sectionEyebrow { font-size: 12px; }
+  .idea { width: 88%; padding: 52px 0; }
+  .ideaIntro h2, .pathsHeading h2 { font-size: 29px; }
+  .ideaIntro > p:last-child { font-size: 15px; }
+  .values, .pathGrid { grid-template-columns: 1fr; gap: 14px; }
+  .value { padding: 22px; }
+  .value h3 { font-size: 18px; }
+  .value p { font-size: 14px; }
+  .paths { padding: 52px 6%; }
+  .pathCard { min-height: 270px; }
+  .pathContent { padding: 24px; }
+  .pathContent > p { font-size: 12px; }
+  .pathContent h3 { font-size: 23px; }
+  .pathContent a { font-size: 14px; }
+  .contact { flex-direction: column; align-items: flex-start; padding: 44px 6%; }
+  .contact h2 { font-size: 27px; }
+  .contact p:last-child { font-size: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .heroButton, .contact > a, .pathImage { transition: none; } .heroButton:hover, .contact > a:hover, .pathCard:hover .pathImage { transform: none; } }

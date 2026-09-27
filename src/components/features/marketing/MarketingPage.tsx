@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
@@ -37,10 +37,15 @@ export function MarketingPage({ variant }: MarketingPageProps) {
           <div className={styles.heroContent}>
             <h1 id="page-title">EUREKA!<span>{isAcademy ? "ACADEMY" : "TRAINING"}</span></h1>
             <h2>{isAcademy ? <><T>Diventa un professionista</T><br /><T>dello sport e del fitness.</T></> : <><T>Allenati dove vuoi.</T><br /><T>Raggiungi i tuoi obiettivi.</T></>}</h2>
-            <p>{isAcademy ? <><T>Corsi, certificazioni e aggiornamenti</T><br /><T>per costruire la tua carriera nel mondo dello sport.</T></> : <T>Programmi personalizzati, video esercizi, monitoraggio dei progressi e molto altro. Tutto in un'unica app.</T>}</p>
-            <Link href={isAcademy ? "/academy/corsi" : `#${sectionId}`} className={styles.heroButton}>
-              <T>{isAcademy ? "Scopri tutti i corsi" : "Inizia ora"}</T><HomeIcon name="arrow" />
-            </Link>
+            {isAcademy ? (
+              <Link href="/academy/corsi" className={styles.heroButton}>
+                <T>Scopri tutti i corsi</T><HomeIcon name="arrow" />
+              </Link>
+            ) : (
+              <a href={`#${sectionId}`} className={styles.heroButton}>
+                <T>Inizia ora</T><HomeIcon name="arrow" />
+              </a>
+            )}
             {!isAcademy && <div className={styles.stores} aria-label="Scarica l'app Eureka! Training">
               <HomeAction kind="training" className={styles.storeBadge} label="Disponibilità su App Store">
                 <HomeIcon name="apple" /><span><small><T>Scarica su</T></small><strong>App Store</strong></span>

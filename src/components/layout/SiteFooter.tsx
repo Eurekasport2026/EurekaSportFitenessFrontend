@@ -1,4 +1,5 @@
 import { HomeAction } from "@/components/features/home/HomeAction";
+import { Link } from "@/i18n/routing";
 import { T } from "./LanguageProvider";
 import { SocialIcon } from "./SocialIcon";
 import styles from "./site-footer.module.css";
@@ -7,7 +8,7 @@ export function SiteFooter() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <a href="/" className={styles.brand} aria-label="Eureka! Sport & Fitness — Home">EUREKA!<span>SPORT &amp; FITNESS</span></a>
+        <Link href="/" className={styles.brand} aria-label="Eureka! Sport & Fitness — Home">EUREKA!<span>SPORT &amp; FITNESS</span></Link>
         <nav aria-label="Informazioni legali">
           <HomeAction kind="legal" title="Privacy">Privacy</HomeAction>
           <HomeAction kind="legal" title="Termini"><T>Termini</T></HomeAction>

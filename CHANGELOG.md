@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- Resolved `INVALID_KEY: Namespace keys cannot contain the character "."` exception in `NextIntlClientProvider` by sanitizing sentence keys with unicode one-dot leader normalization across message bundles, `src/i18n/request.ts`, and `LanguageProvider.tsx`.
+- Resolved Next.js dev overlay "50 Issues" error by switching `LanguageProvider` to direct dictionary lookup via `useMessages()`, eliminating runtime `MISSING_MESSAGE` errors caused by punctuation in translation keys.
+- Implemented localized URL pathnames in `src/i18n/routing.ts` so English routes display clean English slugs (`/en/pricing`, `/en/contact`, `/en/about-us`, `/en/academy/courses`) instead of Italian path segments.
+- Added missing translations for plan features including "Programmi personalizzati" ("Custom programs") and restored subtitle translation on the pricing page.
 - Replaced ambiguous footer social glyphs with recognizable, accessible Facebook/Instagram/LinkedIn icons and aligned the Contact social row with the same local SVG set.
 - Made the shared footer appear on every public route by rendering it once in the root layout and removing page-local copies.
 - Protected the Contact, Pricing, App, catalog, and course-detail light canvases from the shared homepage dark-page style so dark headings and contact details remain readable. Disabled browser auto-translation to keep displayed copy aligned with the IT/EN control.
@@ -12,6 +16,15 @@ All notable changes to this project will be documented in this file.
 - Removed the homepage's white outer gutter and rounded frame, made its dark canvas fill the viewport, and corrected the hero background to span the full width. Changed the compressed hero WebP to direct loading to avoid the optimized-image URL implicated in the reported broken image; the original browser failure was not reproduced in local HTTP checks.
 
 ### Added
+- Migrated internationalization architecture to `next-intl` (`^4.14.7`) with subpath routing (`/[locale]/...`) for `it` and `en`.
+- Extracted and established JSON message bundles in `messages/it.json` and `messages/en.json`.
+- Implemented `src/i18n/routing.ts`, `src/i18n/request.ts`, `src/middleware.ts`, and wrapped `next.config.ts` with `createNextIntlPlugin`.
+- Moved application routes into `src/app/[locale]/` with localized root `src/app/[locale]/layout.tsx` providing `NextIntlClientProvider`.
+- Connected `LanguageProvider` and navigation links to `next-intl`'s routing and translation hooks, maintaining full backwards compatibility for `<T>` and `useLanguage()`.
+- Implemented dedicated About Us page at `/chi-siamo` (with `/about` redirect): hero section, philosophy and core values cards, Academy/Training pathway cards, contact banner, metadata, and bilingual IT/EN translation support.
+- Added Chi siamo to site search destinations in `HomeAction`.
+- Added English translation dictionary mappings for all About Us copy in `src/lib/translations.ts`.
+- Added `"about"` support to `HomeHeaderProps`, highlighting the active link when on `/chi-siamo`.
 - Added a persistent IT/EN toggle to the shared header and translated public-page interface copy, plus a direct `Prezzi` navigation link with active state for `/prezzi`.
 - Implemented the client's App pricing and Contact screenshots at `/prezzi` and `/contatti`: three plan cards with a working monthly/annual selector, a responsive contact form and details column, route metadata, and the shared dark footer. Recorded the client references and ADR-014 in project memory.
 - Pricing/Contact validation: `npx tsc --noEmit` passed; `/prezzi`, `/contatti`, and the App launch link returned the expected content from the local server (HTTP 200). Browser visual comparison and production build were not run.

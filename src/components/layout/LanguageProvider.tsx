@@ -1,32 +1,39 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { english } from "@/lib/translations";
+import { createContext, useContext, type ReactNode } from "react";
+import { useLocale, useMessages } from "next-intl";
+import { useRouter, usePathname } from "@/i18n/routing";
 
 type Language = "it" | "en";
-type LanguageContextValue = { language: Language; setLanguage: (language: Language) => void; t: (italian: string) => string };
+type LanguageContextValue = {
+  language: Language;
+  setLanguage: (language: Language) => void;
+  t: (italian: string) => string;
+};
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>("it");
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("eureka-language");
-    if (saved === "it" || saved === "en") {
-      setLanguageState(saved);
-      document.documentElement.lang = saved;
-    }
-  }, []);
+  const locale = (useLocale() || "it") as Language;
+  const router = useRouter();
+  const pathname = usePathname();
+  const messages = (useMessages() || {}) as Record<string, string>;
 
   function setLanguage(nextLanguage: Language) {
-    setLanguageState(nextLanguage);
-    document.documentElement.lang = nextLanguage;
-    window.localStorage.setItem("eureka-language", nextLanguage);
+    if (nextLanguage === locale) return;
+    router.replace(pathname, { locale: nextLanguage });
   }
 
-  const t = (italian: string) => language === "en" ? english[italian] ?? italian : italian;
-  return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>;
+  const t = (italian: string) => {
+    const safeKey = italian.replaceAll(".", "\u2024");
+    return messages[safeKey] ?? messages[italian] ?? italian;
+  };
+
+  return (
+    <LanguageContext.Provider value={{ language: locale, setLanguage, t }}>
+      {children}
+    </LanguageContext.Provider>
+  );
 }
 
 export function useLanguage() {

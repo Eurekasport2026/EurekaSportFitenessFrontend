@@ -1,5 +1,5 @@
 import Image from "next/image";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { HomeIcon } from "@/components/features/home/HomeIcon";

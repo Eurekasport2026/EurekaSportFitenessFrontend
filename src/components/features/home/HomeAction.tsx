@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useRef, useState, type ReactNode } from "react";
+import { Link } from "@/i18n/routing";
 import { HomeIcon } from "./HomeIcon";
 import { useLanguage } from "@/components/layout/LanguageProvider";
 import styles from "./home.module.css";
@@ -24,6 +25,7 @@ const destinations = [
   { title: "Tutti i corsi", description: "Catalogo Eureka! Academy", href: "/academy/corsi" },
   { title: "Prezzi app", description: "Piani Base, Pro ed Elite", href: "/prezzi" },
   { title: "Contatti", description: "Scrivi al team Eureka!", href: "/contatti" },
+  { title: "Chi siamo", description: "Formazione, allenamento e crescita", href: "/chi-siamo" },
   { title: "Perché Eureka!", description: "Formazione certificata, professionisti e risultati", href: "/#benefits" },
 ];
 
@@ -62,7 +64,7 @@ export function HomeAction({ kind, children, className, label, title, descriptio
           <input id={searchId} type="search" value={query} placeholder={language === "en" ? "Courses, training…" : "Corsi, allenamento…"} onChange={(event) => setQuery(event.target.value)} />
           <ul aria-label={language === "en" ? "Search results" : "Risultati della ricerca"}>
             {results.map((result) => <li key={result.href}>
-              <a href={result.href} onClick={() => dialog.current?.close()}><strong>{t(result.title)}</strong><span>{t(result.description)}</span><HomeIcon name="arrow" /></a>
+              <Link href={result.href as any} onClick={() => dialog.current?.close()}><strong>{t(result.title)}</strong><span>{t(result.description)}</span><HomeIcon name="arrow" /></Link>
             </li>)}
           </ul>
           <p role="status">{results.length === 0 ? (language === "en" ? "No results. Try courses or training." : "Nessun risultato. Prova con corsi o allenamento.") : `${results.length} ${language === "en" ? "results" : "risultati"}`}</p>

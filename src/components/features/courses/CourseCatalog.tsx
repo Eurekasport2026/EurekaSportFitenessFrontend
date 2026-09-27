@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
 import { academyCourses } from "@/components/features/marketing/content";

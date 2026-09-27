@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
+import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
@@ -9,7 +9,7 @@ import { useLanguage } from "./LanguageProvider";
 import styles from "@/components/features/home/home.module.css";
 
 export interface HomeHeaderProps {
-  activePage?: "home" | "academy" | "training" | "app" | "pricing" | "contact";
+  activePage?: "home" | "academy" | "training" | "app" | "pricing" | "contact" | "about";
 }
 
 export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
@@ -24,7 +24,7 @@ export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
         <Link href="/training" className={cn(activePage === "training" && styles.activeLink)} aria-current={activePage === "training" ? "page" : undefined}>Training</Link>
         <Link href="/app" className={cn(activePage === "app" && styles.activeLink)} aria-current={activePage === "app" ? "page" : undefined}>App</Link>
         <Link href="/prezzi" className={cn(activePage === "pricing" && styles.activeLink)} aria-current={activePage === "pricing" ? "page" : undefined}>{t("Prezzi")}</Link>
-        <Link href="/#benefits">{t("Chi siamo")}</Link>
+        <Link href="/chi-siamo" className={cn(activePage === "about" && styles.activeLink)} aria-current={activePage === "about" ? "page" : undefined}>{t("Chi siamo")}</Link>
         <Link href="/contatti" className={cn(activePage === "contact" && styles.activeLink)} aria-current={activePage === "contact" ? "page" : undefined}>{t("Contatti")}</Link>
       </nav>
       <div className={styles.headerActions}>
