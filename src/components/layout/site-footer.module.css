@@ -1,7 +1,7 @@
-.footer { flex-shrink: 0; width: 100%; padding-bottom: var(--safe-area-bottom); background: #09141d; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: clamp(1rem, 2.53vw, 1.375rem); }
-.inner { display: flex; align-items: center; justify-content: space-between; gap: 2em; box-sizing: border-box; width: 92%; max-width: 1480px; min-height: 3.9em; margin: 0 auto; padding-right: var(--safe-area-right); padding-left: var(--safe-area-left); }
-.brand { flex-shrink: 0; display: inline-flex; align-items: center; text-decoration: none; color: inherit; }
-.footerLogoImage { display: block; width: auto; height: 1.85em; max-height: 40px; object-fit: contain; }
+.footer { flex-shrink: 0; width: 100%; background: #09141d; color: #fff; font-family: Arial, Helvetica, sans-serif; font-size: clamp(1rem, 2.53vw, 1.375rem); }
+.inner { display: flex; align-items: center; justify-content: space-between; gap: 2em; width: 92%; max-width: 1480px; min-height: 3.9em; margin: 0 auto; }
+.brand { flex-shrink: 0; font-size: 1.08em; font-weight: 900; line-height: .9; letter-spacing: -.025em; text-decoration: none; }
+.brand span { display: block; margin-top: .35em; font-size: .31em; font-weight: 700; letter-spacing: .2em; }
 .inner nav { display: flex; gap: 1.5em; }
 .inner nav > button { padding: .4em 0; border: 0; background: none; color: #dce4ee; font-size: .6em; }
 .inner nav > button:hover { color: #51b6ff; }
@@ -10,5 +10,5 @@
 .socialButton svg { display: block; width: 100%; height: 100%; }
 .socialButton:hover { border-color: #4da4ff; background: #0066ff; transform: translateY(-2px); }
 .socialButton:focus-visible { outline: 2px solid #65cfff; outline-offset: 3px; }
-@media (max-width: 580px) { .inner { flex-wrap: wrap; justify-content: center; gap: 18px 28px; padding: 24px 0; } .footerLogoImage { height: 30px; } .inner nav > button { font-size: 13px; } .socialButton { width: 40px; height: 40px; padding: 9px; } }
+@media (max-width: 580px) { .inner { flex-wrap: wrap; justify-content: center; gap: 18px 28px; padding: 24px 0; } .brand { font-size: 18px; } .inner nav > button { font-size: 13px; } .socialButton { width: 40px; height: 40px; padding: 9px; } }
 @media (prefers-reduced-motion: reduce) { .socialButton { transition: none; } .socialButton:hover { transform: none; } }
