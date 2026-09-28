@@ -9,8 +9,8 @@ import homeStyles from "@/components/features/home/home.module.css";
 import styles from "./about.module.css";
 
 export const metadata: Metadata = {
-  title: "Chi siamo | Eureka! Sport & Fitness Academy",
-  description: "Scopri l'idea di Eureka! Sport & Fitness Academy: formazione professionale, allenamento e crescita personale.",
+  title: "Chi siamo | Eureka! Sport & Fitness",
+  description: "Scopri l'idea di Eureka! Sport & Fitness: formazione professionale, allenamento e crescita personale.",
 };
 
 const values = [
@@ -38,7 +38,7 @@ export default function AboutPage() {
 
         <section className={styles.idea} id="la-nostra-idea" aria-labelledby="idea-title">
           <div className={styles.ideaIntro}>
-            <p className={styles.sectionEyebrow}>EUREKA! SPORT &amp; FITNESS ACADEMY</p>
+            <p className={styles.sectionEyebrow}>EUREKA! SPORT &amp; FITNESS</p>
             <h2 id="idea-title"><T>Forma. Allena. Evolvi.</T></h2>
             <p><T>Crediamo in percorsi accessibili e motivanti, capaci di unire conoscenza, pratica e risultati. Con Eureka! puoi approfondire le tue competenze nel fitness o trovare un modo più consapevole di allenarti.</T></p>
           </div>

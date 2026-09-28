@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { Link } from "@/i18n/routing";
 import { T } from "./LanguageProvider";
@@ -9,15 +8,7 @@ export function SiteFooter() {
   return (
     <footer className={styles.footer}>
       <div className={styles.inner}>
-        <Link href="/" className={styles.brand} aria-label="Eureka! Sport & Fitness Academy — Home">
-          <Image
-            src="/images/logo/eureka-logo-bianco.png"
-            alt="Eureka! Sport & Fitness Academy"
-            width={126}
-            height={40}
-            className={styles.footerLogoImage}
-          />
-        </Link>
+        <Link href="/" className={styles.brand} aria-label="Eureka! Sport & Fitness — Home">EUREKA!<span>SPORT &amp; FITNESS</span></Link>
         <nav aria-label="Informazioni legali">
           <HomeAction kind="legal" title="Privacy">Privacy</HomeAction>
           <HomeAction kind="legal" title="Termini"><T>Termini</T></HomeAction>
