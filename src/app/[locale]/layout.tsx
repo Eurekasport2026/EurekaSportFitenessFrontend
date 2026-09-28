@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -20,20 +20,13 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Eureka! Sport & Fitness Academy | Forma. Allena. Evolvi.",
-  description: "La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi. Scopri Eureka! Sport & Fitness Academy.",
+  title: "Eureka! Sport & Fitness | Forma. Allena. Evolvi.",
+  description: "La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi. Scopri Eureka! Academy e Eureka! Training.",
   icons: {
     icon: "/eureka-symbol.svg",
     shortcut: "/eureka-symbol.svg",
     apple: "/eureka-symbol.svg",
   },
-};
-
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-  viewportFit: "cover",
-  themeColor: "#050e13",
 };
 
 export function generateStaticParams() {
