@@ -5,7 +5,6 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- Replaced the placeholder diagonal pill symbol (`/eureka-fit-symbol.svg`) in the App showcase hero (`src/app/[locale]/app/page.tsx`) with the official Eureka! runner vector emblem (`/eureka-symbol.svg`), calibrating `.brandRow img` in `src/app/[locale]/app/app.module.css` to maintain authentic aspect ratio and alignment alongside `EUREKA! FIT`.
 - Standardized header background (`#050e15`) and bottom divider border (`1px solid #193346`) in `src/components/features/home/home.module.css` to match Academy and secondary pages, eliminating header margin inconsistencies and backdrop image bleeding behind the homepage header.
 - Prevented public-page content from colliding with the iOS Safari status bar, Dynamic Island, and home indicator by declaring an edge-to-edge viewport and applying shared safe-area guards and inset-aware header/footer spacing.
 - Resolved `INVALID_KEY: Namespace keys cannot contain the character "."` exception in `NextIntlClientProvider` by sanitizing sentence keys with unicode one-dot leader normalization across message bundles, `src/i18n/request.ts`, and `LanguageProvider.tsx`.
