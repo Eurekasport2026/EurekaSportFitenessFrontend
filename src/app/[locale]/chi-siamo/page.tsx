@@ -8,10 +8,22 @@ import { cn } from "@/lib/utils";
 import homeStyles from "@/components/features/home/home.module.css";
 import styles from "./about.module.css";
 
-export const metadata: Metadata = {
-  title: "Chi siamo | Eureka! Sport & Fitness Academy",
-  description: "Scopri l'idea di Eureka! Sport & Fitness Academy: formazione professionale, allenamento e crescita personale.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  return {
+    title: isEn
+      ? "About Us | Eureka! Sport & Fitness Academy"
+      : "Chi siamo | Eureka! Sport & Fitness Academy",
+    description: isEn
+      ? "Discover the vision of Eureka! Sport & Fitness Academy: professional education, purposeful training, and personal growth."
+      : "Scopri l'idea di Eureka! Sport & Fitness Academy: formazione professionale, allenamento e crescita personale.",
+  };
+}
 
 const values = [
   { icon: "certificate", title: "Formazione concreta", description: "Percorsi e aggiornamenti per costruire competenze nel mondo dello sport." },
@@ -19,7 +31,14 @@ const values = [
   { icon: "growth", title: "Crescita continua", description: "Strumenti per continuare a imparare, migliorare e andare oltre." },
 ] as const;
 
-export default function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEn = locale === "en";
+
   return (
     <div className={cn(homeStyles.page, styles.page)}>
       <a className={homeStyles.skipLink} href="#main"><T>Vai al contenuto</T></a>
@@ -58,21 +77,21 @@ export default function AboutPage() {
           </div>
           <div className={styles.pathGrid}>
             <article className={cn(styles.pathCard, styles.academyCard)}>
-              <Image src="/images/eureka-academy-hero.webp" alt="Personal trainer che segue un'atleta in palestra" fill unoptimized sizes="(max-width: 700px) 100vw, 50vw" className={styles.pathImage} />
+              <Image src="/images/eureka-academy-hero.webp" alt={isEn ? "Personal trainer coaching an athlete in the gym" : "Personal trainer che segue un'atleta in palestra"} fill unoptimized sizes="(max-width: 700px) 100vw, 50vw" className={styles.pathImage} />
               <div className={styles.pathShade} aria-hidden="true" />
               <div className={styles.pathContent}>
-                <p>01 / EUREKA! ACADEMY</p>
+                <p>{isEn ? "01 / EUREKA! ACADEMY" : "01 / EUREKA! ACCADEMIA"}</p>
                 <h3><T>Trasforma la tua passione in professione.</T></h3>
-                <Link href="/academy"><T>Esplora Academy</T><HomeIcon name="arrow" /></Link>
+                <Link href="/academy"><T>Esplora Accademia</T><HomeIcon name="arrow" /></Link>
               </div>
             </article>
             <article className={cn(styles.pathCard, styles.trainingCard)}>
-              <Image src="/images/eureka-training-hero.webp" alt="Atleta che si allena con un manubrio" fill unoptimized sizes="(max-width: 700px) 100vw, 50vw" className={styles.pathImage} />
+              <Image src="/images/eureka-training-hero.webp" alt={isEn ? "Athlete working out with a dumbbell in the gym" : "Atleta che si allena con un manubrio"} fill unoptimized sizes="(max-width: 700px) 100vw, 50vw" className={styles.pathImage} />
               <div className={styles.pathShade} aria-hidden="true" />
               <div className={styles.pathContent}>
-                <p>02 / EUREKA! TRAINING</p>
+                <p>{isEn ? "02 / EUREKA! TRAINING" : "02 / EUREKA! ALLENAMENTO"}</p>
                 <h3><T>Allenati per la versione migliore di te.</T></h3>
-                <Link href="/training"><T>Esplora Training</T><HomeIcon name="arrow" /></Link>
+                <Link href="/training"><T>Esplora Allenamento</T><HomeIcon name="arrow" /></Link>
               </div>
             </article>
           </div>

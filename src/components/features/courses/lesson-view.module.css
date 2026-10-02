@@ -1,0 +1,509 @@
+.page {
+  background: #fbfdff;
+  color: #0d1e30;
+  color-scheme: light;
+  min-height: 100vh;
+}
+
+.page > header {
+  background: #050e15;
+  border-bottom: 1px solid #193346;
+}
+
+.main {
+  width: 91%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5em 0 3.5em;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-bottom: 1.2em;
+  color: #7b8ca0;
+  font-size: 0.75rem;
+}
+
+.breadcrumb a {
+  color: #0066ff;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Lesson Header */
+.lessonTop {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+  margin-bottom: 1.25em;
+}
+
+.moduleBadge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #0066ff;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.25em;
+}
+
+.lessonTitle {
+  margin: 0 0 0.35em;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #0d2345;
+  line-height: 1.25;
+}
+
+.lessonSubtitle {
+  margin: 0;
+  color: #52667b;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+/* Video Container */
+.videoContainer {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #09131d;
+  border-radius: 0.75em;
+  overflow: hidden;
+  box-shadow: 0 6px 20px rgba(9, 30, 54, 0.15);
+  margin-bottom: 1.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.videoIframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.videoPlaceholder {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  background: radial-gradient(circle at center, #142a42 0%, #08111a 100%);
+  padding: 1.5em;
+  text-align: center;
+}
+
+.playButton {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  background: #0066ff;
+  border: none;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(0, 102, 255, 0.4);
+  transition: transform 180ms ease, background 180ms ease;
+  margin-bottom: 1em;
+}
+
+.playButton:hover {
+  transform: scale(1.08);
+  background: #0052cc;
+}
+
+.playButton svg {
+  width: 1.8rem;
+  height: 1.8rem;
+  margin-left: 0.2rem;
+}
+
+.videoDuration {
+  font-size: 0.8rem;
+  color: #94a3b8;
+  margin-top: 0.4em;
+}
+
+/* Lesson Action Bar */
+.actionBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 1.1em 1.4em;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65em;
+  margin-bottom: 1.75em;
+  box-shadow: 0 2px 5px rgba(18, 51, 74, 0.04);
+}
+
+.lessonMeta {
+  display: flex;
+  align-items: center;
+  gap: 1.25em;
+  font-size: 0.8rem;
+  color: #52667b;
+}
+
+.completeButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.65em 1.25em;
+  border-radius: 0.45em;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid #10b981;
+  background: #10b981;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+  transition: all 180ms ease;
+}
+
+.completeButton:hover {
+  background: #059669;
+}
+
+.completeButtonActive {
+  background: #ecfdf5;
+  color: #059669;
+  border-color: #a7f3d0;
+  box-shadow: none;
+}
+
+.completeButtonActive:hover {
+  background: #d1fae5;
+}
+
+/* Content Sections */
+.contentSection {
+  background: #ffffff;
+  border: 1px solid #e4eaf0;
+  border-radius: 0.75em;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+  box-shadow: 0 2px 6px rgba(18, 51, 74, 0.03);
+}
+
+.contentTitle {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0d2345;
+  margin: 0 0 0.75em;
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+}
+
+.contentBody {
+  font-size: 0.86rem;
+  line-height: 1.6;
+  color: #334960;
+  margin: 0 0 1em;
+}
+
+.takeawaysList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65em;
+}
+
+.takeawaysList li {
+  position: relative;
+  padding-left: 1.6em;
+  font-size: 0.84rem;
+  color: #334960;
+  line-height: 1.5;
+}
+
+.takeawaysList li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #0066ff;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+/* PDF Study Material Box */
+.pdfBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+  padding: 1.25em;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65em;
+}
+
+.pdfInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+}
+
+.pdfIcon {
+  width: 2.6em;
+  height: 2.6em;
+  border-radius: 0.45em;
+  background: #fee2e2;
+  color: #ef4444;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.pdfTitle {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #0d2345;
+  margin: 0 0 0.15em;
+}
+
+.pdfSize {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0;
+}
+
+.pdfActions {
+  display: flex;
+  gap: 0.65em;
+  flex-wrap: wrap;
+}
+
+.btnSecondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.55em 1em;
+  border-radius: 0.45em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #0f172a;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.btnSecondary:hover {
+  background: #f1f5f9;
+  border-color: #94a3b8;
+}
+
+.btnPrimary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.55em 1em;
+  border-radius: 0.45em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border: 1px solid #0066ff;
+  background: #0066ff;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.btnPrimary:hover {
+  background: #0052cc;
+}
+
+/* Exercise Detail Card */
+.exerciseCard {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.75em;
+  padding: 1.5em;
+  margin-bottom: 1.5em;
+}
+
+.exerciseBadges {
+  display: flex;
+  gap: 0.5em;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+.pillBadge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2em 0.65em;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.exerciseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25em;
+  margin-top: 1em;
+}
+
+.exerciseCol h4 {
+  margin: 0 0 0.35em;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #0d2345;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.exerciseCol p {
+  margin: 0;
+  font-size: 0.82rem;
+  color: #475569;
+  line-height: 1.5;
+}
+
+/* Navigation Footer */
+.lessonNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
+  margin-top: 2.5em;
+  padding-top: 1.5em;
+  border-top: 1px solid #e2e8f0;
+}
+
+.navLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.7em 1.2em;
+  border-radius: 0.45em;
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: #ffffff;
+  color: #0066ff;
+  border: 1px solid #cbd5e1;
+  transition: all 180ms ease;
+}
+
+.navLink:hover {
+  border-color: #0066ff;
+  background: #ebf3ff;
+}
+
+.navLinkPrimary {
+  background: #0066ff;
+  color: #ffffff;
+  border-color: #0066ff;
+}
+
+.navLinkPrimary:hover {
+  background: #0052cc;
+}
+
+/* Practical Muscle Group Explorer */
+.muscleGroupGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1em;
+  margin: 1.5em 0;
+}
+
+.muscleCard {
+  aspect-ratio: 1 / 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.65em;
+  padding: 1.1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: left;
+  cursor: pointer;
+  transition: all 180ms ease;
+  box-shadow: 0 2px 4px rgba(18, 51, 74, 0.04);
+}
+
+.muscleCard:hover {
+  transform: translateY(-2px);
+  border-color: #0066ff;
+  box-shadow: 0 8px 18px rgba(0, 102, 255, 0.12);
+}
+
+.muscleCardActive {
+  background: #ebf3ff;
+  border-color: #0066ff;
+  box-shadow: 0 4px 12px rgba(0, 102, 255, 0.15);
+}
+
+.muscleCardName {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #0d2345;
+  margin: 0;
+}
+
+.muscleCardSub {
+  font-size: 0.72rem;
+  color: #64748b;
+  margin: 0.2em 0 0;
+}
+
+.muscleCardAction {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0066ff;
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+}
+
+@media (max-width: 900px) {
+  .muscleGroupGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .exerciseGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .muscleGroupGrid {
+    grid-template-columns: 1fr;
+  }
+  .lessonTitle {
+    font-size: 1.3rem;
+  }
+  .lessonNav {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .navLink {
+    justify-content: center;
+  }
+}

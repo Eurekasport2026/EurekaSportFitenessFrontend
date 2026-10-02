@@ -9,10 +9,22 @@ import { cn } from "@/lib/utils";
 import homeStyles from "@/components/features/home/home.module.css";
 import styles from "./app.module.css";
 
-export const metadata: Metadata = {
-  title: "Eureka! Fit | La tua palestra sempre con te",
-  description: "Scopri Eureka! Fit: programmi personalizzati, video esercizi e monitoraggio dei progressi in un'unica app.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  return {
+    title: isEn
+      ? "Eureka! Fit | Your Gym Always With You"
+      : "Eureka! Fit | La tua palestra sempre con te",
+    description: isEn
+      ? "Discover Eureka! Fit: custom workout plans, HD video exercises, and progress tracking all in one app."
+      : "Scopri Eureka! Fit: programmi personalizzati, video esercizi e monitoraggio dei progressi in un'unica app.",
+  };
+}
 
 const features = [
   { icon: "clipboard", title: "Schede personalizzate" },
@@ -21,14 +33,21 @@ const features = [
   { icon: "mobile", title: "Disponibile ovunque" },
 ] as const;
 
-export default function AppPage() {
+export default async function AppPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEn = locale === "en";
+
   return (
     <div className={cn(homeStyles.page, styles.page)}>
       <a className={homeStyles.skipLink} href="#main"><T>Vai al contenuto</T></a>
       <HomeHeader activePage="app" />
       <main id="main">
         <section className={styles.hero} aria-labelledby="app-title">
-          <Image src="/images/eureka-app-hero.webp" alt="Due smartphone con le schermate dei programmi e dei progressi di Eureka! Fit" fill unoptimized preload className={styles.heroImage} />
+          <Image src="/images/eureka-app-hero.webp" alt={isEn ? "Two smartphones showing Eureka! Fit workout plans and progress screens" : "Due smartphone con le schermate dei programmi e dei progressi di Eureka! Fit"} fill unoptimized preload className={styles.heroImage} />
           <div className={styles.heroShade} aria-hidden="true" />
           <div className={styles.heroContent}>
             <div className={styles.brandRow}>
@@ -37,14 +56,14 @@ export default function AppPage() {
             </div>
             <h2><T>La tua palestra</T><br /><T>sempre con te.</T></h2>
             <p><T>Programmi personalizzati, video esercizi, monitoraggio dei progressi e molto altro. Disponibile su iOS, Android e via web.</T></p>
-            <div className={styles.stores} aria-label="Disponibilità di Eureka! Fit">
+            <div className={styles.stores} aria-label={isEn ? "Eureka! Fit download availability" : "Disponibilità di Eureka! Fit"}>
               <HomeAction kind="training" className={styles.storeBadge} label="App Store"><HomeIcon name="apple" /><span><small><T>Scarica su</T></small><strong>App Store</strong></span></HomeAction>
               <HomeAction kind="training" className={styles.storeBadge} label="Google Play"><HomeIcon name="playstore" /><span><small><T>Disponibile su</T></small><strong>Google Play</strong></span></HomeAction>
             </div>
             <HomeAction kind="login" className={styles.webButton}><T>Accedi alla versione Web</T> <HomeIcon name="arrow" /></HomeAction>
           </div>
         </section>
-        <section className={styles.features} aria-label="Funzioni di Eureka! Fit">
+        <section className={styles.features} aria-label={isEn ? "Eureka! Fit features" : "Funzioni di Eureka! Fit"}>
           {features.map((feature) => <div className={styles.feature} key={feature.title}>
             <HomeIcon name={feature.icon} />
             <h2><T>{feature.title}</T></h2>

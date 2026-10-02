@@ -1,0 +1,216 @@
+{
+  "pt1-mod-5": [
+    {
+      "order": 1,
+      "title": "Macchine Isotoniche vs Pesi Liberi: Biomeccanica a Confronto",
+      "description": "Analisi delle differenze tra movimenti vincolati a traiettoria fissa e movimenti tridimensionali con bilancieri e manubri.",
+      "durationMinutes": 22,
+      "videoDuration": "18:45",
+      "summary": "In questa lezione approfondiamo i punti di forza e i limiti delle macchine guidate rispetto ai pesi liberi. Imparerai quando prescrivere una macchina per massimizzare la stabilità e isolare il target muscolare, e quando invece preferire il peso libero per reclutare gli stabilizzatori e migliorare la coordinazione intermuscolare.",
+      "keyTakeaways": [
+        "Le macchine isotoniche offrono una curva di resistenza guidata e riducono la richiesta di stabilizzazione attiva.",
+        "I pesi liberi consentono traiettorie naturali e stimolano un maggior numero di muscoli sinergici e stabilizzatori.",
+        "La scelta dell'attrezzo dipende dal livello del cliente, dallo scopo della serie (forza, ipertrofia, riabilitazione) e dal grado di affaticamento neurale."
+      ],
+      "pdfTitle": "Guida Biomeccanica: Macchine vs Pesi Liberi.pdf",
+      "pdfSize": "3.2 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "targetMuscle": "Pettorali & Deltoidi anteriori",
+        "primaryMuscles": ["Grande Pettorale", "Tricipite Brachiale"],
+        "secondaryMuscles": ["Deltoide Anteriore", "Dentato Anteriore"],
+        "equipment": "Macchine",
+        "difficulty": "Principiante",
+        "movementType": "Spinta",
+        "setup": "Regolare l'altezza del sedile in modo che le impugnature siano allineate alla parte centrale del petto. Piedi ben saldi a terra e scapole addotte e depresse contro lo schienale.",
+        "execution": "Spingere in avanti espirando senza estendere eccessivamente le spalle oltre il limite fisiologico. Controllare la fase eccentrica ritornando al punto di partenza senza far toccare i pesi.",
+        "safetyPoints": [
+          "Non staccare la testa o la zona lombare dallo schienale durante la spinta massima.",
+          "Mantenere sempre il controllo del gomito senza iperestenderlo nel punto di massima estensione."
+        ],
+        "commonMistakes": [
+          "Spalle che si antepongono e si sollevano verso le orecchie durante la spinta.",
+          "Rimbalzo dei pesi alla fine della fase eccentrica."
+        ]
+      }
+    },
+    {
+      "order": 2,
+      "title": "Tecnica della Panca Piana con Bilanciere e Manubri",
+      "description": "Setup dell'arco fisiologico, adduzione scapolare, leg drive e traiettoria della barra.",
+      "durationMinutes": 25,
+      "videoDuration": "21:10",
+      "summary": "Analisi passo dopo passo dell'esercizio cardine della spinta orizzontale. Studio del leg drive, della presa a larghezza corretta, del touch point sullo sterno e della gestione della respirazione diaframmatica con manovra di Valsalva controllata.",
+      "keyTakeaways": [
+        "L'adduzione e depressione scapolare crea una solida base d'appoggio sul lettino proteggendo l'articolazione gleno-omerale.",
+        "La traiettoria ottimale del bilanciere non è perfettamente verticale ma segue una parabola a 'J rovesciata'.",
+        "I manubri permettono una convergenza naturale in chiusura e un ROM (Range of Motion) maggiore in allungamento."
+      ],
+      "pdfTitle": "Manuale Tecnico della Spinta Orizzontale.pdf",
+      "pdfSize": "4.1 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "targetMuscle": "Pettorale & Spalle",
+        "primaryMuscles": ["Grande Pettorale (Fascio Sterno-Costale)", "Tricipiti"],
+        "secondaryMuscles": ["Deltoide Anteriore", "Gran Dorsale (come stabilizzatore)"],
+        "equipment": "Free Weights",
+        "difficulty": "Intermediate",
+        "movementType": "Push",
+        "setup": "Sdraiarsi sulla panca con gli occhi sotto il bilanciere. Piantare i piedi a terra, addurre le scapole, impugnare la barra a larghezza leggermente superiore alle spalle.",
+        "execution": "Staccare il bilanciere, inspirare gonfiando la cassa toracica, scendere in modo controllato fino a toccare leggermente la parte bassa dello sterno, spingere energicamente verso l'alto e leggermente indietro verso la rastrelliera.",
+        "safetyPoints": [
+          "Non effettuare mai la presa senza pollice ('suicide grip'). Utilizzare sempre la presa pollice attorno alla barra.",
+          "Assicurarsi della presenza di pin di sicurezza o di uno spotter qualificato per carichi superiori all'80% 1RM."
+        ],
+        "commonMistakes": [
+          "Gomiti aperti a 90° rispetto al busto (gomiti aperti a 'T') che stressano l'articolazione della spalla.",
+          "Stacco dei glutei dalla panca per forzare l'alzata."
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "title": "L'Esercizio ai Cavi: Vettore di Forza Continuo e Isolamento",
+      "description": "Crossover ai cavi, cable fly e regolazione delle pulegge per colpire fasci muscolari specifici.",
+      "durationMinutes": 18,
+      "videoDuration": "15:30",
+      "summary": "I cavi permettono di mantenere una tensione costante durante tutto l'arco di movimento, compreso il punto di massimo accorciamento. Questa lezione insegna ad allineare il cavo alla direzione delle fibre muscolari per minimizzare l'attrito articolare.",
+      "keyTakeaways": [
+        "A differenza dei manubri, il cavo offre tensione anche al vertice della chiusura.",
+        "Modificando l'altezza della carrucola è possibile colpire preferenzialmente il fascio clavicolare o sterno-costale."
+      ],
+      "pdfTitle": "Dispensa Tecnica Cavi e Angoli di Lavoro.pdf",
+      "pdfSize": "2.1 MB",
+      "allowsDownload": true
+    }
+  ],
+  "cali1-mod-5": [
+    {
+      "order": 1,
+      "title": "Progressione Push: Dal Muro al Pavimento (Regressioni di Base)",
+      "description": "Progressione didattica da Wall Push-Up, Incline su box fino al Knee Push-Up con focus sull'allineamento pelvico.",
+      "durationMinutes": 20,
+      "videoDuration": "17:15",
+      "summary": "In questa prima lezione pratica analizziamo le regressioni per chi non possiede ancora la forza per un piegamento completo a terra. Imparerai come scalare l'altezza dell'appoggio senza perdere l'attivazione del core e la retroversione del bacino.",
+      "keyTakeaways": [
+        "L'inclinazione corporea riduce la percentuale di peso corporeo sollevata (dal 30% a parete al 65% a terra).",
+        "Il corpo deve muoversi come un unico blocco rigido: vietato inarcare la zona lombare."
+      ],
+      "pdfTitle": "Scheda Didattica Push Progression Livello 1.pdf",
+      "pdfSize": "2.8 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "code": "PUSH-01",
+        "targetMuscle": "Pettorali, Tricipiti e Core",
+        "primaryMuscles": ["Grande Pettorale", "Tricipite Brachiale"],
+        "secondaryMuscles": ["Deltoide Anteriore", "Retto dell'Addome", "Glutei"],
+        "equipment": "Corpo Libero",
+        "difficulty": "Principiante",
+        "movementType": "Spinta",
+        "setup": "Posizionare le mani su un rialzo (box o panca) a larghezza spalle. Gambe distese indietro, glutei contratti, addome serrato in retroversione (Hollow Body di base).",
+        "execution": "Scendere flettendo i gomiti a 45° rispetto al corpo fino a sfiorare il bordo del box con il petto. Spingere con decisione tornando alla posizione di partenza con protrazione scapolare al vertice.",
+        "safetyPoints": [
+          "Mantenere i polsi allineati con gli avambracci per evitare sovraccarichi tendinei."
+        ],
+        "commonMistakes": [
+          "Gomiti larghi a campana e testa che cade in avanti prima del busto."
+        ]
+      }
+    },
+    {
+      "order": 2,
+      "title": "Il Piegamento Perfetto: Full Push-Up e Varianti",
+      "description": "Standard qualitativi del piegamento a terra: lockout articolare, protrazione scapolare finale e Hollow Body.",
+      "durationMinutes": 24,
+      "videoDuration": "20:00",
+      "summary": "Studio analitico del Full Push-Up: come verificare il range di movimento completo (petto a terra, gomiti bloccati in cima) e introduzione al Diamond Push-Up e Archer Push-Up.",
+      "keyTakeaways": [
+        "Un push-up valido richiede il tocco del petto a terra e la completa protrazione scapolare in alto.",
+        "La rotazione esterna delle mani crea 'torque' e stabilizza la capsula articolare della spalla."
+      ],
+      "pdfTitle": "Standard di Giudizio ed Esecuzione Push-Up.pdf",
+      "pdfSize": "3.5 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 3,
+      "title": "Dips alle Parallele: Tecnica e Prevenzione Spalla",
+      "description": "Tecnica corretta per i dip alle parallele: angolo di inclinazione del busto, profondità sicura e scapole depresse.",
+      "durationMinutes": 22,
+      "videoDuration": "18:30",
+      "summary": "I Dips sono il re degli esercizi di spinta verticale a corpo libero. In questa lezione impariamo a gestire il range di profondità senza creare impingement sub-acromiale alla spalla.",
+      "keyTakeaways": [
+        "Le spalle non devono mai collassare verso l'avanti nella fase di massima discesa.",
+        "Mantenere le scapole costantemente depresse spingendo attivamente le parallele verso il basso."
+      ],
+      "pdfTitle": "Manuale Dips alle Parallele in Sicurezza.pdf",
+      "pdfSize": "2.9 MB",
+      "allowsDownload": true
+    }
+  ],
+  "cali2-mod-8": [
+    {
+      "order": 1,
+      "title": "Prerequisiti di Mobilità e Potenziamento Polsi per la Verticale",
+      "description": "Warm-up articolare per polsi, estensione toracica e flessione a 180° delle spalle.",
+      "durationMinutes": 25,
+      "videoDuration": "22:00",
+      "summary": "La verticale richiede almeno 90° di estensione del polso sotto carico e 180° di flessione della spalla senza compensi lombari. Questa lezione fornisce tutti gli esercizi di condizionamento preventivo necessari prima di salire a testa in giù.",
+      "keyTakeaways": [
+        "Senza un'apertura di spalle completa, il corpo compenserà inarcando la colonna ('banana handstand').",
+        "I polsi devono essere rinforzati con carico graduale e condizionamento del palmo (camminata sulle nocche, spider fingers)."
+      ],
+      "pdfTitle": "Protocollo Preparazione Articolare Handstand.pdf",
+      "pdfSize": "3.1 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 2,
+      "title": "Belly to Wall (Pancia al Muro) e Allineamento Scapolare",
+      "description": "Costruire la linea retta perfetta: retroversione di bacino, punte dei piedi tirate e spinta attiva verso il soffitto.",
+      "durationMinutes": 30,
+      "videoDuration": "26:40",
+      "summary": "La posizione pancia alla parete è lo strumento più efficace al mondo per apprendere la corretta postura della verticale. Elimina l'iperestensione lombare e insegna a 'spingere via il pavimento' con i muscoli trapezi e dentati.",
+      "keyTakeaways": [
+        "Spinta attiva delle spalle ('elevation'): le orecchie devono essere toccate dalle braccia.",
+        "Bacino in retroversione (Posterior Pelvic Tilt - PPT) con contrazione forte di glutei e addome."
+      ],
+      "pdfTitle": "Guida alla Linea Retta nella Verticale.pdf",
+      "pdfSize": "4.4 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "code": "SKILL-HS-01",
+        "targetMuscle": "Spalle, Trapezio, Core e Avambracci",
+        "primaryMuscles": ["Deltoide Anteriore e Mediale", "Trapezio Superiore", "Dentato Anteriore"],
+        "secondaryMuscles": ["Retto dell'Addome", "Flessori del Polso", "Glutei"],
+        "equipment": "Bodyweight",
+        "difficulty": "Intermediate",
+        "movementType": "Skill",
+        "setup": "Posizionarsi a quattro zampe con i piedi a contatto con il muro. Camminare con i piedi verso l'alto e contemporaneamente con le mani verso la parete.",
+        "execution": "Arrivare a sfiorare il muro con il naso e le dita dei piedi. Spingere attivamente il pavimento allungandosi verso l'alto. Mantenere la respirazione controllata per serie da 20-30 secondi.",
+        "safetyPoints": [
+          "Imparare la caduta di sicurezza (pirouette o uscita laterale con un braccio) prima di tentare tenute massimali vicino alla parete."
+        ],
+        "commonMistakes": [
+          "Spalle rilassate che lasciano 'cadere' la testa verso il basso.",
+          "Schiena inarcata con i glutei che toccano il muro."
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "title": "Il Kick-Up e la Gestione dell'Equilibrio con i Polpastrelli",
+      "description": "Come entrare in verticale con il giusto dosaggio di slancio e usare il 'finger grip' per non cadere.",
+      "durationMinutes": 28,
+      "videoDuration": "24:15",
+      "summary": "Studio dell'entrata controllata a corpo libero (kick-up) e dei meccanismi di correzione dell'equilibrio: pressione dei polpastrelli quando si va in overbalance e spinta del palmo quando si va in underbalance.",
+      "keyTakeaways": [
+        "Lo slancio non deve essere violento ma fluido, portando il bacino sopra la linea delle spalle.",
+        "Le mani afferrano il pavimento: le prime falangi premono costantemente per evitare la caduta."
+      ],
+      "pdfTitle": "Strategie di Equilibrio Libero per Handstand.pdf",
+      "pdfSize": "2.7 MB",
+      "allowsDownload": true
+    }
+  ]
+}

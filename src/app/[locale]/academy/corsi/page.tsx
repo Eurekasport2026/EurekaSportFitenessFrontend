@@ -6,10 +6,20 @@ import { cn } from "@/lib/utils";
 import homeStyles from "@/components/features/home/home.module.css";
 import styles from "@/components/features/courses/courses.module.css";
 
-export const metadata: Metadata = {
-  title: "Tutti i corsi | Eureka! Academy",
-  description: "Scopri i corsi Eureka! Academy per costruire il tuo futuro nello sport e nel fitness.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  return {
+    title: isEn ? "All Courses | Eureka! Academy" : "Tutti i corsi | Eureka! Academy",
+    description: isEn
+      ? "Discover Eureka! Academy courses to build your career in sports and fitness."
+      : "Scopri i corsi Eureka! Academy per costruire il tuo futuro nello sport e nel fitness.",
+  };
+}
 
 export default function CoursesPage() {
   return (

@@ -1,0 +1,216 @@
+{
+  "pt1-mod-5": [
+    {
+      "order": 1,
+      "title": "Resistance Machines vs Free Weights: Biomechanics Compared",
+      "description": "Analysis of the differences between fixed-trajectory guided movements and three-dimensional movements with barbells and dumbbells.",
+      "durationMinutes": 22,
+      "videoDuration": "18:45",
+      "summary": "In this lesson, we explore the strengths and limitations of guided machines compared to free weights. You will learn when to prescribe a machine to maximize stability and isolate target musculature, and when to choose free weights to recruit stabilizers and improve intermuscular coordination.",
+      "keyTakeaways": [
+        "Resistance machines offer a guided resistance profile and reduce the demand for active stabilization.",
+        "Free weights permit natural movement paths and stimulate a greater number of synergist and stabilizer muscles.",
+        "Equipment selection depends on the client's training level, the goal of the set (strength, hypertrophy, rehabilitation), and neural fatigue levels."
+      ],
+      "pdfTitle": "Biomechanics Guide: Machines vs Free Weights.pdf",
+      "pdfSize": "3.2 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "targetMuscle": "Chest & Anterior Deltoids",
+        "primaryMuscles": ["Pectoralis Major", "Triceps Brachii"],
+        "secondaryMuscles": ["Anterior Deltoid", "Serratus Anterior"],
+        "equipment": "Machines",
+        "difficulty": "Beginner",
+        "movementType": "Push",
+        "setup": "Adjust seat height so handles align with mid-chest level. Feet firmly planted on the floor, scapulae retracted and depressed against the backrest.",
+        "execution": "Press forward while exhaling without overextending the shoulders beyond physiological range. Control the eccentric phase returning to start without weights touching.",
+        "safetyPoints": [
+          "Do not lift head or lumbar spine off backrest during maximum drive.",
+          "Maintain continuous elbow control without locking out aggressively at peak extension."
+        ],
+        "commonMistakes": [
+          "Shoulders protracting and shrugging toward ears during the press.",
+          "Bouncing weight stack at the end of the eccentric phase."
+        ]
+      }
+    },
+    {
+      "order": 2,
+      "title": "Flat Barbell and Dumbbell Bench Press Technique",
+      "description": "Physiological arch setup, scapular retraction, leg drive, and bar trajectory.",
+      "durationMinutes": 25,
+      "videoDuration": "21:10",
+      "summary": "Step-by-step biomechanical breakdown of horizontal pushing. Deep dive into leg drive, grip width, sternal touchpoint, and Valsalva maneuver regulation.",
+      "keyTakeaways": [
+        "Scapular retraction and depression creates a solid foundation on the bench, protecting the glenohumeral joint.",
+        "Optimal barbell trajectory follows an inverted-J curve rather than a vertical straight line.",
+        "Dumbbells permit natural convergence at lockout and greater range of motion into deep stretch."
+      ],
+      "pdfTitle": "Horizontal Press Technical Manual.pdf",
+      "pdfSize": "4.1 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "targetMuscle": "Chest & Shoulders",
+        "primaryMuscles": ["Pectoralis Major (Sternocostal Head)", "Triceps Brachii"],
+        "secondaryMuscles": ["Anterior Deltoid", "Latissimus Dorsi (Stabilizer)"],
+        "equipment": "Free Weights",
+        "difficulty": "Intermediate",
+        "movementType": "Push",
+        "setup": "Lie on the bench with eyes directly under the barbell. Plant feet firmly, retract scapulae, grip bar slightly wider than shoulder width.",
+        "execution": "Unrack bar, inhale deeply into the diaphragm, lower with control to touch lower sternum, drive forcefully upward and slightly back toward the rack.",
+        "safetyPoints": [
+          "Never use a thumbless 'suicide grip'. Always wrap thumbs securely around the bar.",
+          "Always ensure safety pins or a qualified spotter for loads over 80% 1RM."
+        ],
+        "commonMistakes": [
+          "Elbows flared out at 90° ('T-shape') creating severe shoulder impingement risk.",
+          "Lifting glutes off the bench to force repetition."
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "title": "Cable Exercises: Continuous Force Vector and Isolation",
+      "description": "Cable crossover, cable fly, and pulley height adjustments for targeted muscle lines.",
+      "durationMinutes": 18,
+      "videoDuration": "15:30",
+      "summary": "Cables provide constant tension throughout the entire range of motion, including peak contraction. Learn how to align cable vectors with muscle fiber orientation to reduce joint friction.",
+      "keyTakeaways": [
+        "Unlike dumbbells, cables maintain tension even at peak adduction.",
+        "Adjusting pulley height shifts emphasis between clavicular and sternocostal fibers."
+      ],
+      "pdfTitle": "Cable Vector and Angle Workbook.pdf",
+      "pdfSize": "2.1 MB",
+      "allowsDownload": true
+    }
+  ],
+  "cali1-mod-5": [
+    {
+      "order": 1,
+      "title": "Push Progressions: Wall to Floor (Foundational Regressions)",
+      "description": "Didactic progression from Wall Push-Ups and Incline Box Push-Ups to Knee Push-Ups focusing on pelvic control.",
+      "durationMinutes": 20,
+      "videoDuration": "17:15",
+      "summary": "In this practical lesson, we analyze regressions for learners who do not yet have the strength for a full floor push-up. Learn how to scale support elevation without losing core activation or posterior pelvic tilt.",
+      "keyTakeaways": [
+        "Body inclination reduces percentage of bodyweight lifted (from ~30% at the wall to ~65% on the floor).",
+        "The body must move as a rigid single block: avoid hyperextending or sagging the lumbar spine."
+      ],
+      "pdfTitle": "Push Progression Level 1 Instructional Guide.pdf",
+      "pdfSize": "2.8 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "code": "PUSH-01",
+        "targetMuscle": "Chest, Triceps, and Core",
+        "primaryMuscles": ["Pectoralis Major", "Triceps Brachii"],
+        "secondaryMuscles": ["Anterior Deltoid", "Rectus Abdominis", "Gluteals"],
+        "equipment": "Bodyweight",
+        "difficulty": "Beginner",
+        "movementType": "Push",
+        "setup": "Place hands on an elevated surface (box or bench) at shoulder width. Legs extended back, glutes braced, core engaged in basic Hollow Body.",
+        "execution": "Lower chest by flexing elbows at 45° to body until lightly touching box edge. Drive powerfully back to start position with scapular protraction at the top.",
+        "safetyPoints": [
+          "Keep wrists aligned with forearms to prevent excessive tendon strain."
+        ],
+        "commonMistakes": [
+          "Flared elbows and head dropping forward before the chest."
+        ]
+      }
+    },
+    {
+      "order": 2,
+      "title": "The Perfect Push-Up: Full Push-Up and Variations",
+      "description": "Push-up quality standards: joint lockout, scapular protraction, and Hollow Body position.",
+      "durationMinutes": 24,
+      "videoDuration": "20:00",
+      "summary": "Analytical study of the full push-up: checking full range of motion (chest to floor, locked elbows at top), with introduction to Diamond and Archer variations.",
+      "keyTakeaways": [
+        "A valid push-up requires chest-to-floor contact and complete top scapular protraction.",
+        "External hand rotation creates rotational torque and stabilizes the shoulder capsule."
+      ],
+      "pdfTitle": "Push-Up Execution and Judging Standards.pdf",
+      "pdfSize": "3.5 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 3,
+      "title": "Parallel Bar Dips: Technique and Shoulder Safety",
+      "description": "Correct dip execution: torso forward lean, safe depth angles, and active scapular depression.",
+      "durationMinutes": 22,
+      "videoDuration": "18:30",
+      "summary": "Dips are the cornerstone vertical push exercise in calisthenics. Learn how to manage depth without causing anterior shoulder impingement.",
+      "keyTakeaways": [
+        "Shoulders must never dump forward at the bottom of the dip.",
+        "Maintain constant scapular depression by pushing the bars forcefully away."
+      ],
+      "pdfTitle": "Parallel Bar Dips Safety Manual.pdf",
+      "pdfSize": "2.9 MB",
+      "allowsDownload": true
+    }
+  ],
+  "cali2-mod-8": [
+    {
+      "order": 1,
+      "title": "Mobility Prerequisites and Wrist Conditioning for Handstands",
+      "description": "Wrist articulation warm-up, thoracic extension, and 180° shoulder flexion drills.",
+      "durationMinutes": 25,
+      "videoDuration": "22:00",
+      "summary": "Handstand requires at least 90° wrist extension under load and 180° shoulder flexion without lumbar compensation. This lesson provides essential joint preparation drills before going upside down.",
+      "keyTakeaways": [
+        "Without full shoulder opening, the body compensates by overarching the lower back ('banana handstand').",
+        "Wrists must be conditioned gradually with progressive loading and knuckle walking."
+      ],
+      "pdfTitle": "Handstand Joint Preparation Protocol.pdf",
+      "pdfSize": "3.1 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 2,
+      "title": "Belly to Wall and Scapular Alignment",
+      "description": "Building the straight line: posterior pelvic tilt (PPT), pointed toes, and active ceiling push.",
+      "durationMinutes": 30,
+      "videoDuration": "26:40",
+      "summary": "The belly-to-wall position is the most effective tool to learn proper handstand posture. It eliminates lumbar hyperextension and teaches learners to push the floor away using the trapezius and serratus muscles.",
+      "keyTakeaways": [
+        "Active shoulder elevation: arms should be tight against the ears.",
+        "Posterior Pelvic Tilt (PPT) with strong gluteal and abdominal contraction."
+      ],
+      "pdfTitle": "Guide to the Straight Handstand Line.pdf",
+      "pdfSize": "4.4 MB",
+      "allowsDownload": true,
+      "exerciseDetail": {
+        "code": "SKILL-HS-01",
+        "targetMuscle": "Shoulders, Trapezius, Core, and Forearms",
+        "primaryMuscles": ["Anterior & Medial Deltoid", "Upper Trapezius", "Serratus Anterior"],
+        "secondaryMuscles": ["Rectus Abdominis", "Wrist Flexors", "Gluteals"],
+        "equipment": "Bodyweight",
+        "difficulty": "Intermediate",
+        "movementType": "Skill",
+        "setup": "Start on all fours with feet touching wall. Walk feet up the wall while walking hands toward the wall.",
+        "execution": "Bring nose and toes close to touching the wall. Actively push into the floor, reaching tall. Maintain controlled breathing for 20-30s holds.",
+        "safetyPoints": [
+          "Learn the safety bailout (pirouette or lateral cartwheel step) before attempting close wall holds."
+        ],
+        "commonMistakes": [
+          "Passive shoulders allowing head to sink down.",
+          "Arched back with glutes touching the wall."
+        ]
+      }
+    },
+    {
+      "order": 3,
+      "title": "The Kick-Up and Fingertip Balance Control",
+      "description": "Controlled entry into freestanding handstand and fingertip balance corrections.",
+      "durationMinutes": 28,
+      "videoDuration": "24:15",
+      "summary": "Mastering the controlled kick-up and balance mechanics: pressing fingertips to counteract overbalance and heel of palm for underbalance.",
+      "keyTakeaways": [
+        "The kick-up should be a smooth elevation bringing hips over shoulders, not an uncontrolled swing.",
+        "Fingertips grip the floor actively: first phalanges grip continuously to prevent overbalancing."
+      ],
+      "pdfTitle": "Freestanding Handstand Balance Strategies.pdf",
+      "pdfSize": "2.7 MB",
+      "allowsDownload": true
+    }
+  ]
+}

@@ -19,15 +19,27 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Eureka! Sport & Fitness Academy | Forma. Allena. Evolvi.",
-  description: "La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi. Scopri Eureka! Sport & Fitness Academy.",
-  icons: {
-    icon: "/eureka-symbol.svg",
-    shortcut: "/eureka-symbol.svg",
-    apple: "/eureka-symbol.svg",
-  },
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const isEn = locale === "en";
+  return {
+    title: isEn
+      ? "Eureka! Sport & Fitness Academy | Train. Coach. Evolve."
+      : "Eureka! Sport & Fitness Academy | Forma. Allena. Evolvi.",
+    description: isEn
+      ? "The premier platform for fitness professionals and athletes. Discover Eureka! Sport & Fitness Academy."
+      : "La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi. Scopri Eureka! Sport & Fitness Academy.",
+    icons: {
+      icon: "/eureka-symbol.svg",
+      shortcut: "/eureka-symbol.svg",
+      apple: "/eureka-symbol.svg",
+    },
+  };
+}
 
 export const viewport: Viewport = {
   width: "device-width",
