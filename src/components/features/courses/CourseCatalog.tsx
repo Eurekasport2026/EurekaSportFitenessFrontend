@@ -62,34 +62,74 @@ export function CourseCatalog() {
       </div>
       <p className={styles.visuallyHidden} role="status">{language === "en" ? `${filtered.length} courses in the ${t(active)} category` : `${filtered.length} corsi disponibili nella categoria ${active}`}</p>
       <div className={styles.grid}>
-        {filtered.map((course) => <article className={styles.card} key={course.title}>
-          <div
-            className={styles.photo}
-            role="img"
-            aria-label={t(course.imageAlt)}
-            style={{
-              backgroundImage: `url('${course.imageSrc}')`,
-              backgroundSize: "cover",
-              backgroundPosition: "position" in course && course.position ? course.position : "center top",
-            }}
-          />
-          <div className={styles.cardBody}>
-            <h2><T>{course.title}</T></h2>
-            {"slug" in course && course.slug ? (
-              <Link href={`/academy/corsi/${course.slug}` as any} className={styles.cardLink}>
-                <T>Scopri</T> <HomeIcon name="arrow" />
+        {filtered.map((course) => {
+          const hasSlug = "slug" in course && Boolean(course.slug);
+          const isLegacyPt = course.title === "Personal Trainer";
+          const targetHref = hasSlug
+            ? `/academy/corsi/${course.slug}`
+            : isLegacyPt
+            ? "/academy/corsi/personal-trainer"
+            : null;
+
+          const cardContent = (
+            <>
+              <div
+                className={styles.photo}
+                role="img"
+                aria-label={t(course.imageAlt)}
+                style={{
+                  backgroundImage: `url('${course.imageSrc}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition:
+                    "position" in course && course.position
+                      ? course.position
+                      : "center top",
+                }}
+              />
+              <div className={styles.cardBody}>
+                <h2>
+                  <T>{course.title}</T>
+                </h2>
+                <span className={styles.cardLink}>
+                  <T>Scopri</T> <HomeIcon name="arrow" />
+                </span>
+              </div>
+            </>
+          );
+
+          if (targetHref) {
+            return (
+              <Link
+                key={course.title}
+                href={targetHref as any}
+                className={styles.card}
+                aria-label={
+                  language === "en"
+                    ? `Explore the ${t(course.title)} course`
+                    : `Scopri il corso ${course.title}`
+                }
+              >
+                {cardContent}
               </Link>
-            ) : course.title === "Personal Trainer" ? (
-              <Link href="/academy/corsi/personal-trainer" className={styles.cardLink}>
-                <T>Scopri</T> <HomeIcon name="arrow" />
-              </Link>
-            ) : (
-              <HomeAction kind="academy" title={course.title} className={styles.cardLink} label={language === "en" ? `Discover the ${t(course.title)} course` : `Scopri il corso ${course.title}`}>
-                <T>Scopri</T> <HomeIcon name="arrow" />
-              </HomeAction>
-            )}
-          </div>
-        </article>)}
+            );
+          }
+
+          return (
+            <HomeAction
+              key={course.title}
+              kind="academy"
+              title={course.title}
+              className={styles.card}
+              label={
+                language === "en"
+                  ? `Discover the ${t(course.title)} course`
+                  : `Scopri il corso ${course.title}`
+              }
+            >
+              {cardContent}
+            </HomeAction>
+          );
+        })}
       </div>
     </>
   );

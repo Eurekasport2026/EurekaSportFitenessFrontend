@@ -5,11 +5,29 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **Resolved Workout Plan Download & View Online 404 Errors**:
+  - Generated and deployed the 5 official training protocol PDF documents in `public/docs/` (`scheda-beginner-full-body.pdf`, `scheda-full-body-ab.pdf`, `scheda-upper-lower.pdf`, `scheda-basic-strength-hypertrophy.pdf`, `scheda-cardio-resistance.pdf`).
+  - Completely eliminates 404 Not Found responses when clicking "Download PDF" or opening PDF templates in a browser tab.
+- **Restored Official Brand Logo & Identity Assets Post-Merge**:
+  - Restored the 10 official 300 PPI logo assets in `public/images/logo/` (`eureka-logo-bianco.*`, `eureka-logo-nero.*`, `eureka-logo-web.*`, `eureka-symbol-bianco.*`, `eureka-symbol-color.*`) and 5 vector SVGs in `public/` that were accidentally removed during the `main` branch merge.
+  - Restored `.headerLogoImage` and responsive rules in [`home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/home/home.module.css) ensuring clean, sharp, scaled logo rendering in [`HomeHeader.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/HomeHeader.tsx).
+  - Restored `.footerLogoImage` and flex alignment in [`site-footer.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/site-footer.module.css).
+  - Restored safe-area styling variables in [`globals.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/globals.css) and mobile viewport settings in [`layout.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/layout.tsx).
 - **Resolved DOM Image Constructor Collision (`Failed to construct 'Image'`)**:
   - Added missing `import Image from "next/image"` in [`HomeHeader.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/HomeHeader.tsx) which previously caused JSX `<Image ... />` to resolve to the native DOM `window.Image` constructor, throwing `"TypeError: Failed to construct 'Image': Please use the 'new' operator"`.
   - Replaced `<Image>` with native `<img loading="lazy">` in [`PracticalResources.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/PracticalResources.tsx) for zero-overhead, sharp vector SVG rendering.
 
 ### Added
+- **Interactive In-App Workout Plan Viewer Modal**:
+  - Upgraded "View Online" in [`PracticalResources.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/PracticalResources.tsx) with an instant interactive modal viewer (`selectedPlanForModal`).
+  - Added structured day-by-day protocol tables (Session A, Session B, etc.) with exercise names, target muscles, sets x reps, rest times, RPE/RIR intensity ratings, and biomechanical execution cues.
+  - Included warm-up routines, double-progression coaching rules, print routine action (`window.print()`), and direct download links.
+  - Added [`.modalBoxWide`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) and responsive protocol table styles.
+- **Full-Card Clickability & Interactive Hover States in Course Catalog**:
+  - Re-architected course cards in [`CourseCatalog.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseCatalog.tsx) to make the entire card area (photograph, title, body, and action indicator) fully clickable.
+  - Linked active courses (`personal-trainer-1`, `personal-trainer-2`, `personal-trainer-3`, `calisthenics-1`, `calisthenics-2`) directly to their respective course detail routes, and wired coming-soon courses to interactive modal dialogs via `<HomeAction>`.
+  - Replaced inner nested links with semantic `<span className={styles.cardLink}>` to maintain clean, valid HTML5 and accessible keyboard focus navigation.
+  - Enhanced [`.card`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/courses.module.css) with cursor pointers, elevation transforms (`translateY(-3px)`), border highlight, and active focus outline.
 - **Complete 12-Muscle-Group Anatomical Illustration Suite**:
   - Designed and deployed the remaining 4 anatomical vector illustrations in `public/images/muscles/`:
     - `glutes.svg`: Posterior pelvic view with Gluteus Maximus and Medius highlighted.
