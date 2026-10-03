@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
-import Image from "next/image";
 import { useLocale } from "next-intl";
 import { getWorkoutPlans, getMuscleGroups, getGymExercises, type GymExercise } from "@/lib/api/practical";
 import styles from "./lesson-view.module.css";
@@ -208,11 +207,10 @@ export function PracticalResources({ courseSlug }: PracticalResourcesProps) {
                   </div>
 
                   <div className={styles.muscleCardImageWrapper}>
-                    <Image
+                    <img
                       src={`/images/muscles/${mg.id}.svg`}
                       alt={mg.name}
-                      fill
-                      sizes="(max-width: 900px) 50vw, 25vw"
+                      loading="lazy"
                       className={styles.muscleCardImage}
                     />
                   </div>

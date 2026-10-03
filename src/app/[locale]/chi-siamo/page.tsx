@@ -57,7 +57,7 @@ export default async function AboutPage({
 
         <section className={styles.idea} id="la-nostra-idea" aria-labelledby="idea-title">
           <div className={styles.ideaIntro}>
-            <p className={styles.sectionEyebrow}>EUREKA! SPORT &amp; FITNESS</p>
+            <p className={styles.sectionEyebrow}>EUREKA! SPORT &amp; FITNESS ACADEMY</p>
             <h2 id="idea-title"><T>Forma. Allena. Evolvi.</T></h2>
             <p><T>Crediamo in percorsi accessibili e motivanti, capaci di unire conoscenza, pratica e risultati. Con Eureka! puoi approfondire le tue competenze nel fitness o trovare un modo più consapevole di allenarti.</T></p>
           </div>

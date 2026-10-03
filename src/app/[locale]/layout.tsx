@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Toaster } from "sonner";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
@@ -40,6 +40,13 @@ export async function generateMetadata({
     },
   };
 }
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#050e13",
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));

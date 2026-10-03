@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Resolved DOM Image Constructor Collision (`Failed to construct 'Image'`)**:
+  - Added missing `import Image from "next/image"` in [`HomeHeader.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/HomeHeader.tsx) which previously caused JSX `<Image ... />` to resolve to the native DOM `window.Image` constructor, throwing `"TypeError: Failed to construct 'Image': Please use the 'new' operator"`.
+  - Replaced `<Image>` with native `<img loading="lazy">` in [`PracticalResources.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/PracticalResources.tsx) for zero-overhead, sharp vector SVG rendering.
+
 ### Added
 - **Complete 12-Muscle-Group Anatomical Illustration Suite**:
   - Designed and deployed the remaining 4 anatomical vector illustrations in `public/images/muscles/`:
