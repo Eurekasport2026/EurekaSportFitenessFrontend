@@ -1,0 +1,18 @@
+# Next.js on Netlify (OpenNext adapter is applied automatically).
+# Do not set Publish directory to "public" — that only has static assets
+# and produces the classic Netlify "Page not found" 404.
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  NODE_VERSION = "20"
+  NEXT_TELEMETRY_DISABLED = "1"
+
+# Defaults for Netlify builds. Override anytime in Netlify UI → Environment variables.
+[context.production.environment]
+  NEXT_PUBLIC_USE_MOCK_DATA = "true"
+  NEXT_PUBLIC_API_URL = "http://localhost:8000/api/v1"
+  NEXT_PUBLIC_MOCK_FALLBACK = "true"
+  NEXT_PUBLIC_API_TIMEOUT_MS = "8000"
