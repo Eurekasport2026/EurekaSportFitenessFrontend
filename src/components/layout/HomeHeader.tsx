@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Link } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import { HomeAction } from "@/components/features/home/HomeAction";
@@ -17,12 +18,21 @@ export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
   const { language, setLanguage, t } = useLanguage();
   return (
     <header className={styles.header}>
-      <Link href="/" className={styles.headerBrand} aria-label="Eureka! Sport & Fitness — Home">EUREKA!<span>SPORT &amp; FITNESS</span></Link>
-      <nav id="home-navigation" aria-label="Navigazione principale" className={cn(styles.navigation, menuOpen && styles.navigationOpen)} onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setMenuOpen(false); }}>
-        <Link href="/" className={cn(activePage === "home" && styles.activeLink)} aria-current={activePage === "home" ? "page" : undefined}>Home</Link>
-        <Link href="/academy" className={cn(activePage === "academy" && styles.activeLink)} aria-current={activePage === "academy" ? "page" : undefined}>Academy</Link>
-        <Link href="/training" className={cn(activePage === "training" && styles.activeLink)} aria-current={activePage === "training" ? "page" : undefined}>Training</Link>
-        <Link href="/app" className={cn(activePage === "app" && styles.activeLink)} aria-current={activePage === "app" ? "page" : undefined}>App</Link>
+      <Link href="/" className={styles.headerBrand} aria-label={language === "en" ? "Eureka! Sport & Fitness Academy — Home" : "Eureka! Sport & Fitness Academy — Inizio"}>
+        <Image
+          src="/images/logo/eureka-logo-bianco.png"
+          alt="Eureka! Sport & Fitness Academy"
+          width={142}
+          height={45}
+          className={styles.headerLogoImage}
+          priority
+        />
+      </Link>
+      <nav id="home-navigation" aria-label={language === "en" ? "Main navigation" : "Navigazione principale"} className={cn(styles.navigation, menuOpen && styles.navigationOpen)} onClick={(event) => { if ((event.target as HTMLElement).closest("a")) setMenuOpen(false); }}>
+        <Link href="/" className={cn(activePage === "home" && styles.activeLink)} aria-current={activePage === "home" ? "page" : undefined}>{t("Inizio")}</Link>
+        <Link href="/academy" className={cn(activePage === "academy" && styles.activeLink)} aria-current={activePage === "academy" ? "page" : undefined}>{t("Accademia")}</Link>
+        <Link href="/training" className={cn(activePage === "training" && styles.activeLink)} aria-current={activePage === "training" ? "page" : undefined}>{t("Allenamento")}</Link>
+        <Link href="/app" className={cn(activePage === "app" && styles.activeLink)} aria-current={activePage === "app" ? "page" : undefined}>{t("App")}</Link>
         <Link href="/prezzi" className={cn(activePage === "pricing" && styles.activeLink)} aria-current={activePage === "pricing" ? "page" : undefined}>{t("Prezzi")}</Link>
         <Link href="/chi-siamo" className={cn(activePage === "about" && styles.activeLink)} aria-current={activePage === "about" ? "page" : undefined}>{t("Chi siamo")}</Link>
         <Link href="/contatti" className={cn(activePage === "contact" && styles.activeLink)} aria-current={activePage === "contact" ? "page" : undefined}>{t("Contatti")}</Link>

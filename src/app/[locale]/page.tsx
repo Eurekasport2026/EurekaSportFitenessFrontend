@@ -12,7 +12,14 @@ const benefits = [
   { icon: "growth", title: "Risultati reali", description: "Per la tua carriera e il tuo benessere" },
 ] as const;
 
-export default function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const isEn = locale === "en";
+
   return (
     <div className={styles.page} id="home">
       <a className={styles.skipLink} href="#main"><T>Vai al contenuto</T></a>
@@ -22,26 +29,30 @@ export default function Home() {
       <HomeHeader />
       <main id="main" className={styles.main}>
         <section className={styles.hero} aria-labelledby="hero-title">
-          <Image className={styles.symbol} src="/eureka-symbol.svg" width={96} height={80} alt="" />
-          <h1 id="hero-title" className={styles.wordmark}>EUREKA!<span>SPORT &amp; FITNESS</span></h1>
+          <Image className={styles.symbol} src="/eureka-symbol.svg" width={82} height={85} alt="" priority />
+          <h1 id="hero-title" className={styles.wordmark}>
+            EUREKA!
+            <span className={styles.wordmarkSub}>SPORT &amp; FITNESS</span>
+            <span className={styles.wordmarkAcademy}>{isEn ? "ACADEMY" : "ACCADEMIA"}</span>
+          </h1>
           <h2 className={styles.headline}><T>FORMA. ALLENA. EVOLVI.</T></h2>
           <p className={styles.intro}><T>La piattaforma dedicata alla formazione dei professionisti e all'allenamento di chi vuole migliorarsi.</T></p>
         </section>
-        <section className={styles.paths} aria-label="Scegli il tuo percorso">
+        <section className={styles.paths} aria-label={isEn ? "Choose your path" : "Scegli il tuo percorso"}>
           <article className={cn(styles.pathCard, styles.academy)} id="academy">
             <p className={styles.eyebrow}><T>VOGLIO DIVENTARE</T><br /><T>UN PROFESSIONISTA</T></p>
             <HomeIcon name="graduation" className={styles.pathIcon} />
-            <h2>EUREKA! <span>ACADEMY</span></h2>
+            <h2>EUREKA! <span>{isEn ? "ACADEMY" : "ACCADEMIA"}</span></h2>
             <Link href="/academy" className={styles.cta}><T>Scopri i corsi</T> <HomeIcon name="arrow" /></Link>
           </article>
           <article className={cn(styles.pathCard, styles.training)} id="training">
             <p className={styles.eyebrow}><T>VOGLIO ALLENARMI</T></p>
             <HomeIcon name="dumbbell" className={styles.pathIcon} />
-            <h2>EUREKA! <span>TRAINING</span></h2>
+            <h2>EUREKA! <span>{isEn ? "TRAINING" : "ALLENAMENTO"}</span></h2>
             <Link href="/training" className={styles.cta}><T>Scopri l'app</T> <HomeIcon name="arrow" /></Link>
           </article>
         </section>
-        <section id="benefits" className={styles.benefits} aria-label="Perché scegliere Eureka">
+        <section id="benefits" className={styles.benefits} aria-label={isEn ? "Why choose Eureka" : "Perché scegliere Eureka"}>
           {benefits.map((benefit) => (
             <div className={styles.benefit} key={benefit.icon}>
               <HomeIcon name={benefit.icon} />

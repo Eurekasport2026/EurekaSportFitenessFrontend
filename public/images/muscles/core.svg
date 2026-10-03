@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none">
+  
+  <defs>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="60%" stop-color="#0066ff" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="320" height="240" rx="12" fill="#f8fafc" />
+  <!-- Torso Silhouette -->
+  <path d="M 95 30 L 75 75 Q 85 115 92 155 L 105 220 L 215 220 L 228 155 Q 235 115 245 75 L 225 30 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
+  <!-- Rib Cage Outline -->
+  <path d="M 120 40 Q 140 50 160 50 Q 180 50 200 40 M 110 65 Q 135 75 160 75 Q 185 75 210 65" stroke="#cbd5e1" stroke-width="2" fill="none" />
+  <!-- Linea Alba (Center Line) -->
+  <path d="M 160 50 L 160 215" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round" />
+  <!-- 6-Pack Abs (Rectus Abdominis) -->
+  <!-- Top Pair -->
+  <rect x="132" y="70" width="24" height="22" rx="4" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <rect x="164" y="70" width="24" height="22" rx="4" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <!-- Mid Pair -->
+  <rect x="130" y="98" width="26" height="25" rx="5" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <rect x="164" y="98" width="26" height="25" rx="5" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <!-- Lower Mid Pair -->
+  <rect x="130" y="129" width="26" height="28" rx="5" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <rect x="164" y="129" width="26" height="28" rx="5" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <!-- Lower Ab Pyramidalis Shape -->
+  <path d="M 132 163 Q 145 195 158 198 L 158 163 Z" fill="url(#blueGlow)" opacity="0.9" />
+  <path d="M 188 163 Q 175 195 162 198 L 162 163 Z" fill="url(#blueGlow)" opacity="0.9" />
+  <!-- Obliques (Left & Right Flanks) -->
+  <path d="M 102 95 Q 120 105 125 130 L 125 170 Q 110 160 100 135 Z" fill="#0284c7" opacity="0.85" />
+  <path d="M 218 95 Q 200 105 195 130 L 195 170 Q 210 160 220 135 Z" fill="#0284c7" opacity="0.85" />
+  <text x="160" y="218" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#0369a1" letter-spacing="1">RECTUS ABDOMINIS &amp; OBLIQUES</text>
+</svg>

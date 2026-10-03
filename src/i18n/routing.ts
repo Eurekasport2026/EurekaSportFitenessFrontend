@@ -30,6 +30,10 @@ export const routing = defineRouting({
       it: "/academy/corsi/personal-trainer",
       en: "/academy/courses/personal-trainer",
     },
+    "/academy/corsi/[slug]": {
+      it: "/academy/corsi/[slug]",
+      en: "/academy/courses/[slug]",
+    },
   },
 });
 

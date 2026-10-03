@@ -7,9 +7,9 @@ import { useLanguage } from "@/components/layout/LanguageProvider";
 import styles from "./home.module.css";
 
 const content = {
-  academy: { title: "Eureka! Academy", text: "Il programma completo, il calendario e le iscrizioni a questo corso non sono ancora disponibili." },
+  academy: { title: "Eureka! Accademia", text: "Il programma completo, il calendario e le iscrizioni a questo corso non sono ancora disponibili." },
   goal: { title: "Il tuo obiettivo", text: "I programmi di allenamento per questo obiettivo non sono ancora disponibili nell'app." },
-  training: { title: "Eureka! Training", text: "L'app Eureka! Training sarà disponibile a breve. Torna a trovarci per scoprire i programmi di allenamento." },
+  training: { title: "Eureka! Allenamento", text: "L'app Eureka! Allenamento sarà disponibile a breve. Torna a trovarci per scoprire i programmi di allenamento." },
   login: { title: "Accedi a Eureka!", text: "L'area riservata sarà disponibile a breve." },
   contact: { title: "Contatti", text: "I nostri recapiti saranno disponibili a breve. Torna a trovarci per metterti in contatto con il team Eureka!" },
   launch: { title: "Speciale lancio", text: "La prova gratuita e i piani dell'app saranno disponibili quando verrà attivato il servizio." },
@@ -19,10 +19,10 @@ const content = {
 };
 
 const destinations = [
-  { title: "Eureka! Academy", description: "Corsi e formazione professionale", href: "/academy" },
-  { title: "Eureka! Training", description: "App e allenamento", href: "/training" },
+  { title: "Eureka! Accademia", description: "Corsi e formazione professionale", href: "/academy" },
+  { title: "Eureka! Allenamento", description: "App e allenamento", href: "/training" },
   { title: "Eureka! Fit", description: "App di allenamento e progressi", href: "/app" },
-  { title: "Tutti i corsi", description: "Catalogo Eureka! Academy", href: "/academy/corsi" },
+  { title: "Tutti i corsi", description: "Catalogo Eureka! Accademia", href: "/academy/corsi" },
   { title: "Prezzi app", description: "Piani Base, Pro ed Elite", href: "/prezzi" },
   { title: "Contatti", description: "Scrivi al team Eureka!", href: "/contatti" },
   { title: "Chi siamo", description: "Formazione, allenamento e crescita", href: "/chi-siamo" },

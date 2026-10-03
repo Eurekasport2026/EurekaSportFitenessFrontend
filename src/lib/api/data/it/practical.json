@@ -1,0 +1,648 @@
+{
+  "workoutPlans": [
+    {
+      "id": "plan-1",
+      "courseSlug": "personal-trainer-1",
+      "title": "Beginner Full Body",
+      "subtitle": "Scheda di adattamento anatomico per principianti (2-3 giorni/settimana)",
+      "description": "Ideale per i primi 4-6 settimane di allenamento. Focus sull'apprendimento degli schemi motori fondamentali con macchine isotoniche e manubri leggeri.",
+      "level": "Principiante",
+      "durationWeeks": "4-6 settimane",
+      "pdfUrl": "/docs/scheda-beginner-full-body.pdf",
+      "pdfSize": "1.8 MB"
+    },
+    {
+      "id": "plan-2",
+      "courseSlug": "personal-trainer-1",
+      "title": "Full Body A / B",
+      "subtitle": "Programma alternato su 2 sessioni complementari (3 giorni/settimana)",
+      "description": "Progressione con alternanza di catene cinetiche e stimoli di spinta e trazione per un condizionamento muscolare armonico.",
+      "level": "Principiante",
+      "durationWeeks": "6-8 settimane",
+      "pdfUrl": "/docs/scheda-full-body-ab.pdf",
+      "pdfSize": "2.1 MB"
+    },
+    {
+      "id": "plan-3",
+      "courseSlug": "personal-trainer-1",
+      "title": "Upper / Lower Split",
+      "subtitle": "Suddivisione parte superiore e inferiore del corpo (4 giorni/settimana)",
+      "description": "Permette di concentrare il volume di allenamento e aumentare l'intensità di carico per ciascun distretto muscolare con recuperi ottimali.",
+      "level": "Intermedio",
+      "durationWeeks": "8 settimane",
+      "pdfUrl": "/docs/scheda-upper-lower.pdf",
+      "pdfSize": "2.3 MB"
+    },
+    {
+      "id": "plan-4",
+      "courseSlug": "personal-trainer-1",
+      "title": "Basic Strength & Hypertrophy",
+      "subtitle": "Programma di base per forza e ipertrofia muscolare",
+      "description": "Introduzione al sovraccarico progressivo con bilancieri e macchine fondamentali, con gestione guidata del buffer e del RIR.",
+      "level": "Intermedio",
+      "durationWeeks": "8-10 settimane",
+      "pdfUrl": "/docs/scheda-basic-strength-hypertrophy.pdf",
+      "pdfSize": "2.5 MB"
+    },
+    {
+      "id": "plan-5",
+      "courseSlug": "personal-trainer-1",
+      "title": "Cardio + Resistance Training",
+      "subtitle": "Protocollo combinato per ricomposizione corporea e benessere cardiovascolare",
+      "description": "Integrazione sinergica di lavoro contro resistenze e metodiche aerobiche (LISS ed intervallate) per massimizzare il dispendio energetico.",
+      "level": "Principiante",
+      "durationWeeks": "6-8 settimane",
+      "pdfUrl": "/docs/scheda-cardio-resistance.pdf",
+      "pdfSize": "2.0 MB"
+    }
+  ],
+  "muscleGroups": [
+    {
+      "id": "chest",
+      "name": "PETTORALI",
+      "subtitle": "Pettorali",
+      "description": "Muscoli di spinta orizzontale: grande e piccolo pettorale.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Cavi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "back",
+      "name": "DORSALI",
+      "subtitle": "Dorsali • Trapezi • Romboidi",
+      "description": "Gran dorsale, trapezio, romboidi e grandi rotondi.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Cavi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "shoulders",
+      "name": "SPALLE",
+      "subtitle": "Deltoidi",
+      "description": "Fascio anteriore, laterale e posteriore del deltoide.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Cavi"
+      ]
+    },
+    {
+      "id": "biceps",
+      "name": "BICIPITI",
+      "subtitle": "Flessori del Gomito",
+      "description": "Bicipite brachiale, brachiale e brachioradiale.",
+      "primaryEquipment": [
+        "Pesi Liberi",
+        "Cavi",
+        "Macchine"
+      ]
+    },
+    {
+      "id": "triceps",
+      "name": "TRICIPITI",
+      "subtitle": "Estensori del Gomito",
+      "description": "Capo lungo, laterale e mediale del tricipite.",
+      "primaryEquipment": [
+        "Cavi",
+        "Pesi Liberi",
+        "Macchine",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "core",
+      "name": "CORE / ADDOME",
+      "subtitle": "Addome • Obliqui • Tronco",
+      "description": "Retto dell'addome, trasverso, obliqui ed erettori spinali.",
+      "primaryEquipment": [
+        "Corpo Libero",
+        "Cavi",
+        "Macchine"
+      ]
+    },
+    {
+      "id": "quadriceps",
+      "name": "QUADRICIPITI",
+      "subtitle": "Coscia Anteriore",
+      "description": "Retto femorale, vasto mediale, laterale e intermedio.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "hamstrings",
+      "name": "FEMORALI",
+      "subtitle": "Coscia Posteriore",
+      "description": "Bicipite femorale, semitendinoso e semimembranoso.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi"
+      ]
+    },
+    {
+      "id": "glutes",
+      "name": "GLUTEI",
+      "subtitle": "Glutei",
+      "description": "Grande, medio e piccolo gluteo.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Cavi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "calves",
+      "name": "POLPACCI",
+      "subtitle": "Polpacci",
+      "description": "Gastrocnemio e soleo.",
+      "primaryEquipment": [
+        "Macchine",
+        "Pesi Liberi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "forearms",
+      "name": "AVAMBRACCI & PRESA",
+      "subtitle": "Avambracci & Presa",
+      "description": "Flessori ed estensori del carpo, muscoli della presa.",
+      "primaryEquipment": [
+        "Pesi Liberi",
+        "Corpo Libero"
+      ]
+    },
+    {
+      "id": "full-body",
+      "name": "CORPO INTERO",
+      "subtitle": "Esercizi Multiarticolari",
+      "description": "Pattern globali che coinvolgono contemporaneamente grandi catene cinetiche.",
+      "primaryEquipment": [
+        "Pesi Liberi",
+        "Macchine",
+        "Corpo Libero"
+      ]
+    }
+  ],
+  "sampleGymExercises": [
+    {
+      "id": "ex-chest-press",
+      "name": "Chest Press Machine",
+      "muscleGroupId": "chest",
+      "equipment": "Macchine",
+      "difficulty": "Principiante",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale"
+      ],
+      "secondaryMuscles": [
+        "Deltoide Anteriore",
+        "Tricipite Brachiale"
+      ],
+      "setup": "Sedile regolato all'altezza delle maniglie con i polsi in linea col centro del petto.",
+      "execution": "Spinta controllata in avanti con espirazione; ritorno lento senza rimbalzo dei pesi.",
+      "safetyPoints": [
+        "Mantenere la schiena a contatto col supporto.",
+        "Non iperestendere i gomiti a fine corsa."
+      ],
+      "commonMistakes": [
+        "Spalle anteposte e sollevate verso le orecchie.",
+        "Polso piegato all'indietro."
+      ]
+    },
+    {
+      "id": "ex-pec-deck",
+      "name": "Pec Deck / Fly Machine",
+      "muscleGroupId": "chest",
+      "equipment": "Macchine",
+      "difficulty": "Principiante",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale"
+      ],
+      "secondaryMuscles": [
+        "Deltoide Anteriore"
+      ],
+      "setup": "Sedile regolato per consentire gomiti e braccia all'altezza del petto.",
+      "execution": "Adduzione orizzontale delle braccia con chiusura controllata.",
+      "safetyPoints": [
+        "Non forzare un'eccessiva estensione della spalla indietro."
+      ],
+      "commonMistakes": [
+        "Uso eccessivo dell'avambraccio invece che del petto."
+      ]
+    },
+    {
+      "id": "ex-bench-press",
+      "name": "Panca Piana con Bilanciere",
+      "muscleGroupId": "chest",
+      "equipment": "Pesi Liberi",
+      "difficulty": "Intermedio",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale (Fascio Sterno-Costale)"
+      ],
+      "secondaryMuscles": [
+        "Tricipite Brachiale",
+        "Deltoide Anteriore"
+      ],
+      "setup": "Piedi saldi a terra, scapole addotte e depresse, presa a larghezza corretta.",
+      "execution": "Discesa controllata verso lo sterno basso e risalita lungo la traiettoria ad arco.",
+      "safetyPoints": [
+        "Utilizzare sempre fermi di sicurezza sui dischi e spotter qualificato."
+      ],
+      "commonMistakes": [
+        "Stacco dei glutei dalla panca.",
+        "Gomiti aperti a 90° con rischio impingement."
+      ]
+    },
+    {
+      "id": "ex-dumbbell-press",
+      "name": "Spinte con Manubri su Panca Inclinata",
+      "muscleGroupId": "chest",
+      "equipment": "Pesi Liberi",
+      "difficulty": "Intermedio",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale (Fascio Clavicolare)"
+      ],
+      "secondaryMuscles": [
+        "Deltoide Anteriore",
+        "Tricipite Brachiale"
+      ],
+      "setup": "Panca a 30°-45°, manubri sollevati con l'ausilio delle ginocchia.",
+      "execution": "Spinta verso l'alto con convergenza naturale senza sbattere i manubri.",
+      "safetyPoints": [
+        "Non inclinare la panca oltre i 45° per evitare che il lavoro si sposti tutto sui deltoidi."
+      ],
+      "commonMistakes": [
+        "Polsi instabili o rotanti verso l'interno."
+      ]
+    },
+    {
+      "id": "ex-cable-crossover",
+      "name": "Croci ai Cavi (Cable Fly)",
+      "muscleGroupId": "chest",
+      "equipment": "Cavi",
+      "difficulty": "Intermedio",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale"
+      ],
+      "secondaryMuscles": [
+        "Deltoide Anteriore"
+      ],
+      "setup": "Carrucole ad altezza desiderata, un passo avanti per mettere i cavi in tensione.",
+      "execution": "Chiusura ad abbraccio con leggera flessione dei gomiti e squeeze isometrico.",
+      "safetyPoints": [
+        "Mantenere il tronco stabile senza oscillare col busto."
+      ],
+      "commonMistakes": [
+        "Eseguire una spinta invece di una croce."
+      ]
+    },
+    {
+      "id": "ex-push-up",
+      "name": "Push-Up (Piegamenti sulle braccia)",
+      "muscleGroupId": "chest",
+      "equipment": "Corpo Libero",
+      "difficulty": "Principiante",
+      "movementType": "Spinta",
+      "primaryMuscles": [
+        "Grande Pettorale",
+        "Tricipite Brachiale"
+      ],
+      "secondaryMuscles": [
+        "Deltoide Anteriore",
+        "Core"
+      ],
+      "setup": "Mani a terra larghezza spalle, corpo in linea retta da testa a talloni.",
+      "execution": "Flessione dei gomiti a 45° fino a sfiorare il terreno e distensione completa.",
+      "safetyPoints": [
+        "Contrarre glutei e addome per evitare inarcamento lombare."
+      ],
+      "commonMistakes": [
+        "Bacino che cede verso il pavimento.",
+        "Testa che scende prima del torace."
+      ]
+    },
+    {
+      "id": "ex-lat-machine",
+      "name": "Lat Machine",
+      "muscleGroupId": "back",
+      "equipment": "Macchine",
+      "difficulty": "Principiante",
+      "movementType": "Trazione",
+      "primaryMuscles": [
+        "Gran Dorsale"
+      ],
+      "secondaryMuscles": [
+        "Bicipite Brachiale",
+        "Grande Rotondo"
+      ],
+      "setup": "Cosce bloccate sotto i rulli, presa prona poco più ampia delle spalle.",
+      "execution": "Trazione della barra verso la parte alta dello sterno inclinando leggermente il busto.",
+      "safetyPoints": [
+        "Non tirare mai la barra dietro la nuca."
+      ],
+      "commonMistakes": [
+        "Oscillazione eccessiva della schiena all'indietro per sfruttare l'inerzia."
+      ]
+    },
+    {
+      "id": "ex-pulley",
+      "name": "Pulley Basso (Seated Cable Row)",
+      "muscleGroupId": "back",
+      "equipment": "Cavi",
+      "difficulty": "Principiante",
+      "movementType": "Trazione",
+      "primaryMuscles": [
+        "Gran Dorsale",
+        "Romboidi",
+        "Trapezio Medio"
+      ],
+      "secondaryMuscles": [
+        "Bicipite Brachiale",
+        "Erettori Spinali"
+      ],
+      "setup": "Piedi saldi sulle pedane, ginocchia leggermente flesse, schiena eretta.",
+      "execution": "Trazione della maniglia verso l'ombelico adducendo le scapole al termine.",
+      "safetyPoints": [
+        "Evitare di curvare la colonna vertebrale in fase di allungamento."
+      ],
+      "commonMistakes": [
+        "Tirare solo di braccia senza addurre le scapole."
+      ]
+    },
+    {
+      "id": "ex-leg-press",
+      "name": "Leg Press 45°",
+      "muscleGroupId": "quadriceps",
+      "equipment": "Macchine",
+      "difficulty": "Principiante",
+      "movementType": "Accosciata",
+      "primaryMuscles": [
+        "Quadricipite Femorale"
+      ],
+      "secondaryMuscles": [
+        "Grande Gluteo",
+        "Ischiocrurali"
+      ],
+      "setup": "Schiena e bacino adesi allo schienale, piedi a larghezza spalle sulla pedana.",
+      "execution": "Sblocco delle sicurezze, discesa fino a 90° di flessione al ginocchio e spinta.",
+      "safetyPoints": [
+        "Non staccare mai l'osso sacro dal sedile in discesa.",
+        "Non bloccare le ginocchia in iperestensione."
+      ],
+      "commonMistakes": [
+        "Far convergere le ginocchia verso l'interno (valgismo dinamico)."
+      ]
+    },
+    {
+      "id": "ex-barbell-squat",
+      "name": "Squat con Bilanciere (Back Squat)",
+      "muscleGroupId": "quadriceps",
+      "equipment": "Pesi Liberi",
+      "difficulty": "Avanzato",
+      "movementType": "Accosciata",
+      "primaryMuscles": [
+        "Quadricipite Femorale",
+        "Grande Gluteo"
+      ],
+      "secondaryMuscles": [
+        "Ischiocrurali",
+        "Adduttori",
+        "Erettori Spinali",
+        "Core"
+      ],
+      "setup": "Bilanciere posizionato sui trapezi, piedi larghezza spalle con punte leggermente aperte.",
+      "execution": "Discesa controllata rompendo contemporaneamente anca e ginocchio fino al parallelo.",
+      "safetyPoints": [
+        "Utilizzare un power rack con barre di sicurezza all'altezza corretta."
+      ],
+      "commonMistakes": [
+        "Talloni che si staccano da terra.",
+        "Perdita della neutralità spinale in buca."
+      ]
+    }
+  ],
+  "pt2WorkoutPlans": [
+    {
+      "id": "pt2-plan-1",
+      "courseSlug": "personal-trainer-2",
+      "title": "Mesociclo Specializzazione Ipertrofia (Upper Focus)",
+      "subtitle": "Programma a blocchi di 6 settimane con progressione di volume RIR 3 → 0",
+      "description": "Progressione avanzata su 4 giorni settimanali (Upper/Lower) con carico e volume autoregolati per l ipertrofia mirata.",
+      "level": "Avanzato",
+      "durationWeeks": "6 settimane",
+      "pdfUrl": "/docs/scheda-pt2-hypertrophy-specialization.pdf",
+      "pdfSize": "2.4 MB"
+    },
+    {
+      "id": "pt2-plan-2",
+      "courseSlug": "personal-trainer-2",
+      "title": "Protocollo Forza Massimale a Onde (Wave Loading)",
+      "subtitle": "Pianificazione di 8 settimane per squat, panca e stacco con cluster set",
+      "description": "Programma basato sulla modulazione neurale mediante onde di carico (75% → 90% 1RM) e recuperi completi.",
+      "level": "Avanzato",
+      "durationWeeks": "8 settimane",
+      "pdfUrl": "/docs/scheda-pt2-wave-loading.pdf",
+      "pdfSize": "2.8 MB"
+    },
+    {
+      "id": "pt2-plan-3",
+      "courseSlug": "personal-trainer-2",
+      "title": "Periodizzazione Coniugata per Personal Trainer",
+      "subtitle": "Rotazione settimanale tra sforzo massimale (ME) e dinamico (DE)",
+      "description": "Adattamento del metodo coniugato per clienti avanzati che mirano alla composizione corporea e all incremento di forza.",
+      "level": "Avanzato",
+      "durationWeeks": "12 settimane",
+      "pdfUrl": "/docs/scheda-pt2-conjugate-periodization.pdf",
+      "pdfSize": "3.1 MB"
+    }
+  ],
+  "pt3Resources": {
+    "templates": [
+      {
+        "id": "pt3-tpl-1",
+        "title": "Modello Valutazione Avanzata Cliente / Atleta",
+        "description": "Protocollo per screening biometrico, F-V profile e test neuromuscolari.",
+        "format": "PDF / Excel",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-2",
+        "title": "Esempio Programmazione Forza e Potenza",
+        "description": "Mesociclo contrast training, cluster set e RFD per atleti d'élite.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-3",
+        "title": "Esempio Mesociclo Ipertrofia Avanzata",
+        "description": "Volume threshold, gestione dello stallo e overreaching pianificato.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-4",
+        "title": "Esempio Periodizzazione a Medio Termine",
+        "description": "Pianificazione semestrale con blocchi di accumulo, trasmutazione e realizzazione.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-5",
+        "title": "Esempio Pianificazione Annuale a Lungo Termine",
+        "description": "Macrociclo annuale con peaking per competizioni e periodi di transizione.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-6",
+        "title": "Foglio di Monitoraggio Fatica e Recupero",
+        "description": "Tracciamento HRV, sonno, soreness muscolare e readiness score giornaliero.",
+        "format": "Excel / PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-7",
+        "title": "Template Tracciamento Prestazioni e RPE / RIR",
+        "description": "Registro per l'autoregolazione millimetrica dei carichi di sessione in sessione.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-8",
+        "title": "Esempio Analisi e Revisione Dati di Allenamento",
+        "description": "Metodologia per revisionare serie storiche di volume e intensità espressa.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-9",
+        "title": "Template Revisione Sessione con il Coach",
+        "description": "Scheda di debriefing tecnico post-allenamento tra head coach e atleta.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-10",
+        "title": "Checklist Controllo Qualità e Miglioramento Continuo",
+        "description": "Standard operativi (SOP) per centri fitness e team di personal trainer.",
+        "format": "PDF",
+        "downloadUrl": ""
+      }
+    ],
+    "caseStudies": [
+      {
+        "id": "pt3-cs-1",
+        "title": "Caso 1: Atleta di Forza Avanzato",
+        "subtitle": "Superamento dello stallo su stacco e squat",
+        "category": "Forza Massimale",
+        "overview": "Programmazione avanzata per atleta con 8 anni di anzianità di allenamento in fase di plateau.",
+        "rationale": "Adozione del metodo coniugato con rotazione settimanale dei massimali e lavoro sui punti deboli.",
+        "keyOutcomes": "+12.5 kg di massimale in 16 settimane con riduzione dell'affaticamento tendineo."
+      },
+      {
+        "id": "pt3-cs-2",
+        "title": "Caso 2: Plateau Ipertrofico Muscolare",
+        "subtitle": "Gestione del volume massimale recuperabile (MRV)",
+        "category": "Ipertrofia",
+        "overview": "Bodybuilder natural in stallo volumetrico sui distretti carenti (dorso e deltoidi laterali).",
+        "rationale": "Mesociclo di specializzazione con frequenza 3x settimanale e volume di mantenimento sul resto del corpo.",
+        "keyOutcomes": "+1.8 cm di circonferenza torace-spalle e risensibilizzazione muscolare."
+      },
+      {
+        "id": "pt3-cs-3",
+        "title": "Caso 3: Sviluppo della Potenza Esplosiva (RFD)",
+        "subtitle": "Conversione della forza massima in velocità per sport di squadra",
+        "category": "Potenza & RFD",
+        "overview": "Preparazione atletica per giocatore professionista di basket.",
+        "rationale": "Pliometria reattiva ad alto impatto unita a contrast training con carichi all'80% e lanci a carico naturale.",
+        "keyOutcomes": "+7.2 cm nel salto verticale (CMJ) in 12 settimane."
+      },
+      {
+        "id": "pt3-cs-4",
+        "title": "Caso 4: Gestione della Fatica e Prevenzione Overtraining",
+        "subtitle": "Riequilibrio del sistema nervoso autonomo in atleta stressato",
+        "category": "Recupero",
+        "overview": "Atleta con calo cronico delle prestazioni e disturbi del sonno dovuti a sovraccarico.",
+        "rationale": "Protocollo di deload attivo progressivo, monitoraggio HRV e riduzione della densità delle sedute.",
+        "keyOutcomes": "Ripristino dei valori basali di HRV in 3 settimane e ritorno alla piena efficienza."
+      },
+      {
+        "id": "pt3-cs-5",
+        "title": "Caso 5: Revisione di un Programma a Lungo Termine",
+        "subtitle": "Adattamento di una pianificazione annuale a seguito di imprevisti",
+        "category": "Periodizzazione",
+        "overview": "Rimodulazione del macrociclo a 4 mesi da una competizione.",
+        "rationale": "Riorganizzazione dei blocchi temporali e mantenimento delle qualità primarie.",
+        "keyOutcomes": "Raggiungimento del picco di forma (peaking) nei tempi prestabiliti."
+      },
+      {
+        "id": "pt3-cs-6",
+        "title": "Caso 6: Comunicazione Complessa con Cliente Esigente",
+        "subtitle": "Risoluzione di conflitti e gestione delle aspettative irrealistiche",
+        "category": "Coaching & Soft Skills",
+        "overview": "Cliente dirigente con poco tempo a disposizione e pretese di risultato non fisiologiche.",
+        "rationale": "Ricalibrazione degli obiettivi SMART, colloquio motivazionale e valorizzazione della costanza.",
+        "keyOutcomes": "Aumento dell'aderenza dal 50% al 92% e rinnovamento del pacchetto annuale."
+      },
+      {
+        "id": "pt3-cs-7",
+        "title": "Caso 7: Supervisione Tecnica da Head Coach",
+        "subtitle": "Valutazione e mentoring di un team di 5 trainer junior",
+        "category": "Leadership & Head Coach",
+        "overview": "Miglioramento degli standard qualitativi in un fitness club di alto profilo.",
+        "rationale": "Introduzione di checklist di conformità, sessioni di peer-review e workshop mensili di biomeccanica.",
+        "keyOutcomes": "Azzeramento dei reclami clienti e aumento del 24% nella fidelizzazione degli iscritti."
+      }
+    ],
+    "professionalDocs": [
+      {
+        "id": "pt3-doc-1",
+        "title": "Esempio Report di Sintesi Valutazione Iniziale",
+        "description": "Dossier completo di anamnesi, test fisici e piano di lavoro iniziale per il cliente.",
+        "format": "PDF",
+        "category": "Documentazione"
+      },
+      {
+        "id": "pt3-doc-2",
+        "title": "Esempio Relazione e Rationale del Programma",
+        "description": "Documento tecnico che giustifica scientificamente la scelta di esercizi e parametri.",
+        "format": "PDF",
+        "category": "Documentazione"
+      },
+      {
+        "id": "pt3-doc-3",
+        "title": "Esempio Revisione Periodica dei Progressi",
+        "description": "Report bimestrale con grafici di trend, circonferenze e progressi di forza.",
+        "format": "PDF",
+        "category": "Documentazione"
+      },
+      {
+        "id": "pt3-doc-4",
+        "title": "Esempio Note del Coach e Tracciamento Sessione",
+        "description": "Modello di diario clinico/sportivo per l'annotazione di feedback soggettivi e dolori.",
+        "format": "PDF",
+        "category": "Documentazione"
+      },
+      {
+        "id": "pt3-doc-5",
+        "title": "Checklist Ufficiale di Controllo Qualità Servizio",
+        "description": "Documento ispettivo per garantire il rispetto degli standard etici e di sicurezza.",
+        "format": "PDF",
+        "category": "Documentazione"
+      }
+    ]
+  }
+}

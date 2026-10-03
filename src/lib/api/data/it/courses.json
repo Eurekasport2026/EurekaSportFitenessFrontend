@@ -1,0 +1,314 @@
+[
+  {
+    "id": "pt-1",
+    "slug": "personal-trainer-1",
+    "title": "Personal Trainer Livello 1",
+    "category": "Personal Trainer",
+    "level": 1,
+    "subtitle": "Diventa un Personal Trainer qualificato. Costruisci competenze reali passo dopo passo.",
+    "description": "Il corso fondamentale per iniziare la professione di Personal Trainer. 12 moduli formativi, risorse pratiche con libreria video attrezzature e piani di allenamento, ed esame finale con diploma riconosciuto.",
+    "longDescription": "Un percorso di studio completo per acquisire tutte le conoscenze teoriche e pratiche fondamentali nel fitness: anatomia funzionale, fisiologia, valutazione iniziale, metodologia dell'allenamento con macchine e pesi liberi, nutrizione di base e sicurezza in palestra. Al termine del percorso e superato l'esame finale, riceverai il Diploma Nazionale Tecnico rilasciato da Libertas (EPS riconosciuto CONI).",
+    "duration": "6 mesi",
+    "mode": "Online + Laboratorio Pratico",
+    "certification": "Diploma Nazionale Libertas (CONI)",
+    "access": "Accesso a vita al materiale didattico",
+    "price": 990,
+    "originalPrice": 1200,
+    "heroImage": "/images/courses/personal-trainer-1.webp",
+    "badgeText": "Livello 1 • Fondamenti & Abilitazione",
+    "facts": [
+      {
+        "icon": "medal",
+        "label": "Durata",
+        "value": "6 mesi"
+      },
+      {
+        "icon": "video",
+        "label": "Modalità",
+        "value": "Online + pratica"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certificazione",
+        "value": "Libertas / CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Accesso",
+        "value": "Materiale didattico a vita"
+      }
+    ],
+    "topics": [
+      "Ruolo e competenze del Junior Personal Trainer",
+      "Anatomia funzionale dell'apparato locomotore",
+      "Fisiologia dell'esercizio e sistemi energetici",
+      "Valutazione iniziale, test e raccolta dati",
+      "Macchine isotoniche, cavi e pesi liberi",
+      "Metodologia del resistance training e parametri di carico",
+      "Allenamento cardiovascolare e metabolico",
+      "Programmazione della scheda di allenamento",
+      "Principi di nutrizione e composizione corporea",
+      "Adattamenti per popolazioni e clienti differenti",
+      "Comunicazione, coaching e fidelizzazione",
+      "Sicurezza in palestra, prevenzione infortuni e primo soccorso"
+    ],
+    "modulesCount": 12,
+    "totalLessonsCount": 36,
+    "hasPractical": true,
+    "hasExam": true,
+    "practicalType": "gym_library",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
+  },
+  {
+    "id": "pt-2",
+    "slug": "personal-trainer-2",
+    "title": "Personal Trainer Livello 2",
+    "category": "Personal Trainer",
+    "level": 2,
+    "subtitle": "Supera le basi. Impara a valutare, programmare e allenare a livello avanzato.",
+    "description": "Il corso avanzato per Personal Trainer. 13 moduli di approfondimento biomeccanico, programmazione avanzata di forza e ipertrofia, periodizzazione complessa, popolazioni speciali e casi studio pratici.",
+    "longDescription": "Il percorso formativo per il professionista che vuole fare il salto di qualità. Approfondisce l'analisi biomeccanica dei movimenti multiarticolari complessi, le metodologie avanzate di ipertrofia e forza (RPE, RIR, velocity based training), la gestione dell'affaticamento sistemico, l'osservazione posturale e la stesura di programmi avanzati su casi studio reali.",
+    "duration": "8 mesi",
+    "mode": "Online + Masterclass Avanzate",
+    "certification": "Diploma Tecnico Avanzato Libertas (CONI)",
+    "access": "Accesso a vita + Aggiornamenti",
+    "price": 1290,
+    "originalPrice": 1550,
+    "heroImage": "/images/courses/personal-trainer-2.webp",
+    "badgeText": "Livello 2 • Specializzazione Avanzata",
+    "facts": [
+      {
+        "icon": "medal",
+        "label": "Durata",
+        "value": "8 mesi"
+      },
+      {
+        "icon": "video",
+        "label": "Modalità",
+        "value": "Online + Masterclass"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certificazione",
+        "value": "Tecnico Avanzato EPS CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Accesso",
+        "value": "Materiale didattico a vita"
+      }
+    ],
+    "topics": [
+      "Anatomia funzionale avanzata e catene cinematiche",
+      "Biomeccanica applicata e analisi del movimento",
+      "Fisiologia degli adattamenti cronici all'allenamento",
+      "Valutazione avanzata del cliente e test funzionali",
+      "Programmazione avanzata per forza e ipertrofia",
+      "Conditioning, resistenza e sistemi energetici avanzati",
+      "Periodizzazione, gestione del carico e del recupero",
+      "Allenamento funzionale e integrazione dei pattern motori",
+      "Osservazione posturale e qualità del movimento",
+      "Adattamenti per popolazioni specifiche e condizioni croniche",
+      "Composizione corporea e nutrizione applicata avanzata",
+      "Coaching avanzato e modifica del comportamento",
+      "Casi studio reali e progettazione schede complesse"
+    ],
+    "modulesCount": 13,
+    "totalLessonsCount": 39,
+    "hasPractical": true,
+    "hasExam": true,
+    "practicalType": "advanced_resources",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
+  },
+  {
+    "id": "pt-3",
+    "slug": "personal-trainer-3",
+    "title": "Personal Trainer Livello 3",
+    "category": "Personal Trainer",
+    "level": 3,
+    "subtitle": "Dirigi, analizza, programma e guida atleti al massimo livello professionale.",
+    "description": "Il percorso di massimo livello per Senior Personal Trainer e Head Coach. 10 moduli di eccellenza, 7 casi studio clinici e sportivi, 5 documenti professionali, project work ed esame finale.",
+    "longDescription": "Progettato per preparare Head Coach, direttori tecnici di centri fitness e preparatori di atleti d'élite. Comprende periodizzazioni annuali e pluriennali, monitoraggio biometrico (HRV, GPS, bar-speed), prevenzione infortuni complessa, leadership, supervisione di team di trainer, etica professionale e discussione di un project work finale davanti alla commissione esaminatrice.",
+    "duration": "10 mesi",
+    "mode": "Online + Tutoring & Project Work",
+    "certification": "Diploma Master Senior Coach EPS CONI",
+    "access": "Accesso illimitato + Mentorship",
+    "price": 1590,
+    "originalPrice": 1890,
+    "heroImage": "/images/courses/personal-trainer-3.webp",
+    "badgeText": "Livello 3 • Master & Head Coach",
+    "facts": [
+      {
+        "icon": "medal",
+        "label": "Durata",
+        "value": "10 mesi"
+      },
+      {
+        "icon": "video",
+        "label": "Modalità",
+        "value": "Online + Tutoring 1-on-1"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certificazione",
+        "value": "Master Senior Coach CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Accesso",
+        "value": "Materiale + Mentorship"
+      }
+    ],
+    "topics": [
+      "Valutazione avanzata dell'atleta e screening di alto livello",
+      "Biomeccanica applicata avanzata e analisi delle leve",
+      "Programmazione della forza massimale e potenza (RFD)",
+      "Ipertrofia avanzata: volume threshold, MEV, MRV",
+      "Periodizzazione a medio e lungo termine (Block, Undulating, Conjugate)",
+      "Monitoraggio, recupero, gestione della fatica e biomarker",
+      "Tecnologia, dati, app e documentazione per clienti top",
+      "Coaching avanzato, comunicazione tecnica e leadership",
+      "Head Coach: supervisione staff e miglioramento della qualità",
+      "Responsabilità professionale, etica, safety e Project Work finale"
+    ],
+    "modulesCount": 10,
+    "totalLessonsCount": 30,
+    "hasPractical": true,
+    "hasExam": true,
+    "practicalType": "case_studies_project",
+    "hasProjectWork": true,
+    "hasPracticalSubmission": false
+  },
+  {
+    "id": "cali-1",
+    "slug": "calisthenics-1",
+    "title": "Calisthenics Livello 1",
+    "category": "Calisthenics",
+    "level": 1,
+    "subtitle": "Teoria, didattica e progressioni del movimento a corpo libero.",
+    "description": "Il corso ufficiale per Coach di Calisthenics Livello 1. 13 moduli con 178 video esercizi ordinati in progressione didattica (Spinta, Trazione, Core, Gambe, Mobilità) ed esame finale abilitante.",
+    "longDescription": "Una guida scientifica e pratica per padroneggiare e insegnare l'allenamento a corpo libero. Dalle nozioni fondamentali di anatomia e biomeccanica applicate alla sbarra, agli anelli e a terra, fino alla progressione completa degli esercizi fondamentali ordinati per livello di difficoltà e propedeuticità. Include l'accesso completo alla videoteca dei 178 esercizi.",
+    "duration": "6 mesi",
+    "mode": "Online + Workshop Pratico",
+    "certification": "Diploma Nazionale Coach Calisthenics Libertas (CONI)",
+    "access": "Accesso a vita con videoteca 178 esercizi",
+    "price": 890,
+    "originalPrice": 1100,
+    "heroImage": "/images/courses/calisthenics-1.webp",
+    "badgeText": "Livello 1 • Coach di Base & Progressioni",
+    "facts": [
+      {
+        "icon": "medal",
+        "label": "Durata",
+        "value": "6 mesi"
+      },
+      {
+        "icon": "video",
+        "label": "Modalità",
+        "value": "Online + Workshop"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certificazione",
+        "value": "Libertas / CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Accesso",
+        "value": "Videoteca 178 video esercizi"
+      }
+    ],
+    "topics": [
+      "Introduzione al Calisthenics e principi della disciplina",
+      "Anatomia funzionale applicata al corpo libero",
+      "Biomeccanica del Calisthenics: leve, bracci di momento e grip",
+      "Metodologia dell'allenamento a corpo libero e parametri di carico",
+      "Fondamentali di Spinta (Push): regressioni, esecuzioni e varianti",
+      "Fondamentali di Trazione (Pull): vertical pull, horizontal pull",
+      "Core, stabilità e controllo del corpo (Hollow, Arch, Plank)",
+      "Arti inferiori a corpo libero: Squat, Pistol prep, Nordic curl",
+      "Mobilità articolare e preparazione dei tendini (polsi, spalle)",
+      "Programmazione dell'allenamento a corpo libero",
+      "Didattica di insegnamento, assistenza e correzione errori",
+      "Sicurezza, prevenzione infortuni e gestione sovraccarichi",
+      "Introduzione alle prime skill: Hollow body, Dead hang, Tuck hold"
+    ],
+    "modulesCount": 13,
+    "totalLessonsCount": 202,
+    "hasPractical": true,
+    "hasExam": true,
+    "practicalType": "skill_library",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
+  },
+  {
+    "id": "cali-2",
+    "slug": "calisthenics-2",
+    "title": "Calisthenics Livello 2",
+    "category": "Calisthenics",
+    "level": 2,
+    "subtitle": "Padronanza completa delle skill: requisiti, regressioni e progressioni avanzate.",
+    "description": "Corso specialistico avanzato di Calisthenics. 20 moduli strutturati per singola abilità (Muscle-Up, Planche, Front Lever, Handstand, HSPU, Dragon Flag, V-Sit, One-Arm Pull-Up) ed esame teorico-pratico.",
+    "longDescription": "Un percorso avanzato dove ogni abilità tecnica ha un modulo dedicato con tutti i prerequisiti di forza e mobilità, le regressioni progressive, le schede propedeutiche, l'analisi degli errori frequenti e le strategie di assistenza e spotting in sicurezza per atleti di livello avanzato.",
+    "duration": "8 mesi",
+    "mode": "Online + Masterclass Skill Avanzate",
+    "certification": "Diploma Tecnico Specialistico Calisthenics CONI",
+    "access": "Accesso illimitato al percorso skill",
+    "price": 1190,
+    "originalPrice": 1450,
+    "heroImage": "/images/courses/calisthenics-2.webp",
+    "badgeText": "Livello 2 • Skill Specialist & Master",
+    "facts": [
+      {
+        "icon": "medal",
+        "label": "Durata",
+        "value": "8 mesi"
+      },
+      {
+        "icon": "video",
+        "label": "Modalità",
+        "value": "Online + Masterclass Skill"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certificazione",
+        "value": "Tecnico Avanzato EPS CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Accesso",
+        "value": "Accesso illimitato al percorso"
+      }
+    ],
+    "topics": [
+      "Anatomia funzionale avanzata applicata alle skill",
+      "Biomeccanica delle skill e controllo del corpo nello spazio",
+      "Valutazione dell'atleta e test dei prerequisiti di forza e mobilità",
+      "Metodologia di allenamento avanzata per le abilità isometriche e dinamiche",
+      "First Pull-Up e consolidamento trazioni alla sbarra",
+      "L-Sit: propedeutiche da terra e alle parallele",
+      "180° Bar Rotation: rotazione dinamica alla sbarra",
+      "Handstand (Verticale): allineamento, spinta scapolare ed equilibrio",
+      "Back Lever: posizionamento spalle, tuck, advanced e full",
+      "Muscle-Up: transizione, esplosività e lavoro con elastici",
+      "Dragon Flag: controllo del tronco ed estensione dell'anca",
+      "360° Bar Rotation / Swing 360",
+      "Handstand Push-Up (HSPU): dalla parete al corpo libero",
+      "Human Flag: forza laterale di spinta e trazione alle spalliere/pali",
+      "Front Lever: attivazione del gran dorsale, tuck, straddle e full",
+      "V-Sit: flessibilità della catena posteriore e compressione addominale",
+      "Dragon 360: combinazione acrobatica di rotazione e stabilità",
+      "Planche: lean, tuck, advanced tuck, straddle e full planche",
+      "One-Arm Pull-Up: progressioni asimmetriche e trazione monobraccio",
+      "Coaching avanzato, insegnamento, spotting e sicurezza nelle skill complesse"
+    ],
+    "modulesCount": 20,
+    "totalLessonsCount": 98,
+    "hasPractical": false,
+    "hasExam": true,
+    "hasProjectWork": false,
+    "hasPracticalSubmission": true
+  }
+]

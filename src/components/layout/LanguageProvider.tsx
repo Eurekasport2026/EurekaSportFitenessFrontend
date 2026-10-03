@@ -3,6 +3,7 @@
 import { createContext, useContext, type ReactNode } from "react";
 import { useLocale, useMessages } from "next-intl";
 import { useRouter, usePathname } from "@/i18n/routing";
+import { english } from "@/lib/translations";
 
 type Language = "it" | "en";
 type LanguageContextValue = {
@@ -21,11 +22,14 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   function setLanguage(nextLanguage: Language) {
     if (nextLanguage === locale) return;
-    router.replace(pathname, { locale: nextLanguage });
+    router.replace(pathname as any, { locale: nextLanguage });
   }
 
   const t = (italian: string) => {
     const safeKey = italian.replaceAll(".", "\u2024");
+    if (locale === "en") {
+      return messages[safeKey] ?? messages[italian] ?? english[safeKey] ?? english[italian] ?? italian;
+    }
     return messages[safeKey] ?? messages[italian] ?? italian;
   };
 

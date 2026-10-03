@@ -22,8 +22,8 @@ export function ContactForm() {
       <label htmlFor="contact-subject"><T>Oggetto</T></label>
       <select id="contact-subject" name="subject" defaultValue="" required>
         <option value="" disabled>{language === "en" ? "Select..." : "Seleziona..."}</option>
-        <option value="academy">{language === "en" ? "Academy courses" : "Corsi Academy"}</option>
-        <option value="training">Eureka! Training</option>
+        <option value="academy">{language === "en" ? "Academy courses" : "Corsi Accademia"}</option>
+        <option value="training">{language === "en" ? "Eureka! Training" : "Eureka! Allenamento"}</option>
         <option value="app">Eureka! Fit</option>
         <option value="other">{language === "en" ? "Other information" : "Altre informazioni"}</option>
       </select>

@@ -1,0 +1,398 @@
+.page {
+  background: #fbfdff;
+  color: #0d1e30;
+  color-scheme: light;
+  min-height: 100vh;
+}
+
+.page > header {
+  background: #050e15;
+  border-bottom: 1px solid #193346;
+}
+
+.main {
+  width: 91%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 1.6em 0 3.5em;
+}
+
+/* Breadcrumbs */
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  margin-bottom: 1.2em;
+  color: #7b8ca0;
+  font-size: 0.75rem;
+}
+
+.breadcrumb a {
+  color: #0066ff;
+  text-decoration: none;
+}
+
+.breadcrumb a:hover {
+  text-decoration: underline;
+}
+
+/* Header & Hero Progress Card */
+.courseHeader {
+  margin-bottom: 2em;
+}
+
+.courseBadge {
+  display: inline-block;
+  padding: 0.25em 0.75em;
+  border-radius: 9999px;
+  background: #ebf3ff;
+  color: #0066ff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75em;
+  border: 1px solid #bfdbfe;
+}
+
+.courseTitle {
+  margin: 0 0 0.35em;
+  color: #0d2345;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 800;
+}
+
+.courseSubtitle {
+  margin: 0 0 1.2em;
+  color: #52667b;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  max-width: 55em;
+}
+
+/* Overview Card */
+.overviewCard {
+  background: #ffffff;
+  border: 1px solid #e4eaf0;
+  border-radius: 0.75em;
+  padding: 1.5em;
+  box-shadow: 0 4px 12px rgba(18, 51, 74, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+  margin-bottom: 2.5em;
+}
+
+.overviewTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.progressStats {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25em;
+}
+
+.progressLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.progressValue {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: #0d2345;
+}
+
+.overviewAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.75em 1.5em;
+  background: #0066ff;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 0.5em;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(0, 102, 255, 0.25);
+  transition: background 180ms ease, transform 180ms ease;
+}
+
+.overviewAction:hover {
+  background: #0052cc;
+  transform: translateY(-1px);
+}
+
+.overviewAction svg {
+  width: 1.1em;
+  height: 1.1em;
+}
+
+/* Progress Bar Component */
+.progressBarTrack {
+  width: 100%;
+  height: 0.65em;
+  background: #e2e8f0;
+  border-radius: 9999px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(90deg, #0066ff 0%, #00b4d8 100%);
+  border-radius: 9999px;
+  transition: width 400ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.progressBarCompleted {
+  background: linear-gradient(90deg, #10b981 0%, #059669 100%);
+}
+
+.progressMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #64748b;
+  margin-top: 0.35em;
+}
+
+/* Status Badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.25em 0.65em;
+  border-radius: 0.35em;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+}
+
+.badgeNotStarted {
+  background: #f1f5f9;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.badgeInProgress {
+  background: #ebf3ff;
+  color: #0066ff;
+  border: 1px solid #bfdbfe;
+}
+
+.badgeCompleted {
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #a7f3d0;
+}
+
+/* Modules Section */
+.sectionTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0d2345;
+  margin: 0 0 1em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.modulesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25em;
+  margin-bottom: 2.5em;
+}
+
+/* Module Card */
+.moduleCard {
+  background: #ffffff;
+  border: 1px solid #e4eaf0;
+  border-radius: 0.65em;
+  padding: 1.25em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 2px 4px rgba(18, 51, 74, 0.04);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  position: relative;
+}
+
+.moduleCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(18, 51, 74, 0.08);
+  border-color: #cbd5e1;
+}
+
+.moduleCardActive {
+  border-color: #0066ff;
+  box-shadow: 0 4px 14px rgba(0, 102, 255, 0.12);
+}
+
+.moduleCardCompleted {
+  border-color: #a7f3d0;
+}
+
+.moduleHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75em;
+  margin-bottom: 0.65em;
+}
+
+.moduleNumber {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: #0066ff;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.moduleTitle {
+  margin: 0 0 0.35em;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #0d2345;
+  line-height: 1.35;
+}
+
+.moduleSubtitle {
+  margin: 0 0 0.75em;
+  font-size: 0.78rem;
+  color: #64748b;
+  line-height: 1.4;
+}
+
+.moduleDescription {
+  font-size: 0.75rem;
+  color: #475569;
+  line-height: 1.45;
+  margin: 0 0 1em;
+  flex-grow: 1;
+}
+
+.moduleMeta {
+  display: flex;
+  align-items: center;
+  gap: 1em;
+  font-size: 0.72rem;
+  color: #64748b;
+  padding-top: 0.75em;
+  border-top: 1px solid #f1f5f9;
+  margin-bottom: 0.85em;
+}
+
+.moduleMetaItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+}
+
+.moduleAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.6em 0.9em;
+  border-radius: 0.45em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  background: #f8fafc;
+  color: #0066ff;
+  border: 1px solid #e2e8f0;
+  transition: background 180ms ease, color 180ms ease;
+}
+
+.moduleAction:hover {
+  background: #0066ff;
+  color: #ffffff;
+  border-color: #0066ff;
+}
+
+.moduleActionCompleted {
+  background: #ecfdf5;
+  color: #059669;
+  border-color: #a7f3d0;
+}
+
+.moduleActionCompleted:hover {
+  background: #059669;
+  color: #ffffff;
+}
+
+/* Practical / Exam Special Cards */
+.specialCard {
+  background: linear-gradient(135deg, #091e36 0%, #0d2a4d 100%);
+  color: #ffffff;
+  border-radius: 0.75em;
+  padding: 1.75em;
+  margin-bottom: 2em;
+  box-shadow: 0 6px 20px rgba(9, 30, 54, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+
+.specialCardTitle {
+  margin: 0;
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: #ffffff;
+}
+
+.specialCardDesc {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #cbd5e1;
+  line-height: 1.5;
+  max-width: 50em;
+}
+
+.specialCardAction {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.75em 1.4em;
+  background: #10b981;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.85rem;
+  border-radius: 0.5em;
+  text-decoration: none;
+  box-shadow: 0 3px 10px rgba(16, 185, 129, 0.3);
+  transition: background 180ms ease;
+}
+
+.specialCardAction:hover {
+  background: #059669;
+}
+
+@media (max-width: 768px) {
+  .courseTitle {
+    font-size: 1.6rem;
+  }
+  .overviewTop {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .overviewAction {
+    width: 100%;
+    justify-content: center;
+  }
+  .modulesGrid {
+    grid-template-columns: 1fr;
+  }
+}

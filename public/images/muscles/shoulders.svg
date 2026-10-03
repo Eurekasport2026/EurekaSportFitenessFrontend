@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 240" fill="none">
+  
+  <defs>
+    <linearGradient id="blueGlow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#38bdf8" />
+      <stop offset="60%" stop-color="#0066ff" />
+      <stop offset="100%" stop-color="#1d4ed8" />
+    </linearGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#cbd5e1" />
+      <stop offset="100%" stop-color="#94a3b8" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <rect width="320" height="240" rx="12" fill="#f8fafc" />
+  <!-- Upper Torso & Arms Silhouette -->
+  <path d="M 160 35 Q 135 38 120 52 L 95 62 L 60 82 L 48 135 L 72 145 L 85 105 L 98 125 L 110 220 L 210 220 L 222 125 L 235 105 L 248 145 L 272 135 L 260 82 L 225 62 L 200 52 Q 185 38 160 35 Z" fill="#e2e8f0" stroke="#cbd5e1" stroke-width="2" />
+  <!-- Neck / Chest Lines -->
+  <path d="M 160 62 L 160 130" stroke="#cbd5e1" stroke-width="2" stroke-dasharray="2 2" />
+  <path d="M 125 62 Q 140 68 160 68 Q 180 68 195 62" stroke="#94a3b8" stroke-width="2" fill="none" />
+  <!-- Left Deltoid (Anterior / Lateral / Posterior) -->
+  <path d="M 98 62 Q 70 70 56 88 Q 48 110 55 130 Q 72 128 85 105 Q 96 85 98 62 Z" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <path d="M 72 75 Q 65 95 66 115" stroke="#ffffff" stroke-width="1.5" opacity="0.6" stroke-linecap="round" />
+  <path d="M 85 75 Q 80 92 78 110" stroke="#ffffff" stroke-width="1.5" opacity="0.6" stroke-linecap="round" />
+  <!-- Right Deltoid -->
+  <path d="M 222 62 Q 250 70 264 88 Q 272 110 265 130 Q 248 128 235 105 Q 224 85 222 62 Z" fill="url(#blueGlow)" filter="url(#glow)" opacity="0.95" />
+  <path d="M 248 75 Q 255 95 254 115" stroke="#ffffff" stroke-width="1.5" opacity="0.6" stroke-linecap="round" />
+  <path d="M 235 75 Q 240 92 242 110" stroke="#ffffff" stroke-width="1.5" opacity="0.6" stroke-linecap="round" />
+  <!-- Pectoral outlines for reference -->
+  <path d="M 125 78 Q 140 80 156 80 M 195 78 Q 180 80 164 80" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M 105 110 Q 130 115 156 108 M 215 110 Q 190 115 164 108" stroke="#94a3b8" stroke-width="1.5" stroke-linecap="round" />
+  <text x="160" y="218" text-anchor="middle" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#0369a1" letter-spacing="1">ANTERIOR • LATERAL • POSTERIOR DELTOIDS</text>
+</svg>

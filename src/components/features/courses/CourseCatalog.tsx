@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
-import { academyCourses } from "@/components/features/marketing/content";
+import { getAllCourses } from "@/lib/api/courses";
 import { T, useLanguage } from "@/components/layout/LanguageProvider";
 import { cn } from "@/lib/utils";
 import styles from "./courses.module.css";
@@ -12,17 +12,47 @@ import styles from "./courses.module.css";
 const filters = ["Tutti", "Fitness", "Acquatici", "Ginnastica", "Specializzati"] as const;
 type CourseFilter = typeof filters[number];
 
-const courses = [
-  ...academyCourses.map((course) => ({
-    ...course,
-    categories: course.tile === 2 || course.tile === 3 ? ["Acquatici"] : course.tile === 4 ? ["Ginnastica"] : course.tile === 1 ? ["Fitness", "Specializzati"] : ["Fitness"],
-  })),
-  { title: "Functional Training", description: "Allenamento funzionale per forza e movimento", imageAlt: "Atleta durante un allenamento funzionale in palestra", tile: 11, categories: ["Fitness", "Specializzati"] },
+const extraCourses = [
+  { title: "Istruttore Nuoto", description: "Formazione completa per il mondo acquatico", imageAlt: "Nuotatore con cuffia e occhialini in piscina", imageSrc: "/images/courses/swimming-instructor.webp", position: "center 25%", categories: ["Acquatici"] },
+  { title: "Aquagym e Hydrobike", description: "Specializzati nel fitness in acqua", imageAlt: "Allenamento di aquagym in piscina", imageSrc: "/images/courses/aquagym.webp", position: "center top", categories: ["Acquatici"] },
+  { title: "Ginnastica", description: "Tecnica, didattica e programmazione", imageAlt: "Ginnasta impegnata nello stretching a terra", imageSrc: "/images/courses/ginnastica.webp", position: "center center", categories: ["Ginnastica"] },
+  { title: "Allenamento Funzionale", description: "Allenamento funzionale per forza e movimento", imageAlt: "Atleta durante un allenamento funzionale in palestra", imageSrc: "/images/courses/functional-training.webp", position: "center top", categories: ["Fitness", "Specializzati"] },
 ];
 
 export function CourseCatalog() {
   const [active, setActive] = useState<CourseFilter>("Tutti");
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
+
+  const courses = useMemo(() => {
+    const apiCourses = getAllCourses(language);
+    const courseImageMap: Record<string, string> = {
+      "personal-trainer-1": "/images/courses/personal-trainer-1.webp",
+      "personal-trainer-2": "/images/courses/personal-trainer-2.webp",
+      "personal-trainer-3": "/images/courses/personal-trainer-3.webp",
+      "calisthenics-1": "/images/courses/calisthenics-1.webp",
+      "calisthenics-2": "/images/courses/calisthenics-2.webp",
+    };
+
+    const coursePositionMap: Record<string, string> = {
+      "personal-trainer-1": "center top",
+      "personal-trainer-2": "center top",
+      "personal-trainer-3": "center top",
+      "calisthenics-1": "center top",
+      "calisthenics-2": "center top",
+    };
+
+    const catalogItems = apiCourses.map((c) => ({
+      title: c.title,
+      description: c.subtitle || c.description,
+      imageAlt: c.title,
+      imageSrc: courseImageMap[c.slug] || "/images/courses/personal-trainer-1.webp",
+      position: coursePositionMap[c.slug] || "center top",
+      slug: c.slug,
+      categories: ["Fitness", "Specializzati"] as string[],
+    }));
+
+    return [...catalogItems, ...extraCourses];
+  }, [language]);
   const filtered = courses.filter((course) => active === "Tutti" || course.categories.includes(active));
 
   return (
@@ -30,22 +60,76 @@ export function CourseCatalog() {
       <div className={styles.filters} role="group" aria-label={language === "en" ? "Filter courses" : "Filtra i corsi"}>
         {filters.map((filter) => <button key={filter} type="button" className={cn(styles.filter, active === filter && styles.filterActive)} aria-pressed={active === filter} onClick={() => setActive(filter)}><T>{filter}</T></button>)}
       </div>
-      <p className={styles.visuallyHidden} role="status">{language === "en" ? `${filtered.length} courses in the ${active} category` : `${filtered.length} corsi disponibili nella categoria ${active}`}</p>
+      <p className={styles.visuallyHidden} role="status">{language === "en" ? `${filtered.length} courses in the ${t(active)} category` : `${filtered.length} corsi disponibili nella categoria ${active}`}</p>
       <div className={styles.grid}>
-        {filtered.map((course) => <article className={styles.card} key={course.title}>
-          <div
-            className={styles.photo}
-            role="img"
-            aria-label={course.imageAlt}
-            style={course.tile === 11 ? { backgroundImage: "url('/images/eureka-functional-training.webp')", backgroundSize: "cover", backgroundPosition: "center" } : { backgroundPosition: `${course.tile % 4 * 100 / 3}% ${7.54 + Math.floor(course.tile / 4) * 42.46}%` }}
-          />
-          <div className={styles.cardBody}>
-            <h2><T>{course.title}</T></h2>
-            {course.title === "Personal Trainer" ?
-              <Link href="/academy/corsi/personal-trainer" className={styles.cardLink}><T>Scopri</T> <HomeIcon name="arrow" /></Link> :
-              <HomeAction kind="academy" title={course.title} className={styles.cardLink} label={`Scopri il corso ${course.title}`}><T>Scopri</T> <HomeIcon name="arrow" /></HomeAction>}
-          </div>
-        </article>)}
+        {filtered.map((course) => {
+          const hasSlug = "slug" in course && Boolean(course.slug);
+          const isLegacyPt = course.title === "Personal Trainer";
+          const targetHref = hasSlug
+            ? `/academy/corsi/${course.slug}`
+            : isLegacyPt
+            ? "/academy/corsi/personal-trainer"
+            : null;
+
+          const cardContent = (
+            <>
+              <div
+                className={styles.photo}
+                role="img"
+                aria-label={t(course.imageAlt)}
+                style={{
+                  backgroundImage: `url('${course.imageSrc}')`,
+                  backgroundSize: "cover",
+                  backgroundPosition:
+                    "position" in course && course.position
+                      ? course.position
+                      : "center top",
+                }}
+              />
+              <div className={styles.cardBody}>
+                <h2>
+                  <T>{course.title}</T>
+                </h2>
+                <span className={styles.cardLink}>
+                  <T>Scopri</T> <HomeIcon name="arrow" />
+                </span>
+              </div>
+            </>
+          );
+
+          if (targetHref) {
+            return (
+              <Link
+                key={course.title}
+                href={targetHref as any}
+                className={styles.card}
+                aria-label={
+                  language === "en"
+                    ? `Explore the ${t(course.title)} course`
+                    : `Scopri il corso ${course.title}`
+                }
+              >
+                {cardContent}
+              </Link>
+            );
+          }
+
+          return (
+            <HomeAction
+              key={course.title}
+              kind="academy"
+              title={course.title}
+              className={styles.card}
+              label={
+                language === "en"
+                  ? `Discover the ${t(course.title)} course`
+                  : `Scopri il corso ${course.title}`
+              }
+            >
+              {cardContent}
+            </HomeAction>
+          );
+        })}
       </div>
     </>
   );

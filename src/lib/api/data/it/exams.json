@@ -1,0 +1,1112 @@
+{
+  "personal-trainer-1": {
+    "id": "exam-pt-1",
+    "courseSlug": "personal-trainer-1",
+    "title": "Personal Trainer Livello 1 – Esame Finale di Abilitazione",
+    "description": "30 domande a risposta Vero/Falso a copertura dell'intero percorso formativo di 12 moduli. Punteggio minimo per superare l'esame: 80% (almeno 24 risposte esatte su 30).",
+    "questionsCount": 30,
+    "passingScorePercent": 80,
+    "timeLimitMinutes": 45,
+    "certificateBody": "Libertas – Ente di Promozione Sportiva riconosciuto dal CONI e dal Ministero del Lavoro e delle Politiche Sociali",
+    "questions": [
+      {
+        "id": "pt1-q1",
+        "number": 1,
+        "question": "Il Personal Trainer deve definire gli obiettivi del cliente prima di costruire un programma di allenamento.",
+        "correctAnswer": true,
+        "explanation": "L'anamnesi e la definizione degli obiettivi SMART sono il primo passo imprescindibile della programmazione."
+      },
+      {
+        "id": "pt1-q2",
+        "number": 2,
+        "question": "Un Personal Trainer può formulare diagnosi mediche o prescrivere terapie a un cliente.",
+        "correctAnswer": false,
+        "explanation": "La diagnosi medica e la terapia sono di esclusiva competenza medica e sanitaria."
+      },
+      {
+        "id": "pt1-q3",
+        "number": 3,
+        "question": "Il cingolo scapolare gioca un ruolo fondamentale in molti movimenti di spinta e trazione.",
+        "correctAnswer": true,
+        "explanation": "La stabilità e il ritmo scapolo-omerale determinano la corretta esecuzione di spinte e trazioni."
+      },
+      {
+        "id": "pt1-q4",
+        "number": 4,
+        "question": "Anca, ginocchio e caviglia contribuiscono congiuntamente al movimento degli arti inferiori.",
+        "correctAnswer": true,
+        "explanation": "La triplice estensione coordina anca, ginocchio e caviglia nella deambulazione e negli esercizi multiarticolari."
+      },
+      {
+        "id": "pt1-q5",
+        "number": 5,
+        "question": "Il corpo umano utilizza differenti sistemi energetici in base al tipo e all'intensità dell'esercizio.",
+        "correctAnswer": true,
+        "explanation": "I sistemi anaerobico alattacido, anaerobico lattacido e aerobico intervengono con quote percentuali variabili."
+      },
+      {
+        "id": "pt1-q6",
+        "number": 6,
+        "question": "Il recupero fa parte integrante del processo di adattamento e supercompensazione all'allenamento.",
+        "correctAnswer": true,
+        "explanation": "L'adattamento biologico e la supercompensazione avvengono durante la fase di riposo post-stimolo."
+      },
+      {
+        "id": "pt1-q7",
+        "number": 7,
+        "question": "La valutazione iniziale aiuta a identificare il livello di partenza appropriato per il cliente.",
+        "correctAnswer": true,
+        "explanation": "Permette di stabilire carichi, volumi e complessità motoria adatti al soggetto."
+      },
+      {
+        "id": "pt1-q8",
+        "number": 8,
+        "question": "Obiettivi, esperienza pregressa e disponibilità settimanale del cliente sono informazioni utili per la pianificazione.",
+        "correctAnswer": true,
+        "explanation": "Costituiscono i parametri chiave per calibrare frequenza e volume del programma."
+      },
+      {
+        "id": "pt1-q9",
+        "number": 9,
+        "question": "La Chest Press è un esempio di macchina isotonica per il resistance training.",
+        "correctAnswer": true,
+        "explanation": "È una macchina a carico guidato deputata all'allenamento dei muscoli di spinta orizzontale."
+      },
+      {
+        "id": "pt1-q10",
+        "number": 10,
+        "question": "La regolazione iniziale della macchina non è importante se il carico sollevato è leggero.",
+        "correctAnswer": false,
+        "explanation": "Una regolazione errata crea stress torsionale sulle articolazioni a prescindere dal carico."
+      },
+      {
+        "id": "pt1-q11",
+        "number": 11,
+        "question": "Il volume di allenamento è determinato dal numero di serie e ripetizioni eseguite.",
+        "correctAnswer": true,
+        "explanation": "Volume = serie × ripetizioni (spesso moltiplicato per il carico sollevato)."
+      },
+      {
+        "id": "pt1-q12",
+        "number": 12,
+        "question": "Il parametro RIR indica quante ripetizioni una persona potrebbe ancora compiere prima del cedimento.",
+        "correctAnswer": true,
+        "explanation": "RIR (Repetitions in Reserve) quantifica la vicinanza al cedimento muscolare concentrico."
+      },
+      {
+        "id": "pt1-q13",
+        "number": 13,
+        "question": "Il riscaldamento (warm-up) prepara il cliente all'impegno degli esercizi successivi.",
+        "correctAnswer": true,
+        "explanation": "Aumenta la temperatura corporea, la vascolarizzazione e la conducibilità neuromuscolare."
+      },
+      {
+        "id": "pt1-q14",
+        "number": 14,
+        "question": "L'allenamento cardiovascolare può essere eseguito con tapis roulant, cyclette, ellittica o vogatore.",
+        "correctAnswer": true,
+        "explanation": "Tutti questi ergometri consentono un lavoro aerobico continuato o a intervalli."
+      },
+      {
+        "id": "pt1-q15",
+        "number": 15,
+        "question": "L'intensità e la durata del lavoro cardio devono rimanere esattamente identiche nel tempo.",
+        "correctAnswer": false,
+        "explanation": "Il principio del sovraccarico progressivo richiede variazioni e progressioni programmate."
+      },
+      {
+        "id": "pt1-q16",
+        "number": 16,
+        "question": "Un programma Full Body allena diversi gruppi muscolari principali nella stessa seduta.",
+        "correctAnswer": true,
+        "explanation": "La routine Full Body stimola tutto il corpo in ciascuna sessione settimanale."
+      },
+      {
+        "id": "pt1-q17",
+        "number": 17,
+        "question": "Il numero di sedute settimanali deve essere considerato quando si crea la scheda di un cliente.",
+        "correctAnswer": true,
+        "explanation": "Determina la suddivisione del volume e la scelta dello split ottimale."
+      },
+      {
+        "id": "pt1-q18",
+        "number": 18,
+        "question": "Un principiante assoluto dovrebbe sempre utilizzare lo split di allenamento più complesso disponibile.",
+        "correctAnswer": false,
+        "explanation": "I principianti beneficiano maggiormente di frequenze multi-settimanali con schemi motori semplici."
+      },
+      {
+        "id": "pt1-q19",
+        "number": 19,
+        "question": "Il bilancio energetico è uno dei concetti base correlati alle variazioni di peso corporeo.",
+        "correctAnswer": true,
+        "explanation": "Le calorie introdotte rispetto a quelle consumate determinano deficit, pareggio o surplus energetico."
+      },
+      {
+        "id": "pt1-q20",
+        "number": 20,
+        "question": "Un Personal Trainer può prescrivere diete terapeutiche personalizzate ai propri clienti.",
+        "correctAnswer": false,
+        "explanation": "La prescrizione di diete è riservata per legge a Biologi Nutrizionisti, Dietisti e Medici."
+      },
+      {
+        "id": "pt1-q21",
+        "number": 21,
+        "question": "L'idratazione è un fattore rilevante per l'esercizio e la performance fisica generale.",
+        "correctAnswer": true,
+        "explanation": "Una perdita idrica superiore al 2% compromette significativamente le prestazioni fisiche e cognitive."
+      },
+      {
+        "id": "pt1-q22",
+        "number": 22,
+        "question": "L'allenamento può essere adattato in base all'età, all'esperienza e al livello di fitness del cliente.",
+        "correctAnswer": true,
+        "explanation": "Il principio di individualizzazione dell'allenamento è un pilastro metodologico."
+      },
+      {
+        "id": "pt1-q23",
+        "number": 23,
+        "question": "Segnali di allarme durante l'esercizio richiedono l'interruzione della seduta e l'invio a un medico.",
+        "correctAnswer": true,
+        "explanation": "Dolore toracico, vertigini o dispnea acuta impongono l'interruzione immediata."
+      },
+      {
+        "id": "pt1-q24",
+        "number": 24,
+        "question": "Il medesimo programma di allenamento è ideale per qualsiasi cliente, a prescindere da capacità ed esperienza.",
+        "correctAnswer": false,
+        "explanation": "Ogni soggetto necessita di uno stimolo personalizzato in base alla propria anamnesi."
+      },
+      {
+        "id": "pt1-q25",
+        "number": 25,
+        "question": "Una comunicazione chiara e un feedback tempestivo aiutano il cliente a comprendere l'esercizio.",
+        "correctAnswer": true,
+        "explanation": "Il feedback verbale e cinestesico accelera l'apprendimento motorio."
+      },
+      {
+        "id": "pt1-q26",
+        "number": 26,
+        "question": "La motivazione e l'aderenza del cliente fanno parte integrante del processo di coaching.",
+        "correctAnswer": true,
+        "explanation": "Un programma privo di aderenza non produrrà alcun risultato a lungo termine."
+      },
+      {
+        "id": "pt1-q27",
+        "number": 27,
+        "question": "Il controllo dell'area di allenamento e dell'attrezzatura fa parte della sicurezza in palestra.",
+        "correctAnswer": true,
+        "explanation": "Verificare l'integrità di cavi, collari di sicurezza e pavimentazione previene infortuni."
+      },
+      {
+        "id": "pt1-q28",
+        "number": 28,
+        "question": "L'esercizio deve proseguire anche se il cliente avverte un dolore improvviso o forte disagio articolare.",
+        "correctAnswer": false,
+        "explanation": "Il dolore acuto è un segnale di allarme biologico che impone l'arresto immediato del gesto."
+      },
+      {
+        "id": "pt1-q29",
+        "number": 29,
+        "question": "Lo spotting può essere impiegato negli esercizi appropriati per aumentare la sicurezza nel resistance training.",
+        "correctAnswer": true,
+        "explanation": "L'assistenza manuale protegge l'atleta nelle alzate critiche come panca o squat."
+      },
+      {
+        "id": "pt1-q30",
+        "number": 30,
+        "question": "Un bravo Personal Trainer monitora costantemente i progressi e corregge il programma se necessario.",
+        "correctAnswer": true,
+        "explanation": "L'allenamento è un processo dinamico basato sul monitoraggio continuo dei risultati."
+      }
+    ]
+  },
+  "personal-trainer-2": {
+    "id": "exam-pt-2",
+    "courseSlug": "personal-trainer-2",
+    "title": "Personal Trainer Livello 2 – Esame Finale Tecnico Avanzato",
+    "description": "30 domande a risposta Vero/Falso su biomeccanica avanzata, periodizzazione complessa, fisiologia dell'ipertrofia e casi studio. Punteggio minimo: 80% (24/30).",
+    "questionsCount": 30,
+    "passingScorePercent": 80,
+    "timeLimitMinutes": 50,
+    "certificateBody": "Libertas – Settore Nazionale Formazione Tecnica Avanzata CONI",
+    "questions": [
+      {
+        "id": "pt2-q1",
+        "number": 1,
+        "question": "Nei movimenti complessi, molteplici articolazioni e gruppi muscolari agiscono in sinergia.",
+        "correctAnswer": true,
+        "explanation": "I pattern multiarticolari richiedono cooperazione tra muscoli agonisti, antagonisti e stabilizzatori."
+      },
+      {
+        "id": "pt2-q2",
+        "number": 2,
+        "question": "I muscoli stabilizzatori non hanno alcun ruolo nel controllo della posizione articolare.",
+        "correctAnswer": false,
+        "explanation": "Gli stabilizzatori fissano l'articolazione permettendo ai motori primari di esprimere forza efficiente."
+      },
+      {
+        "id": "pt2-q3",
+        "number": 3,
+        "question": "Modificare il braccio di momento altera la richiesta meccanica a carico dell'articolazione.",
+        "correctAnswer": true,
+        "explanation": "La coppia (torque) articolare è direttamente proporzionale alla lunghezza del braccio di momento."
+      },
+      {
+        "id": "pt2-q4",
+        "number": 4,
+        "question": "Passo, larghezza impugnatura, ROM e scelta dell'attrezzo influenzano la meccanica dell'esercizio.",
+        "correctAnswer": true,
+        "explanation": "Ciascuna variazione geometrica ridistribuisce il carico sui diversi fasci muscolari."
+      },
+      {
+        "id": "pt2-q5",
+        "number": 5,
+        "question": "Lo stesso esercizio rappresenta sempre la scelta migliore per qualsiasi obiettivo di allenamento.",
+        "correctAnswer": false,
+        "explanation": "La specificità dell'adattamento richiede la selezione di esercizi adatti al target prestazionale."
+      },
+      {
+        "id": "pt2-q6",
+        "number": 6,
+        "question": "Gli adattamenti neuromuscolari contribuiscono ai miglioramenti iniziali della forza.",
+        "correctAnswer": true,
+        "explanation": "Reclutamento, frequenza di scarica e sincronizzazione delle unità motorie aumentano la forza prima dell'ipertrofia."
+      },
+      {
+        "id": "pt2-q7",
+        "number": 7,
+        "question": "La fatica centrale e la fatica periferica sono esattamente lo stesso fenomeno biologico.",
+        "correctAnswer": false,
+        "explanation": "La fatica centrale risiede nel SNC, mentre la periferica interessa la giunzione neuromuscolare e il muscolo."
+      },
+      {
+        "id": "pt2-q8",
+        "number": 8,
+        "question": "Il detraining può portare a una riduzione degli adattamenti precedentemente sviluppati.",
+        "correctAnswer": true,
+        "explanation": "La reversibilità biologica comporta la progressiva regressione delle capacità fisiche non stimolate."
+      },
+      {
+        "id": "pt2-q9",
+        "number": 9,
+        "question": "Un colloquio iniziale strutturato aiuta a chiarire gli obiettivi e il contesto di allenamento del cliente.",
+        "correctAnswer": true,
+        "explanation": "Permette di mappare preferenze, vincoli orari e barriere psicologiche del cliente."
+      },
+      {
+        "id": "pt2-q10",
+        "number": 10,
+        "question": "La valutazione avanzata del cliente include l'osservazione dei pattern di squat, hinge, push, pull, lunge e carry.",
+        "correctAnswer": true,
+        "explanation": "I 6 pattern motori fondamentali rivelano asimmetrie e limitazioni funzionali dinamiche."
+      },
+      {
+        "id": "pt2-q11",
+        "number": 11,
+        "question": "Un Personal Trainer avanzato deve interpretare i dati dei test come una diagnosi medica formale.",
+        "correctAnswer": false,
+        "explanation": "I test motori del trainer hanno finalità di programmazione sportiva, non diagnostica medica."
+      },
+      {
+        "id": "pt2-q12",
+        "number": 12,
+        "question": "RPE e RIR possono essere utilizzati per autoregolare l'intensità di allenamento in tempo reale.",
+        "correctAnswer": true,
+        "explanation": "Consentono di adattare il carico giornaliero alle fluttuazioni fisiologiche di forza e prontezza."
+      },
+      {
+        "id": "pt2-q13",
+        "number": 13,
+        "question": "Volume, intensità, frequenza e vicinanza al cedimento influenzano la programmazione di forza e ipertrofia.",
+        "correctAnswer": true,
+        "explanation": "Rappresentano le variabili cardine per dosare lo stress adattivo muscolare."
+      },
+      {
+        "id": "pt2-q14",
+        "number": 14,
+        "question": "Il metodo della doppia progressione può prevedere l'aumento delle ripetizioni prima di aumentare il carico.",
+        "correctAnswer": true,
+        "explanation": "Si completa l'intervallo di ripetizioni target con il carico assegnato prima di incrementare i kg."
+      },
+      {
+        "id": "pt2-q15",
+        "number": 15,
+        "question": "Le tecniche di intensità avanzate vanno usate in ogni seduta a prescindere dal recupero del cliente.",
+        "correctAnswer": false,
+        "explanation": "Un abuso indiscriminato porta a sovraccarico sistemico e stallo neuromuscolare."
+      },
+      {
+        "id": "pt2-q16",
+        "number": 16,
+        "question": "Metodi continui e ad intervalli possono essere entrambi usati nel conditioning cardiovascolare.",
+        "correctAnswer": true,
+        "explanation": "Entrambi stimolano adattamenti centrali (gittata cardiaca) e periferici (densità mitocondriale)."
+      },
+      {
+        "id": "pt2-q17",
+        "number": 17,
+        "question": "Allenamento di forza e di resistenza interagiscono, pertanto recupero e orari vanno pianificati attentamente.",
+        "correctAnswer": true,
+        "explanation": "Il phenomenon dell'interference effect (AMPK vs mTOR) richiede gestione attenta del timing."
+      },
+      {
+        "id": "pt2-q18",
+        "number": 18,
+        "question": "Un microciclo è generalmente un periodo di pianificazione breve (tipicamente una settimana).",
+        "correctAnswer": true,
+        "explanation": "Rappresenta l'unità temporale operativa di base all'interno del mesociclo."
+      },
+      {
+        "id": "pt2-q19",
+        "number": 19,
+        "question": "Una settimana di scarico (deload) ha l'obiettivo di aumentare deliberatamente la fatica al massimo.",
+        "correctAnswer": false,
+        "explanation": "Il deload serve a dissipare la fatica accumulata permettendo l'espressione del fitness (Fitness-Fatigue Model)."
+      },
+      {
+        "id": "pt2-q20",
+        "number": 20,
+        "question": "Periodizzazione lineare, ondulata (DUP) e a blocchi sono modi differenti di organizzare l'allenamento.",
+        "correctAnswer": true,
+        "explanation": "Ciascun modello risponde a esigenze specifiche di atleti intermedi o avanzati."
+      },
+      {
+        "id": "pt2-q21",
+        "number": 21,
+        "question": "L'allenamento del core anti-rotazione mira a resistere a movimenti torsionali indesiderati.",
+        "correctAnswer": true,
+        "explanation": "Esercizi come il Pallof Press insegnano a trasmettere forza e proteggere il rachide lombare."
+      },
+      {
+        "id": "pt2-q22",
+        "number": 22,
+        "question": "Esercizi unilaterali e multiplanari possono essere inclusi nell'allenamento funzionale.",
+        "correctAnswer": true,
+        "explanation": "Migliorano la stabilità mono-podalica e colmano gli squilibri di forza laterale."
+      },
+      {
+        "id": "pt2-q23",
+        "number": 23,
+        "question": "L'osservazione posturale del trainer deve essere trattata come visita diagnostica ortopedica.",
+        "correctAnswer": false,
+        "explanation": "È un'osservazione chinesiologica atta alla correzione motoria in palestra."
+      },
+      {
+        "id": "pt2-q24",
+        "number": 24,
+        "question": "Mobilità, stabilità e controllo motorio influenzano congiuntamente la qualità del movimento.",
+        "correctAnswer": true,
+        "explanation": "La coordinazione neuromuscolare richiede adeguato range articolare e solidità attiva."
+      },
+      {
+        "id": "pt2-q25",
+        "number": 25,
+        "question": "I carichi di allenamento devono essere modulati in presenza di limitazioni articolari documentate.",
+        "correctAnswer": true,
+        "explanation": "L'adattamento biomeccanico protegge le strutture compromesse senza arrestare l'allenamento."
+      },
+      {
+        "id": "pt2-q26",
+        "number": 26,
+        "question": "La stima della composizione corporea può supportare la pianificazione degli obiettivi fisici.",
+        "correctAnswer": true,
+        "explanation": "Massa magra e massa grassa forniscono parametri più affidabili del solo peso sulla bilancia."
+      },
+      {
+        "id": "pt2-q27",
+        "number": 27,
+        "question": "Un surplus calorico controllato favorisce i processi anabolici di costruzione muscolare.",
+        "correctAnswer": true,
+        "explanation": "Fornisce il substrato energetico ottimale per sostenere la sintesi proteica e l'ipertrofia."
+      },
+      {
+        "id": "pt2-q28",
+        "number": 28,
+        "question": "Il colloquio motivazionale è utile per superare l'ambivalenza e consolidare le abitudini del cliente.",
+        "correctAnswer": true,
+        "explanation": "Favorisce l'autoefficacia e l'impegno spontaneo del praticante nel tempo."
+      },
+      {
+        "id": "pt2-q29",
+        "number": 29,
+        "question": "L'analisi dei casi studio reali aiuta il trainer a collegare la teoria alla pratica sul campo.",
+        "correctAnswer": true,
+        "explanation": "Sviluppa il ragionamento critico e la capacità di problem solving applicata."
+      },
+      {
+        "id": "pt2-q30",
+        "number": 30,
+        "question": "La sicurezza nell'esecuzione dell'alzata precede sempre l'entità del carico posizionato sul bilanciere.",
+        "correctAnswer": true,
+        "explanation": "La longevità atletica e l'efficienza meccanica sono prioritari rispetto all'incremento del carico."
+      }
+    ]
+  },
+  "personal-trainer-3": {
+    "id": "exam-pt-3",
+    "courseSlug": "personal-trainer-3",
+    "title": "Personal Trainer Livello 3 – Esame Master Senior Coach",
+    "description": "30 domande a risposta Vero/Falso per la qualifica di Master Senior Coach e Head Coach. Punteggio minimo: 80% (24/30).",
+    "questionsCount": 30,
+    "passingScorePercent": 80,
+    "timeLimitMinutes": 60,
+    "certificateBody": "Commissione Nazionale Tecnica Libertas / CONI – Diploma Master Coach",
+    "questions": [
+      {
+        "id": "pt3-q1",
+        "number": 1,
+        "question": "Una valutazione avanzata deve considerare anamnesi, obiettivi e dati oggettivi di performance dell'atleta.",
+        "correctAnswer": true,
+        "explanation": "L'approccio basato sui dati incrocia metriche quantitative e feedback qualitativo."
+      },
+      {
+        "id": "pt3-q2",
+        "number": 2,
+        "question": "Un Personal Trainer avanzato deve utilizzare i risultati dei test per emettere diagnosi mediche.",
+        "correctAnswer": false,
+        "explanation": "Anche a livello Master, la diagnosi medica spetta esclusivamente ai laureati in medicina."
+      },
+      {
+        "id": "pt3-q3",
+        "number": 3,
+        "question": "Valutazioni ripetute nel tempo verificano se il piano sta producendo gli adattamenti desiderati.",
+        "correctAnswer": true,
+        "explanation": "Il monitoraggio periodico consente correzioni di rotta prima del termine del macrociclo."
+      },
+      {
+        "id": "pt3-q4",
+        "number": 4,
+        "question": "Variazioni di stance, ROM e carico esterno modificano la meccanica dell'esercizio.",
+        "correctAnswer": true,
+        "explanation": "Alterano i bracci di leva e i vettori di forza agenti sulle singole articolazioni."
+      },
+      {
+        "id": "pt3-q5",
+        "number": 5,
+        "question": "Il baricentro e la distribuzione delle forze al suolo guidano la strategia motoria dell'atleta.",
+        "correctAnswer": true,
+        "explanation": "La gestione del centro di massa determina l'efficienza della catena cinetica."
+      },
+      {
+        "id": "pt3-q6",
+        "number": 6,
+        "question": "L'analisi biomeccanica stabilisce che esiste un'unica traiettoria millimetrica uguale per tutti gli individui.",
+        "correctAnswer": false,
+        "explanation": "La variabilità anatomica individuale (lunghezza leve, acetabolo) richiede personalizzazione tecnica."
+      },
+      {
+        "id": "pt3-q7",
+        "number": 7,
+        "question": "La programmazione di forza e potenza richiede di considerare intensità, volume, velocità e recupero.",
+        "correctAnswer": true,
+        "explanation": "La Rate of Force Development (RFD) dipende dal connubio tra forza neurale e velocità di scarica."
+      },
+      {
+        "id": "pt3-q8",
+        "number": 8,
+        "question": "L'allenamento della potenza è identico all'allenamento della forza massimale in tutte le variabili.",
+        "correctAnswer": false,
+        "explanation": "La potenza massimizza il prodotto Forza × Velocità, richiedendo carichi submassimali e massima accelerazione."
+      },
+      {
+        "id": "pt3-q9",
+        "number": 9,
+        "question": "La selezione degli esercizi per forza e potenza deve essere legata agli obiettivi specifici dell'atleta.",
+        "correctAnswer": true,
+        "explanation": "Rispetta il principio del transfer sport-specifico e della specificità angolare."
+      },
+      {
+        "id": "pt3-q10",
+        "number": 10,
+        "question": "L'ipertrofia avanzata richiede la gestione attenta di volume (MEV, MRV), frequenza e RIR.",
+        "correctAnswer": true,
+        "explanation": "Oltre certi livelli, un eccesso di volume genera fatica sistemica senza ulteriore stimolo ipertrofico."
+      },
+      {
+        "id": "pt3-q11",
+        "number": 11,
+        "question": "Un volume di allenamento sempre maggiore è sempre migliore, a prescindere da recupero e performance.",
+        "correctAnswer": false,
+        "explanation": "Superato il Maximum Recoverable Volume (MRV), l'atleta entra in stallo o regressione prestazionale."
+      },
+      {
+        "id": "pt3-q12",
+        "number": 12,
+        "question": "La scelta dell'esercizio e il range di movimento (ROM) influenzano l'entità dello stimolo ipertrofico.",
+        "correctAnswer": true,
+        "explanation": "Lavorare a lunghezze muscolari maggiori (allungamento sotto carico) induce maggiore ipertrofia mediata da stiramento."
+      },
+      {
+        "id": "pt3-q13",
+        "number": 13,
+        "question": "Un mesociclo è un blocco di programmazione che contiene solitamente diversi microcicli.",
+        "correctAnswer": true,
+        "explanation": "Tipicamente dura dalle 3 alle 6 settimane con uno scopo adattivo prevalente."
+      },
+      {
+        "id": "pt3-q14",
+        "number": 14,
+        "question": "La programmazione a lungo termine non deve mai essere modificata dopo essere stata redatta.",
+        "correctAnswer": false,
+        "explanation": "La pianificazione è flessibile e deve recepire infortuni, cali di forma o imprevisti della stagione."
+      },
+      {
+        "id": "pt3-q15",
+        "number": 15,
+        "question": "La periodizzazione organizza lo stress allenante e le priorità fisiologiche nel corso del tempo.",
+        "correctAnswer": true,
+        "explanation": "Evita il conflitto tra stimoli concorrenti e porta al picco di forma (peaking)."
+      },
+      {
+        "id": "pt3-q16",
+        "number": 16,
+        "question": "Il monitoraggio della prestazione, dell'RPE e del recupero guida le decisioni di gestione della fatica.",
+        "correctAnswer": true,
+        "explanation": "Consente l'autoregolazione scientifica del carico d'allenamento."
+      },
+      {
+        "id": "pt3-q17",
+        "number": 17,
+        "question": "Lo scarico (deload) riduce temporaneamente lo stress per dissipare la fatica accumulata.",
+        "correctAnswer": true,
+        "explanation": "Ripristina la sensibilità neurale e la freschezza muscolare prima del blocco successivo."
+      },
+      {
+        "id": "pt3-q18",
+        "number": 18,
+        "question": "Un calo improvviso e drastico della performance va sempre ignorato se la scheda prevedeva quel carico.",
+        "correctAnswer": false,
+        "explanation": "È un segnale di allarme che richiede riduzione immediata del volume o anticipazione dello scarico."
+      },
+      {
+        "id": "pt3-q19",
+        "number": 19,
+        "question": "La tecnologia e i dati sono utili solo se le informazioni supportano una reale decisione tecnica.",
+        "correctAnswer": true,
+        "explanation": "La raccolta compulsiva di dati senza impatto operativo genera solo rumore informativo."
+      },
+      {
+        "id": "pt3-q20",
+        "number": 20,
+        "question": "La documentazione professionale aiuta a tracciare decisioni, modifiche e progressi dell'atleta.",
+        "correctAnswer": true,
+        "explanation": "Costituisce la memoria storica del processo di allenamento e tutela deontologica."
+      },
+      {
+        "id": "pt3-q21",
+        "number": 21,
+        "question": "Raccogliere più dati possibili è sempre positivo anche in assenza di un obiettivo chiaro.",
+        "correctAnswer": false,
+        "explanation": "Metriche inutili creano distrazione per il coach e stress immotivato per l'atleta."
+      },
+      {
+        "id": "pt3-q22",
+        "number": 22,
+        "question": "Il coaching avanzato comprende l'adattamento dello stile comunicativo alle caratteristiche dell'atleta.",
+        "correctAnswer": true,
+        "explanation": "La relazione interpersonale è determinante per l'adesione e il rendimento mentale."
+      },
+      {
+        "id": "pt3-q23",
+        "number": 23,
+        "question": "Il feedback tecnico deve essere chiaro, pertinente e focalizzato su uno o due punti chiave alla volta.",
+        "correctAnswer": true,
+        "explanation": "Evita il sovraccarico cognitivo (overthinking) durante l'esecuzione del gesto."
+      },
+      {
+        "id": "pt3-q24",
+        "number": 24,
+        "question": "L'Head Coach ha la responsabilità di coordinare e formare lo staff dei personal trainer.",
+        "correctAnswer": true,
+        "explanation": "Definisce le linee guida metodologiche e garantisce standard qualitativi uniformi."
+      },
+      {
+        "id": "pt3-q25",
+        "number": 25,
+        "question": "La qualità del servizio di una struttura fitness dipende anche dall'aggiornamento continuo dei trainer.",
+        "correctAnswer": true,
+        "explanation": "La formazione continua dello staff preserva la competitività e la sicurezza dei clienti."
+      },
+      {
+        "id": "pt3-q26",
+        "number": 26,
+        "question": "La tutela della privacy (GDPR) e il consenso informato sono obblighi inderogabili per il professionista.",
+        "correctAnswer": true,
+        "explanation": "I dati biometrici e sanitari dei clienti richiedono rigida custodia legale."
+      },
+      {
+        "id": "pt3-q27",
+        "number": 27,
+        "question": "La prevenzione dei rischi e i protocolli di emergenza rientrano nelle mansioni della direzione tecnica.",
+        "correctAnswer": true,
+        "explanation": "L'Head Coach sovrintende alla sicurezza degli ambienti, defibrillatori DAE e personale."
+      },
+      {
+        "id": "pt3-q28",
+        "number": 28,
+        "question": "Il Project Work finale rappresenta l'integrazione tra competenze teoriche e piano operativo reale.",
+        "correctAnswer": true,
+        "explanation": "Dimostra la maturità professionale del candidato di fronte alla commissione."
+      },
+      {
+        "id": "pt3-q29",
+        "number": 29,
+        "question": "L'etica professionale vieta di screditare colleghi o promettere risultati irrealistici.",
+        "correctAnswer": true,
+        "explanation": "La deontologia tutela la dignità dell'intera categoria professionale."
+      },
+      {
+        "id": "pt3-q30",
+        "number": 30,
+        "question": "Un Senior Coach continua a studiare e mettere in discussione le proprie certezze nel tempo.",
+        "correctAnswer": true,
+        "explanation": "L'evidenza scientifica evolve costantemente e richiede umiltà intellettuale."
+      }
+    ]
+  },
+  "calisthenics-1": {
+    "id": "exam-cali-1",
+    "courseSlug": "calisthenics-1",
+    "title": "Calisthenics Livello 1 – Esame di Abilitazione Coach Base",
+    "description": "30 domande a risposta Vero/Falso su tecnica di spinta, trazione, core, prevenzione infortuni e didattica a corpo libero. Punteggio minimo: 80% (24/30).",
+    "questionsCount": 30,
+    "passingScorePercent": 80,
+    "timeLimitMinutes": 45,
+    "certificateBody": "Libertas EPS CONI – Settore Nazionale Calisthenics",
+    "questions": [
+      {
+        "id": "c1-q1",
+        "number": 1,
+        "question": "Nel Calisthenics, l'intensità di un esercizio può essere variata modificando la lunghezza della leva corporea.",
+        "correctAnswer": true,
+        "explanation": "Allungare o accorciare la leva sposta il baricentro e aumenta la richiesta di forza."
+      },
+      {
+        "id": "c1-q2",
+        "number": 2,
+        "question": "Il riscaldamento specifico dei polsi è superfluo prima di una sessione di piegamenti e verticale.",
+        "correctAnswer": false,
+        "explanation": "L'estensione forzata del polso richiede un accurato condizionamento dei tessuti connettivi."
+      },
+      {
+        "id": "c1-q3",
+        "number": 3,
+        "question": "La posizione di Hollow Body richiede la retroversione del bacino e l'adesione della zona lombare a terra.",
+        "correctAnswer": true,
+        "explanation": "Garantisce la stabilità del core e impedisce compensi da iperlordosi."
+      },
+      {
+        "id": "c1-q4",
+        "number": 4,
+        "question": "Nelle trazioni alla sbarra (Pull-Up), il primo movimento deve essere l'attivazione e depressione scapolare.",
+        "correctAnswer": true,
+        "explanation": "La depressione scapolare stabilizza l'omero prima della flessione del gomito."
+      },
+      {
+        "id": "c1-q5",
+        "number": 5,
+        "question": "L'Australian Pull-Up (trazione orizzontale) è un'eccellente regressione per chi non ha ancora il pull-up completo.",
+        "correctAnswer": true,
+        "explanation": "Consente di modulare la percentuale di peso corporeo sollevata variando l'inclinazione dei piedi."
+      },
+      {
+        "id": "c1-q6",
+        "number": 6,
+        "question": "Durante i Dips alle parallele, le spalle devono essere spinte attivamente verso il basso (depressione).",
+        "correctAnswer": true,
+        "explanation": "Evita l'elevazione passiva e protegge le strutture sub-acromiali."
+      },
+      {
+        "id": "c1-q7",
+        "number": 7,
+        "question": "Un piegamento sulle braccia (Push-Up) è valido anche se la zona lombare cede verso il pavimento.",
+        "correctAnswer": false,
+        "explanation": "La linea retta tronco-bacino-gambe è il criterio fondamentale di validità."
+      },
+      {
+        "id": "c1-q8",
+        "number": 8,
+        "question": "La presa a pollice opposto alla sbarra offre maggiore sicurezza per i principianti rispetto alla 'suicide grip'.",
+        "correctAnswer": true,
+        "explanation": "Previene lo scivolamento accidentale delle mani durante il movimento."
+      },
+      {
+        "id": "c1-q9",
+        "number": 9,
+        "question": "L'allenamento a corpo libero non necessita di progressione del carico o del volume nel tempo.",
+        "correctAnswer": false,
+        "explanation": "Anche a corpo libero il sovraccarico progressivo è essenziale per indurre adattamenti."
+      },
+      {
+        "id": "c1-q10",
+        "number": 10,
+        "question": "I tendini e i legamenti si adattano agli sforzi più lentamente rispetto al tessuto muscolare.",
+        "correctAnswer": true,
+        "explanation": "La ridotta vascolarizzazione del connettivo richiede tempi di recupero e rimodellamento maggiori."
+      },
+      {
+        "id": "c1-q11",
+        "number": 11,
+        "question": "Le trazioni a presa supina (Chin-Up) reclutano il bicipite brachiale in misura maggiore rispetto alle prone.",
+        "correctAnswer": true,
+        "explanation": "La supinazione dell'avambraccio pone il bicipite nella posizione di massima leva biomeccanica."
+      },
+      {
+        "id": "c1-q12",
+        "number": 12,
+        "question": "I piegamenti sulle ginocchia rappresentano una valida regressione del Push-Up per principianti.",
+        "correctAnswer": true,
+        "explanation": "Accorciano la leva corporea riducendo il carico gravitazionale da sollevare."
+      },
+      {
+        "id": "c1-q13",
+        "number": 13,
+        "question": "Il plank a terra allena la stabilità isometrica della parete addominale.",
+        "correctAnswer": true,
+        "explanation": "Allena il torchio addominale a resistere alla forza di gravità in catena cinetica chiusa."
+      },
+      {
+        "id": "c1-q14",
+        "number": 14,
+        "question": "Un allievo che avverte dolore pungente al gomito durante i pull-up deve continuare senza pause.",
+        "correctAnswer": false,
+        "explanation": "Il dolore al gomito (epitrocleite) richiede immediata riduzione dello stress ed esame chinesiologico."
+      },
+      {
+        "id": "c1-q15",
+        "number": 15,
+        "question": "L'uso di loop band elastiche può aiutare nell'apprendimento delle trazioni alla sbarra.",
+        "correctAnswer": true,
+        "explanation": "Fornisce assistenza scalabile nel punto di massima difficoltà (fase iniziale dal basso)."
+      },
+      {
+        "id": "c1-q16",
+        "number": 16,
+        "question": "La mobilità delle spalle in flessione completa è necessaria per una corretta esecuzione della verticale.",
+        "correctAnswer": true,
+        "explanation": "Senza 180° di flessione, il soggetto è costretto a inarcare la schiena per mantenere il baricentro."
+      },
+      {
+        "id": "c1-q17",
+        "number": 17,
+        "question": "L'Arch Body (posizione ad arco) allena la catena posteriore ed erettori spinali.",
+        "correctAnswer": true,
+        "explanation": "È l'antagonista complementare della posizione di Hollow Body."
+      },
+      {
+        "id": "c1-q18",
+        "number": 18,
+        "question": "Nel Calisthenics, l'allenamento delle gambe a corpo libero (Squat, Pistol prep) è sconsigliato.",
+        "correctAnswer": false,
+        "explanation": "Lo sviluppo armonico della forza degli arti inferiori è parte integrante della preparazione."
+      },
+      {
+        "id": "c1-q19",
+        "number": 19,
+        "question": "La protrazione scapolare finale al termine del push-up attiva il muscolo dentato anteriore.",
+        "correctAnswer": true,
+        "explanation": "Il cosiddetto 'Push-Up Plus' stabilizza la scapola contro la gabbia toracica."
+      },
+      {
+        "id": "c1-q20",
+        "number": 20,
+        "question": "Il Dead Hang (sospensione passiva alla sbarra) rinforza la presa e decomprime il rachide.",
+        "correctAnswer": true,
+        "explanation": "Migliora la tolleranza connettiva della spalla e la resistenza dell'avambraccio."
+      },
+      {
+        "id": "c1-q21",
+        "number": 21,
+        "question": "Nelle parallele, una distanza eccessiva tra le barre aumenta il rischio di stress all'articolazione della spalla.",
+        "correctAnswer": true,
+        "explanation": "La larghezza ideale corrisponde all'incirca alla distanza tra gomito e punta delle dita dell'atleta."
+      },
+      {
+        "id": "c1-q22",
+        "number": 22,
+        "question": "Il tempo sotto tensione (TUT) può essere incrementato rallentando la fase eccentrica.",
+        "correctAnswer": true,
+        "explanation": "Le eccentriche lente (3-5 secondi) stimolano il controllo motorio e la forza connettiva."
+      },
+      {
+        "id": "c1-q23",
+        "number": 23,
+        "question": "Prima di tentare le trazioni alla sbarra, è consigliabile avere un solido controllo delle trazioni scapolari.",
+        "correctAnswer": true,
+        "explanation": "Garantisce che il movimento sia guidato dalla muscolatura periscapolare e dorsale."
+      },
+      {
+        "id": "c1-q24",
+        "number": 24,
+        "question": "Nel calisthenics la magnesite viene usata per migliorare l'attrito e la presa sulle barre e anelli.",
+        "correctAnswer": true,
+        "explanation": "Assorbe il sudore e previene scivolamenti accidentali."
+      },
+      {
+        "id": "c1-q25",
+        "number": 25,
+        "question": "Un coach di calisthenics deve insegnare prima la quantità delle ripetizioni e poi la qualità tecnica.",
+        "correctAnswer": false,
+        "explanation": "La qualità del movimento precede categoricamente il numero di ripetizioni (Quality over Quantity)."
+      },
+      {
+        "id": "c1-q26",
+        "number": 26,
+        "question": "I piegamenti a diamante (Diamond Push-Up) pongono un focus maggiore sul tricipite brachiale.",
+        "correctAnswer": true,
+        "explanation": "La posizione ravvicinata delle mani accentua l'estensione del gomito."
+      },
+      {
+        "id": "c1-q27",
+        "number": 27,
+        "question": "Gli anelli di ginnastica offrono una superficie instabile che recluta maggiormente gli stabilizzatori.",
+        "correctAnswer": true,
+        "explanation": "La libertà di rotazione tridimensionale degli anelli intensifica il controllo neuromuscolare."
+      },
+      {
+        "id": "c1-q28",
+        "number": 28,
+        "question": "Lo stretching statico prolungato prima del riscaldamento riduce la forza esplosiva espressa.",
+        "correctAnswer": true,
+        "explanation": "È preferibile il warm-up dinamico prima dell'allenamento e lo stretching statico al termine."
+      },
+      {
+        "id": "c1-q29",
+        "number": 29,
+        "question": "Il riposo tra serie ad alta intensità a corpo libero dovrebbe essere inferiore a 20 secondi.",
+        "correctAnswer": false,
+        "explanation": "Il ripristino delle scorte di fosfocreatina richiede pause da 2 a 3 minuti nelle serie pesanti."
+      },
+      {
+        "id": "c1-q30",
+        "number": 30,
+        "question": "Un programma ben strutturato bilancia in modo armonico i volumi di spinta e di trazione.",
+        "correctAnswer": true,
+        "explanation": "L'equilibrio tra push e pull previene disfunzioni posturali e impingement della spalla."
+      }
+    ]
+  },
+  "calisthenics-2": {
+    "id": "exam-cali-2",
+    "courseSlug": "calisthenics-2",
+    "title": "Calisthenics Livello 2 – Esame Teorico-Pratico Skill Specialist",
+    "description": "30 domande a risposta Vero/Falso dedicate a prerequisiti, biomeccanica e didattica delle skill avanzate (Muscle-Up, Planche, Front Lever, Handstand, HSPU, Flag).",
+    "questionsCount": 30,
+    "passingScorePercent": 80,
+    "timeLimitMinutes": 60,
+    "certificateBody": "Libertas EPS CONI – Settore Nazionale Calisthenics Alta Formazione",
+    "questions": [
+      {
+        "id": "c2-q1",
+        "number": 1,
+        "question": "Nel front lever, una posizione raccolta riduce la leva rispetto alla posizione con gambe distese e unite.",
+        "correctAnswer": true,
+        "explanation": "Avvicinare le gambe al tronco accorcia la leva."
+      },
+      {
+        "id": "c2-q2",
+        "number": 2,
+        "question": "Nel front lever, abbassare il bacino mantenendo le gambe dritte è una compensazione accettabile per completare la tenuta.",
+        "correctAnswer": false,
+        "explanation": "Il bacino che scende rompe la linea richiesta dal front lever."
+      },
+      {
+        "id": "c2-q3",
+        "number": 3,
+        "question": "La progressione one leg può essere usata tra advanced tuck e full front lever.",
+        "correctAnswer": true,
+        "explanation": "One leg è una possibile progressione intermedia."
+      },
+      {
+        "id": "c2-q4",
+        "number": 4,
+        "question": "Nel back lever è utile preparare gradualmente spalle e gomiti prima di aumentare la durata delle tenute.",
+        "correctAnswer": true,
+        "explanation": "Le strutture coinvolte devono adattarsi gradualmente al carico."
+      },
+      {
+        "id": "c2-q5",
+        "number": 5,
+        "question": "Nel back lever, un dolore acuto alla spalla è normale e va ignorato se la posizione rimane stabile.",
+        "correctAnswer": false,
+        "explanation": "Un dolore acuto richiede di interrompere il tentativo e valutare la causa."
+      },
+      {
+        "id": "c2-q6",
+        "number": 6,
+        "question": "Passare da tuck a straddle aumenta necessariamente la difficoltà per ogni atleta e in ogni skill.",
+        "correctAnswer": false,
+        "explanation": "La difficoltà dipende dalla posizione precisa e dalla capacità dell’atleta."
+      },
+      {
+        "id": "c2-q7",
+        "number": 7,
+        "question": "Nell’handstand, la posizione del bacino influisce sull’allineamento del corpo.",
+        "correctAnswer": true,
+        "explanation": "Il controllo del bacino contribuisce alla linea dell’handstand."
+      },
+      {
+        "id": "c2-q8",
+        "number": 8,
+        "question": "Nell’handstand, una forte curva lombare è necessaria per mantenere l’equilibrio.",
+        "correctAnswer": false,
+        "explanation": "Un arco lombare marcato è una compensazione, non un requisito."
+      },
+      {
+        "id": "c2-q9",
+        "number": 9,
+        "question": "In un handstand libero, le dita possono contribuire alle piccole correzioni dell’equilibrio.",
+        "correctAnswer": true,
+        "explanation": "La pressione delle dita aiuta a correggere piccoli sbilanciamenti."
+      },
+      {
+        "id": "c2-q10",
+        "number": 10,
+        "question": "Saper mantenere un handstand al muro garantisce di saperlo eseguire subito senza muro.",
+        "correctAnswer": false,
+        "explanation": "Il muro aiuta a costruire la posizione, ma l’equilibrio libero va imparato."
+      },
+      {
+        "id": "c2-q11",
+        "number": 11,
+        "question": "Nell’handstand push-up, ridurre temporaneamente il range di movimento può essere una progressione utile se l’esecuzione resta controllata.",
+        "correctAnswer": true,
+        "explanation": "Un range ridotto e controllato può precedere quello completo."
+      },
+      {
+        "id": "c2-q12",
+        "number": 12,
+        "question": "Nell’handstand push-up, scendere rapidamente sulla testa è un modo efficace per superare il punto più difficile.",
+        "correctAnswer": false,
+        "explanation": "La discesa deve essere controllata, senza scaricare l’impatto sulla testa."
+      },
+      {
+        "id": "c2-q13",
+        "number": 13,
+        "question": "Nel muscle-up alla sbarra, una tirata sufficientemente alta facilita la transizione sopra la sbarra.",
+        "correctAnswer": true,
+        "explanation": "Una tirata alta crea più spazio per portare il corpo sopra la sbarra."
+      },
+      {
+        "id": "c2-q14",
+        "number": 14,
+        "question": "Nel muscle-up, raggiungere il mento sopra la sbarra equivale sempre ad avere l’altezza necessaria per una transizione pulita.",
+        "correctAnswer": false,
+        "explanation": "Superare la sbarra con il mento non basta sempre per completare la transizione."
+      },
+      {
+        "id": "c2-q15",
+        "number": 15,
+        "question": "Una negativa controllata del muscle-up può aiutare a studiare la transizione, se l’atleta riesce a eseguirla in sicurezza.",
+        "correctAnswer": true,
+        "explanation": "La negativa può rendere più chiaro il percorso del movimento."
+      },
+      {
+        "id": "c2-q16",
+        "number": 16,
+        "question": "Un muscle-up con forte slancio e un muscle-up strict richiedono la stessa tecnica.",
+        "correctAnswer": false,
+        "explanation": "L’uso dello slancio cambia le richieste tecniche della skill."
+      },
+      {
+        "id": "c2-q17",
+        "number": 17,
+        "question": "Nel planche lean, spostare progressivamente le spalle in avanti rispetto alle mani aumenta la richiesta di forza.",
+        "correctAnswer": true,
+        "explanation": "La maggiore inclinazione in avanti aumenta il momento sulle spalle."
+      },
+      {
+        "id": "c2-q18",
+        "number": 18,
+        "question": "Nella planche, piegare le braccia durante una tenuta a braccia tese mantiene invariata la difficoltà dell’esercizio.",
+        "correctAnswer": false,
+        "explanation": "Piegare i gomiti cambia l’esercizio e la distribuzione del carico."
+      },
+      {
+        "id": "c2-q19",
+        "number": 19,
+        "question": "Nella planche push-up, i gomiti si piegano durante la discesa e tornano distesi nella posizione alta.",
+        "correctAnswer": true,
+        "explanation": "È la normale sequenza di discesa e spinta della planche push-up."
+      },
+      {
+        "id": "c2-q20",
+        "number": 20,
+        "question": "Prima di tentare ripetizioni complete di planche push-up, è utile controllare sia la posizione alta sia quella bassa in progressioni più semplici.",
+        "correctAnswer": true,
+        "explanation": "Il controllo delle posizioni aiuta a costruire una ripetizione completa."
+      },
+      {
+        "id": "c2-q21",
+        "number": 21,
+        "question": "Nell’L-sit, piegare le ginocchia può essere una regressione utile quando la versione a gambe tese è troppo difficile.",
+        "correctAnswer": true,
+        "explanation": "Le ginocchia piegate riducono la difficoltà della tenuta."
+      },
+      {
+        "id": "c2-q22",
+        "number": 22,
+        "question": "Nel V-sit, portare semplicemente i piedi più in alto compensando con un forte arrotondamento incontrollato equivale a una progressione tecnica completa.",
+        "correctAnswer": false,
+        "explanation": "L’altezza dei piedi da sola non dimostra controllo del V-sit."
+      },
+      {
+        "id": "c2-q23",
+        "number": 23,
+        "question": "Nella dragon flag, il carico dovrebbe appoggiarsi principalmente sul collo.",
+        "correctAnswer": false,
+        "explanation": "L’appoggio è sulla parte alta della schiena e sulle spalle, non sul collo."
+      },
+      {
+        "id": "c2-q24",
+        "number": 24,
+        "question": "Nella dragon flag, passare da tuck a one leg e poi a straddle può aumentare gradualmente la lunghezza della leva.",
+        "correctAnswer": true,
+        "explanation": "Queste posizioni possono aumentare gradualmente la richiesta di forza."
+      },
+      {
+        "id": "c2-q25",
+        "number": 25,
+        "question": "Nella human flag, la mano superiore tira e quella inferiore spinge per contribuire alla stabilità della posizione.",
+        "correctAnswer": true,
+        "explanation": "Trazione e spinta contribuiscono a sostenere la human flag."
+      },
+      {
+        "id": "c2-q26",
+        "number": 26,
+        "question": "Nella human flag, è sufficiente allenare il tronco: presa, spalle e controllo scapolare non hanno un ruolo importante.",
+        "correctAnswer": false,
+        "explanation": "Sono importanti anche presa, spalle e controllo scapolare."
+      },
+      {
+        "id": "c2-q27",
+        "number": 27,
+        "question": "Se un atleta riesce a completare una ripetizione perdendo sempre l’allineamento, conviene considerarla acquisita e passare alla progressione successiva.",
+        "correctAnswer": false,
+        "explanation": "Prima di avanzare occorre rendere la forma controllata e ripetibile."
+      },
+      {
+        "id": "c2-q28",
+        "number": 28,
+        "question": "Una ripresa laterale può aiutare il trainer a valutare l’allineamento in skill come front lever, planche e dragon flag.",
+        "correctAnswer": true,
+        "explanation": "La vista laterale rende più evidenti cedimenti del bacino e cambi di linea."
+      },
+      {
+        "id": "c2-q29",
+        "number": 29,
+        "question": "Le bande elastiche possono facilitare una skill, ma il trainer deve controllare che l’assistenza non alteri troppo la traiettoria o la posizione.",
+        "correctAnswer": true,
+        "explanation": "L’assistenza è utile solo se permette di allenare una tecnica pertinente."
+      },
+      {
+        "id": "c2-q30",
+        "number": 30,
+        "question": "Il criterio per avanzare in una skill dovrebbe considerare controllo, forma e ripetibilità, oltre al numero di secondi o ripetizioni.",
+        "correctAnswer": true,
+        "explanation": "Durata e ripetizioni non bastano se la posizione perde qualità."
+      }
+    ]
+  }
+}

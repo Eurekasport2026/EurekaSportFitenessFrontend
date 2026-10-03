@@ -1,0 +1,49 @@
+{
+  "personal-trainer-3": {
+    "brief": {
+      "id": "pt3-project-brief",
+      "courseSlug": "personal-trainer-3",
+      "title": "Final Project Work: Advanced Programming & Technical Leadership",
+      "subtitle": "Applied final project for Master Coach National Technical Diploma issuance",
+      "description": "The Project Work represents the applied capstone assessment of the Personal Trainer Level 3 course. The candidate must submit a comprehensive structured project based on a real or simulated elite client/athlete case, demonstrating high-level assessment, long-term periodization, fatigue management and professional leadership.",
+      "rubric": [
+        "Client/athlete profile, medical history and SMART goal setting",
+        "Initial assessment synthesis (F-V profile, postural screening and mobility)",
+        "Scientific and biomechanical rationale for exercise selection",
+        "Periodized medium- or long-term plan (minimum 6-month timeline)",
+        "Load, fatigue and recovery monitoring strategy (HRV, RIR, RPE)",
+        "Objective progression, regression and autoregulation criteria",
+        "Professional notes, safety considerations, scope-of-practice and legal boundaries",
+        "Final outcome review and quantifiable performance metrics"
+      ],
+      "templateUrl": "",
+      "submissionGuidelines": [
+        "Accepted format: PDF (maximum 20 MB)",
+        "Recommended length: 10 to 20 pages including periodization spreadsheets",
+        "Faculty evaluation review window: 5-7 business days"
+      ]
+    }
+  },
+  "calisthenics-2": {
+    "brief": {
+      "id": "cali2-practical-brief",
+      "courseSlug": "calisthenics-2",
+      "title": "Practical Verification: Video Skill Demonstration",
+      "subtitle": "Technical evaluation of movement standards for Skill Specialist certification",
+      "description": "To complete the Calisthenics Level 2 Trainer certification, the candidate must submit a video recording demonstrating key required skills in accordance with Libertas/CONI technical guidelines, demonstrating strict alignment, absence of compensations and safety.",
+      "rubric": [
+        "Muscle-Up: fluid, symmetrical transition with zero chicken wing",
+        "Front Lever: controlled isometric hold (minimum Advanced Tuck or One Leg for 5s)",
+        "Handstand: freestanding balance for at least 10s with stacked line",
+        "Planche: controlled straight-arm regression (minimum Tuck Planche for 5s)",
+        "Coaching & Spotting: verbal explanation of a progression and safe assistance"
+      ],
+      "templateUrl": "",
+      "submissionGuidelines": [
+        "Video format: MP4 / MOV or unlisted video link (YouTube/Vimeo/Drive)",
+        "Camera angle: lateral and frontal with clear lighting and full body in frame",
+        "National technical evaluation review window: 5 business days"
+      ]
+    }
+  }
+}
