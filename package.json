@@ -2,6 +2,9 @@
   "name": "eurekasportfitenessfrontend",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,6 +19,7 @@
     "sonner": "^2.0.8"
   },
   "devDependencies": {
+    "@netlify/plugin-nextjs": "^5.16.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
