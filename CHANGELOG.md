@@ -5,9 +5,9 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
-- **Eliminated Unwanted Vertical Scrollbar on 404 Pages**:
-  - Overrode `.page` `min-height: 100svh` on [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) with `flex-1 flex flex-col !min-h-0` and calibrated `<main>` padding to `py-6 md:py-8`.
-  - Prevents double-viewport height accumulation (`100svh + footer`) so that the header, 404 message, and footer comfortably fit in a single screen without any vertical scrollbar.
+- **Restored Full-Sized Buttons & Eliminated Viewport Overflow on 404 Pages**:
+  - Applied explicit `style={{ minHeight: "auto" }}` to the container in [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) to definitively override `.page`'s `min-height: 100svh` from [`home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/home/home.module.css), allowing the footer to sit within the viewport.
+  - Restored full-size, prominent dimensions on recovery CTA buttons (`px-6 py-3 rounded-lg font-medium text-sm`) and calibrated middle vertical spacing so that Header, 404 hero, and Footer fit seamlessly in a single screen without any vertical scroll.
 - **Ensured Global Header and Footer Always Show on 404 / Non-Existent Pages**:
   - Integrated [`HomeHeader`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/HomeHeader.tsx) into [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) within the standard dark canvas container, guaranteeing that every non-existent URL or stage always displays the full Eureka brand header (logo, navigation links, search, and language switcher) alongside [`SiteFooter`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/SiteFooter.tsx).
   - Added full bilingual support with `<T>` tags and English translations in [`src/lib/translations.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/translations.ts) for 404 badges, headings, explanations, and action buttons.
