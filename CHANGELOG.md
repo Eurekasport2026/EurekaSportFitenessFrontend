@@ -4,7 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Changed
+- **Enhanced Breadcrumb Click Targets, Readability, and Hover States**:
+  - Increased breadcrumb typography size to an accessible `0.85rem` (`~13.5px`, `13px` on mobile) across [`src/components/features/courses/course-detail.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-detail.module.css), [`src/components/features/courses/course-home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-home.module.css), and [`src/components/features/courses/lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css).
+  - Added generous touch/click hit-target padding (`0.25rem 0.5rem` with rounded corners), soft brand blue hover pill background (`#ebf3ff`), rich blue hover color (`#0052cc`), and clean text-underline on hover for effortless navigation.
+- **Modernized Course Card 'Explore →' Hover Interaction**:
+  - Removed outdated browser `text-decoration: underline` from `.cardAction` and `.cardLink` across [`src/components/features/marketing/marketing.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/marketing/marketing.module.css) and [`src/components/features/courses/courses.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/courses.module.css).
+  - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
+
 ### Fixed
+- **Enforced Light Canvas Specificity on LMS Course & Lesson Pages**:
+  - Upgraded root `.page` selectors to `.page.page` in [`src/components/features/courses/course-home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-home.module.css) and [`src/components/features/courses/lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css), aligning with ADR-016.
+  - Prevents the shared dark homepage `.page` rule (`background: var(--eureka-canvas)`) from overriding the light `#fbfdff` canvas on `/academy/corsi/[slug]/learn` and `/academy/corsi/[slug]/learn/[moduleId]`, eliminating dark-on-dark contrast failure on headers and course titles.
 - **Restored Full-Sized Buttons & Eliminated Viewport Overflow on 404 Pages**:
   - Applied explicit `style={{ minHeight: "auto" }}` to the container in [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) to definitively override `.page`'s `min-height: 100svh` from [`home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/home/home.module.css), allowing the footer to sit within the viewport.
   - Restored full-size, prominent dimensions on recovery CTA buttons (`px-6 py-3 rounded-lg font-medium text-sm`) and calibrated middle vertical spacing so that Header, 404 hero, and Footer fit seamlessly in a single screen without any vertical scroll.

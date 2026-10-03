@@ -1,4 +1,4 @@
-.page {
+.page.page {
   background: #fbfdff;
   color: #0d1e30;
   color-scheme: light;
@@ -20,19 +20,29 @@
 /* Breadcrumbs */
 .breadcrumb {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 0.4em;
-  margin-bottom: 1.2em;
-  color: #7b8ca0;
-  font-size: 0.75rem;
+  gap: 0.35rem;
+  margin-bottom: 1.2rem;
+  color: #64748b;
+  font-size: 0.85rem;
+  font-weight: 500;
 }
 
 .breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  margin: -0.25rem -0.2rem;
+  border-radius: 0.35rem;
   color: #0066ff;
   text-decoration: none;
+  transition: background-color 160ms ease, color 160ms ease;
 }
 
 .breadcrumb a:hover {
+  background-color: #ebf3ff;
+  color: #0052cc;
   text-decoration: underline;
 }
 

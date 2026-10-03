@@ -4,9 +4,9 @@
 .heroImage { object-fit: cover; object-position: center 20%; z-index: -2; }
 .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #09141d80, transparent 35%, #09141d1a); }
 .main { width: 91%; max-width: 1350px; margin: 0 auto; padding: 1.25em 0 1.8em; }
-.breadcrumb { display: flex; align-items: center; gap: .35em; margin-bottom: .5em; color: #7b8ca0; font-size: .61em; }
-.breadcrumb a { color: #0066ff; text-decoration: none; }
-.breadcrumb a:hover { text-decoration: underline; }
+.breadcrumb { display: flex; flex-wrap: wrap; align-items: center; gap: .35em; margin-bottom: .75em; color: #64748b; font-size: .85rem; font-weight: 500; }
+.breadcrumb a { display: inline-flex; align-items: center; padding: .25em .5em; margin: -.25em -.2em; border-radius: .35em; color: #0066ff; text-decoration: none; transition: background-color 160ms ease, color 160ms ease; }
+.breadcrumb a:hover { background-color: #ebf3ff; color: #0052cc; text-decoration: underline; }
 .intro h1 { margin: 0 0 .22em; color: #0d2345; font-size: 1.9em; line-height: 1.1; font-weight: 800; }
 .intro .lead { margin: 0 0 .65em; color: #687c90; font-size: .81em; }
 .intro > p:last-child { max-width: 37em; margin: 0; color: #334960; font-size: .73em; line-height: 1.5; }
@@ -37,5 +37,5 @@
 .page :is(.main a, .main button):focus-visible { outline-color: #0066ff; }
 
 @media (min-width: 1000px) { .hero { height: 17em; } .main { padding: 1.5em 0 2.3em; } .intro h1 { font-size: 2.2em; } .facts { margin: 1.7em 0 1.4em; } .tabContent { min-height: 6.5em; } }
-@media (max-width: 580px) { .hero { height: 190px; } .heroImage { object-position: 60% center; } .main { padding: 22px 0 30px; } .breadcrumb { font-size: 12px; } .intro h1 { font-size: 30px; } .intro .lead { font-size: 14px; } .intro > p:last-child { font-size: 13px; } .facts { gap: 20px 8px; margin: 25px 0; } .facts dt, .facts dd { font-size: 12px; } .facts svg { width: 23px; height: 23px; } .price strong { font-size: 28px; } .price del { font-size: 13px; } .enroll { min-height: 42px; min-width: 0; font-size: 13px; } .tabs { gap: 17px; } .tab { font-size: 12px; } .tabContent { font-size: 13px; min-height: 120px; } }
+@media (max-width: 580px) { .hero { height: 190px; } .heroImage { object-position: 60% center; } .main { padding: 22px 0 30px; } .breadcrumb { font-size: 13px; } .intro h1 { font-size: 30px; } .intro .lead { font-size: 14px; } .intro > p:last-child { font-size: 13px; } .facts { gap: 20px 8px; margin: 25px 0; } .facts dt, .facts dd { font-size: 12px; } .facts svg { width: 23px; height: 23px; } .price strong { font-size: 28px; } .price del { font-size: 13px; } .enroll { min-height: 42px; min-width: 0; font-size: 13px; } .tabs { gap: 17px; } .tab { font-size: 12px; } .tabContent { font-size: 13px; min-height: 120px; } }
 @media (max-width: 390px) { .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } .purchase { align-items: flex-start; flex-direction: column; } .tabs { gap: 12px; } .topicGrid { grid-template-columns: 1fr; } .faq { grid-template-columns: 1fr; gap: .25em; } .faq dd { margin-bottom: .5em; } }
