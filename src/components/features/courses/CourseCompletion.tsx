@@ -7,9 +7,10 @@ import styles from "./course-home.module.css";
 
 interface CourseCompletionProps {
   course: Course;
+  onBackToCourse?: () => void;
 }
 
-export function CourseCompletion({ course }: CourseCompletionProps) {
+export function CourseCompletion({ course, onBackToCourse }: CourseCompletionProps) {
   const locale = useLocale() || "it";
   const isEn = locale === "en";
 
@@ -97,6 +98,16 @@ export function CourseCompletion({ course }: CourseCompletionProps) {
         <Link href="/academy/corsi" className={styles.overviewAction} style={{ background: "#0f172a" }}>
           <span>{isEn ? "Explore Other Courses" : "Esplora Altri Corsi"}</span>
         </Link>
+        {onBackToCourse && (
+          <button
+            type="button"
+            onClick={onBackToCourse}
+            className={styles.overviewAction}
+            style={{ background: "#ffffff", color: "#475569", border: "1px solid #cbd5e1", boxShadow: "none" }}
+          >
+            <span>← {isEn ? "Return to Course Content" : "Torna ai Contenuti del Corso"}</span>
+          </button>
+        )}
       </div>
     </div>
   );

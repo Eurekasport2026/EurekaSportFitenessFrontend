@@ -11,7 +11,7 @@ const lessonsDataByLocale: Record<string, Record<string, Partial<Lesson>[]>> = {
 function generateLessonsForModule(moduleItem: (ReturnType<typeof getAllModules>)[0], locale: string = "it"): Lesson[] {
   const customLessons = lessonsDataByLocale[locale] || lessonsDataByLocale.it;
   const existing = customLessons[moduleItem.id];
-  const count = moduleItem.lessonsCount;
+  const count = existing ? existing.length : moduleItem.lessonsCount;
   const lessons: Lesson[] = [];
   const isEn = locale === "en";
 
@@ -19,15 +19,17 @@ function generateLessonsForModule(moduleItem: (ReturnType<typeof getAllModules>)
     if (existing && existing[i - 1]) {
       const custom = existing[i - 1];
       lessons.push({
-        id: `${moduleItem.id}-lesson-${i}`,
+        id: custom.id || `${moduleItem.id}-lesson-${i}`,
         moduleId: moduleItem.id,
         courseSlug: moduleItem.courseSlug,
-        order: i,
+        order: custom.order || i,
         title: custom.title || (isEn ? `Lesson ${i}: Deep Dive into ${moduleItem.title}` : `Lezione ${i}: Approfondimento ${moduleItem.title}`),
         description: custom.description || (isEn ? `Theoretical and practical study of core concepts in module ${moduleItem.number}.` : `Studio teorico e pratico dei concetti fondamentali del modulo ${moduleItem.number}.`),
         durationMinutes: custom.durationMinutes || 20,
+        itemType: custom.itemType || "video",
+        mediaStatus: custom.mediaStatus || (custom.videoUrl ? "available" : "in_production"),
         videoDuration: custom.videoDuration || "16:30",
-        videoUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+        videoUrl: custom.videoUrl || "",
         summary: custom.summary || (isEn ? `In this lesson of module "${moduleItem.title}", we explore practical methodologies and protocols.` : `In questa lezione del modulo "${moduleItem.title}", esploriamo gli aspetti operativi e le applicazioni pratiche necessarie per padroneggiare l'argomento.`),
         keyTakeaways: custom.keyTakeaways || (isEn ? [
           `Understanding foundational principles of ${moduleItem.title}.`,
@@ -40,9 +42,16 @@ function generateLessonsForModule(moduleItem: (ReturnType<typeof getAllModules>)
         ]),
         pdfTitle: custom.pdfTitle || (isEn ? `Study Guide - Module ${moduleItem.number} (Lesson ${i}).pdf` : `Dispensa Didattica - Modulo ${moduleItem.number} (Lezione ${i}).pdf`),
         pdfSize: custom.pdfSize || "2.5 MB",
-        pdfUrl: custom.pdfUrl || `/docs/${moduleItem.courseSlug}-mod-${moduleItem.number}-l${i}.pdf`,
-        allowsDownload: true,
+        pdfUrl: custom.pdfUrl || "",
+        allowsDownload: custom.allowsDownload || false,
+        rapidCode: custom.rapidCode,
+        programCode: custom.programCode,
+        progressionStep: custom.progressionStep,
+        phase: custom.phase,
+        regressionCode: custom.regressionCode,
+        progressionCode: custom.progressionCode,
         exerciseDetail: custom.exerciseDetail,
+        caseStudyDetail: custom.caseStudyDetail,
       });
     } else {
       lessons.push({
@@ -57,8 +66,10 @@ function generateLessonsForModule(moduleItem: (ReturnType<typeof getAllModules>)
           ? `Video lessons, study material, and review sheets for module ${moduleItem.number}: ${moduleItem.title}.`
           : `Contenuti video, materiale di studio e schede di verifica per il modulo ${moduleItem.number}: ${moduleItem.title}.`,
         durationMinutes: 20,
+        itemType: "video",
+        mediaStatus: "in_production",
         videoDuration: "18:20",
-        videoUrl: "https://www.youtube-nocookie.com/embed/dQw4w9WgXcQ",
+        videoUrl: "",
         summary: isEn
           ? `Comprehensive overview and step-by-step breakdown of key principles in module ${moduleItem.number}.`
           : `Panoramica approfondita e spiegazione passo dopo passo dei concetti chiave trattati nel modulo ${moduleItem.number}.`,
@@ -73,8 +84,8 @@ function generateLessonsForModule(moduleItem: (ReturnType<typeof getAllModules>)
         ],
         pdfTitle: isEn ? `Official Study Guide - Module ${moduleItem.number}.pdf` : `Dispensa Didattica Ufficiale - Modulo ${moduleItem.number}.pdf`,
         pdfSize: "2.3 MB",
-        pdfUrl: `/docs/${moduleItem.courseSlug}-mod-${moduleItem.number}.pdf`,
-        allowsDownload: true,
+        pdfUrl: "",
+        allowsDownload: false,
       });
     }
   }
@@ -90,7 +101,9 @@ export function getAllLessons(locale: string = "it"): Lesson[] {
 export const allLessons: Lesson[] = getAllLessons("it");
 
 export function getLessonsByModule(moduleId: string, locale: string = "it"): Lesson[] {
-  return getAllLessons(locale).filter((l) => l.moduleId === moduleId);
+  const moduleItem = getAllModules(locale).find((m) => m.id === moduleId);
+  if (!moduleItem) return [];
+  return generateLessonsForModule(moduleItem, locale);
 }
 
 export function getLessonById(lessonId: string, locale: string = "it"): Lesson | undefined {
@@ -111,3 +124,67 @@ export function getAdjacentLessons(lessonId: string, locale: string = "it"): { p
     nextLesson: courseIndex < courseLessons.length - 1 ? courseLessons[courseIndex + 1] : undefined,
   };
 }
+
+import { apiConfig } from "./config";
+import { apiClient } from "./client";
+
+export const lessonsService = {
+  getAll: async (locale: string = "it"): Promise<Lesson[]> => {
+    if (apiConfig.useMockData) {
+      return getAllLessons(locale);
+    }
+    try {
+      return await apiClient.get<Lesson[]>("/lessons", { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        console.warn("[lessonsService.getAll] Live API unavailable, falling back to mock dataset", err);
+        return getAllLessons(locale);
+      }
+      throw err;
+    }
+  },
+
+  getByModule: async (moduleId: string, locale: string = "it"): Promise<Lesson[]> => {
+    if (apiConfig.useMockData) {
+      return getLessonsByModule(moduleId, locale);
+    }
+    try {
+      return await apiClient.get<Lesson[]>(`/modules/${moduleId}/lessons`, { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        console.warn(`[lessonsService.getByModule] Live API unavailable for ${moduleId}, falling back to mock dataset`, err);
+        return getLessonsByModule(moduleId, locale);
+      }
+      throw err;
+    }
+  },
+
+  getById: async (lessonId: string, locale: string = "it"): Promise<Lesson | undefined> => {
+    if (apiConfig.useMockData) {
+      return getLessonById(lessonId, locale);
+    }
+    try {
+      return await apiClient.get<Lesson>(`/lessons/${lessonId}`, { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        console.warn(`[lessonsService.getById] Live API unavailable for ${lessonId}, falling back to mock dataset`, err);
+        return getLessonById(lessonId, locale);
+      }
+      throw err;
+    }
+  },
+
+  getAdjacent: async (lessonId: string, locale: string = "it") => {
+    if (apiConfig.useMockData) {
+      return getAdjacentLessons(lessonId, locale);
+    }
+    try {
+      return await apiClient.get<{ prevLesson?: Lesson; nextLesson?: Lesson }>(`/lessons/${lessonId}/adjacent`, { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        return getAdjacentLessons(lessonId, locale);
+      }
+      throw err;
+    }
+  },
+};

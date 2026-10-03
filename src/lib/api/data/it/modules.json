@@ -132,18 +132,6 @@
     "lessonsCount": 3
   },
   {
-    "id": "pt1-mod-13",
-    "courseSlug": "personal-trainer-1",
-    "number": 13,
-    "title": "Modulo Pratico: Schede & Videoteca Esercizi",
-    "subtitle": "Piani di allenamento pronti all'uso e videoteca per gruppo muscolare",
-    "description": "Accesso ai 5 programmi di allenamento completi scaricabili in PDF e al visualizzatore interattivo dei gruppi muscolari e attrezzature.",
-    "type": "practical",
-    "durationMinutes": 90,
-    "lessonsCount": 2,
-    "isPractical": true
-  },
-  {
     "id": "pt2-mod-1",
     "courseSlug": "personal-trainer-2",
     "number": 1,
@@ -282,10 +270,10 @@
     "title": "Casi Studio e Progettazione Schede Avanzate",
     "subtitle": "Analisi di 7 profili cliente reali e schede avanzate",
     "description": "Risoluzione guidata di scenari complessi con atleti amatoriali, atleti master e clienti con richieste estetiche avanzate.",
-    "type": "practical",
+    "type": "case_study",
     "durationMinutes": 75,
     "lessonsCount": 3,
-    "isPractical": true
+    "isPractical": false
   },
   {
     "id": "pt3-mod-1",
@@ -393,10 +381,10 @@
     "title": "Responsabilità Professionale, Etica e Project Work",
     "subtitle": "Tutela legale, assicurazioni, presentazione del Project Work finale",
     "description": "Quadro giuridico e fiscale della professione a livello apicale e preparazione del Project Work da discutere per l'abilitazione.",
-    "type": "practical",
+    "type": "theory",
     "durationMinutes": 90,
     "lessonsCount": 3,
-    "isPractical": true
+    "isPractical": false
   },
   {
     "id": "cali1-mod-1",
@@ -451,7 +439,7 @@
     "description": "Progressione completa: Wall Push-Up → Incline Push-Up → Knee Push-Up → Full Push-Up → Diamond Push-Up → Dips alle parallele.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 40
   },
   {
     "id": "cali1-mod-6",
@@ -462,7 +450,7 @@
     "description": "Progressione completa: Australian Pull-Up → Scapular Pull-Up → Negative Chin-Up → Band-Assisted Pull-Up → Strict Pull-Up alla sbarra.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 36
   },
   {
     "id": "cali1-mod-7",
@@ -473,7 +461,7 @@
     "description": "Progressioni fondamentali per costruire un tronco solido e indeformabile, prerequisito fondamentale per tutte le skill future.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 33
   },
   {
     "id": "cali1-mod-8",
@@ -484,7 +472,7 @@
     "description": "Costruire forza, stabilità ed esplosività negli arti inferiori senza carichi esterni o con piccoli sovraccarichi funzionali.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 22
   },
   {
     "id": "cali1-mod-9",
@@ -495,7 +483,7 @@
     "description": "Protocolli preventivi per proteggere tendini ed articolazioni sottoposte a elevata tensione e migliorare l'ampiezza di movimento.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 47
   },
   {
     "id": "cali1-mod-10",
@@ -594,7 +582,7 @@
     "description": "Prerequisiti, attivazione del gran dorsale, trazioni al petto esplosive e lavoro con zavorre di base.",
     "type": "skill",
     "durationMinutes": 45,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-6",
@@ -605,7 +593,7 @@
     "description": "Tuck L-Sit, One-Leg L-Sit, Full L-Sit alle parallele, a terra e alla sbarra. Esercizi di compressione addominale specifica.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-7",
@@ -616,7 +604,7 @@
     "description": "Tecnica dello slancio, timing del rilascio, rotazione del bacino e riaggancio sicuro alla sbarra.",
     "type": "skill",
     "durationMinutes": 45,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-8",
@@ -627,7 +615,7 @@
     "description": "Lavoro a pancia alla parete, kick-up controllato, camminata sui polsi e tenuta libera in verticale perfetta.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-9",
@@ -638,7 +626,7 @@
     "description": "Skin the Cat come prerequisito, posizionamento delle spalle in retrazione/depressione e progressione verso la tenuta orizzontale.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-10",
@@ -649,7 +637,7 @@
     "description": "Trazioni alte al petto, dip profondi alle parallele, tecnica della transizione e muscle-up pulito senza slanci parassiti.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 29
   },
   {
     "id": "cali2-mod-11",
@@ -660,7 +648,7 @@
     "description": "Regressioni dal ginocchio flesso alla discesa eccentrica controllata in leva dritta con glutei e addome serrati.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-12",
@@ -671,7 +659,7 @@
     "description": "Slancio dinamico propedeutico, altezza dello swing, rotazione rapida del tronco e presa sicura in ripresa.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-13",
@@ -682,7 +670,7 @@
     "description": "Pike Push-Up, Elevated Pike Push-Up, Wall HSPU pancia al muro, discese eccentriche e ripetizioni libere in equilibrio.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-14",
@@ -693,7 +681,7 @@
     "description": "Condizionamento obliquo e dorsale, presa a spalliera o palo verticale, tenute tuck laterale e distensione delle gambe.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-15",
@@ -704,7 +692,7 @@
     "description": "Tuck Front Lever, Advanced Tuck, One-Leg, Straddle e Full Front Lever con scapole depresse e retroversione di bacino.",
     "type": "skill",
     "durationMinutes": 70,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-16",
@@ -715,7 +703,7 @@
     "description": "Dall'L-Sit alto verso la chiusura a V: allungamento degli ischiocrurali, forza del quadricipite e degli erettori spinali.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-17",
@@ -726,7 +714,7 @@
     "description": "Transizione complessa a terra o su barra bassa che unisce stabilità rotazionale e controllo esplosivo del core.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-18",
@@ -737,7 +725,7 @@
     "description": "Planche Lean su parallele, Frog Stand, Tuck Planche, Advanced Tuck, Straddle Planche e Full Planche con gomiti bloccati e protrazione scapolare.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-19",
@@ -748,7 +736,7 @@
     "description": "Archer Pull-Up, trazioni con elastico sul braccio secondario, discese eccentriche monobraccio e lockout completo alla sbarra.",
     "type": "skill",
     "durationMinutes": 70,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-20",

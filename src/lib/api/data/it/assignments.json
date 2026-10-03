@@ -1,0 +1,49 @@
+{
+  "personal-trainer-3": {
+    "brief": {
+      "id": "pt3-project-brief",
+      "courseSlug": "personal-trainer-3",
+      "title": "Project Work Finale: Progettazione e Direzione Tecnica Avanzata",
+      "subtitle": "Elaborato finale applicato per il rilascio del Diploma Nazionale Tecnico Master Coach",
+      "description": "Il Project Work costituisce la prova finale applicata del corso di Personal Trainer Livello 3. Il candidato deve presentare un progetto strutturato completo basato su un caso studio reale o simulato di atleta o cliente avanzato, dimostrando capacità di valutazione, programmazione a lungo termine, gestione della fatica e leadership.",
+      "rubric": [
+        "Profilo cliente/atleta, anamnesi e definizione degli obiettivi SMART",
+        "Sintesi della valutazione iniziale (F-V profile, test posturali e mobilità)",
+        "Rationale scientifico e biomeccanico della scelta degli esercizi",
+        "Pianificazione periodizzata a medio o lungo termine (almeno 6 mesi)",
+        "Strategia di monitoraggio del carico, fatica e recupero (HRV, RIR, RPE)",
+        "Criteri oggettivi di progressione, regressione e modifica in itinere",
+        "Note professionali, considerazioni di sicurezza, limiti deontologici e tutela legale",
+        "Revisione finale dei risultati attesi e metriche di successo"
+      ],
+      "templateUrl": "",
+      "submissionGuidelines": [
+        "Formato accettato: PDF (massimo 20 MB)",
+        "Lunghezza raccomandata: tra 10 e 20 pagine con tabelle di programmazione incluse",
+        "Tempo di revisione commissione docenti: 5-7 giorni lavorativi"
+      ]
+    }
+  },
+  "calisthenics-2": {
+    "brief": {
+      "id": "cali2-practical-brief",
+      "courseSlug": "calisthenics-2",
+      "title": "Verifica Pratica: Dimostrazione Video delle Skill",
+      "subtitle": "Valutazione tecnica delle esecuzioni per l abilitazione Skill Specialist",
+      "description": "Per completare il percorso di Trainer Calisthenics Livello 2, il candidato deve caricare una registrazione video dimostrativa delle skill chiave richieste dai regolamenti tecnici Libertas/CONI, mostrando perfetto controllo delle linee corporee, assenza di compensi e sicurezza.",
+      "rubric": [
+        "Muscle-Up: transizione fluida e simmetrica senza chicken wing",
+        "Front Lever: tenuta isometrica controllata (almeno Advanced Tuck o One Leg per 5 secondi)",
+        "Handstand: verticale libera stabile per almeno 10 secondi con allineamento posturale corretto",
+        "Planche: regressione controllata (almeno Tuck Planche a braccia tese per 5 secondi)",
+        "Didattica e Spotting: spiegazione verbale di una propedeutica e assistenza in sicurezza"
+      ],
+      "templateUrl": "",
+      "submissionGuidelines": [
+        "Formato video: MP4 / MOV o link non in elenco (YouTube/Vimeo/Drive)",
+        "Inquadratura: laterale e frontale con luce adeguata e corpo intero visibile",
+        "Revisione commissione tecnica nazionale: 5 giorni lavorativi"
+      ]
+    }
+  }
+}

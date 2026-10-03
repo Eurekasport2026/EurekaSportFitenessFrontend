@@ -14,13 +14,29 @@
     "access": "Lifetime access to learning materials",
     "price": 990,
     "originalPrice": 1200,
-    "heroImage": "/images/eureka-personal-trainer-hero.webp",
+    "heroImage": "/images/courses/personal-trainer-1.webp",
     "badgeText": "Level 1 • Foundations & Qualification",
     "facts": [
-      { "icon": "medal", "label": "Duration", "value": "6 months" },
-      { "icon": "video", "label": "Format", "value": "Online + practical" },
-      { "icon": "certificate", "label": "Certification", "value": "Libertas / CONI" },
-      { "icon": "clipboard", "label": "Access", "value": "Lifetime course materials" }
+      {
+        "icon": "medal",
+        "label": "Duration",
+        "value": "6 months"
+      },
+      {
+        "icon": "video",
+        "label": "Format",
+        "value": "Online + practical"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certification",
+        "value": "Libertas / CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Access",
+        "value": "Lifetime course materials"
+      }
     ],
     "topics": [
       "Role and Skills of the Junior Personal Trainer",
@@ -39,7 +55,10 @@
     "modulesCount": 12,
     "totalLessonsCount": 36,
     "hasPractical": true,
-    "hasExam": true
+    "hasExam": true,
+    "practicalType": "gym_library",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
   },
   {
     "id": "pt-2",
@@ -56,13 +75,29 @@
     "access": "Lifetime access + Course updates",
     "price": 1290,
     "originalPrice": 1550,
-    "heroImage": "/images/eureka-personal-trainer-hero.webp",
+    "heroImage": "/images/courses/personal-trainer-2.webp",
     "badgeText": "Level 2 • Advanced Specialization",
     "facts": [
-      { "icon": "medal", "label": "Duration", "value": "8 months" },
-      { "icon": "video", "label": "Format", "value": "Online + Masterclasses" },
-      { "icon": "certificate", "label": "Certification", "value": "Advanced Coach EPS CONI" },
-      { "icon": "clipboard", "label": "Access", "value": "Lifetime course materials" }
+      {
+        "icon": "medal",
+        "label": "Duration",
+        "value": "8 months"
+      },
+      {
+        "icon": "video",
+        "label": "Format",
+        "value": "Online + Masterclasses"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certification",
+        "value": "Advanced Coach EPS CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Access",
+        "value": "Lifetime course materials"
+      }
     ],
     "topics": [
       "Advanced Functional Anatomy and Myofascial Chains",
@@ -82,7 +117,10 @@
     "modulesCount": 13,
     "totalLessonsCount": 39,
     "hasPractical": true,
-    "hasExam": true
+    "hasExam": true,
+    "practicalType": "advanced_resources",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
   },
   {
     "id": "pt-3",
@@ -99,13 +137,29 @@
     "access": "Unlimited access + Mentorship",
     "price": 1590,
     "originalPrice": 1890,
-    "heroImage": "/images/eureka-personal-trainer-hero.webp",
+    "heroImage": "/images/courses/personal-trainer-3.webp",
     "badgeText": "Level 3 • Master & Head Coach",
     "facts": [
-      { "icon": "medal", "label": "Duration", "value": "10 months" },
-      { "icon": "video", "label": "Format", "value": "Online + 1-on-1 Mentorship" },
-      { "icon": "certificate", "label": "Certification", "value": "Master Senior Coach CONI" },
-      { "icon": "clipboard", "label": "Access", "value": "Materials + Mentorship" }
+      {
+        "icon": "medal",
+        "label": "Duration",
+        "value": "10 months"
+      },
+      {
+        "icon": "video",
+        "label": "Format",
+        "value": "Online + 1-on-1 Mentorship"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certification",
+        "value": "Master Senior Coach CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Access",
+        "value": "Materials + Mentorship"
+      }
     ],
     "topics": [
       "Advanced Client / Athlete Assessment and Elite Screening",
@@ -122,7 +176,10 @@
     "modulesCount": 10,
     "totalLessonsCount": 30,
     "hasPractical": true,
-    "hasExam": true
+    "hasExam": true,
+    "practicalType": "case_studies_project",
+    "hasProjectWork": true,
+    "hasPracticalSubmission": false
   },
   {
     "id": "cali-1",
@@ -139,13 +196,29 @@
     "access": "Lifetime access with 178 video library",
     "price": 890,
     "originalPrice": 1100,
-    "heroImage": "/images/eureka-personal-trainer-hero.webp",
+    "heroImage": "/images/courses/calisthenics-1.webp",
     "badgeText": "Level 1 • Coach Foundations & Progressions",
     "facts": [
-      { "icon": "medal", "label": "Duration", "value": "6 months" },
-      { "icon": "video", "label": "Format", "value": "Online + Workshop" },
-      { "icon": "certificate", "label": "Certification", "value": "Libertas / CONI" },
-      { "icon": "clipboard", "label": "Access", "value": "178 Exercise Video Library" }
+      {
+        "icon": "medal",
+        "label": "Duration",
+        "value": "6 months"
+      },
+      {
+        "icon": "video",
+        "label": "Format",
+        "value": "Online + Workshop"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certification",
+        "value": "Libertas / CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Access",
+        "value": "178 Exercise Video Library"
+      }
     ],
     "topics": [
       "Introduction to Calisthenics and Philosophy",
@@ -163,9 +236,12 @@
       "Introduction to Basic Skills: Hollow Hold, Dead Hang"
     ],
     "modulesCount": 13,
-    "totalLessonsCount": 39,
+    "totalLessonsCount": 202,
     "hasPractical": true,
-    "hasExam": true
+    "hasExam": true,
+    "practicalType": "skill_library",
+    "hasProjectWork": false,
+    "hasPracticalSubmission": false
   },
   {
     "id": "cali-2",
@@ -182,13 +258,29 @@
     "access": "Unlimited access to all skill paths",
     "price": 1190,
     "originalPrice": 1450,
-    "heroImage": "/images/eureka-personal-trainer-hero.webp",
+    "heroImage": "/images/courses/calisthenics-2.webp",
     "badgeText": "Level 2 • Skill Specialist & Master",
     "facts": [
-      { "icon": "medal", "label": "Duration", "value": "8 months" },
-      { "icon": "video", "label": "Format", "value": "Online + Skill Masterclasses" },
-      { "icon": "certificate", "label": "Certification", "value": "Specialist Coach EPS CONI" },
-      { "icon": "clipboard", "label": "Access", "value": "Unlimited Skill Access" }
+      {
+        "icon": "medal",
+        "label": "Duration",
+        "value": "8 months"
+      },
+      {
+        "icon": "video",
+        "label": "Format",
+        "value": "Online + Skill Masterclasses"
+      },
+      {
+        "icon": "certificate",
+        "label": "Certification",
+        "value": "Specialist Coach EPS CONI"
+      },
+      {
+        "icon": "clipboard",
+        "label": "Access",
+        "value": "Unlimited Skill Access"
+      }
     ],
     "topics": [
       "Advanced Functional Anatomy Applied to Calisthenics",
@@ -213,8 +305,10 @@
       "Advanced Coaching, Teaching, Spotting and Safety"
     ],
     "modulesCount": 20,
-    "totalLessonsCount": 60,
-    "hasPractical": true,
-    "hasExam": true
+    "totalLessonsCount": 98,
+    "hasPractical": false,
+    "hasExam": true,
+    "hasProjectWork": false,
+    "hasPracticalSubmission": true
   }
 ]

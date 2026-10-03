@@ -5,6 +5,55 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Complete 12-Muscle-Group Anatomical Illustration Suite**:
+  - Designed and deployed the remaining 4 anatomical vector illustrations in `public/images/muscles/`:
+    - `glutes.svg`: Posterior pelvic view with Gluteus Maximus and Medius highlighted.
+    - `calves.svg`: Posterior lower leg view with Gastrocnemius (lateral/medial heads) and Soleus highlighted.
+    - `forearms.svg`: Athletic arm, wrist, and gripping fist view with Brachioradialis and forearm flexors/extensors highlighted.
+    - `full-body.svg`: Full athletic body silhouette with compound multi-joint kinetic chains highlighted.
+  - Resolves broken image placeholders on Personal Trainer Level 1 and all 12-muscle group views.
+- **Course Catalog Portrait Framing & Face Cut Correction**:
+  - Adjusted course card photo aspect ratio in [`courses.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/courses.module.css) from `1.55 / 1` to `1.4 / 1` to provide vertical headroom.
+  - Implemented tailored `backgroundPosition` mappings (defaulting to `"center top"`) across all course cards in [`CourseCatalog.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseCatalog.tsx), ensuring athletes' faces, eyes, and heads are fully visible and framed without top cut-offs.
+- **Dedicated Unique Course Imagery Architecture**:
+  - Extracted and deployed dedicated standalone WebP image assets for all catalog courses into `public/images/courses/`:
+    - `personal-trainer-1.webp`: Foundation dumbbell personal trainer in gym.
+    - `personal-trainer-2.webp`: Heavy barbell load / strength periodization coach.
+    - `personal-trainer-3.webp`: Senior master trainer & athletic director physique.
+    - `calisthenics-1.webp`: Foundation indoor calisthenics squat & rig athlete.
+    - `calisthenics-2.webp`: Advanced outdoor calisthenics skill movement athlete.
+    - `swimming-instructor.webp`: Swimming instructor in pool.
+    - `aquagym.webp`: Aquagym and hydrobike workout.
+    - `ginnastica.webp`: Gymnastics flexibility on floor.
+    - `functional-training.webp`: Functional kettlebell conditioning.
+  - Eliminated duplicate sprite index mapping in [`CourseCatalog.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseCatalog.tsx), ensuring every single course displays a completely distinct, high-definition photograph.
+  - Synchronized `heroImage` properties across `src/lib/api/data/en/courses.json` and `src/lib/api/data/it/courses.json`.
+- **Interactive Muscle Group Explorer & Anatomical Illustration System**:
+  - Added dedicated, high-resolution anatomical illustrations for all 8 muscle groups (`chest.svg`, `back.svg`, `shoulders.svg`, `biceps.svg`, `triceps.svg`, `core.svg`, `quadriceps.svg`, `hamstrings.svg`) rendered in the Eureka Royal Blue aesthetic with highlighted muscle fibers.
+  - Upgraded [`PracticalResources.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/PracticalResources.tsx) with dynamic exercise count badges per muscle group, instant active visual state, and auto-scrolling to the exercises section on card selection (`exercisesSectionRef`).
+  - Added interactive Biomechanical Deep Dive modal (`selectedExerciseForModal`) allowing students to inspect full setup instructions, execution cues, safety checkpoints, and common execution mistakes with backdrop blur and Escape key dismiss.
+  - Added quick "↑ Muscle Groups" jump-back button in the exercises section header for seamless navigation.
+  - Enhanced [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) with responsive card image containers, active glowing borders, hover transitions, and modal dialog animations.
+- **Full Course LMS Alignment & Authentic Exercise Registry**:
+  - Expanded all 5 courses to match official CONI/EPS curriculum Word extracts (`Documentation/API/`):
+    - **Personal Trainer 1**: 12 dedicated learning modules, separated practical resource module, 5 workout plans + 12 muscle groups in 1:1 square cards, 30 True/False exam questions.
+    - **Personal Trainer 2**: 13 advanced modules (normalized Module 13 to Case Studies & Advanced Program Design), advanced undulating periodization plans, 30 True/False exam questions unlocked only upon completing all 13 modules.
+    - **Personal Trainer 3**: 10 senior modules, advanced resource library (10 program templates, 7 real case studies, 5 professional legal/business documents; removed gym machine library), Capstone Project Work portal (`AssignmentView.tsx`) with status tracking.
+    - **Calisthenics 1**: 13 modules, complete 178 exercise items across modules 5–9 (Push 40, Pull 36, Core 33, Legs 22, Mobility 47) preserving progression order and rapid codes (`PSH-001`..`STR-047`).
+    - **Calisthenics 2**: 20 modules (Modules 5–19 dedicated skill progressions, with Module 10 having all 29 Muscle-Up progression steps; Module 20 Coaching & Safety), authentic 30 theoretical exam questions/solutions from `CALI_M2_text.txt`, and Practical Skill Video submission portal.
+  - **Dual-Mode Live/Mock API Client & Resilient Switch Adapter**:
+    - Created [`src/lib/api/config.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/config.ts) and [`src/lib/api/client.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/client.ts) to enable instant switching between local mock data and live backend endpoints via `NEXT_PUBLIC_USE_MOCK_DATA`.
+    - Added automatic response envelope unwrapping (`{ success: true, data: T }`), Bearer token attachment, request timeouts, and `NEXT_PUBLIC_MOCK_FALLBACK` graceful degradation.
+    - Added [`.env.example`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/.env.example) configuration template.
+  - **Asynchronous Service Boundary Layer** (`src/lib/api/`):
+    - `coursesService`, `modulesService`, `lessonsService`, `examsService`, `practicalService`, `assignmentsService`, `progressService` for seamless migration from local mock datasets/localStorage to backend REST endpoints.
+  - **Enhanced LMS Views & Components**:
+    - [`CourseCatalog.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseCatalog.tsx): Fully data-driven from `getAllCourses(locale)`.
+    - [`PT3ResourcesView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/PT3ResourcesView.tsx): Dedicated PT3 resource explorer with templates, case studies, and business documentation.
+    - [`AssignmentView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/AssignmentView.tsx): Interactive submission portal with rubrics, file upload simulations, and revision status tracking.
+    - [`ExamPlaceholder.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/ExamPlaceholder.tsx): Dual mode (Official Certification Exam vs Practice Simulation), prerequisite lock state (100% modules completed), confirmation modals, and solutions review.
+    - [`CourseHome.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseHome.tsx): Multi-tab dynamic navigation (Modules, Practical Resources, Project Work/Verification, Exam), achievement banner, and safe certificate modal return.
+    - [`LessonView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/LessonView.tsx): Progression badges (`rapidCode`, `progressionStep`, `programCode`, `phase`), honest studio in-production video cards, regression/progression links, and case study cards.
 - **Localized Course Datasets (IT & EN) & Dynamic API Layer**:
   - Separated course datasets into dedicated language directories:
     - `src/lib/api/data/it/`: Italian courses, modules, lessons, exams, and practical resources.

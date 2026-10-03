@@ -10,7 +10,7 @@
 .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75em; }
 .card { min-width: 0; overflow: hidden; border: 1px solid #e4eaf0; border-radius: .45em; background: #fff; box-shadow: 0 2px 4px #142d4308; transition: transform 180ms, box-shadow 180ms; }
 .card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px #12334a17; }
-.photo { width: 100%; aspect-ratio: 1.55 / 1; background-image: url('/images/eureka-course-goals.webp'); background-size: 400% auto; background-repeat: no-repeat; background-color: #d6e1e9; }
+.photo { width: 100%; aspect-ratio: 1.4 / 1; background-image: url('/images/eureka-course-goals.webp'); background-size: 400% auto; background-repeat: no-repeat; background-color: #d6e1e9; }
 .cardBody { display: flex; flex-direction: column; align-items: flex-start; min-height: 5.2em; padding: .75em .7em .6em; }
 .cardBody h2 { margin: 0 0 .8em; font-size: .76em; line-height: 1.25; font-weight: 700; }
 .cardLink { display: inline-flex; align-items: center; gap: .3em; padding: 0; margin-top: auto; border: 0; background: none; color: #0066ff; font-size: .62em; font-weight: 700; text-decoration: none; }

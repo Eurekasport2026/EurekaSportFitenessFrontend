@@ -57,18 +57,140 @@
     }
   ],
   "muscleGroups": [
-    { "id": "chest", "name": "CHEST", "subtitle": "Pectorals", "description": "Horizontal pushing muscles: pectoralis major and minor.", "primaryEquipment": ["Machines", "Free Weights", "Cables", "Bodyweight"] },
-    { "id": "back", "name": "BACK", "subtitle": "Lats • Traps • Rhomboids", "description": "Latissimus dorsi, trapezius, rhomboids, and teres major.", "primaryEquipment": ["Machines", "Free Weights", "Cables", "Bodyweight"] },
-    { "id": "shoulders", "name": "SHOULDERS", "subtitle": "Deltoids", "description": "Anterior, lateral, and posterior deltoid heads.", "primaryEquipment": ["Machines", "Free Weights", "Cables"] },
-    { "id": "biceps", "name": "BICEPS", "subtitle": "Elbow Flexors", "description": "Biceps brachii, brachialis, and brachioradialis.", "primaryEquipment": ["Free Weights", "Cables", "Machines"] },
-    { "id": "triceps", "name": "TRICEPS", "subtitle": "Elbow Extensors", "description": "Long, lateral, and medial heads of the triceps brachii.", "primaryEquipment": ["Cables", "Free Weights", "Machines", "Bodyweight"] },
-    { "id": "core", "name": "CORE", "subtitle": "Abs • Obliques • Trunk", "description": "Rectus abdominis, transverse abdominis, obliques, and spinal erectors.", "primaryEquipment": ["Bodyweight", "Cables", "Machines"] },
-    { "id": "quadriceps", "name": "QUADRICEPS", "subtitle": "Front Thigh", "description": "Rectus femoris, vastus lateralis, medialis, and intermedius.", "primaryEquipment": ["Machines", "Free Weights", "Bodyweight"] },
-    { "id": "hamstrings", "name": "HAMSTRINGS", "subtitle": "Back Thigh", "description": "Biceps femoris, semitendinosus, and semimembranosus.", "primaryEquipment": ["Machines", "Free Weights"] },
-    { "id": "glutes", "name": "GLUTES", "subtitle": "Gluteal Muscles", "description": "Gluteus maximus, medius, and minimus.", "primaryEquipment": ["Machines", "Free Weights", "Cables", "Bodyweight"] },
-    { "id": "calves", "name": "CALVES", "subtitle": "Lower Leg", "description": "Gastrocnemius and soleus.", "primaryEquipment": ["Machines", "Free Weights", "Bodyweight"] },
-    { "id": "forearms", "name": "FOREARMS & GRIP", "subtitle": "Forearms & Grip", "description": "Wrist flexors, extensors, and hand grip musculature.", "primaryEquipment": ["Free Weights", "Bodyweight"] },
-    { "id": "full-body", "name": "FULL BODY", "subtitle": "Multi-joint Exercises", "description": "Compound global patterns engaging major kinetic chains simultaneously.", "primaryEquipment": ["Free Weights", "Machines", "Bodyweight"] }
+    {
+      "id": "chest",
+      "name": "CHEST",
+      "subtitle": "Pectorals",
+      "description": "Horizontal pushing muscles: pectoralis major and minor.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Cables",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "back",
+      "name": "BACK",
+      "subtitle": "Lats • Traps • Rhomboids",
+      "description": "Latissimus dorsi, trapezius, rhomboids, and teres major.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Cables",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "shoulders",
+      "name": "SHOULDERS",
+      "subtitle": "Deltoids",
+      "description": "Anterior, lateral, and posterior deltoid heads.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Cables"
+      ]
+    },
+    {
+      "id": "biceps",
+      "name": "BICEPS",
+      "subtitle": "Elbow Flexors",
+      "description": "Biceps brachii, brachialis, and brachioradialis.",
+      "primaryEquipment": [
+        "Free Weights",
+        "Cables",
+        "Machines"
+      ]
+    },
+    {
+      "id": "triceps",
+      "name": "TRICEPS",
+      "subtitle": "Elbow Extensors",
+      "description": "Long, lateral, and medial heads of the triceps brachii.",
+      "primaryEquipment": [
+        "Cables",
+        "Free Weights",
+        "Machines",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "core",
+      "name": "CORE",
+      "subtitle": "Abs • Obliques • Trunk",
+      "description": "Rectus abdominis, transverse abdominis, obliques, and spinal erectors.",
+      "primaryEquipment": [
+        "Bodyweight",
+        "Cables",
+        "Machines"
+      ]
+    },
+    {
+      "id": "quadriceps",
+      "name": "QUADRICEPS",
+      "subtitle": "Front Thigh",
+      "description": "Rectus femoris, vastus lateralis, medialis, and intermedius.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "hamstrings",
+      "name": "HAMSTRINGS",
+      "subtitle": "Back Thigh",
+      "description": "Biceps femoris, semitendinosus, and semimembranosus.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights"
+      ]
+    },
+    {
+      "id": "glutes",
+      "name": "GLUTES",
+      "subtitle": "Gluteal Muscles",
+      "description": "Gluteus maximus, medius, and minimus.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Cables",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "calves",
+      "name": "CALVES",
+      "subtitle": "Lower Leg",
+      "description": "Gastrocnemius and soleus.",
+      "primaryEquipment": [
+        "Machines",
+        "Free Weights",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "forearms",
+      "name": "FOREARMS & GRIP",
+      "subtitle": "Forearms & Grip",
+      "description": "Wrist flexors, extensors, and hand grip musculature.",
+      "primaryEquipment": [
+        "Free Weights",
+        "Bodyweight"
+      ]
+    },
+    {
+      "id": "full-body",
+      "name": "FULL BODY",
+      "subtitle": "Multi-joint Exercises",
+      "description": "Compound global patterns engaging major kinetic chains simultaneously.",
+      "primaryEquipment": [
+        "Free Weights",
+        "Machines",
+        "Bodyweight"
+      ]
+    }
   ],
   "sampleGymExercises": [
     {
@@ -78,12 +200,23 @@
       "equipment": "Machines",
       "difficulty": "Beginner",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major"],
-      "secondaryMuscles": ["Anterior Deltoid", "Triceps Brachii"],
+      "primaryMuscles": [
+        "Pectoralis Major"
+      ],
+      "secondaryMuscles": [
+        "Anterior Deltoid",
+        "Triceps Brachii"
+      ],
       "setup": "Adjust seat height so handles align with mid-chest level. Feet flat on the floor.",
       "execution": "Smooth controlled forward press with exhalation; controlled return without weights slamming.",
-      "safetyPoints": ["Maintain back and head firmly against backrest.", "Do not hyperextend or snap elbows at full extension."],
-      "commonMistakes": ["Shoulders rounding forward toward ears during press.", "Wrists excessively hyperextended backwards."]
+      "safetyPoints": [
+        "Maintain back and head firmly against backrest.",
+        "Do not hyperextend or snap elbows at full extension."
+      ],
+      "commonMistakes": [
+        "Shoulders rounding forward toward ears during press.",
+        "Wrists excessively hyperextended backwards."
+      ]
     },
     {
       "id": "ex-pec-deck",
@@ -92,12 +225,20 @@
       "equipment": "Machines",
       "difficulty": "Beginner",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major"],
-      "secondaryMuscles": ["Anterior Deltoid"],
+      "primaryMuscles": [
+        "Pectoralis Major"
+      ],
+      "secondaryMuscles": [
+        "Anterior Deltoid"
+      ],
       "setup": "Adjust seat so elbows and forearms rest comfortably at mid-chest level.",
       "execution": "Horizontal adduction of arms bringing pads/handles together with controlled squeeze.",
-      "safetyPoints": ["Do not force excessive hyperextension of shoulders in the stretched position."],
-      "commonMistakes": ["Pulling with hands and forearms instead of initiating with chest contraction."]
+      "safetyPoints": [
+        "Do not force excessive hyperextension of shoulders in the stretched position."
+      ],
+      "commonMistakes": [
+        "Pulling with hands and forearms instead of initiating with chest contraction."
+      ]
     },
     {
       "id": "ex-bench-press",
@@ -106,12 +247,22 @@
       "equipment": "Free Weights",
       "difficulty": "Intermediate",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major (Sternocostal Head)"],
-      "secondaryMuscles": ["Triceps Brachii", "Anterior Deltoid"],
+      "primaryMuscles": [
+        "Pectoralis Major (Sternocostal Head)"
+      ],
+      "secondaryMuscles": [
+        "Triceps Brachii",
+        "Anterior Deltoid"
+      ],
       "setup": "Feet firmly planted, scapulae retracted and depressed, grip slightly wider than shoulder width.",
       "execution": "Controlled descent to lower sternum and press along an arched trajectory.",
-      "safetyPoints": ["Always use bar collar clamps and a qualified spotter for heavy attempts."],
-      "commonMistakes": ["Lifting hips off the bench.", "Flaring elbows to 90 degrees risking subacromial impingement."]
+      "safetyPoints": [
+        "Always use bar collar clamps and a qualified spotter for heavy attempts."
+      ],
+      "commonMistakes": [
+        "Lifting hips off the bench.",
+        "Flaring elbows to 90 degrees risking subacromial impingement."
+      ]
     },
     {
       "id": "ex-dumbbell-press",
@@ -120,12 +271,21 @@
       "equipment": "Free Weights",
       "difficulty": "Intermediate",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major (Clavicular Head)"],
-      "secondaryMuscles": ["Anterior Deltoid", "Triceps Brachii"],
+      "primaryMuscles": [
+        "Pectoralis Major (Clavicular Head)"
+      ],
+      "secondaryMuscles": [
+        "Anterior Deltoid",
+        "Triceps Brachii"
+      ],
       "setup": "Incline bench set between 30° and 45°. Kick dumbbells into position using knees.",
       "execution": "Press upward with natural convergence at the top without clanking dumbbells together.",
-      "safetyPoints": ["Avoid steep angles (>45°) which shift recruitment predominantly to anterior deltoids."],
-      "commonMistakes": ["Unstable or collapsing wrists during descent."]
+      "safetyPoints": [
+        "Avoid steep angles (>45°) which shift recruitment predominantly to anterior deltoids."
+      ],
+      "commonMistakes": [
+        "Unstable or collapsing wrists during descent."
+      ]
     },
     {
       "id": "ex-cable-crossover",
@@ -134,12 +294,20 @@
       "equipment": "Cables",
       "difficulty": "Intermediate",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major"],
-      "secondaryMuscles": ["Anterior Deltoid"],
+      "primaryMuscles": [
+        "Pectoralis Major"
+      ],
+      "secondaryMuscles": [
+        "Anterior Deltoid"
+      ],
       "setup": "Set pulleys at desired height, take one step forward to create initial cable tension.",
       "execution": "Hug-like sweeping motion with slight elbow bend and peak isometric squeeze.",
-      "safetyPoints": ["Keep torso rigid without rocking or using momentum."],
-      "commonMistakes": ["Turning the fly into a pressing motion."]
+      "safetyPoints": [
+        "Keep torso rigid without rocking or using momentum."
+      ],
+      "commonMistakes": [
+        "Turning the fly into a pressing motion."
+      ]
     },
     {
       "id": "ex-push-up",
@@ -148,12 +316,23 @@
       "equipment": "Bodyweight",
       "difficulty": "Beginner",
       "movementType": "Push",
-      "primaryMuscles": ["Pectoralis Major", "Triceps Brachii"],
-      "secondaryMuscles": ["Anterior Deltoid", "Core"],
+      "primaryMuscles": [
+        "Pectoralis Major",
+        "Triceps Brachii"
+      ],
+      "secondaryMuscles": [
+        "Anterior Deltoid",
+        "Core"
+      ],
       "setup": "Hands on the floor shoulder-width apart, body forming a straight line from head to heels.",
       "execution": "Lower chest with elbows at 45° until lightly grazing floor, then push back up with full protraction.",
-      "safetyPoints": ["Engage glutes and core to prevent lumbar hyperextension."],
-      "commonMistakes": ["Hips sagging toward floor.", "Head reaching down before chest."]
+      "safetyPoints": [
+        "Engage glutes and core to prevent lumbar hyperextension."
+      ],
+      "commonMistakes": [
+        "Hips sagging toward floor.",
+        "Head reaching down before chest."
+      ]
     },
     {
       "id": "ex-lat-machine",
@@ -162,12 +341,21 @@
       "equipment": "Machines",
       "difficulty": "Beginner",
       "movementType": "Pull",
-      "primaryMuscles": ["Latissimus Dorsi"],
-      "secondaryMuscles": ["Biceps Brachii", "Teres Major"],
+      "primaryMuscles": [
+        "Latissimus Dorsi"
+      ],
+      "secondaryMuscles": [
+        "Biceps Brachii",
+        "Teres Major"
+      ],
       "setup": "Thighs locked snugly under pads, overhand grip slightly wider than shoulders.",
       "execution": "Pull bar down toward upper sternum while maintaining slight torso lean and depressing shoulders.",
-      "safetyPoints": ["Never pull the bar behind the neck."],
-      "commonMistakes": ["Excessive backward swinging to gain momentum."]
+      "safetyPoints": [
+        "Never pull the bar behind the neck."
+      ],
+      "commonMistakes": [
+        "Excessive backward swinging to gain momentum."
+      ]
     },
     {
       "id": "ex-pulley",
@@ -176,12 +364,23 @@
       "equipment": "Cables",
       "difficulty": "Beginner",
       "movementType": "Pull",
-      "primaryMuscles": ["Latissimus Dorsi", "Rhomboids", "Middle Trapezius"],
-      "secondaryMuscles": ["Biceps Brachii", "Spinal Erectors"],
+      "primaryMuscles": [
+        "Latissimus Dorsi",
+        "Rhomboids",
+        "Middle Trapezius"
+      ],
+      "secondaryMuscles": [
+        "Biceps Brachii",
+        "Spinal Erectors"
+      ],
       "setup": "Feet set against footplates, slight bend in knees, upright spine.",
       "execution": "Pull handle into navel while retracting and depressing scapulae at full contraction.",
-      "safetyPoints": ["Avoid rounding the lumbar spine in the stretched position."],
-      "commonMistakes": ["Pulling exclusively with arms without scapular retraction."]
+      "safetyPoints": [
+        "Avoid rounding the lumbar spine in the stretched position."
+      ],
+      "commonMistakes": [
+        "Pulling exclusively with arms without scapular retraction."
+      ]
     },
     {
       "id": "ex-leg-press",
@@ -190,12 +389,22 @@
       "equipment": "Machines",
       "difficulty": "Beginner",
       "movementType": "Squat",
-      "primaryMuscles": ["Quadriceps Femoris"],
-      "secondaryMuscles": ["Gluteus Maximus", "Hamstrings"],
+      "primaryMuscles": [
+        "Quadriceps Femoris"
+      ],
+      "secondaryMuscles": [
+        "Gluteus Maximus",
+        "Hamstrings"
+      ],
       "setup": "Back and hips flush against backrest, feet shoulder-width on footplate.",
       "execution": "Disengage safety handles, lower carriage until knees reach ~90°, press through whole foot.",
-      "safetyPoints": ["Never allow sacrum to curl off seat at bottom.", "Do not snap knees into hyper-lockout at top."],
-      "commonMistakes": ["Knees caving inward (dynamic valgus collapse)."]
+      "safetyPoints": [
+        "Never allow sacrum to curl off seat at bottom.",
+        "Do not snap knees into hyper-lockout at top."
+      ],
+      "commonMistakes": [
+        "Knees caving inward (dynamic valgus collapse)."
+      ]
     },
     {
       "id": "ex-barbell-squat",
@@ -204,12 +413,236 @@
       "equipment": "Free Weights",
       "difficulty": "Advanced",
       "movementType": "Squat",
-      "primaryMuscles": ["Quadriceps Femoris", "Gluteus Maximus"],
-      "secondaryMuscles": ["Hamstrings", "Adductors", "Spinal Erectors", "Core"],
+      "primaryMuscles": [
+        "Quadriceps Femoris",
+        "Gluteus Maximus"
+      ],
+      "secondaryMuscles": [
+        "Hamstrings",
+        "Adductors",
+        "Spinal Erectors",
+        "Core"
+      ],
       "setup": "Bar resting securely across upper trapezius, feet shoulder-width, toes slightly flared.",
       "execution": "Controlled descent breaking at hips and knees simultaneously down to parallel depth.",
-      "safetyPoints": ["Always squat inside a power rack with safety bars adjusted to appropriate depth."],
-      "commonMistakes": ["Heels lifting off floor.", "Lumbar flexion ('butt wink') at depth."]
+      "safetyPoints": [
+        "Always squat inside a power rack with safety bars adjusted to appropriate depth."
+      ],
+      "commonMistakes": [
+        "Heels lifting off floor.",
+        "Lumbar flexion ('butt wink') at depth."
+      ]
     }
-  ]
+  ],
+  "pt2WorkoutPlans": [
+    {
+      "id": "pt2-plan-1",
+      "courseSlug": "personal-trainer-2",
+      "title": "Hypertrophy Specialization Mesocycle (Upper Focus)",
+      "subtitle": "6-week block periodization with RIR 3 → 0 volume overload",
+      "description": "Advanced 4-day Upper/Lower split with autoregulated volume and loading for targeted muscle hypertrophy.",
+      "level": "Advanced",
+      "durationWeeks": "6 weeks",
+      "pdfUrl": "",
+      "pdfSize": "2.4 MB"
+    },
+    {
+      "id": "pt2-plan-2",
+      "courseSlug": "personal-trainer-2",
+      "title": "Wave Loading Maximal Strength Protocol",
+      "subtitle": "8-week periodization for squat, bench and deadlift with cluster sets",
+      "description": "Neural potentiation program utilizing wave loading (75% → 90% 1RM) with complete metabolic recovery.",
+      "level": "Advanced",
+      "durationWeeks": "8 weeks",
+      "pdfUrl": "",
+      "pdfSize": "2.8 MB"
+    },
+    {
+      "id": "pt2-plan-3",
+      "courseSlug": "personal-trainer-2",
+      "title": "Conjugate Periodization for Personal Trainers",
+      "subtitle": "Weekly rotation between Max Effort (ME) and Dynamic Effort (DE)",
+      "description": "Conjugate system adapted for advanced clients seeking body composition improvement and maximal force output.",
+      "level": "Advanced",
+      "durationWeeks": "12 weeks",
+      "pdfUrl": "",
+      "pdfSize": "3.1 MB"
+    }
+  ],
+  "pt3Resources": {
+    "templates": [
+      {
+        "id": "pt3-tpl-1",
+        "title": "Advanced Client / Athlete Assessment Template",
+        "description": "Protocol for biometric screening, F-V profile and neuromuscular testing.",
+        "format": "PDF / Excel",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-2",
+        "title": "Strength and Power Programming Example",
+        "description": "Mesocycle contrast training, cluster sets and RFD for elite athletes.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-3",
+        "title": "Advanced Hypertrophy Mesocycle Example",
+        "description": "Volume threshold, plateau management and planned overreaching.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-4",
+        "title": "Medium-Term Periodization Example",
+        "description": "6-month planning with accumulation, transmutation and realization blocks.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-5",
+        "title": "Long-Term Annual Planning Example",
+        "description": "Annual macrocycle with peaking for competitions and transition periods.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-6",
+        "title": "Fatigue and Recovery Monitoring Sheet",
+        "description": "Tracking HRV, sleep, muscle soreness and daily readiness scores.",
+        "format": "Excel / PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-7",
+        "title": "RPE / RIR & Performance Tracking Template",
+        "description": "Session log for autoregulation of loads from workout to workout.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-8",
+        "title": "Training Data Review Example",
+        "description": "Methodology for auditing historical volume and intensity trends.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-9",
+        "title": "Coach Session Review Template",
+        "description": "Technical debriefing sheet following training sessions between coach and athlete.",
+        "format": "PDF",
+        "downloadUrl": ""
+      },
+      {
+        "id": "pt3-tpl-10",
+        "title": "Quality Improvement Checklist",
+        "description": "Standard operating procedures (SOPs) for fitness facilities and trainer teams.",
+        "format": "PDF",
+        "downloadUrl": ""
+      }
+    ],
+    "caseStudies": [
+      {
+        "id": "pt3-cs-1",
+        "title": "Case 1: Advanced Strength Athlete",
+        "subtitle": "Overcoming plateau on deadlift and back squat",
+        "category": "Maximal Strength",
+        "overview": "Advanced programming for an athlete with 8 years of training history facing stagnation.",
+        "rationale": "Conjugate system adoption with weekly max effort rotations and weak-point focus.",
+        "keyOutcomes": "+12.5 kg on 1RM in 16 weeks with reduced tendon fatigue."
+      },
+      {
+        "id": "pt3-cs-2",
+        "title": "Case 2: Hypertrophy Plateau",
+        "subtitle": "Managing Maximum Recoverable Volume (MRV)",
+        "category": "Hypertrophy",
+        "overview": "Natural bodybuilder with volume plateau on lagging muscle groups (lats and lateral deltoids).",
+        "rationale": "Specialization mesocycle with 3x weekly frequency and maintenance volume for other groups.",
+        "keyOutcomes": "+1.8 cm shoulder-chest circumference and muscle resensitization."
+      },
+      {
+        "id": "pt3-cs-3",
+        "title": "Case 3: Explosive Power Development (RFD)",
+        "subtitle": "Converting maximal strength to velocity in team sport",
+        "category": "Power & RFD",
+        "overview": "Strength and conditioning protocol for a professional basketball player.",
+        "rationale": "Reactive plyometrics combined with contrast training at 80% 1RM and medicine ball throws.",
+        "keyOutcomes": "+7.2 cm in countermovement jump (CMJ) in 12 weeks."
+      },
+      {
+        "id": "pt3-cs-4",
+        "title": "Case 4: Fatigue Management & Overtraining Prevention",
+        "subtitle": "Restoring autonomic balance in an over-stressed athlete",
+        "category": "Recovery",
+        "overview": "Athlete with chronic performance drop and sleep disruptions due to cumulative overload.",
+        "rationale": "Progressive active deload protocol, HRV monitoring and density reduction.",
+        "keyOutcomes": "Restoration of baseline HRV in 3 weeks and full return to athletic efficiency."
+      },
+      {
+        "id": "pt3-cs-5",
+        "title": "Case 5: Long-Term Program Review",
+        "subtitle": "Adapting an annual plan following unplanned interruptions",
+        "category": "Periodization",
+        "overview": "Macrocycle restructuring 4 months prior to target competition.",
+        "rationale": "Reorganization of block timelines while preserving primary neuromuscular qualities.",
+        "keyOutcomes": "Peak performance achieved exactly on competition target date."
+      },
+      {
+        "id": "pt3-cs-6",
+        "title": "Case 6: Complex Client Communication",
+        "subtitle": "Resolving conflict and managing unrealistic expectations",
+        "category": "Coaching & Soft Skills",
+        "overview": "Executive client with severe schedule constraints and non-physiological progress goals.",
+        "rationale": "SMART goal recalibration, motivational interviewing and consistency incentives.",
+        "keyOutcomes": "Adherence increased from 50% to 92% with annual package renewal."
+      },
+      {
+        "id": "pt3-cs-7",
+        "title": "Case 7: Head Coach Supervision",
+        "subtitle": "Quality assessment and mentoring of a team of 5 junior trainers",
+        "category": "Leadership & Head Coach",
+        "overview": "Elevating service quality standards across a high-profile health club.",
+        "rationale": "Implementation of SOP checklists, peer-review sessions and monthly biomechanics workshops.",
+        "keyOutcomes": "Zero client complaints and a 24% increase in member retention."
+      }
+    ],
+    "professionalDocs": [
+      {
+        "id": "pt3-doc-1",
+        "title": "Initial Assessment Summary Report Example",
+        "description": "Comprehensive dossier of client history, physical tests and proposed plan.",
+        "format": "PDF",
+        "category": "Documentation"
+      },
+      {
+        "id": "pt3-doc-2",
+        "title": "Program Rationale Report Example",
+        "description": "Technical document scientifically justifying exercise selection and loading parameters.",
+        "format": "PDF",
+        "category": "Documentation"
+      },
+      {
+        "id": "pt3-doc-3",
+        "title": "Periodic Progress Review Example",
+        "description": "Bimonthly report with trend charts, girth measurements and strength progressions.",
+        "format": "PDF",
+        "category": "Documentation"
+      },
+      {
+        "id": "pt3-doc-4",
+        "title": "Coach Session Notes & Tracking Example",
+        "description": "Clinical/sports training log for annotating subjective feedback and discomfort.",
+        "format": "PDF",
+        "category": "Documentation"
+      },
+      {
+        "id": "pt3-doc-5",
+        "title": "Official Quality Control Checklist",
+        "description": "Audit document for inspecting compliance with safety and ethical practice standards.",
+        "format": "PDF",
+        "category": "Documentation"
+      }
+    ]
+  }
 }

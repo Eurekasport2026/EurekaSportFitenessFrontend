@@ -17,3 +17,38 @@ export function getCourseBySlug(slug: string, locale: string = "it"): Course | u
   const list = getAllCourses(locale);
   return list.find((c) => c.slug === slug);
 }
+
+import { apiConfig } from "./config";
+import { apiClient } from "./client";
+
+export const coursesService = {
+  getAll: async (locale: string = "it"): Promise<Course[]> => {
+    if (apiConfig.useMockData) {
+      return getAllCourses(locale);
+    }
+    try {
+      return await apiClient.get<Course[]>("/courses", { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        console.warn("[coursesService.getAll] Live API unavailable, falling back to mock dataset", err);
+        return getAllCourses(locale);
+      }
+      throw err;
+    }
+  },
+
+  getBySlug: async (slug: string, locale: string = "it"): Promise<Course | undefined> => {
+    if (apiConfig.useMockData) {
+      return getCourseBySlug(slug, locale);
+    }
+    try {
+      return await apiClient.get<Course>(`/courses/${slug}`, { locale });
+    } catch (err) {
+      if (apiConfig.mockFallback) {
+        console.warn(`[coursesService.getBySlug] Live API unavailable for ${slug}, falling back to mock dataset`, err);
+        return getCourseBySlug(slug, locale);
+      }
+      throw err;
+    }
+  },
+};

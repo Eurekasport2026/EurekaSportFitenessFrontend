@@ -41,7 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function CourseLearnPage({ params, searchParams }: PageProps) {
   const { locale, slug } = await params;
-  const { tab, completed } = await searchParams;
+  const { tab } = await searchParams;
   setRequestLocale(locale);
 
   const course = getCourseBySlug(slug, locale);
@@ -61,7 +61,6 @@ export default async function CourseLearnPage({ params, searchParams }: PageProp
           modules={modules}
           exam={exam}
           initialTab={tab}
-          isCompletedQuery={completed === "true"}
         />
       </main>
     </div>

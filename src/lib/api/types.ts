@@ -6,6 +6,8 @@ export interface CourseFact {
   value: string;
 }
 
+export type PracticalType = "gym_library" | "advanced_resources" | "case_studies_project" | "skill_library";
+
 export interface Course {
   id: string;
   slug: string;
@@ -29,9 +31,12 @@ export interface Course {
   totalLessonsCount: number;
   hasPractical: boolean;
   hasExam: boolean;
+  hasProjectWork?: boolean;
+  hasPracticalSubmission?: boolean;
+  practicalType?: PracticalType;
 }
 
-export type ModuleType = "theory" | "skill" | "practical";
+export type ModuleType = "theory" | "skill" | "practical" | "case_study";
 
 export interface CourseModule {
   id: string;
@@ -44,6 +49,7 @@ export interface CourseModule {
   durationMinutes: number;
   lessonsCount: number;
   isPractical?: boolean;
+  skillLevel?: string;
 }
 
 export interface ExerciseDetail {
@@ -60,6 +66,9 @@ export interface ExerciseDetail {
   commonMistakes: string[];
 }
 
+export type LearningItemType = "video" | "pdf" | "case_study" | "exercise_card" | "template" | "assignment";
+export type MediaStatus = "available" | "in_production" | "offline_only";
+
 export interface Lesson {
   id: string;
   moduleId: string;
@@ -68,6 +77,8 @@ export interface Lesson {
   title: string;
   description: string;
   durationMinutes: number;
+  itemType?: LearningItemType;
+  mediaStatus?: MediaStatus;
   videoUrl?: string;
   videoDuration?: string;
   summary: string;
@@ -76,7 +87,19 @@ export interface Lesson {
   pdfTitle?: string;
   pdfSize?: string;
   allowsDownload?: boolean;
+  rapidCode?: string;
+  programCode?: string;
+  progressionStep?: number;
+  phase?: string;
+  regressionCode?: string;
+  progressionCode?: string;
   exerciseDetail?: ExerciseDetail;
+  caseStudyDetail?: {
+    clientProfile: string;
+    challenge: string;
+    solutionRationale: string;
+    outcomeMetrics: string;
+  };
 }
 
 export interface ExamQuestion {
@@ -119,12 +142,60 @@ export interface MuscleGroupItem {
   primaryEquipment: string[];
 }
 
+export interface CaseStudyItem {
+  id: string;
+  title: string;
+  subtitle: string;
+  category: string;
+  overview: string;
+  rationale: string;
+  keyOutcomes: string;
+  pdfUrl?: string;
+}
+
+export interface ProfessionalDocItem {
+  id: string;
+  title: string;
+  description: string;
+  format: string;
+  category: string;
+  pdfUrl?: string;
+}
+
+export interface ProjectWorkBrief {
+  id: string;
+  courseSlug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  rubric: string[];
+  templateUrl: string;
+  submissionGuidelines: string[];
+}
+
+export type AssignmentStatus = "not_submitted" | "draft" | "submitted" | "under_review" | "approved" | "changes_requested";
+
+export interface AssignmentSubmission {
+  id: string;
+  courseSlug: string;
+  type: "project_work" | "practical_video";
+  status: AssignmentStatus;
+  submittedAt?: string;
+  title: string;
+  notes?: string;
+  fileName?: string;
+  reviewerFeedback?: string;
+  updatedAt: string;
+}
+
 export interface UserCourseProgress {
+  version?: number;
   courseSlug: string;
   completedLessonIds: string[];
   completedModuleIds: string[];
   examPassed: boolean;
   examScore?: number;
+  assignmentStatus?: AssignmentStatus;
   lastAccessedModuleId?: string;
   lastAccessedLessonId?: string;
   updatedAt: string;

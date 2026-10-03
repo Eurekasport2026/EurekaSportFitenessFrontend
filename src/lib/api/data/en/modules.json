@@ -132,18 +132,6 @@
     "lessonsCount": 3
   },
   {
-    "id": "pt1-mod-13",
-    "courseSlug": "personal-trainer-1",
-    "number": 13,
-    "title": "Practical Module – Workout Plans & Video Library",
-    "subtitle": "Ready-to-use workout plans and equipment video library",
-    "description": "Access 5 downloadable workout plan PDFs and an interactive gym equipment explorer organized by muscle group and equipment type.",
-    "type": "practical",
-    "durationMinutes": 90,
-    "lessonsCount": 2,
-    "isPractical": true
-  },
-  {
     "id": "pt2-mod-1",
     "courseSlug": "personal-trainer-2",
     "number": 1,
@@ -282,10 +270,10 @@
     "title": "Case Studies and Advanced Program Design",
     "subtitle": "Analysis of 7 real-world athlete profiles and advanced splits",
     "description": "Hands-on problem solving across complex client profiles: competitive amateurs, masters lifters, and advanced physique athletes.",
-    "type": "practical",
+    "type": "case_study",
     "durationMinutes": 75,
     "lessonsCount": 3,
-    "isPractical": true
+    "isPractical": false
   },
   {
     "id": "pt3-mod-1",
@@ -393,10 +381,10 @@
     "title": "Professional Responsibility, Ethics, Safety and Project Work",
     "subtitle": "Legal compliance, insurance, and capstone Project Work defense",
     "description": "Legal and fiduciary responsibilities at the master tier, and preparing the capstone project work for board examination.",
-    "type": "practical",
+    "type": "theory",
     "durationMinutes": 90,
     "lessonsCount": 3,
-    "isPractical": true
+    "isPractical": false
   },
   {
     "id": "cali1-mod-1",
@@ -451,7 +439,7 @@
     "description": "Complete instructional progression: Wall Push-Up → Incline Push-Up → Knee Push-Up → Full Push-Up → Diamond Push-Up → Dips.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 40
   },
   {
     "id": "cali1-mod-6",
@@ -462,7 +450,7 @@
     "description": "Complete instructional progression: Australian Pull-Up → Scapular Pull-Up → Negative Chin-Up → Band-Assisted Pull-Up → Strict Pull-Up.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 36
   },
   {
     "id": "cali1-mod-7",
@@ -473,7 +461,7 @@
     "description": "Foundational progressions to build an unyielding core cylinder, prerequisite for all calisthenics skills.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 33
   },
   {
     "id": "cali1-mod-8",
@@ -484,7 +472,7 @@
     "description": "Building lower body strength, balance, and unilateral stability using bodyweight and functional movement.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 22
   },
   {
     "id": "cali1-mod-9",
@@ -495,7 +483,7 @@
     "description": "Injury prevention protocols to protect wrists, elbows, and shoulders while improving active joint range of motion.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 47
   },
   {
     "id": "cali1-mod-10",
@@ -594,7 +582,7 @@
     "description": "Prerequisites, latissimus dorsi engagement, explosive chest-to-bar pull-ups, and weighted loading.",
     "type": "skill",
     "durationMinutes": 45,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-6",
@@ -605,7 +593,7 @@
     "description": "Tuck L-Sit, single-leg L-Sit, full L-Sit on floor and bars. Specific drills for pike compression strength.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-7",
@@ -616,7 +604,7 @@
     "description": "Swing momentum, timing of release, hip rotation, and secure re-catch on the high bar.",
     "type": "skill",
     "durationMinutes": 45,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-8",
@@ -627,7 +615,7 @@
     "description": "Belly-to-wall drills, controlled kick-ups, fingertip grip balance, and freestanding handstand holds.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-9",
@@ -638,7 +626,7 @@
     "description": "Skin the Cat prerequisite, scapular depression, and gradual progression to the horizontal lever.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-10",
@@ -649,7 +637,7 @@
     "description": "High chest-to-bar pull-ups, deep dips, false grip mechanics, and smooth transition without kipping faults.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 29
   },
   {
     "id": "cali2-mod-11",
@@ -660,7 +648,7 @@
     "description": "Regressions from bent-knee to full straight-body eccentrics with glutes and core fully braced.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-12",
@@ -671,7 +659,7 @@
     "description": "Dynamic swing height, rapid core rotation, and precise grip re-engagement.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-13",
@@ -682,7 +670,7 @@
     "description": "Pike push-ups, elevated pike drills, wall HSPU, slow eccentrics, and freestanding balance reps.",
     "type": "skill",
     "durationMinutes": 65,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-14",
@@ -693,7 +681,7 @@
     "description": "Oblique and lat conditioning, bottom arm push vs top arm pull, tuck flag holds to straight leg extension.",
     "type": "skill",
     "durationMinutes": 60,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-15",
@@ -704,7 +692,7 @@
     "description": "Tuck Front Lever, Advanced Tuck, Straddle and Full Front Lever with depressed scapulae and posterior pelvic tilt.",
     "type": "skill",
     "durationMinutes": 70,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-16",
@@ -715,7 +703,7 @@
     "description": "Progressing from high L-Sit into V-position: active compression, quad strength, and hamstring mobility.",
     "type": "skill",
     "durationMinutes": 50,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-17",
@@ -726,7 +714,7 @@
     "description": "Complex floor or low-bar flow unifying rotational stability and explosive isometric trunk bracing.",
     "type": "skill",
     "durationMinutes": 55,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-18",
@@ -737,7 +725,7 @@
     "description": "Planche lean on parallelettes, Frog stand, Tuck Planche, Advanced Tuck, Straddle and Full Planche with locked elbows and protracted scapulae.",
     "type": "skill",
     "durationMinutes": 75,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-19",
@@ -748,7 +736,7 @@
     "description": "Archer pull-ups, assisted band pull-ups, one-arm slow eccentrics, and full lock-out mechanics.",
     "type": "skill",
     "durationMinutes": 70,
-    "lessonsCount": 3
+    "lessonsCount": 4
   },
   {
     "id": "cali2-mod-20",

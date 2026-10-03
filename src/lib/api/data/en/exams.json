@@ -9,36 +9,216 @@
     "timeLimitMinutes": 45,
     "certificateBody": "Libertas – Sports Promotion Body recognized by CONI and the Ministry of Labour and Social Policies",
     "questions": [
-      { "id": "pt1-q1", "number": 1, "question": "The Personal Trainer should define the client’s goals before building a training program.", "correctAnswer": true, "explanation": "Initial consultation and SMART goal definition are essential prerequisites for sound programming." },
-      { "id": "pt1-q2", "number": 2, "question": "A Personal Trainer can provide medical diagnoses to a client.", "correctAnswer": false, "explanation": "Medical diagnosis and therapy prescription belong exclusively to licensed healthcare professionals." },
-      { "id": "pt1-q3", "number": 3, "question": "The shoulder girdle plays an important role in many pushing and pulling movements.", "correctAnswer": true, "explanation": "Scapular stability and scapulohumeral rhythm govern safe mechanics in horizontal and vertical pushes/pulls." },
-      { "id": "pt1-q4", "number": 4, "question": "The hip, knee and ankle all contribute to lower-body movement.", "correctAnswer": true, "explanation": "Triple extension coordinates hip, knee, and ankle joints in locomotion and multi-joint lower body lifts." },
-      { "id": "pt1-q5", "number": 5, "question": "The body uses different energy systems depending on the type and intensity of exercise.", "correctAnswer": true, "explanation": "ATP-PCr, glycolytic, and oxidative systems contribute concurrently in varying proportions based on demand." },
-      { "id": "pt1-q6", "number": 6, "question": "Recovery is part of the adaptation process to training.", "correctAnswer": true, "explanation": "Biological adaptation and supercompensation occur during post-stimulus recovery periods." },
-      { "id": "pt1-q7", "number": 7, "question": "The initial assessment helps identify an appropriate starting level for the client.", "correctAnswer": true, "explanation": "It establishes safe loads, appropriate volume, and motor complexity tailored to baseline capacity." },
-      { "id": "pt1-q8", "number": 8, "question": "A client’s goals, experience and availability are useful information when planning training.", "correctAnswer": true, "explanation": "These constitute vital parameters for programming realistic training frequency and volume." },
-      { "id": "pt1-q9", "number": 9, "question": "A Chest Press is an example of a resistance-training machine.", "correctAnswer": true, "explanation": "It is a fixed-trajectory resistance machine designed to train horizontal pushing musculature." },
-      { "id": "pt1-q10", "number": 10, "question": "Correct machine setup is not important if the load is light.", "correctAnswer": false, "explanation": "Improper axis alignment creates adverse joint shearing stresses regardless of the external resistance." },
-      { "id": "pt1-q11", "number": 11, "question": "Training volume can be influenced by the number of sets and repetitions performed.", "correctAnswer": true, "explanation": "Volume load is computed as sets × reps (often multiplied by load)." },
-      { "id": "pt1-q12", "number": 12, "question": "RIR refers to the number of repetitions a person could still perform before reaching failure.", "correctAnswer": true, "explanation": "Repetitions in Reserve (RIR) gauges proximity to concentric failure on a given set." },
-      { "id": "pt1-q13", "number": 13, "question": "A warm-up can help prepare the client for the exercises that follow.", "correctAnswer": true, "explanation": "Warm-ups elevate tissue temperature, enhance joint lubrication, and prime neuromuscular conductivity." },
-      { "id": "pt1-q14", "number": 14, "question": "Cardiovascular training can be performed using a treadmill, bike, elliptical or rowing machine.", "correctAnswer": true, "explanation": "All these modalities provide continuous or interval aerobic conditioning." },
-      { "id": "pt1-q15", "number": 15, "question": "Cardio intensity and duration should always remain exactly the same over time.", "correctAnswer": false, "explanation": "Progressive overload requires planned variations and progressions in volume, speed, or resistance." },
-      { "id": "pt1-q16", "number": 16, "question": "A Full Body program trains several major muscle groups in the same workout.", "correctAnswer": true, "explanation": "Full-body routines recruit major motor patterns throughout the entire body in each workout." },
-      { "id": "pt1-q17", "number": 17, "question": "The number of weekly sessions should be considered when creating a client’s program.", "correctAnswer": true, "explanation": "Weekly frequency determines split selection and recovery distribution between sessions." },
-      { "id": "pt1-q18", "number": 18, "question": "A beginner should always use the most complex training split available.", "correctAnswer": false, "explanation": "Novice clients benefit most from higher movement frequency with simple full-body motor schemes." },
-      { "id": "pt1-q19", "number": 19, "question": "Energy balance is one of the basic concepts related to body-weight change.", "correctAnswer": true, "explanation": "Caloric intake relative to total daily energy expenditure dictates surplus, maintenance, or deficit." },
-      { "id": "pt1-q20", "number": 20, "question": "A Personal Trainer should prescribe individual therapeutic diets to clients.", "correctAnswer": false, "explanation": "Medical nutrition therapy and diet prescription are legally reserved for registered dietitians and physicians." },
-      { "id": "pt1-q21", "number": 21, "question": "Hydration can be relevant to exercise and general physical performance.", "correctAnswer": true, "explanation": "Dehydration exceeding 2% of body mass notably degrades aerobic and anaerobic physical performance." },
-      { "id": "pt1-q22", "number": 22, "question": "Training can be adapted according to a client’s age, experience and fitness level.", "correctAnswer": true, "explanation": "Individualization of training parameters is a cornerstone principle of exercise science." },
-      { "id": "pt1-q23", "number": 23, "question": "Warning signs during exercise may require the session to be stopped and the client to be referred to an appropriate health professional.", "correctAnswer": true, "explanation": "Acute symptoms such as chest pain, extreme dizziness, or dyspnea necessitate immediate session termination." },
-      { "id": "pt1-q24", "number": 24, "question": "The same training program is ideal for every client regardless of experience or ability.", "correctAnswer": false, "explanation": "Every individual requires an appropriate program tailored to medical history and baseline fitness." },
-      { "id": "pt1-q25", "number": 25, "question": "Clear communication and feedback can help a client understand how to perform an exercise.", "correctAnswer": true, "explanation": "Verbal cues and kinesthetic feedback accelerate motor learning and prevent injury." },
-      { "id": "pt1-q26", "number": 26, "question": "Client motivation and adherence are part of the coaching process.", "correctAnswer": true, "explanation": "A program without client adherence produces zero long-term training adaptations." },
-      { "id": "pt1-q27", "number": 27, "question": "Checking the training area and equipment is part of gym safety.", "correctAnswer": true, "explanation": "Inspecting cable condition, bar collars, and clear workout spaces ensures client safety." },
-      { "id": "pt1-q28", "number": 28, "question": "Exercise should always continue even if the client reports sudden pain or significant discomfort.", "correctAnswer": false, "explanation": "Sudden sharp pain is a warning signal requiring immediate movement stoppage." },
-      { "id": "pt1-q29", "number": 29, "question": "Spotting can be used in appropriate exercises to improve safety during resistance training.", "correctAnswer": true, "explanation": "Manual spotting assists athletes during critical movements such as bench press or heavy squats." },
-      { "id": "pt1-q30", "number": 30, "question": "A good Personal Trainer monitors progress and adjusts the program when necessary.", "correctAnswer": true, "explanation": "Training is a dynamic process requiring periodic review and calibration based on outcomes." }
+      {
+        "id": "pt1-q1",
+        "number": 1,
+        "question": "The Personal Trainer should define the client’s goals before building a training program.",
+        "correctAnswer": true,
+        "explanation": "Initial consultation and SMART goal definition are essential prerequisites for sound programming."
+      },
+      {
+        "id": "pt1-q2",
+        "number": 2,
+        "question": "A Personal Trainer can provide medical diagnoses to a client.",
+        "correctAnswer": false,
+        "explanation": "Medical diagnosis and therapy prescription belong exclusively to licensed healthcare professionals."
+      },
+      {
+        "id": "pt1-q3",
+        "number": 3,
+        "question": "The shoulder girdle plays an important role in many pushing and pulling movements.",
+        "correctAnswer": true,
+        "explanation": "Scapular stability and scapulohumeral rhythm govern safe mechanics in horizontal and vertical pushes/pulls."
+      },
+      {
+        "id": "pt1-q4",
+        "number": 4,
+        "question": "The hip, knee and ankle all contribute to lower-body movement.",
+        "correctAnswer": true,
+        "explanation": "Triple extension coordinates hip, knee, and ankle joints in locomotion and multi-joint lower body lifts."
+      },
+      {
+        "id": "pt1-q5",
+        "number": 5,
+        "question": "The body uses different energy systems depending on the type and intensity of exercise.",
+        "correctAnswer": true,
+        "explanation": "ATP-PCr, glycolytic, and oxidative systems contribute concurrently in varying proportions based on demand."
+      },
+      {
+        "id": "pt1-q6",
+        "number": 6,
+        "question": "Recovery is part of the adaptation process to training.",
+        "correctAnswer": true,
+        "explanation": "Biological adaptation and supercompensation occur during post-stimulus recovery periods."
+      },
+      {
+        "id": "pt1-q7",
+        "number": 7,
+        "question": "The initial assessment helps identify an appropriate starting level for the client.",
+        "correctAnswer": true,
+        "explanation": "It establishes safe loads, appropriate volume, and motor complexity tailored to baseline capacity."
+      },
+      {
+        "id": "pt1-q8",
+        "number": 8,
+        "question": "A client’s goals, experience and availability are useful information when planning training.",
+        "correctAnswer": true,
+        "explanation": "These constitute vital parameters for programming realistic training frequency and volume."
+      },
+      {
+        "id": "pt1-q9",
+        "number": 9,
+        "question": "A Chest Press is an example of a resistance-training machine.",
+        "correctAnswer": true,
+        "explanation": "It is a fixed-trajectory resistance machine designed to train horizontal pushing musculature."
+      },
+      {
+        "id": "pt1-q10",
+        "number": 10,
+        "question": "Correct machine setup is not important if the load is light.",
+        "correctAnswer": false,
+        "explanation": "Improper axis alignment creates adverse joint shearing stresses regardless of the external resistance."
+      },
+      {
+        "id": "pt1-q11",
+        "number": 11,
+        "question": "Training volume can be influenced by the number of sets and repetitions performed.",
+        "correctAnswer": true,
+        "explanation": "Volume load is computed as sets × reps (often multiplied by load)."
+      },
+      {
+        "id": "pt1-q12",
+        "number": 12,
+        "question": "RIR refers to the number of repetitions a person could still perform before reaching failure.",
+        "correctAnswer": true,
+        "explanation": "Repetitions in Reserve (RIR) gauges proximity to concentric failure on a given set."
+      },
+      {
+        "id": "pt1-q13",
+        "number": 13,
+        "question": "A warm-up can help prepare the client for the exercises that follow.",
+        "correctAnswer": true,
+        "explanation": "Warm-ups elevate tissue temperature, enhance joint lubrication, and prime neuromuscular conductivity."
+      },
+      {
+        "id": "pt1-q14",
+        "number": 14,
+        "question": "Cardiovascular training can be performed using a treadmill, bike, elliptical or rowing machine.",
+        "correctAnswer": true,
+        "explanation": "All these modalities provide continuous or interval aerobic conditioning."
+      },
+      {
+        "id": "pt1-q15",
+        "number": 15,
+        "question": "Cardio intensity and duration should always remain exactly the same over time.",
+        "correctAnswer": false,
+        "explanation": "Progressive overload requires planned variations and progressions in volume, speed, or resistance."
+      },
+      {
+        "id": "pt1-q16",
+        "number": 16,
+        "question": "A Full Body program trains several major muscle groups in the same workout.",
+        "correctAnswer": true,
+        "explanation": "Full-body routines recruit major motor patterns throughout the entire body in each workout."
+      },
+      {
+        "id": "pt1-q17",
+        "number": 17,
+        "question": "The number of weekly sessions should be considered when creating a client’s program.",
+        "correctAnswer": true,
+        "explanation": "Weekly frequency determines split selection and recovery distribution between sessions."
+      },
+      {
+        "id": "pt1-q18",
+        "number": 18,
+        "question": "A beginner should always use the most complex training split available.",
+        "correctAnswer": false,
+        "explanation": "Novice clients benefit most from higher movement frequency with simple full-body motor schemes."
+      },
+      {
+        "id": "pt1-q19",
+        "number": 19,
+        "question": "Energy balance is one of the basic concepts related to body-weight change.",
+        "correctAnswer": true,
+        "explanation": "Caloric intake relative to total daily energy expenditure dictates surplus, maintenance, or deficit."
+      },
+      {
+        "id": "pt1-q20",
+        "number": 20,
+        "question": "A Personal Trainer should prescribe individual therapeutic diets to clients.",
+        "correctAnswer": false,
+        "explanation": "Medical nutrition therapy and diet prescription are legally reserved for registered dietitians and physicians."
+      },
+      {
+        "id": "pt1-q21",
+        "number": 21,
+        "question": "Hydration can be relevant to exercise and general physical performance.",
+        "correctAnswer": true,
+        "explanation": "Dehydration exceeding 2% of body mass notably degrades aerobic and anaerobic physical performance."
+      },
+      {
+        "id": "pt1-q22",
+        "number": 22,
+        "question": "Training can be adapted according to a client’s age, experience and fitness level.",
+        "correctAnswer": true,
+        "explanation": "Individualization of training parameters is a cornerstone principle of exercise science."
+      },
+      {
+        "id": "pt1-q23",
+        "number": 23,
+        "question": "Warning signs during exercise may require the session to be stopped and the client to be referred to an appropriate health professional.",
+        "correctAnswer": true,
+        "explanation": "Acute symptoms such as chest pain, extreme dizziness, or dyspnea necessitate immediate session termination."
+      },
+      {
+        "id": "pt1-q24",
+        "number": 24,
+        "question": "The same training program is ideal for every client regardless of experience or ability.",
+        "correctAnswer": false,
+        "explanation": "Every individual requires an appropriate program tailored to medical history and baseline fitness."
+      },
+      {
+        "id": "pt1-q25",
+        "number": 25,
+        "question": "Clear communication and feedback can help a client understand how to perform an exercise.",
+        "correctAnswer": true,
+        "explanation": "Verbal cues and kinesthetic feedback accelerate motor learning and prevent injury."
+      },
+      {
+        "id": "pt1-q26",
+        "number": 26,
+        "question": "Client motivation and adherence are part of the coaching process.",
+        "correctAnswer": true,
+        "explanation": "A program without client adherence produces zero long-term training adaptations."
+      },
+      {
+        "id": "pt1-q27",
+        "number": 27,
+        "question": "Checking the training area and equipment is part of gym safety.",
+        "correctAnswer": true,
+        "explanation": "Inspecting cable condition, bar collars, and clear workout spaces ensures client safety."
+      },
+      {
+        "id": "pt1-q28",
+        "number": 28,
+        "question": "Exercise should always continue even if the client reports sudden pain or significant discomfort.",
+        "correctAnswer": false,
+        "explanation": "Sudden sharp pain is a warning signal requiring immediate movement stoppage."
+      },
+      {
+        "id": "pt1-q29",
+        "number": 29,
+        "question": "Spotting can be used in appropriate exercises to improve safety during resistance training.",
+        "correctAnswer": true,
+        "explanation": "Manual spotting assists athletes during critical movements such as bench press or heavy squats."
+      },
+      {
+        "id": "pt1-q30",
+        "number": 30,
+        "question": "A good Personal Trainer monitors progress and adjusts the program when necessary.",
+        "correctAnswer": true,
+        "explanation": "Training is a dynamic process requiring periodic review and calibration based on outcomes."
+      }
     ]
   },
   "personal-trainer-2": {
@@ -51,36 +231,216 @@
     "timeLimitMinutes": 50,
     "certificateBody": "Libertas – National Advanced Technical Training Sector CONI",
     "questions": [
-      { "id": "pt2-q1", "number": 1, "question": "During complex movements, multiple joints and muscle groups work together rather than acting completely independently.", "correctAnswer": true, "explanation": "Multi-joint patterns require precise coordination among agonists, antagonists, and stabilizing muscles." },
-      { "id": "pt2-q2", "number": 2, "question": "Muscle stabilizers have no role in controlling joint position during movement.", "correctAnswer": false, "explanation": "Stabilizers fix the joint axis, enabling prime movers to express efficient force." },
-      { "id": "pt2-q3", "number": 3, "question": "Changing the moment arm can change the mechanical demand placed on a joint.", "correctAnswer": true, "explanation": "Joint torque is directly proportional to the perpendicular moment arm length." },
-      { "id": "pt2-q4", "number": 4, "question": "Stance, grip, range of motion and equipment choice can influence exercise mechanics.", "correctAnswer": true, "explanation": "Geometric modifications redistribute force vectors across specific muscle heads." },
-      { "id": "pt2-q5", "number": 5, "question": "The same exercise is always the best choice for every training goal.", "correctAnswer": false, "explanation": "Specific adaptations require exercise selection aligned with specific performance demands." },
-      { "id": "pt2-q6", "number": 6, "question": "Neuromuscular adaptations can contribute to improvements in strength.", "correctAnswer": true, "explanation": "Motor unit recruitment, rate coding, and synchronization drive strength gains prior to hypertrophy." },
-      { "id": "pt2-q7", "number": 7, "question": "Central and peripheral fatigue are exactly the same phenomenon.", "correctAnswer": false, "explanation": "Central fatigue originates in the CNS, whereas peripheral fatigue occurs at the neuromuscular junction and contractile apparatus." },
-      { "id": "pt2-q8", "number": 8, "question": "Detraining can lead to a reduction in previously developed training adaptations.", "correctAnswer": true, "explanation": "Biological reversibility leads to regression of physiological capacities when training ceases." },
-      { "id": "pt2-q9", "number": 9, "question": "A structured initial interview helps clarify the client's goals and training context.", "correctAnswer": true, "explanation": "It maps client preferences, schedule barriers, and past training history." },
-      { "id": "pt2-q10", "number": 10, "question": "Advanced client assessment may include observation of squat, hinge, push, pull, lunge and carry patterns.", "correctAnswer": true, "explanation": "The six primary movement patterns reveal dynamic asymmetries and mobility restrictions." },
-      { "id": "pt2-q11", "number": 11, "question": "A Personal Trainer should interpret assessment data as a medical diagnosis.", "correctAnswer": false, "explanation": "Movement screening is intended for exercise prescription, not medical pathology diagnosis." },
-      { "id": "pt2-q12", "number": 12, "question": "RPE and RIR can be used to autoregulate training intensity.", "correctAnswer": true, "explanation": "They adjust daily training loads to match physiological fluctuations in readiness and fatigue." },
-      { "id": "pt2-q13", "number": 13, "question": "Training volume, intensity, frequency and proximity to failure can all influence strength and hypertrophy programming.", "correctAnswer": true, "explanation": "These constitute the foundational acute variables governing neuromuscular adaptation." },
-      { "id": "pt2-q14", "number": 14, "question": "A double progression method can involve increasing repetitions before increasing load.", "correctAnswer": true, "explanation": "The lifter hits the upper target rep range with a fixed weight before progressing the load." },
-      { "id": "pt2-q15", "number": 15, "question": "Advanced intensity techniques should be used in every session regardless of the client's level or recovery.", "correctAnswer": false, "explanation": "Indiscriminate overuse of intensity techniques causes excessive systemic fatigue and burnout." },
-      { "id": "pt2-q16", "number": 16, "question": "Continuous and interval methods can both be used in conditioning and endurance training.", "correctAnswer": true, "explanation": "Both stimulate central cardiovascular (stroke volume) and peripheral (mitochondrial density) adaptations." },
-      { "id": "pt2-q17", "number": 17, "question": "Strength and endurance training can interact, so recovery and scheduling should be considered.", "correctAnswer": true, "explanation": "The interference effect requires careful separation of intense resistance and aerobic bouts." },
-      { "id": "pt2-q18", "number": 18, "question": "A microcycle is generally a shorter planning period within a larger training plan.", "correctAnswer": true, "explanation": "It typically spans 7 days as the foundational building block within a mesocycle." },
-      { "id": "pt2-q19", "number": 19, "question": "A deload is intended to deliberately increase fatigue as much as possible.", "correctAnswer": false, "explanation": "Deloads dissipate accumulated fatigue to allow fitness expression (Fitness-Fatigue paradigm)." },
-      { "id": "pt2-q20", "number": 20, "question": "Linear, undulating and block periodization are different ways of organizing training over time.", "correctAnswer": true, "explanation": "Each periodization model structures volume and intensity according to athlete training age." },
-      { "id": "pt2-q21", "number": 21, "question": "Anti-rotation core training aims to resist unwanted rotational movement.", "correctAnswer": true, "explanation": "Movements like the Pallof press teach force transmission while protecting the lumbar spine." },
-      { "id": "pt2-q22", "number": 22, "question": "Unilateral and multiplanar exercises can be included in functional training when appropriate to the goal.", "correctAnswer": true, "explanation": "They enhance single-leg balance and correct bilateral strength asymmetries." },
-      { "id": "pt2-q23", "number": 23, "question": "Postural observation by a Personal Trainer should be treated as a medical diagnostic examination.", "correctAnswer": false, "explanation": "Movement screening is kinesiological evaluation for exercise coaching, not orthopedic diagnosis." },
-      { "id": "pt2-q24", "number": 24, "question": "Mobility, stability and motor control can influence movement quality.", "correctAnswer": true, "explanation": "Optimal movement quality requires adequate joint range, active stability, and neural sequencing." },
-      { "id": "pt2-q25", "number": 25, "question": "Training load and complexity may need to be adjusted for deconditioned or older clients.", "correctAnswer": true, "explanation": "Biomechanical modifications preserve safety while sustaining an effective stimulus." },
-      { "id": "pt2-q26", "number": 26, "question": "Red flags should always be ignored if the client wants to continue training.", "correctAnswer": false, "explanation": "Red flags signal acute danger and require immediate medical referral." },
-      { "id": "pt2-q27", "number": 27, "question": "Body composition indicators have limitations and should not be interpreted as perfect measures.", "correctAnswer": true, "explanation": "Body composition metrics have inherent measurement error margins and should guide broad trends." },
-      { "id": "pt2-q28", "number": 28, "question": "A Personal Trainer may provide general nutrition education but should remain within professional boundaries.", "correctAnswer": true, "explanation": "General evidence-based guidance is permitted, while medical nutrition therapies are excluded." },
-      { "id": "pt2-q29", "number": 29, "question": "Advanced coaching includes managing expectations, adherence and feedback based on collected data.", "correctAnswer": true, "explanation": "Tracking objective metrics and supporting behavioral consistency ensure client success." },
-      { "id": "pt2-q30", "number": 30, "question": "Case studies help the Personal Trainer practise decision making and revise training programs based on results.", "correctAnswer": true, "explanation": "Real case analysis develops clinical reasoning and applied problem-solving skills." }
+      {
+        "id": "pt2-q1",
+        "number": 1,
+        "question": "During complex movements, multiple joints and muscle groups work together rather than acting completely independently.",
+        "correctAnswer": true,
+        "explanation": "Multi-joint patterns require precise coordination among agonists, antagonists, and stabilizing muscles."
+      },
+      {
+        "id": "pt2-q2",
+        "number": 2,
+        "question": "Muscle stabilizers have no role in controlling joint position during movement.",
+        "correctAnswer": false,
+        "explanation": "Stabilizers fix the joint axis, enabling prime movers to express efficient force."
+      },
+      {
+        "id": "pt2-q3",
+        "number": 3,
+        "question": "Changing the moment arm can change the mechanical demand placed on a joint.",
+        "correctAnswer": true,
+        "explanation": "Joint torque is directly proportional to the perpendicular moment arm length."
+      },
+      {
+        "id": "pt2-q4",
+        "number": 4,
+        "question": "Stance, grip, range of motion and equipment choice can influence exercise mechanics.",
+        "correctAnswer": true,
+        "explanation": "Geometric modifications redistribute force vectors across specific muscle heads."
+      },
+      {
+        "id": "pt2-q5",
+        "number": 5,
+        "question": "The same exercise is always the best choice for every training goal.",
+        "correctAnswer": false,
+        "explanation": "Specific adaptations require exercise selection aligned with specific performance demands."
+      },
+      {
+        "id": "pt2-q6",
+        "number": 6,
+        "question": "Neuromuscular adaptations can contribute to improvements in strength.",
+        "correctAnswer": true,
+        "explanation": "Motor unit recruitment, rate coding, and synchronization drive strength gains prior to hypertrophy."
+      },
+      {
+        "id": "pt2-q7",
+        "number": 7,
+        "question": "Central and peripheral fatigue are exactly the same phenomenon.",
+        "correctAnswer": false,
+        "explanation": "Central fatigue originates in the CNS, whereas peripheral fatigue occurs at the neuromuscular junction and contractile apparatus."
+      },
+      {
+        "id": "pt2-q8",
+        "number": 8,
+        "question": "Detraining can lead to a reduction in previously developed training adaptations.",
+        "correctAnswer": true,
+        "explanation": "Biological reversibility leads to regression of physiological capacities when training ceases."
+      },
+      {
+        "id": "pt2-q9",
+        "number": 9,
+        "question": "A structured initial interview helps clarify the client's goals and training context.",
+        "correctAnswer": true,
+        "explanation": "It maps client preferences, schedule barriers, and past training history."
+      },
+      {
+        "id": "pt2-q10",
+        "number": 10,
+        "question": "Advanced client assessment may include observation of squat, hinge, push, pull, lunge and carry patterns.",
+        "correctAnswer": true,
+        "explanation": "The six primary movement patterns reveal dynamic asymmetries and mobility restrictions."
+      },
+      {
+        "id": "pt2-q11",
+        "number": 11,
+        "question": "A Personal Trainer should interpret assessment data as a medical diagnosis.",
+        "correctAnswer": false,
+        "explanation": "Movement screening is intended for exercise prescription, not medical pathology diagnosis."
+      },
+      {
+        "id": "pt2-q12",
+        "number": 12,
+        "question": "RPE and RIR can be used to autoregulate training intensity.",
+        "correctAnswer": true,
+        "explanation": "They adjust daily training loads to match physiological fluctuations in readiness and fatigue."
+      },
+      {
+        "id": "pt2-q13",
+        "number": 13,
+        "question": "Training volume, intensity, frequency and proximity to failure can all influence strength and hypertrophy programming.",
+        "correctAnswer": true,
+        "explanation": "These constitute the foundational acute variables governing neuromuscular adaptation."
+      },
+      {
+        "id": "pt2-q14",
+        "number": 14,
+        "question": "A double progression method can involve increasing repetitions before increasing load.",
+        "correctAnswer": true,
+        "explanation": "The lifter hits the upper target rep range with a fixed weight before progressing the load."
+      },
+      {
+        "id": "pt2-q15",
+        "number": 15,
+        "question": "Advanced intensity techniques should be used in every session regardless of the client's level or recovery.",
+        "correctAnswer": false,
+        "explanation": "Indiscriminate overuse of intensity techniques causes excessive systemic fatigue and burnout."
+      },
+      {
+        "id": "pt2-q16",
+        "number": 16,
+        "question": "Continuous and interval methods can both be used in conditioning and endurance training.",
+        "correctAnswer": true,
+        "explanation": "Both stimulate central cardiovascular (stroke volume) and peripheral (mitochondrial density) adaptations."
+      },
+      {
+        "id": "pt2-q17",
+        "number": 17,
+        "question": "Strength and endurance training can interact, so recovery and scheduling should be considered.",
+        "correctAnswer": true,
+        "explanation": "The interference effect requires careful separation of intense resistance and aerobic bouts."
+      },
+      {
+        "id": "pt2-q18",
+        "number": 18,
+        "question": "A microcycle is generally a shorter planning period within a larger training plan.",
+        "correctAnswer": true,
+        "explanation": "It typically spans 7 days as the foundational building block within a mesocycle."
+      },
+      {
+        "id": "pt2-q19",
+        "number": 19,
+        "question": "A deload is intended to deliberately increase fatigue as much as possible.",
+        "correctAnswer": false,
+        "explanation": "Deloads dissipate accumulated fatigue to allow fitness expression (Fitness-Fatigue paradigm)."
+      },
+      {
+        "id": "pt2-q20",
+        "number": 20,
+        "question": "Linear, undulating and block periodization are different ways of organizing training over time.",
+        "correctAnswer": true,
+        "explanation": "Each periodization model structures volume and intensity according to athlete training age."
+      },
+      {
+        "id": "pt2-q21",
+        "number": 21,
+        "question": "Anti-rotation core training aims to resist unwanted rotational movement.",
+        "correctAnswer": true,
+        "explanation": "Movements like the Pallof press teach force transmission while protecting the lumbar spine."
+      },
+      {
+        "id": "pt2-q22",
+        "number": 22,
+        "question": "Unilateral and multiplanar exercises can be included in functional training when appropriate to the goal.",
+        "correctAnswer": true,
+        "explanation": "They enhance single-leg balance and correct bilateral strength asymmetries."
+      },
+      {
+        "id": "pt2-q23",
+        "number": 23,
+        "question": "Postural observation by a Personal Trainer should be treated as a medical diagnostic examination.",
+        "correctAnswer": false,
+        "explanation": "Movement screening is kinesiological evaluation for exercise coaching, not orthopedic diagnosis."
+      },
+      {
+        "id": "pt2-q24",
+        "number": 24,
+        "question": "Mobility, stability and motor control can influence movement quality.",
+        "correctAnswer": true,
+        "explanation": "Optimal movement quality requires adequate joint range, active stability, and neural sequencing."
+      },
+      {
+        "id": "pt2-q25",
+        "number": 25,
+        "question": "Training load and complexity may need to be adjusted for deconditioned or older clients.",
+        "correctAnswer": true,
+        "explanation": "Biomechanical modifications preserve safety while sustaining an effective stimulus."
+      },
+      {
+        "id": "pt2-q26",
+        "number": 26,
+        "question": "Red flags should always be ignored if the client wants to continue training.",
+        "correctAnswer": false,
+        "explanation": "Red flags signal acute danger and require immediate medical referral."
+      },
+      {
+        "id": "pt2-q27",
+        "number": 27,
+        "question": "Body composition indicators have limitations and should not be interpreted as perfect measures.",
+        "correctAnswer": true,
+        "explanation": "Body composition metrics have inherent measurement error margins and should guide broad trends."
+      },
+      {
+        "id": "pt2-q28",
+        "number": 28,
+        "question": "A Personal Trainer may provide general nutrition education but should remain within professional boundaries.",
+        "correctAnswer": true,
+        "explanation": "General evidence-based guidance is permitted, while medical nutrition therapies are excluded."
+      },
+      {
+        "id": "pt2-q29",
+        "number": 29,
+        "question": "Advanced coaching includes managing expectations, adherence and feedback based on collected data.",
+        "correctAnswer": true,
+        "explanation": "Tracking objective metrics and supporting behavioral consistency ensure client success."
+      },
+      {
+        "id": "pt2-q30",
+        "number": 30,
+        "question": "Case studies help the Personal Trainer practise decision making and revise training programs based on results.",
+        "correctAnswer": true,
+        "explanation": "Real case analysis develops clinical reasoning and applied problem-solving skills."
+      }
     ]
   },
   "personal-trainer-3": {
@@ -93,36 +453,216 @@
     "timeLimitMinutes": 60,
     "certificateBody": "Libertas / CONI National Technical Commission – Master Coach Diploma",
     "questions": [
-      { "id": "pt3-q1", "number": 1, "question": "An advanced assessment should consider the client or athlete’s goals, training history and current performance data.", "correctAnswer": true, "explanation": "Data-informed coaching cross-references quantitative performance metrics with qualitative context." },
-      { "id": "pt3-q2", "number": 2, "question": "An advanced Personal Trainer should use assessment results as a medical diagnosis.", "correctAnswer": false, "explanation": "Even at Master level, clinical and medical diagnosis belongs strictly to medical doctors." },
-      { "id": "pt3-q3", "number": 3, "question": "Repeated assessments can help determine whether the training plan is producing the expected results.", "correctAnswer": true, "explanation": "Regular monitoring enables course corrections before the end of the macrocycle." },
-      { "id": "pt3-q4", "number": 4, "question": "Changes in stance, range of motion and external load can alter exercise mechanics.", "correctAnswer": true, "explanation": "They alter internal and external moment arms and resultant joint shear forces." },
-      { "id": "pt3-q5", "number": 5, "question": "The centre of mass and distribution of forces can influence movement strategy.", "correctAnswer": true, "explanation": "Center of mass position and ground reaction forces dictate kinetic chain efficiency." },
-      { "id": "pt3-q6", "number": 6, "question": "Biomechanical analysis means there is only one correct technique for every person and every goal.", "correctAnswer": false, "explanation": "Individual skeletal proportions (limb lengths, hip morphology) require personalized technique." },
-      { "id": "pt3-q7", "number": 7, "question": "Strength and power programming require the coach to consider intensity, volume, velocity and recovery.", "correctAnswer": true, "explanation": "Rate of force development (RFD) depends on neural recruitment speed and adequate recovery." },
-      { "id": "pt3-q8", "number": 8, "question": "Power training is identical to maximal-strength training in every variable.", "correctAnswer": false, "explanation": "Power optimizes force × velocity, requiring submaximal loads moved with maximal intent." },
-      { "id": "pt3-q9", "number": 9, "question": "Exercise selection for strength and power should be linked to the athlete or client’s objective.", "correctAnswer": true, "explanation": "Respecting specificity ensures positive transfer to athletic or functional performance goals." },
-      { "id": "pt3-q10", "number": 10, "question": "Advanced hypertrophy programming can involve management of volume, frequency and proximity to failure.", "correctAnswer": true, "explanation": "Balancing MEV and MRV prevents non-functional overreaching while maximizing growth stimulus." },
-      { "id": "pt3-q11", "number": 11, "question": "More training volume is always better, regardless of recovery and performance.", "correctAnswer": false, "explanation": "Exceeding Maximum Recoverable Volume leads to stagnation, excessive fatigue, and regression." },
-      { "id": "pt3-q12", "number": 12, "question": "Exercise selection and range of motion can influence the hypertrophy stimulus.", "correctAnswer": true, "explanation": "Training at long muscle lengths (loaded stretch) produces robust stretch-mediated hypertrophy." },
-      { "id": "pt3-q13", "number": 13, "question": "A mesocycle is a planning period that can contain several microcycles.", "correctAnswer": true, "explanation": "Typically lasting 3 to 6 weeks, each mesocycle focuses on specific adaptive goals." },
-      { "id": "pt3-q14", "number": 14, "question": "Long-term programming should never be modified once the initial plan has been written.", "correctAnswer": false, "explanation": "Annual plans must remain flexible to accommodate life events, injuries, and adaptive rates." },
-      { "id": "pt3-q15", "number": 15, "question": "Periodization can help organise training stress and priorities across time.", "correctAnswer": true, "explanation": "It avoids concurrent interference and brings the athlete to planned peak performance." },
-      { "id": "pt3-q16", "number": 16, "question": "Monitoring performance, perceived effort and recovery can support fatigue-management decisions.", "correctAnswer": true, "explanation": "It enables scientific autoregulation and timely adjustments to training loads." },
-      { "id": "pt3-q17", "number": 17, "question": "A deload can be used to reduce training stress and manage accumulated fatigue.", "correctAnswer": true, "explanation": "Deloads restore neural sensitivity and muscle glycogen while resolving connective tissue strain." },
-      { "id": "pt3-q18", "number": 18, "question": "A sudden drop in performance should always be ignored if the planned session has not changed.", "correctAnswer": false, "explanation": "Sudden performance collapse signals excessive acute fatigue or early illness." },
-      { "id": "pt3-q19", "number": 19, "question": "Training technology and data are useful only if the information collected supports a real coaching decision.", "correctAnswer": true, "explanation": "Unfiltered data accumulation without actionable application generates cognitive noise." },
-      { "id": "pt3-q20", "number": 20, "question": "Professional documentation can help track decisions, changes and client progress.", "correctAnswer": true, "explanation": "It preserves training history and establishes standard-of-care professional accountability." },
-      { "id": "pt3-q21", "number": 21, "question": "Collecting more data is always better, even when the data have no clear purpose.", "correctAnswer": false, "explanation": "Excessive useless tracking drains coach and athlete energy without adding value." },
-      { "id": "pt3-q22", "number": 22, "question": "Advanced coaching includes adapting communication to the experience and needs of the client or athlete.", "correctAnswer": true, "explanation": "Interpersonal adaptability improves trust, compliance, and mental focus." },
-      { "id": "pt3-q23", "number": 23, "question": "Technical feedback should be clear, relevant and connected to the desired movement or performance outcome.", "correctAnswer": true, "explanation": "Limiting cues to 1-2 key focal points prevents paralysis by analysis during execution." },
-      { "id": "pt3-q24", "number": 24, "question": "An advanced coach should avoid discussing expectations and goals with autonomous clients.", "correctAnswer": false, "explanation": "Alignment of expectations and mutual goals remains vital across all client experience levels." },
-      { "id": "pt3-q25", "number": 25, "question": "A Head Coach may be responsible for supervising coaching standards and supporting other trainers.", "correctAnswer": true, "explanation": "Head Coaches set methodology standards, lead continuing education, and uphold safety." },
-      { "id": "pt3-q26", "number": 26, "question": "Quality improvement can include reviewing sessions, procedures and coaching outcomes.", "correctAnswer": true, "explanation": "Structured quality audits elevate coaching consistency and client retention." },
-      { "id": "pt3-q27", "number": 27, "question": "Supervision means that the Head Coach must personally deliver every session performed by the team.", "correctAnswer": false, "explanation": "Supervision entails leadership, standard-setting, and auditing rather than personal delivery of every hour." },
-      { "id": "pt3-q28", "number": 28, "question": "Professional responsibility includes working within scope, documenting appropriately and prioritising safety.", "correctAnswer": true, "explanation": "Ethics and adherence to scope of practice protect the client and the profession." },
-      { "id": "pt3-q29", "number": 29, "question": "Ethical professional conduct includes respecting client information and avoiding misleading claims.", "correctAnswer": true, "explanation": "Confidentiality, evidence-based integrity, and honesty are core ethical mandates." },
-      { "id": "pt3-q30", "number": 30, "question": "A Project Work can demonstrate the ability to integrate assessment, programming, monitoring and professional decision-making.", "correctAnswer": true, "explanation": "The final capstone integrates comprehensive sports science knowledge into practical application." }
+      {
+        "id": "pt3-q1",
+        "number": 1,
+        "question": "An advanced assessment should consider the client or athlete’s goals, training history and current performance data.",
+        "correctAnswer": true,
+        "explanation": "Data-informed coaching cross-references quantitative performance metrics with qualitative context."
+      },
+      {
+        "id": "pt3-q2",
+        "number": 2,
+        "question": "An advanced Personal Trainer should use assessment results as a medical diagnosis.",
+        "correctAnswer": false,
+        "explanation": "Even at Master level, clinical and medical diagnosis belongs strictly to medical doctors."
+      },
+      {
+        "id": "pt3-q3",
+        "number": 3,
+        "question": "Repeated assessments can help determine whether the training plan is producing the expected results.",
+        "correctAnswer": true,
+        "explanation": "Regular monitoring enables course corrections before the end of the macrocycle."
+      },
+      {
+        "id": "pt3-q4",
+        "number": 4,
+        "question": "Changes in stance, range of motion and external load can alter exercise mechanics.",
+        "correctAnswer": true,
+        "explanation": "They alter internal and external moment arms and resultant joint shear forces."
+      },
+      {
+        "id": "pt3-q5",
+        "number": 5,
+        "question": "The centre of mass and distribution of forces can influence movement strategy.",
+        "correctAnswer": true,
+        "explanation": "Center of mass position and ground reaction forces dictate kinetic chain efficiency."
+      },
+      {
+        "id": "pt3-q6",
+        "number": 6,
+        "question": "Biomechanical analysis means there is only one correct technique for every person and every goal.",
+        "correctAnswer": false,
+        "explanation": "Individual skeletal proportions (limb lengths, hip morphology) require personalized technique."
+      },
+      {
+        "id": "pt3-q7",
+        "number": 7,
+        "question": "Strength and power programming require the coach to consider intensity, volume, velocity and recovery.",
+        "correctAnswer": true,
+        "explanation": "Rate of force development (RFD) depends on neural recruitment speed and adequate recovery."
+      },
+      {
+        "id": "pt3-q8",
+        "number": 8,
+        "question": "Power training is identical to maximal-strength training in every variable.",
+        "correctAnswer": false,
+        "explanation": "Power optimizes force × velocity, requiring submaximal loads moved with maximal intent."
+      },
+      {
+        "id": "pt3-q9",
+        "number": 9,
+        "question": "Exercise selection for strength and power should be linked to the athlete or client’s objective.",
+        "correctAnswer": true,
+        "explanation": "Respecting specificity ensures positive transfer to athletic or functional performance goals."
+      },
+      {
+        "id": "pt3-q10",
+        "number": 10,
+        "question": "Advanced hypertrophy programming can involve management of volume, frequency and proximity to failure.",
+        "correctAnswer": true,
+        "explanation": "Balancing MEV and MRV prevents non-functional overreaching while maximizing growth stimulus."
+      },
+      {
+        "id": "pt3-q11",
+        "number": 11,
+        "question": "More training volume is always better, regardless of recovery and performance.",
+        "correctAnswer": false,
+        "explanation": "Exceeding Maximum Recoverable Volume leads to stagnation, excessive fatigue, and regression."
+      },
+      {
+        "id": "pt3-q12",
+        "number": 12,
+        "question": "Exercise selection and range of motion can influence the hypertrophy stimulus.",
+        "correctAnswer": true,
+        "explanation": "Training at long muscle lengths (loaded stretch) produces robust stretch-mediated hypertrophy."
+      },
+      {
+        "id": "pt3-q13",
+        "number": 13,
+        "question": "A mesocycle is a planning period that can contain several microcycles.",
+        "correctAnswer": true,
+        "explanation": "Typically lasting 3 to 6 weeks, each mesocycle focuses on specific adaptive goals."
+      },
+      {
+        "id": "pt3-q14",
+        "number": 14,
+        "question": "Long-term programming should never be modified once the initial plan has been written.",
+        "correctAnswer": false,
+        "explanation": "Annual plans must remain flexible to accommodate life events, injuries, and adaptive rates."
+      },
+      {
+        "id": "pt3-q15",
+        "number": 15,
+        "question": "Periodization can help organise training stress and priorities across time.",
+        "correctAnswer": true,
+        "explanation": "It avoids concurrent interference and brings the athlete to planned peak performance."
+      },
+      {
+        "id": "pt3-q16",
+        "number": 16,
+        "question": "Monitoring performance, perceived effort and recovery can support fatigue-management decisions.",
+        "correctAnswer": true,
+        "explanation": "It enables scientific autoregulation and timely adjustments to training loads."
+      },
+      {
+        "id": "pt3-q17",
+        "number": 17,
+        "question": "A deload can be used to reduce training stress and manage accumulated fatigue.",
+        "correctAnswer": true,
+        "explanation": "Deloads restore neural sensitivity and muscle glycogen while resolving connective tissue strain."
+      },
+      {
+        "id": "pt3-q18",
+        "number": 18,
+        "question": "A sudden drop in performance should always be ignored if the planned session has not changed.",
+        "correctAnswer": false,
+        "explanation": "Sudden performance collapse signals excessive acute fatigue or early illness."
+      },
+      {
+        "id": "pt3-q19",
+        "number": 19,
+        "question": "Training technology and data are useful only if the information collected supports a real coaching decision.",
+        "correctAnswer": true,
+        "explanation": "Unfiltered data accumulation without actionable application generates cognitive noise."
+      },
+      {
+        "id": "pt3-q20",
+        "number": 20,
+        "question": "Professional documentation can help track decisions, changes and client progress.",
+        "correctAnswer": true,
+        "explanation": "It preserves training history and establishes standard-of-care professional accountability."
+      },
+      {
+        "id": "pt3-q21",
+        "number": 21,
+        "question": "Collecting more data is always better, even when the data have no clear purpose.",
+        "correctAnswer": false,
+        "explanation": "Excessive useless tracking drains coach and athlete energy without adding value."
+      },
+      {
+        "id": "pt3-q22",
+        "number": 22,
+        "question": "Advanced coaching includes adapting communication to the experience and needs of the client or athlete.",
+        "correctAnswer": true,
+        "explanation": "Interpersonal adaptability improves trust, compliance, and mental focus."
+      },
+      {
+        "id": "pt3-q23",
+        "number": 23,
+        "question": "Technical feedback should be clear, relevant and connected to the desired movement or performance outcome.",
+        "correctAnswer": true,
+        "explanation": "Limiting cues to 1-2 key focal points prevents paralysis by analysis during execution."
+      },
+      {
+        "id": "pt3-q24",
+        "number": 24,
+        "question": "An advanced coach should avoid discussing expectations and goals with autonomous clients.",
+        "correctAnswer": false,
+        "explanation": "Alignment of expectations and mutual goals remains vital across all client experience levels."
+      },
+      {
+        "id": "pt3-q25",
+        "number": 25,
+        "question": "A Head Coach may be responsible for supervising coaching standards and supporting other trainers.",
+        "correctAnswer": true,
+        "explanation": "Head Coaches set methodology standards, lead continuing education, and uphold safety."
+      },
+      {
+        "id": "pt3-q26",
+        "number": 26,
+        "question": "Quality improvement can include reviewing sessions, procedures and coaching outcomes.",
+        "correctAnswer": true,
+        "explanation": "Structured quality audits elevate coaching consistency and client retention."
+      },
+      {
+        "id": "pt3-q27",
+        "number": 27,
+        "question": "Supervision means that the Head Coach must personally deliver every session performed by the team.",
+        "correctAnswer": false,
+        "explanation": "Supervision entails leadership, standard-setting, and auditing rather than personal delivery of every hour."
+      },
+      {
+        "id": "pt3-q28",
+        "number": 28,
+        "question": "Professional responsibility includes working within scope, documenting appropriately and prioritising safety.",
+        "correctAnswer": true,
+        "explanation": "Ethics and adherence to scope of practice protect the client and the profession."
+      },
+      {
+        "id": "pt3-q29",
+        "number": 29,
+        "question": "Ethical professional conduct includes respecting client information and avoiding misleading claims.",
+        "correctAnswer": true,
+        "explanation": "Confidentiality, evidence-based integrity, and honesty are core ethical mandates."
+      },
+      {
+        "id": "pt3-q30",
+        "number": 30,
+        "question": "A Project Work can demonstrate the ability to integrate assessment, programming, monitoring and professional decision-making.",
+        "correctAnswer": true,
+        "explanation": "The final capstone integrates comprehensive sports science knowledge into practical application."
+      }
     ]
   },
   "calisthenics-1": {
@@ -135,36 +675,216 @@
     "timeLimitMinutes": 45,
     "certificateBody": "Libertas EPS CONI – National Calisthenics Sector",
     "questions": [
-      { "id": "c1-q1", "number": 1, "question": "In Calisthenics, exercise intensity can be modified by altering body lever length.", "correctAnswer": true, "explanation": "Lengthening or shortening the body lever shifts the center of mass and changes torque requirements." },
-      { "id": "c1-q2", "number": 2, "question": "Specific wrist warm-up is unnecessary before push-ups and handstand training.", "correctAnswer": false, "explanation": "Wrist hyperextension under bodyweight requires thorough connective tissue priming." },
-      { "id": "c1-q3", "number": 3, "question": "The Hollow Body position requires posterior pelvic tilt and pressing the lumbar spine flat against the floor.", "correctAnswer": true, "explanation": "It stabilizes the core and prevents hyperextension compensations in bodyweight levers." },
-      { "id": "c1-q4", "number": 4, "question": "In a pull-up, the initial movement must begin with scapular depression and retraction.", "correctAnswer": true, "explanation": "Scapular depression sets and stabilizes the glenohumeral joint before elbow flexion." },
-      { "id": "c1-q5", "number": 5, "question": "The Australian Pull-Up (horizontal row) is an excellent regression for learners who cannot yet perform full pull-ups.", "correctAnswer": true, "explanation": "It allows scalable percentage of bodyweight by adjusting body angle relative to the floor." },
-      { "id": "c1-q6", "number": 6, "question": "During parallel bar dips, shoulders must be actively depressed downward away from ears.", "correctAnswer": true, "explanation": "Active depression prevents shoulder shrug and protects subacromial structures from impingement." },
-      { "id": "c1-q7", "number": 7, "question": "A push-up remains valid even if the lower back sags toward the floor.", "correctAnswer": false, "explanation": "A straight bodyline from head through hips to heels is a strict requirement for valid push-ups." },
-      { "id": "c1-q8", "number": 8, "question": "A thumbs-around grip on the bar provides greater safety for beginners than a thumbless grip.", "correctAnswer": true, "explanation": "It secures hand friction around the bar and prevents accidental slipping." },
-      { "id": "c1-q9", "number": 9, "question": "Bodyweight training does not require progressive overload or volume increases over time.", "correctAnswer": false, "explanation": "Progressive overload via lever length, range, or tempo is essential for physiological adaptation." },
-      { "id": "c1-q10", "number": 10, "question": "Tendons and ligaments adapt to mechanical stress more slowly than muscle tissue.", "correctAnswer": true, "explanation": "Limited connective tissue vascularity requires longer remodeling cycles than vascularized muscle." },
-      { "id": "c1-q11", "number": 11, "question": "Supinated chin-ups recruit the biceps brachii to a greater extent than pronated pull-ups.", "correctAnswer": true, "explanation": "Forearm supination places the biceps brachii in its biomechanically optimal line of pull." },
-      { "id": "c1-q12", "number": 12, "question": "Knee push-ups represent an effective regression of the push-up for beginners.", "correctAnswer": true, "explanation": "Shortening the lever arm reduces the gravitational resistance lifted by the upper body." },
-      { "id": "c1-q13", "number": 13, "question": "The standard floor plank develops isometric trunk stability against gravity.", "correctAnswer": true, "explanation": "It conditions the abdominal wall to resist gravitational extension in a closed kinetic chain." },
-      { "id": "c1-q14", "number": 14, "question": "A learner who experiences sharp medial elbow pain during pull-ups should continue without stopping.", "correctAnswer": false, "explanation": "Medial epicondyle pain requires immediate volume reduction and technique assessment." },
-      { "id": "c1-q15", "number": 15, "question": "Elastic resistance bands can assist in learning pull-ups by deloading at the bottom.", "correctAnswer": true, "explanation": "Bands provide assistance at the sticking point, allowing motor pattern mastery." },
-      { "id": "c1-q16", "number": 16, "question": "Full shoulder flexion mobility (180°) is required for proper handstand alignment.", "correctAnswer": true, "explanation": "Without full flexion, the lifter must arch the lumbar spine to keep the center of gravity over the hands." },
-      { "id": "c1-q17", "number": 17, "question": "The Arch Body (superman) trains the posterior chain and spinal erectors.", "correctAnswer": true, "explanation": "It functions as the complementary antagonist position to the Hollow Body." },
-      { "id": "c1-q18", "number": 18, "question": "In Calisthenics, lower-body bodyweight training (squats, pistol prep) is discouraged.", "correctAnswer": false, "explanation": "Balanced athletic preparation requires thorough lower-body strength and mobility development." },
-      { "id": "c1-q19", "number": 19, "question": "Scapular protraction at the top of a push-up activates the serratus anterior muscle.", "correctAnswer": true, "explanation": "The Push-Up Plus protracts the scapulae against the ribcage, strengthening the serratus anterior." },
-      { "id": "c1-q20", "number": 20, "question": "The Dead Hang improves grip strength and decompresses the spinal column.", "correctAnswer": true, "explanation": "Passive bar hangs promote shoulder connective tissue health and axial spinal decompression." },
-      { "id": "c1-q21", "number": 21, "question": "On parallel bars, excessive bar width increases strain and risk on the shoulder joint.", "correctAnswer": true, "explanation": "Dip bars spaced wider than forearm-to-fingertip distance increase glenohumeral shear." },
-      { "id": "c1-q22", "number": 22, "question": "Time under tension (TUT) can be increased by slowing down the eccentric phase.", "correctAnswer": true, "explanation": "Eccentric cadences of 3-5 seconds stimulate motor control and connective tissue resilience." },
-      { "id": "c1-q23", "number": 23, "question": "Before attempting full pull-ups, learners should demonstrate solid control of scapular pull-ups.", "correctAnswer": true, "explanation": "It ensures the initiation is powered by the lats and periscapular stabilizers rather than compensations." },
-      { "id": "c1-q24", "number": 24, "question": "Chalk is used in calisthenics to improve friction and grip on bars and gymnastics rings.", "correctAnswer": true, "explanation": "Gymnastics chalk absorbs sweat and prevents slipping under load." },
-      { "id": "c1-q25", "number": 25, "question": "A calisthenics coach should prioritize repetition quantity over technical movement quality.", "correctAnswer": false, "explanation": "Movement quality strictly takes precedence over repetition volume (Quality over Quantity)." },
-      { "id": "c1-q26", "number": 26, "question": "Diamond push-ups place greater mechanical focus on the triceps brachii.", "correctAnswer": true, "explanation": "Narrow hand positioning increases elbow flexion excursion, placing greater demand on the triceps." },
-      { "id": "c1-q27", "number": 27, "question": "Gymnastic rings provide an unstable surface that increases recruitment of stabilizer muscles.", "correctAnswer": true, "explanation": "Three-dimensional ring instability compels active rotator cuff and scapular stabilization." },
-      { "id": "c1-q28", "number": 28, "question": "Prolonged static stretching before dynamic warm-up can decrease acute power output.", "correctAnswer": true, "explanation": "Dynamic mobility is preferred before training, reserving static stretching for post-workout cool-downs." },
-      { "id": "c1-q29", "number": 29, "question": "Rest between high-intensity bodyweight strength sets should be under 20 seconds.", "correctAnswer": false, "explanation": "Phosphocreatine restoration in heavy neurological sets requires 2 to 3 minutes of rest." },
-      { "id": "c1-q30", "number": 30, "question": "A well-structured calisthenics program balances push and pull volume to maintain joint health.", "correctAnswer": true, "explanation": "Push-pull volume equilibrium prevents postural distortions and subacromial shoulder impingement." }
+      {
+        "id": "c1-q1",
+        "number": 1,
+        "question": "In Calisthenics, exercise intensity can be modified by altering body lever length.",
+        "correctAnswer": true,
+        "explanation": "Lengthening or shortening the body lever shifts the center of mass and changes torque requirements."
+      },
+      {
+        "id": "c1-q2",
+        "number": 2,
+        "question": "Specific wrist warm-up is unnecessary before push-ups and handstand training.",
+        "correctAnswer": false,
+        "explanation": "Wrist hyperextension under bodyweight requires thorough connective tissue priming."
+      },
+      {
+        "id": "c1-q3",
+        "number": 3,
+        "question": "The Hollow Body position requires posterior pelvic tilt and pressing the lumbar spine flat against the floor.",
+        "correctAnswer": true,
+        "explanation": "It stabilizes the core and prevents hyperextension compensations in bodyweight levers."
+      },
+      {
+        "id": "c1-q4",
+        "number": 4,
+        "question": "In a pull-up, the initial movement must begin with scapular depression and retraction.",
+        "correctAnswer": true,
+        "explanation": "Scapular depression sets and stabilizes the glenohumeral joint before elbow flexion."
+      },
+      {
+        "id": "c1-q5",
+        "number": 5,
+        "question": "The Australian Pull-Up (horizontal row) is an excellent regression for learners who cannot yet perform full pull-ups.",
+        "correctAnswer": true,
+        "explanation": "It allows scalable percentage of bodyweight by adjusting body angle relative to the floor."
+      },
+      {
+        "id": "c1-q6",
+        "number": 6,
+        "question": "During parallel bar dips, shoulders must be actively depressed downward away from ears.",
+        "correctAnswer": true,
+        "explanation": "Active depression prevents shoulder shrug and protects subacromial structures from impingement."
+      },
+      {
+        "id": "c1-q7",
+        "number": 7,
+        "question": "A push-up remains valid even if the lower back sags toward the floor.",
+        "correctAnswer": false,
+        "explanation": "A straight bodyline from head through hips to heels is a strict requirement for valid push-ups."
+      },
+      {
+        "id": "c1-q8",
+        "number": 8,
+        "question": "A thumbs-around grip on the bar provides greater safety for beginners than a thumbless grip.",
+        "correctAnswer": true,
+        "explanation": "It secures hand friction around the bar and prevents accidental slipping."
+      },
+      {
+        "id": "c1-q9",
+        "number": 9,
+        "question": "Bodyweight training does not require progressive overload or volume increases over time.",
+        "correctAnswer": false,
+        "explanation": "Progressive overload via lever length, range, or tempo is essential for physiological adaptation."
+      },
+      {
+        "id": "c1-q10",
+        "number": 10,
+        "question": "Tendons and ligaments adapt to mechanical stress more slowly than muscle tissue.",
+        "correctAnswer": true,
+        "explanation": "Limited connective tissue vascularity requires longer remodeling cycles than vascularized muscle."
+      },
+      {
+        "id": "c1-q11",
+        "number": 11,
+        "question": "Supinated chin-ups recruit the biceps brachii to a greater extent than pronated pull-ups.",
+        "correctAnswer": true,
+        "explanation": "Forearm supination places the biceps brachii in its biomechanically optimal line of pull."
+      },
+      {
+        "id": "c1-q12",
+        "number": 12,
+        "question": "Knee push-ups represent an effective regression of the push-up for beginners.",
+        "correctAnswer": true,
+        "explanation": "Shortening the lever arm reduces the gravitational resistance lifted by the upper body."
+      },
+      {
+        "id": "c1-q13",
+        "number": 13,
+        "question": "The standard floor plank develops isometric trunk stability against gravity.",
+        "correctAnswer": true,
+        "explanation": "It conditions the abdominal wall to resist gravitational extension in a closed kinetic chain."
+      },
+      {
+        "id": "c1-q14",
+        "number": 14,
+        "question": "A learner who experiences sharp medial elbow pain during pull-ups should continue without stopping.",
+        "correctAnswer": false,
+        "explanation": "Medial epicondyle pain requires immediate volume reduction and technique assessment."
+      },
+      {
+        "id": "c1-q15",
+        "number": 15,
+        "question": "Elastic resistance bands can assist in learning pull-ups by deloading at the bottom.",
+        "correctAnswer": true,
+        "explanation": "Bands provide assistance at the sticking point, allowing motor pattern mastery."
+      },
+      {
+        "id": "c1-q16",
+        "number": 16,
+        "question": "Full shoulder flexion mobility (180°) is required for proper handstand alignment.",
+        "correctAnswer": true,
+        "explanation": "Without full flexion, the lifter must arch the lumbar spine to keep the center of gravity over the hands."
+      },
+      {
+        "id": "c1-q17",
+        "number": 17,
+        "question": "The Arch Body (superman) trains the posterior chain and spinal erectors.",
+        "correctAnswer": true,
+        "explanation": "It functions as the complementary antagonist position to the Hollow Body."
+      },
+      {
+        "id": "c1-q18",
+        "number": 18,
+        "question": "In Calisthenics, lower-body bodyweight training (squats, pistol prep) is discouraged.",
+        "correctAnswer": false,
+        "explanation": "Balanced athletic preparation requires thorough lower-body strength and mobility development."
+      },
+      {
+        "id": "c1-q19",
+        "number": 19,
+        "question": "Scapular protraction at the top of a push-up activates the serratus anterior muscle.",
+        "correctAnswer": true,
+        "explanation": "The Push-Up Plus protracts the scapulae against the ribcage, strengthening the serratus anterior."
+      },
+      {
+        "id": "c1-q20",
+        "number": 20,
+        "question": "The Dead Hang improves grip strength and decompresses the spinal column.",
+        "correctAnswer": true,
+        "explanation": "Passive bar hangs promote shoulder connective tissue health and axial spinal decompression."
+      },
+      {
+        "id": "c1-q21",
+        "number": 21,
+        "question": "On parallel bars, excessive bar width increases strain and risk on the shoulder joint.",
+        "correctAnswer": true,
+        "explanation": "Dip bars spaced wider than forearm-to-fingertip distance increase glenohumeral shear."
+      },
+      {
+        "id": "c1-q22",
+        "number": 22,
+        "question": "Time under tension (TUT) can be increased by slowing down the eccentric phase.",
+        "correctAnswer": true,
+        "explanation": "Eccentric cadences of 3-5 seconds stimulate motor control and connective tissue resilience."
+      },
+      {
+        "id": "c1-q23",
+        "number": 23,
+        "question": "Before attempting full pull-ups, learners should demonstrate solid control of scapular pull-ups.",
+        "correctAnswer": true,
+        "explanation": "It ensures the initiation is powered by the lats and periscapular stabilizers rather than compensations."
+      },
+      {
+        "id": "c1-q24",
+        "number": 24,
+        "question": "Chalk is used in calisthenics to improve friction and grip on bars and gymnastics rings.",
+        "correctAnswer": true,
+        "explanation": "Gymnastics chalk absorbs sweat and prevents slipping under load."
+      },
+      {
+        "id": "c1-q25",
+        "number": 25,
+        "question": "A calisthenics coach should prioritize repetition quantity over technical movement quality.",
+        "correctAnswer": false,
+        "explanation": "Movement quality strictly takes precedence over repetition volume (Quality over Quantity)."
+      },
+      {
+        "id": "c1-q26",
+        "number": 26,
+        "question": "Diamond push-ups place greater mechanical focus on the triceps brachii.",
+        "correctAnswer": true,
+        "explanation": "Narrow hand positioning increases elbow flexion excursion, placing greater demand on the triceps."
+      },
+      {
+        "id": "c1-q27",
+        "number": 27,
+        "question": "Gymnastic rings provide an unstable surface that increases recruitment of stabilizer muscles.",
+        "correctAnswer": true,
+        "explanation": "Three-dimensional ring instability compels active rotator cuff and scapular stabilization."
+      },
+      {
+        "id": "c1-q28",
+        "number": 28,
+        "question": "Prolonged static stretching before dynamic warm-up can decrease acute power output.",
+        "correctAnswer": true,
+        "explanation": "Dynamic mobility is preferred before training, reserving static stretching for post-workout cool-downs."
+      },
+      {
+        "id": "c1-q29",
+        "number": 29,
+        "question": "Rest between high-intensity bodyweight strength sets should be under 20 seconds.",
+        "correctAnswer": false,
+        "explanation": "Phosphocreatine restoration in heavy neurological sets requires 2 to 3 minutes of rest."
+      },
+      {
+        "id": "c1-q30",
+        "number": 30,
+        "question": "A well-structured calisthenics program balances push and pull volume to maintain joint health.",
+        "correctAnswer": true,
+        "explanation": "Push-pull volume equilibrium prevents postural distortions and subacromial shoulder impingement."
+      }
     ]
   },
   "calisthenics-2": {
@@ -177,36 +897,216 @@
     "timeLimitMinutes": 60,
     "certificateBody": "Libertas EPS CONI – National Higher Education Calisthenics Sector",
     "questions": [
-      { "id": "c2-q1", "number": 1, "question": "In the bar Muscle-Up, the transition requires explosive velocity and a curved 'C' path around the bar.", "correctAnswer": true, "explanation": "A straight vertical trajectory results in the chest colliding directly with the bar." },
-      { "id": "c2-q2", "number": 2, "question": "A Full Planche requires maximum scapular depression and protraction with fully locked elbows.", "correctAnswer": true, "explanation": "Protraction and elbow lockout transfer body mass onto the anterior deltoid and distal biceps tendon." },
-      { "id": "c2-q3", "number": 3, "question": "In the Front Lever, the primary motor muscle maintaining the horizontal lever is the pectoralis major.", "correctAnswer": false, "explanation": "The latissimus dorsi, supported by teres major, triceps long head, and core, is the prime shoulder extensor." },
-      { "id": "c2-q4", "number": 4, "question": "The Tuck Front Lever reduces the lever arm by bringing knees tightly to the chest.", "correctAnswer": true, "explanation": "Moving the lower body mass closer to the shoulder fulcrum drastically reduces resistance torque." },
-      { "id": "c2-q5", "number": 5, "question": "To maintain a steady freestanding handstand, the fingertips must actively grip the floor.", "correctAnswer": true, "explanation": "The fingertip grip acts like the toes in standing posture to continuously correct overbalance." },
-      { "id": "c2-q6", "number": 6, "question": "A learner with shoulder flexion limited to 150° can perform a straight handstand without compensation.", "correctAnswer": false, "explanation": "Inadequate shoulder mobility forces lumbar hyperextension ('banana handstand') to balance center of mass." },
-      { "id": "c2-q7", "number": 7, "question": "The Back Lever requires significant tolerance in shoulder hyperextension with straight arms.", "correctAnswer": true, "explanation": "Drills like 'Skin the Cat' are indispensable for conditioning the distal biceps tendon." },
-      { "id": "c2-q8", "number": 8, "question": "In the Human Flag, the bottom arm pulls and the top arm pushes.", "correctAnswer": false, "explanation": "It is the opposite: the bottom arm pushes away from the pole while the top arm pulls." },
-      { "id": "c2-q9", "number": 9, "question": "The freestanding Handstand Push-Up requires both maximal vertical pushing strength and balance control.", "correctAnswer": true, "explanation": "It merges high deltoid/triceps force production with micro-adjustments in handstand balance." },
-      { "id": "c2-q10", "number": 10, "question": "In the Dragon Flag, the body must remain straight and rigid from neck to ankles during descent.", "correctAnswer": true, "explanation": "Bending at the hips shortens the lever arm and compromises the intended core stimulus." },
-      { "id": "c2-q11", "number": 11, "question": "The L-Sit requires abdominal/hip flexor strength as well as posterior chain hamstring flexibility.", "correctAnswer": true, "explanation": "Inflexible hamstrings restrict full knee extension when the hips are flexed at 90 degrees." },
-      { "id": "c2-q12", "number": 12, "question": "In Planche Leans, shifting shoulders forward past the wrists increases torque demand on deltoids.", "correctAnswer": true, "explanation": "It increases the resistance moment arm, requiring greater shoulder flexion moment." },
-      { "id": "c2-q13", "number": 13, "question": "An athlete should begin Full Planche training before mastering the Tuck Planche.", "correctAnswer": false, "explanation": "Gradual progression is mandatory to adapt elbow and biceps tendons to massive shear forces." },
-      { "id": "c2-q14", "number": 14, "question": "In the One-Arm Pull-Up, scapular stabilization and unilateral grip strength are critical.", "correctAnswer": true, "explanation": "Rotational torso tendencies demand high latissimus dorsi and oblique anti-rotational control." },
-      { "id": "c2-q15", "number": 15, "question": "Gymnastic rings allow physiological forearm rotation during the Muscle-Up transition.", "correctAnswer": true, "explanation": "Free ring rotation coupled with false grip allows a smoother transition than a fixed straight bar." },
-      { "id": "c2-q16", "number": 16, "question": "Isometric skill holds should always be trained past absolute muscular and structural failure.", "correctAnswer": false, "explanation": "Structural failure during max isometrics imposes acute joint and ligament injury risks." },
-      { "id": "c2-q17", "number": 17, "question": "The false grip places the wrist directly over the bar or ring rather than underneath.", "correctAnswer": true, "explanation": "It eliminates the need to rotate the wrist at the transition apex of the Muscle-Up." },
-      { "id": "c2-q18", "number": 18, "question": "The Straddle position increases difficulty compared to a closed-leg (Full) lever.", "correctAnswer": false, "explanation": "Spreading the legs moves the center of mass closer to the fulcrum, reducing lever difficulty." },
-      { "id": "c2-q19", "number": 19, "question": "In a handstand, 'elevating' the shoulders means actively pushing the floor away to extend the reach.", "correctAnswer": true, "explanation": "Active elevation locks the shoulder joint into a safe structure and creates a solid foundation." },
-      { "id": "c2-q20", "number": 20, "question": "Resistance bands can be used to support hips or feet to teach joint angles and neural patterning.", "correctAnswer": true, "explanation": "Bands allow progressive overload and motor learning of exact isometric posture." },
-      { "id": "c2-q21", "number": 21, "question": "In the V-Sit, the angle between torso and legs is smaller than in an L-Sit.", "correctAnswer": true, "explanation": "Legs are raised above 90 degrees, demanding maximal active compression strength." },
-      { "id": "c2-q22", "number": 22, "question": "Dynamic bar release moves (180° / 360°) require precise timing during the unweighting phase.", "correctAnswer": true, "explanation": "Early or late release distorts the flight trajectory and risks failed bar recatch." },
-      { "id": "c2-q23", "number": 23, "question": "The Pike Push-Up is an effective regression for building overhead pressing strength toward HSPU.", "correctAnswer": true, "explanation": "It mimics the vertical push vector while supporting part of bodyweight on the floor." },
-      { "id": "c2-q24", "number": 24, "question": "Chronic distal biceps tendon overload is a common risk when training straight-arm Planche.", "correctAnswer": true, "explanation": "Locked-arm leans produce severe tensile load on the biceps insertion." },
-      { "id": "c2-q25", "number": 25, "question": "Connective tissue conditioning requires months of gradual progressive loading before full levers.", "correctAnswer": true, "explanation": "Tendon collagen remodeling occurs at a significantly slower biological rate than muscle hypertrophy." },
-      { "id": "c2-q26", "number": 26, "question": "When spotting acrobatic calisthenics skills, the spotter must understand the athlete's falling trajectory.", "correctAnswer": true, "explanation": "Spotters guide the athlete to safe footing if grip or balance is lost." },
-      { "id": "c2-q27", "number": 27, "question": "In a One-Arm Front Lever, torso anti-rotational demand is negligible.", "correctAnswer": false, "explanation": "The rotational moment is extreme, requiring immense activation of obliques and quadratus lumborum." },
-      { "id": "c2-q28", "number": 28, "question": "Active mobility is the ability to achieve joint range through voluntary muscular contraction.", "correctAnswer": true, "explanation": "Active range of motion is crucial for high-level skill control compared to passive flexibility." },
-      { "id": "c2-q29", "number": 29, "question": "Returning to training after a tendon injury should immediately resume maximal lever holds.", "correctAnswer": false, "explanation": "Rehabilitation demands submaximal isometric and controlled eccentric loading progressions." },
-      { "id": "c2-q30", "number": 30, "question": "A Level 2 coach knows how to evaluate readiness for a skill without rushing biological adaptation.", "correctAnswer": true, "explanation": "Athlete health and athletic longevity are the foremost professional duty of a coach." }
+      {
+        "id": "c2-q1",
+        "number": 1,
+        "question": "In front lever, a tucked position reduces the lever arm compared to legs straight and together.",
+        "correctAnswer": true,
+        "explanation": "Bringing legs toward the torso shortens the lever arm."
+      },
+      {
+        "id": "c2-q2",
+        "number": 2,
+        "question": "In front lever, lowering the hips while keeping legs straight is an acceptable compensation to complete the hold.",
+        "correctAnswer": false,
+        "explanation": "Dropping hips breaks the required straight body line of the front lever."
+      },
+      {
+        "id": "c2-q3",
+        "number": 3,
+        "question": "The one-leg progression can be used between advanced tuck and full front lever.",
+        "correctAnswer": true,
+        "explanation": "One-leg is an effective intermediate progression."
+      },
+      {
+        "id": "c2-q4",
+        "number": 4,
+        "question": "In back lever, it is beneficial to gradually prepare shoulders and elbows before increasing hold duration.",
+        "correctAnswer": true,
+        "explanation": "Involved structures must adapt progressively to the intense tensile load."
+      },
+      {
+        "id": "c2-q5",
+        "number": 5,
+        "question": "In back lever, sharp shoulder pain is normal and should be ignored if position remains stable.",
+        "correctAnswer": false,
+        "explanation": "Sharp pain requires immediately stopping the attempt to evaluate the cause."
+      },
+      {
+        "id": "c2-q6",
+        "number": 6,
+        "question": "Transitioning from tuck to straddle necessarily increases difficulty for every athlete and every skill.",
+        "correctAnswer": false,
+        "explanation": "Difficulty depends on individual morphology, hip mobility and skill mechanics."
+      },
+      {
+        "id": "c2-q7",
+        "number": 7,
+        "question": "In handstand, pelvis position directly influences overall body alignment.",
+        "correctAnswer": true,
+        "explanation": "Pelvic tilt control is essential for achieving a stacked vertical line."
+      },
+      {
+        "id": "c2-q8",
+        "number": 8,
+        "question": "In handstand, an exaggerated lumbar arch is necessary to maintain balance.",
+        "correctAnswer": false,
+        "explanation": "An excessive lumbar arch is a compensation, not an alignment requirement."
+      },
+      {
+        "id": "c2-q9",
+        "number": 9,
+        "question": "In a freestanding handstand, finger pressure contributes to fine balance corrections.",
+        "correctAnswer": true,
+        "explanation": "Finger pressure (clawing the ground) actively corrects overbalance."
+      },
+      {
+        "id": "c2-q10",
+        "number": 10,
+        "question": "Holding a wall handstand guarantees immediate freestanding handstand balance.",
+        "correctAnswer": false,
+        "explanation": "The wall builds shoulder strength, but freestanding balance requires distinct neuromuscular control."
+      },
+      {
+        "id": "c2-q11",
+        "number": 11,
+        "question": "In HSPU, temporarily reducing range of motion is a useful progression if execution remains controlled.",
+        "correctAnswer": true,
+        "explanation": "A controlled partial ROM can safely precede full-depth handstand push-ups."
+      },
+      {
+        "id": "c2-q12",
+        "number": 12,
+        "question": "In HSPU, dropping quickly onto the head is an effective way to overcome the sticking point.",
+        "correctAnswer": false,
+        "explanation": "Descent must be controlled to prevent cervical impact and injury."
+      },
+      {
+        "id": "c2-q13",
+        "number": 13,
+        "question": "In bar muscle-up, a sufficiently high explosive pull facilitates the transition over the bar.",
+        "correctAnswer": true,
+        "explanation": "A higher pull creates needed clearance to transition the torso above the bar."
+      },
+      {
+        "id": "c2-q14",
+        "number": 14,
+        "question": "In muscle-up, reaching chin over the bar always guarantees sufficient height for a clean transition.",
+        "correctAnswer": false,
+        "explanation": "Getting chin over bar is inadequate; chest-to-bar or lower-sternum height is required."
+      },
+      {
+        "id": "c2-q15",
+        "number": 15,
+        "question": "A controlled negative muscle-up can help the athlete master the transition phase safely.",
+        "correctAnswer": true,
+        "explanation": "Eccentric negatives clarify movement mechanics and build transition strength."
+      },
+      {
+        "id": "c2-q16",
+        "number": 16,
+        "question": "A kipping momentum muscle-up and a strict muscle-up require the exact same technical execution.",
+        "correctAnswer": false,
+        "explanation": "Momentum alters kinematic demands and joint forces significantly compared to strict execution."
+      },
+      {
+        "id": "c2-q17",
+        "number": 17,
+        "question": "In planche lean, shifting shoulders further forward relative to hands increases shoulder torque.",
+        "correctAnswer": true,
+        "explanation": "Greater forward lean increases the moment arm on the anterior deltoids and biceps tendons."
+      },
+      {
+        "id": "c2-q18",
+        "number": 18,
+        "question": "In planche, bending elbows during a straight-arm hold leaves exercise difficulty unchanged.",
+        "correctAnswer": false,
+        "explanation": "Bending elbows shifts load to triceps and alters the intended biomechanical stress."
+      },
+      {
+        "id": "c2-q19",
+        "number": 19,
+        "question": "In planche push-up, elbows bend during descent and fully lock out at the top position.",
+        "correctAnswer": true,
+        "explanation": "This is the correct movement sequence of eccentric descent and concentric press in planche push-ups."
+      },
+      {
+        "id": "c2-q20",
+        "number": 20,
+        "question": "Before attempting full planche push-up reps, mastering top and bottom positions in simpler regressions is beneficial.",
+        "correctAnswer": true,
+        "explanation": "Positional mastery in regression builds joint tolerance and motor control for dynamic repetitions."
+      },
+      {
+        "id": "c2-q21",
+        "number": 21,
+        "question": "In L-sit, bending knees is a useful regression when the straight-leg version is too challenging.",
+        "correctAnswer": true,
+        "explanation": "Bent knees shorten the lower body lever, reducing hip flexor and abdominal torque."
+      },
+      {
+        "id": "c2-q22",
+        "number": 22,
+        "question": "In V-sit, raising feet higher while compensating with uncontrolled lumbar flexion is a valid progression.",
+        "correctAnswer": false,
+        "explanation": "Foot height alone without active compression and torso control is a breakdown of form."
+      },
+      {
+        "id": "c2-q23",
+        "number": 23,
+        "question": "In dragon flag, the athlete's body weight should rest primarily on the cervical neck.",
+        "correctAnswer": false,
+        "explanation": "Support must rest across the upper back and shoulder blades, never on the cervical neck."
+      },
+      {
+        "id": "c2-q24",
+        "number": 24,
+        "question": "In dragon flag, progressing from tuck to one-leg and then straddle gradually increases lever length.",
+        "correctAnswer": true,
+        "explanation": "These positions incrementally lengthen the moment arm on the anterior core chain."
+      },
+      {
+        "id": "c2-q25",
+        "number": 25,
+        "question": "In human flag, the upper arm pulls and the lower arm pushes to stabilize the lateral body line.",
+        "correctAnswer": true,
+        "explanation": "The pull-push couple between upper and lower arms generates the stabilizing lateral torque."
+      },
+      {
+        "id": "c2-q26",
+        "number": 26,
+        "question": "In human flag, training the trunk alone is sufficient; grip and scapular control play negligible roles.",
+        "correctAnswer": false,
+        "explanation": "Grip strength, shoulder girdle stability and scapular depression/elevation are critical."
+      },
+      {
+        "id": "c2-q27",
+        "number": 27,
+        "question": "If an athlete completes a repetition while consistently losing alignment, the skill should be considered mastered.",
+        "correctAnswer": false,
+        "explanation": "Form, joint integrity and repeatability must be secured before progressing."
+      },
+      {
+        "id": "c2-q28",
+        "number": 28,
+        "question": "A lateral video recording helps the coach evaluate hip sag and spine alignment in skills like front lever and planche.",
+        "correctAnswer": true,
+        "explanation": "Lateral perspective reveals lumbar compensations and hip deviations clearly."
+      },
+      {
+        "id": "c2-q29",
+        "number": 29,
+        "question": "Resistance bands can assist skill learning, but the coach must ensure assistance does not distort movement trajectory.",
+        "correctAnswer": true,
+        "explanation": "Band tension must assist without teaching artificial movement paths."
+      },
+      {
+        "id": "c2-q30",
+        "number": 30,
+        "question": "Criteria for advancing in a skill should consider control, form and repeatability, not just seconds or reps.",
+        "correctAnswer": true,
+        "explanation": "Target duration or repetitions must meet strict technical standards to ensure safety and true mastery."
+      }
     ]
   }
 }

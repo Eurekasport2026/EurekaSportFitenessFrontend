@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Link } from "@/i18n/routing";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
-import { academyCourses } from "@/components/features/marketing/content";
+import { getAllCourses } from "@/lib/api/courses";
 import { T, useLanguage } from "@/components/layout/LanguageProvider";
 import { cn } from "@/lib/utils";
 import styles from "./courses.module.css";
@@ -12,21 +12,47 @@ import styles from "./courses.module.css";
 const filters = ["Tutti", "Fitness", "Acquatici", "Ginnastica", "Specializzati"] as const;
 type CourseFilter = typeof filters[number];
 
-const courses = [
-  { title: "Personal Trainer Livello 1", description: "Fondamenti, anatomia, macchine ed esame", imageAlt: "Personal trainer con un manubrio in palestra", tile: 0, slug: "personal-trainer-1", categories: ["Fitness", "Specializzati"] },
-  { title: "Personal Trainer Livello 2", description: "Biomeccanica, programmazione avanzata e periodizzazione", imageAlt: "Personal trainer avanzato durante un allenamento", tile: 0, slug: "personal-trainer-2", categories: ["Fitness", "Specializzati"] },
-  { title: "Personal Trainer Livello 3", description: "Master coach, RFD, casi studio e project work", imageAlt: "Head coach in palestra durante una sessione", tile: 0, slug: "personal-trainer-3", categories: ["Fitness", "Specializzati"] },
-  { title: "Calisthenics Livello 1", description: "178 video esercizi con progressioni didattiche", imageAlt: "Atleta durante un esercizio di calisthenics", tile: 1, slug: "calisthenics-1", categories: ["Fitness", "Specializzati"] },
-  { title: "Calisthenics Livello 2", description: "20 moduli dedicati ciascuno a una specifica skill", imageAlt: "Atleta esperto in skill avanzata alla sbarra", tile: 1, slug: "calisthenics-2", categories: ["Fitness", "Specializzati"] },
-  { title: "Istruttore Nuoto", description: "Formazione completa per il mondo acquatico", imageAlt: "Nuotatore con cuffia e occhialini in piscina", tile: 2, categories: ["Acquatici"] },
-  { title: "Aquagym e Hydrobike", description: "Specializzati nel fitness in acqua", imageAlt: "Allenamento di aquagym in piscina", tile: 3, categories: ["Acquatici"] },
-  { title: "Ginnastica", description: "Tecnica, didattica e programmazione", imageAlt: "Ginnasta impegnata nello stretching a terra", tile: 4, categories: ["Ginnastica"] },
-  { title: "Allenamento Funzionale", description: "Allenamento funzionale per forza e movimento", imageAlt: "Atleta durante un allenamento funzionale in palestra", tile: 11, categories: ["Fitness", "Specializzati"] },
+const extraCourses = [
+  { title: "Istruttore Nuoto", description: "Formazione completa per il mondo acquatico", imageAlt: "Nuotatore con cuffia e occhialini in piscina", imageSrc: "/images/courses/swimming-instructor.webp", position: "center 25%", categories: ["Acquatici"] },
+  { title: "Aquagym e Hydrobike", description: "Specializzati nel fitness in acqua", imageAlt: "Allenamento di aquagym in piscina", imageSrc: "/images/courses/aquagym.webp", position: "center top", categories: ["Acquatici"] },
+  { title: "Ginnastica", description: "Tecnica, didattica e programmazione", imageAlt: "Ginnasta impegnata nello stretching a terra", imageSrc: "/images/courses/ginnastica.webp", position: "center center", categories: ["Ginnastica"] },
+  { title: "Allenamento Funzionale", description: "Allenamento funzionale per forza e movimento", imageAlt: "Atleta durante un allenamento funzionale in palestra", imageSrc: "/images/courses/functional-training.webp", position: "center top", categories: ["Fitness", "Specializzati"] },
 ];
 
 export function CourseCatalog() {
   const [active, setActive] = useState<CourseFilter>("Tutti");
   const { language, t } = useLanguage();
+
+  const courses = useMemo(() => {
+    const apiCourses = getAllCourses(language);
+    const courseImageMap: Record<string, string> = {
+      "personal-trainer-1": "/images/courses/personal-trainer-1.webp",
+      "personal-trainer-2": "/images/courses/personal-trainer-2.webp",
+      "personal-trainer-3": "/images/courses/personal-trainer-3.webp",
+      "calisthenics-1": "/images/courses/calisthenics-1.webp",
+      "calisthenics-2": "/images/courses/calisthenics-2.webp",
+    };
+
+    const coursePositionMap: Record<string, string> = {
+      "personal-trainer-1": "center top",
+      "personal-trainer-2": "center top",
+      "personal-trainer-3": "center top",
+      "calisthenics-1": "center top",
+      "calisthenics-2": "center top",
+    };
+
+    const catalogItems = apiCourses.map((c) => ({
+      title: c.title,
+      description: c.subtitle || c.description,
+      imageAlt: c.title,
+      imageSrc: courseImageMap[c.slug] || "/images/courses/personal-trainer-1.webp",
+      position: coursePositionMap[c.slug] || "center top",
+      slug: c.slug,
+      categories: ["Fitness", "Specializzati"] as string[],
+    }));
+
+    return [...catalogItems, ...extraCourses];
+  }, [language]);
   const filtered = courses.filter((course) => active === "Tutti" || course.categories.includes(active));
 
   return (
@@ -41,7 +67,11 @@ export function CourseCatalog() {
             className={styles.photo}
             role="img"
             aria-label={t(course.imageAlt)}
-            style={course.tile === 11 ? { backgroundImage: "url('/images/eureka-functional-training.webp')", backgroundSize: "cover", backgroundPosition: "center" } : { backgroundPosition: `${course.tile % 4 * 100 / 3}% ${7.54 + Math.floor(course.tile / 4) * 42.46}%` }}
+            style={{
+              backgroundImage: `url('${course.imageSrc}')`,
+              backgroundSize: "cover",
+              backgroundPosition: "position" in course && course.position ? course.position : "center top",
+            }}
           />
           <div className={styles.cardBody}>
             <h2><T>{course.title}</T></h2>
