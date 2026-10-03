@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **Eliminated Unwanted Vertical Scrollbar on 404 Pages**:
+  - Overrode `.page` `min-height: 100svh` on [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) with `flex-1 flex flex-col !min-h-0` and calibrated `<main>` padding to `py-6 md:py-8`.
+  - Prevents double-viewport height accumulation (`100svh + footer`) so that the header, 404 message, and footer comfortably fit in a single screen without any vertical scrollbar.
+- **Ensured Global Header and Footer Always Show on 404 / Non-Existent Pages**:
+  - Integrated [`HomeHeader`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/HomeHeader.tsx) into [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) within the standard dark canvas container, guaranteeing that every non-existent URL or stage always displays the full Eureka brand header (logo, navigation links, search, and language switcher) alongside [`SiteFooter`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/SiteFooter.tsx).
+  - Added full bilingual support with `<T>` tags and English translations in [`src/lib/translations.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/translations.ts) for 404 badges, headings, explanations, and action buttons.
+  - Linked recovery buttons through localized `Link` from `@/i18n/routing` so users seamlessly navigate back to Home (`/`) or Course Catalog (`/academy/corsi`) within their active locale.
 - **Resolved HTML `lang="it"` React SSR Hydration Mismatch & Dynamic Course Routing**:
   - Removed conflicting standalone root `src/app/not-found.tsx` whose hardcoded `<html lang="it">` and root DefaultLayout clashed with the localized layout tree during route fallback checks on English (`/en/...`) pages.
   - Added dynamic course slug route mapping `"/academy/corsi/[slug]": { it: "/academy/corsi/[slug]", en: "/academy/courses/[slug]" }` to [`src/i18n/routing.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/i18n/routing.ts), resolving 404 errors when navigating to course detail pages in English.

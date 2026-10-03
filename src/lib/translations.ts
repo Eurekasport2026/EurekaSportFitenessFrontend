@@ -248,5 +248,10 @@ export const english: Record<string, string> = {
   "POLPACCI": "CALVES",
   "AVAMBRACCI & PRESA": "FOREARMS & GRIP",
   "CORPO INTERO": "FULL BODY",
+  "Errore 404 • Pagina Non Trovata": "Error 404 • Page Not Found",
+  "Ops! Questa pagina non esiste.": "Oops! This page does not exist.",
+  "La risorsa, il documento o la pagina che stai cercando non è disponibile o è stata spostata.": "The requested resource, document, or page is not available or has been moved.",
+  "Torna alla Home": "Return to Home",
+  "Esplora i Corsi": "Explore Courses",
 };
 
