@@ -77,29 +77,54 @@ export function MarketingPage({ variant }: MarketingPageProps) {
             {isAcademy && <Link href="/academy/corsi"><T>Vedi tutti</T> <HomeIcon name="arrow" /></Link>}
           </div>
           <div className={cn(styles.cardGrid, !isAcademy && styles.goalGrid)} id={isAcademy ? "lista-corsi" : "lista-obiettivi"}>
-            {cards.map((card) => <article className={styles.card} key={card.title}>
-              <div
-                className={styles.cardPhoto}
-                role="img"
-                aria-label={t(card.imageAlt)}
-                style={{ backgroundPosition: `${(card.tile % 4) * 100 / 3}% ${Math.floor(card.tile / 4) * 50}%` }}
-              />
-              <div className={styles.cardBody}>
-                <h3><T>{card.title}</T></h3>
-                {card.description && <p><T>{card.description}</T></p>}
-                {isAcademy && card.title === "Personal Trainer" ?
-                  <Link href="/academy/corsi/personal-trainer" className={styles.cardAction}><T>Scopri</T> <HomeIcon name="arrow" /></Link> :
-                  <HomeAction
-                    kind={isAcademy ? "academy" : "goal"}
-                    title={card.title}
-                    description={card.description}
-                    className={styles.cardAction}
-                    label={`${isAcademy ? (language === "en" ? "Explore course" : "Scopri il corso") : (language === "en" ? "Explore goal" : "Esplora l'obiettivo")} ${t(card.title)}`}
+            {cards.map((card) => {
+              const targetSlug = isAcademy ? (card.slug || (card.title === "Personal Trainer" ? "personal-trainer-1" : null)) : null;
+              const targetHref = targetSlug ? `/academy/corsi/${targetSlug}` : null;
+
+              const cardContent = (
+                <>
+                  <div
+                    className={styles.cardPhoto}
+                    role="img"
+                    aria-label={t(card.imageAlt)}
+                    style={{ backgroundPosition: `${(card.tile % 4) * 100 / 3}% ${Math.floor(card.tile / 4) * 50}%` }}
+                  />
+                  <div className={styles.cardBody}>
+                    <h3><T>{card.title}</T></h3>
+                    {card.description && <p><T>{card.description}</T></p>}
+                    <span className={styles.cardAction}>
+                      {isAcademy && <T>Scopri</T>}<HomeIcon name="arrow" />
+                    </span>
+                  </div>
+                </>
+              );
+
+              if (targetHref) {
+                return (
+                  <Link
+                    key={card.title}
+                    href={targetHref as any}
+                    className={styles.card}
+                    aria-label={`${isAcademy ? (language === "en" ? "Explore course" : "Scopri il corso") : (language === "en" ? "Explore goal" : "Esplora l'obiettivo")} ${t(card.title)}`}
                   >
-                    {isAcademy && <T>Scopri</T>}<HomeIcon name="arrow" />
-                  </HomeAction>}
-              </div>
-            </article>)}
+                    {cardContent}
+                  </Link>
+                );
+              }
+
+              return (
+                <HomeAction
+                  key={card.title}
+                  kind={isAcademy ? "academy" : "goal"}
+                  title={card.title}
+                  description={card.description}
+                  className={styles.card}
+                  label={`${isAcademy ? (language === "en" ? "Explore course" : "Scopri il corso") : (language === "en" ? "Explore goal" : "Esplora l'obiettivo")} ${t(card.title)}`}
+                >
+                  {cardContent}
+                </HomeAction>
+              );
+            })}
           </div>
         </section>
       </main>

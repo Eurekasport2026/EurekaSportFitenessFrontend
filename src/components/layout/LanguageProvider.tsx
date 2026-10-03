@@ -22,7 +22,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   function setLanguage(nextLanguage: Language) {
     if (nextLanguage === locale) return;
-    router.replace(pathname, { locale: nextLanguage });
+    router.replace(pathname as any, { locale: nextLanguage });
   }
 
   const t = (italian: string) => {

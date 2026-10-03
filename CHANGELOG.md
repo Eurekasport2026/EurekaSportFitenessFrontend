@@ -5,6 +5,23 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **Resolved HTML `lang="it"` React SSR Hydration Mismatch & Dynamic Course Routing**:
+  - Removed conflicting standalone root `src/app/not-found.tsx` whose hardcoded `<html lang="it">` and root DefaultLayout clashed with the localized layout tree during route fallback checks on English (`/en/...`) pages.
+  - Added dynamic course slug route mapping `"/academy/corsi/[slug]": { it: "/academy/corsi/[slug]", en: "/academy/courses/[slug]" }` to [`src/i18n/routing.ts`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/i18n/routing.ts), resolving 404 errors when navigating to course detail pages in English.
+  - Created [`src/app/[locale]/[...rest]/page.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/[...rest]/page.tsx) with `notFound()` to handle unmatched URLs cleanly within the locale boundary.
+  - Added `suppressHydrationWarning` to the `<html>` element in [`src/app/[locale]/layout.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/layout.tsx) to prevent browser extensions or SSR attribute discrepancies from triggering hydration errors.
+  - Cast `pathname as any` in [`LanguageProvider.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/layout/LanguageProvider.tsx) to maintain type safety with dynamic localized routes.
+- **Restored Official Runner Favicon on Browser Tabs & 404 Pages**:
+  - Overwrote [`src/app/icon.svg`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/icon.svg) with the official mathematical vector curves and `#eureka-runner-grad` linear gradient from `public/eureka-symbol.svg`, replacing an outdated legacy geometric blue polygon favicon.
+  - Created [`src/app/[locale]/not-found.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/not-found.tsx) featuring the official Eureka runner emblem, branded dark canvas, custom 404 status badge, and recovery navigation to Home and Course Catalog (`/it/academy/corsi`).
+  - Deployed `public/icon.svg` and updated `public/eureka-fit-symbol.svg` with the official runner vector curves to ensure 100% brand consistency across direct icon fetches and legacy browser caches.
+
+  - Generated and deployed 5 official graduation certificates in `public/docs/` (`personal-trainer-1-attestato-completamento.pdf`, `personal-trainer-2-attestato-completamento.pdf`, `personal-trainer-3-attestato-completamento.pdf`, `calisthenics-1-attestato-completamento.pdf`, `calisthenics-2-attestato-completamento.pdf`) with official Libertas/CONI technical seal, eliminating 404 errors on course completion.
+- **Enabled Level 2 Workout Plan Downloads & PDF Deployment**:
+  - Generated 3 advanced periodization PDF protocols in `public/docs/` (`scheda-pt2-hypertrophy-specialization.pdf`, `scheda-pt2-wave-loading.pdf`, `scheda-pt2-conjugate-periodization.pdf`) and linked their `pdfUrl` in [`en/practical.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/en/practical.json) and [`it/practical.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/it/practical.json).
+- **Corrected Calisthenics Routing & Card Clickability on Academy Marketing Page**:
+  - Updated [`MarketingPage.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/marketing/MarketingPage.tsx) to support dynamic `card.slug` routing so clicking "Calisthenics Coach" navigates directly to `/academy/corsi/calisthenics-1`.
+  - Upgraded marketing course and goal cards in [`marketing.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/marketing/marketing.module.css) to be fully clickable with pointer cursor and elevation hover effects.
 - **Resolved Workout Plan Download & View Online 404 Errors**:
   - Generated and deployed the 5 official training protocol PDF documents in `public/docs/` (`scheda-beginner-full-body.pdf`, `scheda-full-body-ab.pdf`, `scheda-upper-lower.pdf`, `scheda-basic-strength-hypertrophy.pdf`, `scheda-cardio-resistance.pdf`).
   - Completely eliminates 404 Not Found responses when clicking "Download PDF" or opening PDF templates in a browser tab.

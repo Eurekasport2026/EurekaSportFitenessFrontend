@@ -443,7 +443,7 @@
       "description": "Progressione avanzata su 4 giorni settimanali (Upper/Lower) con carico e volume autoregolati per l ipertrofia mirata.",
       "level": "Avanzato",
       "durationWeeks": "6 settimane",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-hypertrophy-specialization.pdf",
       "pdfSize": "2.4 MB"
     },
     {
@@ -454,7 +454,7 @@
       "description": "Programma basato sulla modulazione neurale mediante onde di carico (75% → 90% 1RM) e recuperi completi.",
       "level": "Avanzato",
       "durationWeeks": "8 settimane",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-wave-loading.pdf",
       "pdfSize": "2.8 MB"
     },
     {
@@ -465,7 +465,7 @@
       "description": "Adattamento del metodo coniugato per clienti avanzati che mirano alla composizione corporea e all incremento di forza.",
       "level": "Avanzato",
       "durationWeeks": "12 settimane",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-conjugate-periodization.pdf",
       "pdfSize": "3.1 MB"
     }
   ],

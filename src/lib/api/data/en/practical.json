@@ -443,7 +443,7 @@
       "description": "Advanced 4-day Upper/Lower split with autoregulated volume and loading for targeted muscle hypertrophy.",
       "level": "Advanced",
       "durationWeeks": "6 weeks",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-hypertrophy-specialization.pdf",
       "pdfSize": "2.4 MB"
     },
     {
@@ -454,7 +454,7 @@
       "description": "Neural potentiation program utilizing wave loading (75% → 90% 1RM) with complete metabolic recovery.",
       "level": "Advanced",
       "durationWeeks": "8 weeks",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-wave-loading.pdf",
       "pdfSize": "2.8 MB"
     },
     {
@@ -465,7 +465,7 @@
       "description": "Conjugate system adapted for advanced clients seeking body composition improvement and maximal force output.",
       "level": "Advanced",
       "durationWeeks": "12 weeks",
-      "pdfUrl": "",
+      "pdfUrl": "/docs/scheda-pt2-conjugate-periodization.pdf",
       "pdfSize": "3.1 MB"
     }
   ],
