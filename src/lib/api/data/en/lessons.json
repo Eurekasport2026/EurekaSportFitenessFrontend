@@ -1,4 +1,63 @@
 {
+  "pt1-mod-1": [
+    {
+      "order": 1,
+      "title": "Role and Skills of the Junior Personal Trainer: Foundations",
+      "description": "Definition of professional boundaries, ethical codes, liability limits and effective interaction with healthcare specialists.",
+      "durationMinutes": 20,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "18:20",
+      "videoUrl": "https://vod-adaptive-ak.vimeocdn.com/exp=1791134092~acl=%2Fc041bbda-8ff9-4f59-83d6-9b6b5c4068e5%2Fpsid%3Dad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492%2F%2A~hmac=45d9d9e74f9bf5366b12609a46370df58ed27c042626d075dc13d5d83c0e0cec/c041bbda-8ff9-4f59-83d6-9b6b5c4068e5/psid=ad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492/v2/playlist/av/primary/sub/329498107-it-x-autogen/prot/cXNyPTE/playlist.m3u8?ext-subs=1&locale=it&omit=opus&pathsig=8c953e4f~E_SoHQNnWyepKD3A9zbB-Woiuk3owt0DCxD0HcrGPrU&qsr=1&r=dXM%3D&rh=einXu&sf=fmp4",
+      "summary": "In this introductory video lesson, we examine the fundamental responsibilities of the personal trainer, professional ethics, and guidelines for safe operation.",
+      "keyTakeaways": [
+        "Understanding legal scope and trainer liability.",
+        "Managing initial client consultations and respecting privacy guidelines.",
+        "Multidisciplinary collaboration with doctors, physiotherapists, and nutritionists."
+      ],
+      "pdfTitle": "Study Guide - Module 1 (Lesson 1).pdf",
+      "pdfSize": "2.4 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 2,
+      "title": "Professional Ethics & Client Relationship Management",
+      "description": "Active listening, empathetic communication, and athlete retention throughout the fitness journey.",
+      "durationMinutes": 10,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "09:55",
+      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232777945/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8cf698efc7799810e9f4acee58d1a2b97a7335c806b57bc6a3d877ec53e40feb",
+      "summary": "Deep dive into interpersonal dynamics and communication practices essential for guiding athletes toward their goals with professionalism and clarity.",
+      "keyTakeaways": [
+        "Effective communication protocols and active assessment of client needs.",
+        "Designing sustainable and motivating training itineraries.",
+        "Dropout prevention and long-term retention strategies."
+      ],
+      "pdfTitle": "Study Guide - Module 1 (Lesson 2).pdf",
+      "pdfSize": "2.8 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 3,
+      "title": "Safety Standards & Gym Floor Operational Best Practices",
+      "description": "Safety protocols, hygiene, injury prevention, and emergency response in the weight room.",
+      "durationMinutes": 1,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "00:18",
+      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232778067/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8bc5753f9785f13d6663507c9951e23d18fc0463b0daa75fda2075c63d0fff8e",
+      "summary": "Hands-on procedures to ensure athlete safety during training sessions, proper facility setup, and load management.",
+      "keyTakeaways": [
+        "Safety checklist before beginning every training session.",
+        "Correct spotting technique and assistance on compound movements.",
+        "Emergency management and gym first-response protocols."
+      ],
+      "pdfTitle": "Study Guide - Module 1 (Lesson 3).pdf",
+      "pdfSize": "2.1 MB",
+      "allowsDownload": true
+    }
+  ],
   "pt1-mod-5": [
     {
       "order": 1,

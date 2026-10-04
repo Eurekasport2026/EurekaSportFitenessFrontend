@@ -1,4 +1,63 @@
 {
+  "pt1-mod-1": [
+    {
+      "order": 1,
+      "title": "Ruolo e Competenze del Junior Personal Trainer: Fondamenti",
+      "description": "Definizione dell'ambito professionale, codice etico, limiti deontologici e interazione con le figure sanitarie.",
+      "durationMinutes": 20,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "18:20",
+      "videoUrl": "https://vod-adaptive-ak.vimeocdn.com/exp=1791134092~acl=%2Fc041bbda-8ff9-4f59-83d6-9b6b5c4068e5%2Fpsid%3Dad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492%2F%2A~hmac=45d9d9e74f9bf5366b12609a46370df58ed27c042626d075dc13d5d83c0e0cec/c041bbda-8ff9-4f59-83d6-9b6b5c4068e5/psid=ad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492/v2/playlist/av/primary/sub/329498107-it-x-autogen/prot/cXNyPTE/playlist.m3u8?ext-subs=1&locale=it&omit=opus&pathsig=8c953e4f~E_SoHQNnWyepKD3A9zbB-Woiuk3owt0DCxD0HcrGPrU&qsr=1&r=dXM%3D&rh=einXu&sf=fmp4",
+      "summary": "In questa video lezione introduttiva analizziamo i compiti fondamentali del personal trainer, la deontologia professionale e le linee guida per operare in sicurezza.",
+      "keyTakeaways": [
+        "Comprensione del perimetro legale e delle responsabilità del trainer.",
+        "Gestione della relazione iniziale con il cliente e rispetto della privacy.",
+        "Collaborazione multidisciplinare con medici, fisioterapisti e nutrizionisti."
+      ],
+      "pdfTitle": "Dispensa Didattica - Modulo 1 (Lezione 1).pdf",
+      "pdfSize": "2.4 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 2,
+      "title": "Etica Professionale e Gestione della Relazione con il Cliente",
+      "description": "Ascolto attivo, comunicazione empatica e fidelizzazione dell'atleta nel percorso di fitness.",
+      "durationMinutes": 10,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "09:55",
+      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232777945/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8cf698efc7799810e9f4acee58d1a2b97a7335c806b57bc6a3d877ec53e40feb",
+      "summary": "Approfondimento sulle dinamiche relazionali e comunicative essenziali per guidare l'atleta verso i propri obiettivi con professionalità e trasparenza.",
+      "keyTakeaways": [
+        "Metodi di comunicazione efficace e ascolto attivo delle esigenze del cliente.",
+        "Costruzione di un piano di allenamento sostenibile e motivante.",
+        "Prevenzione del drop-out e strategie di fidelizzazione a lungo termine."
+      ],
+      "pdfTitle": "Dispensa Didattica - Modulo 1 (Lezione 2).pdf",
+      "pdfSize": "2.8 MB",
+      "allowsDownload": true
+    },
+    {
+      "order": 3,
+      "title": "Standard di Sicurezza e Pratiche Operative in Sala Pesi",
+      "description": "Protocolli di sicurezza, igiene, prevenzione infortuni e pronto intervento in sala attrezzi.",
+      "durationMinutes": 1,
+      "itemType": "video",
+      "mediaStatus": "available",
+      "videoDuration": "00:18",
+      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232778067/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8bc5753f9785f13d6663507c9951e23d18fc0463b0daa75fda2075c63d0fff8e",
+      "summary": "Procedure pratiche per garantire la massima sicurezza dell'atleta durante le sessioni di allenamento, setup corretto dell'ambiente e gestione dei carichi.",
+      "keyTakeaways": [
+        "Checklist di sicurezza prima di iniziare ogni sessione di allenamento.",
+        "Posizionamento corretto dello spotter ed assistenza durante gli esercizi complessi.",
+        "Gestione delle emergenze e protocolli di primo soccorso in palestra."
+      ],
+      "pdfTitle": "Dispensa Didattica - Modulo 1 (Lezione 3).pdf",
+      "pdfSize": "2.1 MB",
+      "allowsDownload": true
+    }
+  ],
   "pt1-mod-5": [
     {
       "order": 1,

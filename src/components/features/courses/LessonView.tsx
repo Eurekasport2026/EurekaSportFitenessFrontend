@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import type { Course, CourseModule, Lesson } from "@/lib/api/types";
@@ -8,6 +8,7 @@ import { toggleLessonCompletion, loadUserProgress } from "@/lib/api/progress";
 import { ProgressBar } from "./ProgressBar";
 import { LessonNav } from "./LessonNav";
 import { PracticalResources } from "./PracticalResources";
+import { CourseVideoPlayer } from "./CourseVideoPlayer";
 import styles from "./lesson-view.module.css";
 
 interface LessonViewProps {
@@ -34,6 +35,49 @@ export function LessonView({
     lessons.find((l) => l.id === initialLessonId) || lessons[0] || null;
 
   const [isPlayingVideo, setIsPlayingVideo] = useState(false);
+  const [dynamicDurations, setDynamicDurations] = useState<Record<string, string>>({});
+
+  useEffect(() => {
+    setIsPlayingVideo(false);
+  }, [activeLesson?.id]);
+
+  // Dynamically probe video metadata from actual media URLs
+  useEffect(() => {
+    lessons.forEach((l) => {
+      if (!l.videoUrl || dynamicDurations[l.id]) return;
+      if (l.videoUrl.includes(".m3u8") || l.videoUrl.includes("player.vimeo.com/video/")) return;
+
+      const tempVideo = document.createElement("video");
+      tempVideo.preload = "metadata";
+      tempVideo.src = l.videoUrl;
+
+      const onMeta = () => {
+        if (
+          tempVideo.duration &&
+          !isNaN(tempVideo.duration) &&
+          isFinite(tempVideo.duration) &&
+          tempVideo.duration > 0
+        ) {
+          const totalSec = Math.round(tempVideo.duration);
+          const mins = Math.floor(totalSec / 60);
+          const secs = totalSec % 60;
+          const formatted = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+          setDynamicDurations((prev) => ({
+            ...prev,
+            [l.id]: formatted,
+          }));
+        }
+        tempVideo.src = "";
+        tempVideo.remove();
+      };
+
+      tempVideo.addEventListener("loadedmetadata", onMeta);
+      tempVideo.addEventListener("error", () => {
+        tempVideo.src = "";
+        tempVideo.remove();
+      });
+    });
+  }, [lessons, dynamicDurations]);
   const [completedLessonIds, setCompletedLessonIds] = useState<string[]>(() => {
     return loadUserProgress(course.slug).completedLessonIds;
   });
@@ -50,6 +94,11 @@ export function LessonView({
 
   const completedInModule = lessons.filter((l) => completedLessonIds.includes(l.id)).length;
   const modulePercent = lessons.length > 0 ? Math.round((completedInModule / lessons.length) * 100) : 0;
+
+  const displayDuration =
+    (activeLesson && dynamicDurations[activeLesson.id]) ||
+    activeLesson?.videoDuration ||
+    `${activeLesson?.durationMinutes || 20}:00`;
 
   return (
     <div className={styles.main}>
@@ -203,12 +252,18 @@ export function LessonView({
           {/* Video Player or In-Production Notice */}
           <div className={styles.videoContainer}>
             {isPlayingVideo && activeLesson.videoUrl && activeLesson.mediaStatus !== "in_production" ? (
-              <iframe
-                src={`${activeLesson.videoUrl}?autoplay=1`}
+              <CourseVideoPlayer
+                src={activeLesson.videoUrl}
                 title={activeLesson.title}
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                className={styles.videoIframe}
+                isEn={isEn}
+                pdfUrl={activeLesson.pdfUrl}
+                pdfTitle={activeLesson.pdfTitle}
+                onDurationChange={(durStr) => {
+                  setDynamicDurations((prev) => ({
+                    ...prev,
+                    [activeLesson.id]: durStr,
+                  }));
+                }}
               />
             ) : activeLesson.videoUrl && activeLesson.mediaStatus !== "in_production" ? (
               <div className={styles.videoPlaceholder}>
@@ -226,7 +281,7 @@ export function LessonView({
                   {isEn ? "Watch video lesson" : "Guarda la video lezione"}
                 </div>
                 <div className={styles.videoDuration}>
-                  {isEn ? "Duration:" : "Durata:"} {activeLesson.videoDuration || "20:00"}
+                  {isEn ? "Duration:" : "Durata:"} {displayDuration}
                 </div>
               </div>
             ) : (
@@ -266,7 +321,7 @@ export function LessonView({
                     : "La registrazione multicamera in studio è attualmente in fase di rifinitura tecnica secondo i criteri CONI/EPS. Consulta di seguito la scheda tecnica dettagliata, la sintesi e i punti chiave."}
                 </p>
                 <div style={{ display: "inline-flex", gap: "1em", alignItems: "center", fontSize: "0.78rem", color: "#cbd5e1" }}>
-                  <span>⏱ {isEn ? "Standard Duration:" : "Durata standard:"} <strong>{activeLesson.videoDuration || `${activeLesson.durationMinutes}:00`}</strong></span>
+                  <span>⏱ {isEn ? "Standard Duration:" : "Durata standard:"} <strong>{displayDuration}</strong></span>
                   <span>•</span>
                   <span>📋 {isEn ? "Syllabus Active" : "Programma Attivo"}</span>
                 </div>

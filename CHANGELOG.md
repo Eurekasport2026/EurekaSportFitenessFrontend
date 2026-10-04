@@ -4,6 +4,82 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Added
+- **Resilient Video Streaming Error Handling & Fallback User Experience**:
+  - Implemented comprehensive error recovery and user-friendly fallback handling in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) to eliminate unresponsive black screens caused by expired CDN tokens, network timeouts, or unplayable video URLs.
+  - Added consecutive network retry capping (2 attempts) in the Hls.js error handler, preventing infinite silent retry loops on 403 Forbidden or 404 Not Found CDN manifest failures.
+  - Attached native HTML5 `<video>` event listeners (`error`, `playing`, `loadedmetadata`, `canplay`) and an 8-second stall detector to surface streaming issues whenever playback fails to buffer or decode.
+  - Built a branded, high-contrast `videoErrorOverlay` card in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) featuring:
+    - Dedicated status badge and user-friendly bilingual notice (IT/EN).
+    - **"Riprova Video" / "Retry Video"** action with animated icon to cleanly remount and retry playback without reloading the page.
+    - **"Dispensa Didattica (PDF)" / "Study Guide (PDF)"** fallback button passed from [`LessonView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/LessonView.tsx), enabling uninterrupted learning even when video streaming is disrupted.
+    - **"Segnala Problema" / "Report Issue"** action connected to Sonner toast notifications for rapid user feedback.
+    - Expandable technical diagnostics accordion with one-click clipboard copying for developer and support triage.
+- **Interactive Video Scrubbing Frame Thumbnail Preview**:
+  - Implemented dynamic client-side frame preview scrubbing on the Plyr timeline progress bar in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx).
+  - Mounted a synchronized preview frame decoder (`<video preload="auto" muted playsInline />`) inside a themed 16:9 thumbnail preview container (`.plyr__preview-thumb`) that scrubs through timestamps in real time upon cursor hover.
+  - Added horizontal edge-clamping ensuring the thumbnail container never clips past the player's left or right borders when hovering near `00:00` or the video conclusion.
+  - Styled `.plyr__preview-thumb` in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) with a 160×90px Deep Navy frame (`#0f1f33`), rounded corners, subtle glow, and an integrated high-contrast time badge overlay.
+
+- **Multi-Resolution Video Quality Selection & Accurate Stream Resolution Display**:
+  - Refined `quality` configuration in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) to distinguish single-rendition MP4 files from adaptive multi-bitrate HLS streams.
+  - For single progressive MP4 videos (Lessons 2 & 3), display the genuine `720p HD [SOURCE]` resolution badge without misleading cosmetic options blocked by Vimeo's HMAC signature.
+  - For adaptive HLS streams (Lesson 1), retained live multi-bitrate switching (`1080p`, `720p`, `540p`, `360p`) dynamically connected to `hls.currentLevel` and `Hls.Events.MANIFEST_PARSED`.
+  - Added high-contrast badge styling in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) for quality indicators (`.plyr__badge`) with Eureka Emerald Mint (`#00c48c`) on obsidian navy and crisp white highlight on hover.
+
+- **Settings Submenu & Radio Button Geometric Alignment**:
+  - Re-aligned `.plyr__control--back` in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) with `padding-left: 2.2rem !important;` and fixed chevron arrow offset at `left: 0.85rem !important;`, eliminating text overlap on submenu titles (e.g. `<Speed`).
+  - Mathematically centered radio dots (`:after`) inside the 16px outer selector circles (`:before`) with exact coordinate anchoring (`left: calc(0.8rem + 5px)`), resolving misaligned or offset white indicator dots on active options (`Normal`).
+  - Adjusted label indentation (`padding-left: 2.4rem !important;`) and left-aligned text spans for clean, balanced spacing across all speed choices.
+  - Added dedicated right padding (`padding-right: 2.2rem !important;`) for forward navigation items (`.plyr__control--forward`).
+
+- **Stationary Hover Stabilization for Video Player Control Buttons & Overlaid Play/Pause Icon**:
+  - Removed `transform: scale(...)` from `.plyr__control:hover` in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css), fixing the issue where hovering over the play/pause icon shifted its position.
+  - Locked bottom control buttons to `transform: none !important;` so icons stay rock-solid in place without jitter or displacement on hover and focus.
+  - Locked center overlaid play/pause button to `transform: translate(-50%, -50%) !important;` on both resting and hover states, preventing it from jumping off-center.
+  - Aligned the first control button's tooltip (`play`/`pause`) to `left: 0` with arrow at `left: 16px` to prevent edge clipping and horizontal overflow.
+
+- **High-Contrast Control Hover, Tooltips, and Settings Menu for Video Player**:
+  - Enhanced [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) with high-contrast styling for Plyr hover states, tooltips (`.plyr__tooltip`), and settings popup menus (`.plyr__menu__container`).
+  - Added Deep Navy solid background (`#0f1f33`), crisp white text (`#ffffff`), and subtle borders (`rgba(255, 255, 255, 0.25)`) eliminating illegible or dark-on-dark labels when hovering over controls.
+  - Highlighted active speed values with Eureka Emerald Mint (`#00c48c`) and configured electric royal blue (`#0066ff`) on item selection and button hover with subtle scale animation.
+  - Resolved Plyr internationalization (`i18n`) bug in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) where `undefined` wiped default dictionary strings, providing complete dictionaries for both English and Italian and automatically converting control labels to `.plyr__tooltip`.
+  - Fixed tooltip visibility in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) ensuring tooltips remain hidden by default and only display when a user actively hovers or focuses on a specific control button.
+
+- **Dynamic Headless Media Probe & Real-Time Video Duration Synchronization**:
+  - Implemented headless metadata probing in [`LessonView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/LessonView.tsx) via `loadedmetadata` event listener on `HTMLVideoElement`, automatically extracting exact durations directly from media files and eliminating hardcoded static duration mismatches.
+  - Added `onDurationChange` event emitter in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) synchronizing live player duration with the placeholder preview badge, lesson syllabus duration pill, and navigation.
+  - Corrected baseline static durations in [`it/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/it/lessons.json) and [`en/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/en/lessons.json) for Lesson 2 (`09:55`, 10 min) and Lesson 3 (`00:18`, 1 min).
+
+- **Plyr-React High-Definition Athletic Media Player Integration**:
+  - Upgraded [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) to integrate `plyr-react` and `plyr` with full SSR isolation via Next.js dynamic client mounting.
+  - Implemented multi-speed biomechanics playback controls (`0.5x`, `0.75x`, `1x`, `1.25x`, `1.5x`, `2x`) for deep technical analysis of compound exercise executions.
+  - Integrated 10-second rapid rewind and fast-forward buttons (`seekTime: 10`) alongside keyboard shortcuts (`Space` to toggle playback, arrow keys to scrub).
+  - Added native Picture-in-Picture (PiP) and full-screen controls allowing students to multitask while inspecting study guides and exercise checklists.
+  - Added comprehensive Italian localization (`i18n`) for all Plyr control tooltips, setting labels, and playback badges with automatic English fallback.
+  - Customized Plyr CSS custom properties in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) matching Eureka's electric royal blue (`#0066ff`) and dark obsidian background (`#050b11`).
+  - Retained adaptive HLS stream decoding via dynamic client `hls.js` bridge for Vimeo adaptive playlists.
+
+- **Master Vimeo HLS & Progressive MP4 Media Player Architecture**:
+  - Created [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) supporting automatic format detection across HTML5 progressive MP4 (`.mp4`), adaptive HLS playlists (`.m3u8`), and standard video embeds with error recovery and fallback direct source linking.
+  - Implemented zero-dependency dynamic client-side loader for `Hls.js` from CDN for desktop Chromium and Firefox, pairing seamlessly with native HLS hardware playback on Apple Safari / iOS.
+  - Added `.videoElement` styling in [`lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css) ensuring 16:9 responsive aspect ratio and high-contrast dark canvas presentation.
+  - Upgraded [`LessonView.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/LessonView.tsx) to mount `CourseVideoPlayer` and automatically reset playback state on lesson transitions.
+  - Registered 3 official client Vimeo videos in Module 1 (`pt1-mod-1`) across both Italian and English mock datasets ([`it/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/it/lessons.json) and [`en/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/en/lessons.json)) with `"mediaStatus": "available"`:
+    - Lesson 1: Adaptive HLS Playlist (`c041bbda-8ff9-4f59-83d6-9b6b5c4068e5`, sub 329498107) with Italian subtitles.
+    - Lesson 2: Progressive 720p MP4 (`#1232777945`).
+    - Lesson 3: Progressive 720p MP4 (`#1232778067`).
+  - Documented architectural decisions in ADR-028 in [`brain/decisions.md`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/brain/decisions.md).
+
+- **High-Performance GPU-Accelerated Animations Across Public Marketing Pages**:
+  - Implemented scoped `@keyframes eurekaFadeSlideUp` composite animations in [`src/components/features/home/home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/home/home.module.css), [`src/components/features/marketing/marketing.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/marketing/marketing.module.css), and [`src/app/[locale]/app/app.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/app/[locale]/app/app.module.css) for buttery-smooth 60/120 FPS page entrances with zero CPU layout thrashing.
+  - Added staggered wave delays across hero headers, dual path cards, benefit rows, and course/goal catalogs.
+  - Added hardware-accelerated hover elevation physics (`translateY(-4px)` with cubic-bezier deceleration curves), dynamic box-shadows, and border glow effects on Homepage cards (`.pathCard`) and Course/Goal cards (`.card`).
+  - Added subtle photo zoom micro-interactions (`.cardPhoto` scale `1.04`) and icon micro-interactions (`.pathIcon` scale `1.06`, `.benefit > svg` scale `1.08` to `1.1`).
+  - Added smooth interactive hover states on App Store / Google Play store badges, web buttons, and launch CTAs with gliding arrow motions.
+  - Maintained strict accessibility compliance with comprehensive `@media (prefers-reduced-motion: reduce)` overrides across all affected modules.
+  - Documented high-performance animation principles and tokens in [`brain/design_system.md`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/brain/design_system.md).
+
 ### Changed
 - **Deployed Tailored AI-Generated Cinematic Course Covers**:
   - Replaced generic, low-resolution 362x362 square stock crops with high-definition 16:9 (`1376x768`) tailored covers in `public/images/courses/` for all LMS courses:
