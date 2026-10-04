@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Changed
+- **Deployed Tailored AI-Generated Cinematic Course Covers**:
+  - Replaced generic, low-resolution 362x362 square stock crops with high-definition 16:9 (`1376x768`) tailored covers in `public/images/courses/` for all LMS courses:
+    - `personal-trainer-1.webp`: Professional certified personal trainer providing hands-on dumbbell technique instruction in a modern fitness facility.
+    - `personal-trainer-2.webp`: Advanced strength and biomechanics coaching around heavy barbell power-rack squats with chalk and Olympic plates.
+    - `personal-trainer-3.webp`: Senior head coach and sports science director supervising telemetry and velocity performance analytics in an elite athletic lab.
+    - `calisthenics-1.webp`: Coach demonstrating strict pull-up bar mechanics with dedicated calisthenics uprights and atmospheric studio lighting.
+    - `calisthenics-2.webp`: Advanced skill specialist training in a modern functional rig, eliminating the previous unrelated outdoor mountain stock photo.
 - **Enhanced Breadcrumb Click Targets, Readability, and Hover States**:
   - Increased breadcrumb typography size to an accessible `0.85rem` (`~13.5px`, `13px` on mobile) across [`src/components/features/courses/course-detail.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-detail.module.css), [`src/components/features/courses/course-home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-home.module.css), and [`src/components/features/courses/lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css).
   - Added generous touch/click hit-target padding (`0.25rem 0.5rem` with rounded corners), soft brand blue hover pill background (`#ebf3ff`), rich blue hover color (`#0052cc`), and clean text-underline on hover for effortless navigation.
