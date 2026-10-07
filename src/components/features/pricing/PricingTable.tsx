@@ -5,19 +5,7 @@ import { HomeAction } from "@/components/features/home/HomeAction";
 import { cn } from "@/lib/utils";
 import { T, useLanguage } from "@/components/layout/LanguageProvider";
 import styles from "./pricing.module.css";
-
-interface Plan {
-  name: "Base" | "Pro" | "Elite";
-  subtitle: string;
-  monthly: number;
-  features: string[];
-}
-
-const plans: Plan[] = [
-  { name: "Base", subtitle: "Ideale per iniziare", monthly: 9.99, features: ["Programmi base", "Video esercizi", "Monitoraggio progressi", "Supporto via email"] },
-  { name: "Pro", subtitle: "Il più scelto", monthly: 14.99, features: ["Programmi personalizzati", "Tutti i video esercizi", "Statistiche avanzate", "Supporto prioritario", "Nuovi contenuti mensili"] },
-  { name: "Elite", subtitle: "Senza limiti", monthly: 24.99, features: ["Tutto quello del piano Pro", "Programma su misura", "Consulenza con coach", "Piani nutrizionali", "Accesso anticipato novità"] },
-];
+import { pricingPlans as plans } from "@/lib/pricing/plans";
 
 const euros = (value: number) => new Intl.NumberFormat("it-IT", { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(value);
 

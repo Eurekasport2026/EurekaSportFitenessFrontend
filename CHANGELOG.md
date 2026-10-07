@@ -5,6 +5,67 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Windows launcher from any folder (2026-10-08)**:
+  - Added `run.ps1` to start the existing development command independently of the caller's working directory, including when the script is copied to Desktop on this computer.
+  - Resolve the checkout beside the script first, then the original checkout; support explicit `-ProjectPath` and optional `-Port`. Validate project/prerequisites, use `npm.cmd`, restore the caller's location, and propagate the server exit code.
+  - Added README usage and a Desktop shortcut target. Documented ADR-043; reviewed source only, without launching the server or changing dependencies/system settings.
+- **Automatic Fit welcome image rotation (2026-10-08)**:
+  - Loop the existing welcome photos and bilingual captions every five seconds, retaining manual indicators, keyboard navigation, and touch swipes.
+  - Added a small pause/play control matching the existing design. Rotation respects reduced motion, page visibility, touch gestures, control hover, and focus interaction; timers/listeners are cleaned up.
+  - Documented ADR-039; `npx tsc --noEmit` passes. Browser timing/visual verification remains pending.
+- **Interactive Fit measurement rulers (2026-10-08)**:
+  - Replaced decorative height, weight, and age rulers with functional horizontal controls supporting native touch/trackpad scrolling, mouse/pen dragging, click/tap, wheel, and keyboard navigation.
+  - Synchronized rulers with numeric input, unit conversion, validation bounds, and existing canonical storage. Preserved tick/marker styling and added accessible labels/focus plus bilingual instructions.
+  - Documented ADR-038; `npx tsc --noEmit` passes. Browser gesture/visual verification remains pending.
+- **Fit onboarding viewport and forward arrow (2026-10-08)**:
+  - Bounded desktop onboarding to the viewport with reserved header/footer/action space, two-column choice grids, compact visual panels, and a non-overlapping step footer. Kept content scrolling available on short/zoomed screens.
+  - Added a right-side forward chevron using the same form validation/action as Next and reset content scroll on step changes. Preserved mobile flow, URL steps, and saved answers.
+  - Documented ADR-037; `npx tsc --noEmit` passes. Browser layout/interaction verification remains pending.
+- **Eureka Fit child-product isolation (2026-10-08)**:
+  - Added dedicated Fit branding and desktop header/footer with a localized parent affiliation, product help/language/profile actions, and explicit exits to Eureka.
+  - Removed parent marketing chrome/styles from Fit and replaced Contact/legal redirects/actions with in-product help/legal dialogs. Preserved the responsive workspace, localized URLs, saved profiles, pricing source, and preview boundaries.
+  - Restored parent marketing components to their original scope and documented ADR-036. `npx tsc --noEmit` passes; browser visual/interaction verification remains pending.
+- **Focused Eureka Fit header (2026-10-08)**:
+  - Added a Training variant of the shared header with Eureka branding and IT/EN only; removed marketing links, site search, login, and menu controls from desktop Fit routes.
+  - Kept Training sections in the existing sidebar and linked the header logo to Fit welcome. Updated layout memory and ADR-035; `npx tsc --noEmit` passes. Browser visual verification remains pending.
+- **Training website consistency audit (2026-10-08)**:
+  - Restored the existing shared website footer across all desktop Training routes at 900px+, matching the shared header breakpoint and preserving the compact mobile flow.
+  - Preserved the active Training view, onboarding step, and goal query when switching IT/EN; corrected a scoped form reset that overrode control typography.
+  - Updated footer/routing memory and ADR-034. Verified with `npx tsc --noEmit`; browser visual and interaction review remains pending.
+- **Functional Training welcome image carousel (2026-10-08)**:
+  - Replaced decorative welcome bars with three working photo/caption selectors using existing local images and bilingual copy.
+  - Added keyboard navigation, horizontal touch swipes, accessible labels/selected states, 44px targets, stable caption spacing, and reduced-motion support.
+  - Preserved the website header and start/resume/goal behavior; documented ADR-033. Verified with `npx tsc --noEmit`; browser interaction review remains pending.
+- **Desktop Training workspace across the full flow (2026-10-08)**:
+  - Replaced stretched mobile dashboard sections with sidebar navigation, a saved-profile panel, and an inline membership card; removed the standalone desktop Premium row and bottom membership overlay.
+  - Added compact wrapping workout days, aligned exercise/prescription columns, a saved-plan/schedule summary, responsive exercise-library cards, and a wider two-column exercise dialog.
+  - Converted desktop membership to three comparison cards using existing pricing/features. Grouped settings/profile forms, exposed the desktop Profile heading, and sized Welcome/onboarding actions for web use.
+  - Preserved the shared website header, Eureka tokens, compact mobile flow, routes, and browser-local state/service contracts. Added bilingual desktop labels and documented ADR-032.
+  - Verified with `npx tsc --noEmit`; browser visual review remains pending.
+- **Consistent website header for desktop Training (2026-10-08)**:
+  - Reused the existing website header across Training routes at desktop widths, preserving its logo, navigation, search, language switch, login, and menu styling.
+  - Hid duplicate desktop app branding/language controls and the redundant Welcome app header; retained task actions and the compact mobile flow.
+  - Reserved viewport space for the shared header and aligned sticky Training navigation beneath its context toolbar. Updated layout memory and ADR-031. Verified with `npx tsc --noEmit`; browser visual review remains pending.
+- **Full-width Training web canvas (2026-10-08)**:
+  - Removed the remaining outer container width cap so all Training app pages fill the browser viewport, with internal content padding.
+  - Removed desktop width limits on onboarding progress, membership offers, workout day tabs, exercise search/library, and progress panels; welcome actions fill their desktop column.
+  - Updated Training layout memory and ADR-030. Verified with `npx tsc --noEmit`; browser visual review remains pending.
+- **Desktop and tablet Training layouts (2026-10-08)**:
+  - Expanded the Training app beyond the phone-width canvas on larger screens, with two-column onboarding and aligned actions, a desktop welcome hero, and a two-column membership page.
+  - Added desktop navigation below the app header, wider workout/exercise grids, and responsive settings/profile forms while retaining existing mobile presentation and Eureka tokens.
+  - Updated Training layout memory and ADR-030. Verified with `npx tsc --noEmit`; browser visual review remains pending.
+- **Eureka! Fit mobile workout web preview (2026-10-07)**:
+  - Added localized welcome, twelve-step onboarding, daily workout preview, membership, settings, and profile routes under `/[locale]/training/app`, following the approved video with Eureka blue/mint styling.
+  - Added validated browser-local resume/profile/preferences, metric/imperial measurement inputs, weekday/frequency validation, local avatar editing, and recurring calendar export.
+  - Added illustrative equipment/goal/experience-based workout templates behind an asynchronous local adapter, day tabs, exercise search/library and guidance dialogs, and a progress empty state.
+  - Connected Training hero/goal cards and the App web-version link; scoped the footer exception to this dedicated full-height flow. Existing marketing styling is preserved.
+  - Shared existing Base/Pro/Elite reference pricing between marketing and mobile membership; offer selection discloses unavailable checkout and does not activate subscriptions.
+  - Added nested Italian/English translations and documented routes, state, service boundaries, and ADR-029. No dependency, production build, database migration, or live billing/notification integration was introduced.
+- **Native Vimeo Embed Multi-Resolution Player Support (Option 1)**:
+  - Upgraded [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) with intelligent Vimeo embed resolution. The player automatically detects standard Vimeo URLs (`player.vimeo.com/video/{id}`) as well as progressive redirects (`player.vimeo.com/progressive_redirect/playback/{id}/...`) and routes them to Vimeo's official responsive embed player.
+  - Configured custom Vimeo query parameters (`autoplay=1`, `color=0066ff`, `title=0`, `byline=0`, `portrait=0`, `dnt=1`) to match Eureka's electric royal blue brand accent and ensure student privacy.
+  - Enabled native Vimeo multi-resolution quality selection (`1080p`, `720p`, `540p`, `360p`, `Auto`) across desktop and mobile browsers with permanent non-expiring video playback.
+  - Updated mock dataset video URLs in [`it/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/it/lessons.json) and [`en/lessons.json`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/lib/api/data/en/lessons.json) to standard Vimeo embed URLs for Lessons 1, 2, and 3.
 - **Resilient Video Streaming Error Handling & Fallback User Experience**:
   - Implemented comprehensive error recovery and user-friendly fallback handling in [`CourseVideoPlayer.tsx`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/CourseVideoPlayer.tsx) to eliminate unresponsive black screens caused by expired CDN tokens, network timeouts, or unplayable video URLs.
   - Added consecutive network retry capping (2 attempts) in the Hls.js error handler, preventing infinite silent retry loops on 403 Forbidden or 404 Not Found CDN manifest failures.
@@ -96,6 +157,25 @@ All notable changes to this project will be documented in this file.
   - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
 
 ### Fixed
+- **Windows launcher with multiple npm installations (2026-10-08)**:
+  - Select the first `npm.cmd` application in PATH and invoke its scalar executable path. Previously, multiple results became a single invalid command containing both paths, as reported in the client's screenshot.
+  - Preserved project discovery, Desktop-copy fallback, arguments, and exit/location handling. Source reviewed; server startup has not been rerun. Replace any existing Desktop copy with the updated root `run.ps1`.
+- **Fit schedule error toasts (2026-10-08)**:
+  - Prevented selecting more weekdays than the chosen frequency in Onboarding and Settings; show an actionable IT/EN error toast while preserving the current selection and allowing deselection.
+  - Kept invalid Save/forward/export actions reachable for error feedback, with validation still blocking progression, saving, or calendar download. Skip and native time-validation errors also use the existing Sonner toaster.
+  - Repeated errors reuse one toast per screen; edits, successful actions, and navigation dismiss stale feedback. Preserved inline errors, native input constraints, theme, and storage schema.
+  - Documented ADR-042; `npx tsc --noEmit` passes. Browser interaction verification remains pending.
+- **Whole Eureka Fit consistency audit (2026-10-08)**:
+  - Reviewed all six routes, twelve onboarding branches, four workout views, shared chrome/navigation, forms, dialogs, local validation, locale switching, and referenced assets; recorded findings in `brain/fit_consistency_audit.md` and ADR-041.
+  - Kept IT/EN with mobile custom header actions, aligned brand-link destinations and Membership's compact header, and exposed Cookies in mobile Settings/Membership.
+  - Extended responsive form/button/weekday/time/Profile/Ready rules, zero-specificity control typography, and visible workout/day focus and mobile scroll clearance while preserving current Eureka styling and desktop layouts.
+  - Removed empty pre-results catalog cards and unrelated preview loading/errors from Progress. Added shared time validation and bilingual time-specific feedback to prevent invalid-time onboarding completion.
+  - `npx tsc --noEmit` passes after the final code changes. Browser tools were unavailable; device rendering/interaction/timing verification remains pending.
+- **Responsive Eureka Fit Settings (2026-10-08)**:
+  - Made Settings containers and row text shrink safely, stacking current values and membership badges on narrow screens while preserving the existing desktop panels and Eureka theme.
+  - Reflowed unit controls, weekday buttons, and time fields within their available width; kept 44px weekday targets and stacked reset actions on small phones. Mobile native form controls use 16px text.
+  - Removed card clipping of focus outlines and added mobile focus-scroll clearance above the existing bottom navigation. Existing preference, schedule, export, help, membership, and reset behavior is preserved.
+  - Documented ADR-040; `npx tsc --noEmit` passes. Browser/device visual and interaction verification remains pending.
 - **Enforced Light Canvas Specificity on LMS Course & Lesson Pages**:
   - Upgraded root `.page` selectors to `.page.page` in [`src/components/features/courses/course-home.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/course-home.module.css) and [`src/components/features/courses/lesson-view.module.css`](file:///c:/Users/Anurag/Downloads/Project/Library@Intern/eurekasportfitenessfrontend/src/components/features/courses/lesson-view.module.css), aligning with ADR-016.
   - Prevents the shared dark homepage `.page` rule (`background: var(--eureka-canvas)`) from overriding the light `#fbfdff` canvas on `/academy/corsi/[slug]/learn` and `/academy/corsi/[slug]/learn/[moduleId]`, eliminating dark-on-dark contrast failure on headers and course titles.

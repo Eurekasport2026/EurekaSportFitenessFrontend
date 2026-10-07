@@ -41,11 +41,34 @@ export function CourseVideoPlayer({
   const [isRetrying, setIsRetrying] = useState(false);
   const [reported, setReported] = useState(false);
 
-  const isHls = src.includes(".m3u8") || src.includes("/playlist/av/");
-  const isEmbed =
-    src.includes("player.vimeo.com/video") ||
-    src.includes("youtube.com") ||
-    src.includes("youtu.be");
+  // Resolve Vimeo embed URL or YouTube embed URL with auto-detection of Vimeo IDs
+  const embedUrl = useMemo(() => {
+    // 1. Direct Vimeo embed
+    if (src.includes("player.vimeo.com/video/")) {
+      return src;
+    }
+    // 2. Vimeo standard URL or progressive redirect with numeric video ID
+    const vimeoMatch = src.match(/(?:vimeo\.com\/(?:video\/)?|playback\/)(\d+)/);
+    if (vimeoMatch && vimeoMatch[1]) {
+      return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+    }
+    // 3. YouTube embed or standard watch URL
+    if (src.includes("youtube.com/watch?v=")) {
+      const id = src.split("v=")[1]?.split("&")[0];
+      return id ? `https://www.youtube.com/embed/${id}` : src;
+    }
+    if (src.includes("youtu.be/")) {
+      const id = src.split("youtu.be/")[1]?.split("?")[0];
+      return id ? `https://www.youtube.com/embed/${id}` : src;
+    }
+    if (src.includes("youtube.com/embed/")) {
+      return src;
+    }
+    return null;
+  }, [src]);
+
+  const isEmbed = Boolean(embedUrl);
+  const isHls = !isEmbed && (src.includes(".m3u8") || src.includes("/playlist/av/"));
 
   useEffect(() => {
     setIsMounted(true);
@@ -741,13 +764,19 @@ export function CourseVideoPlayer({
     );
   }
 
-  if (isEmbed) {
-    const autoplayUrl = src.includes("?") ? `${src}&autoplay=1` : `${src}?autoplay=1`;
+  if (isEmbed && embedUrl) {
+    const separator = embedUrl.includes("?") ? "&" : "?";
+    const isVimeo = embedUrl.includes("player.vimeo.com/video");
+    const params = isVimeo
+      ? "autoplay=1&color=0066ff&title=0&byline=0&portrait=0&dnt=1"
+      : "autoplay=1";
+    const iframeSrc = `${embedUrl}${separator}${params}`;
+
     return (
       <iframe
-        src={autoplayUrl}
+        src={iframeSrc}
         title={title}
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
         allowFullScreen
         className={styles.videoIframe}
       />

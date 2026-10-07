@@ -8,7 +8,7 @@
       "itemType": "video",
       "mediaStatus": "available",
       "videoDuration": "18:20",
-      "videoUrl": "https://vod-adaptive-ak.vimeocdn.com/exp=1791134092~acl=%2Fc041bbda-8ff9-4f59-83d6-9b6b5c4068e5%2Fpsid%3Dad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492%2F%2A~hmac=45d9d9e74f9bf5366b12609a46370df58ed27c042626d075dc13d5d83c0e0cec/c041bbda-8ff9-4f59-83d6-9b6b5c4068e5/psid=ad69ad5d448e30705b32dd0b263238e0d427fb6b1791130492/v2/playlist/av/primary/sub/329498107-it-x-autogen/prot/cXNyPTE/playlist.m3u8?ext-subs=1&locale=it&omit=opus&pathsig=8c953e4f~E_SoHQNnWyepKD3A9zbB-Woiuk3owt0DCxD0HcrGPrU&qsr=1&r=dXM%3D&rh=einXu&sf=fmp4",
+      "videoUrl": "https://player.vimeo.com/video/1232777945",
       "summary": "In this introductory video lesson, we examine the fundamental responsibilities of the personal trainer, professional ethics, and guidelines for safe operation.",
       "keyTakeaways": [
         "Understanding legal scope and trainer liability.",
@@ -27,7 +27,7 @@
       "itemType": "video",
       "mediaStatus": "available",
       "videoDuration": "09:55",
-      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232777945/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8cf698efc7799810e9f4acee58d1a2b97a7335c806b57bc6a3d877ec53e40feb",
+      "videoUrl": "https://player.vimeo.com/video/1232777945",
       "summary": "Deep dive into interpersonal dynamics and communication practices essential for guiding athletes toward their goals with professionalism and clarity.",
       "keyTakeaways": [
         "Effective communication protocols and active assessment of client needs.",
@@ -46,7 +46,7 @@
       "itemType": "video",
       "mediaStatus": "available",
       "videoDuration": "00:18",
-      "videoUrl": "https://player.vimeo.com/progressive_redirect/playback/1232778067/rendition/720p/file.mp4%20%28720p%29.mp4?loc=external&signature=8bc5753f9785f13d6663507c9951e23d18fc0463b0daa75fda2075c63d0fff8e",
+      "videoUrl": "https://player.vimeo.com/video/1232778067",
       "summary": "Hands-on procedures to ensure athlete safety during training sessions, proper facility setup, and load management.",
       "keyTakeaways": [
         "Safety checklist before beginning every training session.",

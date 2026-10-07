@@ -353,5 +353,371 @@
   "GLUTEI": "GLUTEI",
   "POLPACCI": "POLPACCI",
   "AVAMBRACCI & PRESA": "AVAMBRACCI & PRESA",
-  "CORPO INTERO": "CORPO INTERO"
+  "CORPO INTERO": "CORPO INTERO",
+  "TrainingApp": {
+    "skipContent": "Vai al contenuto",
+    "storageNotice": "La memoria del browser non è disponibile. Le modifiche dureranno per questa visita.",
+    "loading": "Caricamento del tuo spazio di allenamento…",
+    "language": "Lingua",
+    "navigation": "Navigazione allenamento",
+    "measurements": {
+      "adjust": "Modifica {label}",
+      "hint": "Trascina, scorri o usa i tasti freccia per regolare."
+    },
+    "product": {
+      "byEureka": "Un prodotto di Eureka",
+      "legal": "Informazioni legali Eureka Fit",
+      "cookies": "Informativa cookie",
+      "info": {
+        "help": {
+          "title": "Aiuto Eureka Fit",
+          "description": "Completa il profilo di allenamento per esplorare un programma. Usa Allenamento per scegliere un giorno, Esercizi e Libreria per consultare i movimenti e Impostazioni per aggiornare profilo, unità o calendario. Gli abbonamenti sono un'anteprima; pagamenti e registrazione degli allenamenti non sono ancora disponibili."
+        },
+        "privacy": {
+          "title": "Informativa privacy Eureka Fit",
+          "description": "L'informativa privacy ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Questa anteprima conserva il profilo di allenamento e la foto in questo browser senza caricarli su un account."
+        },
+        "terms": {
+          "title": "Termini di servizio Eureka Fit",
+          "description": "I termini ufficiali di Eureka Fit saranno disponibili prima del lancio del servizio. Programmi e abbonamenti mostrati sono anteprime; scegliere un'offerta non comporta pagamenti né attiva un abbonamento."
+        },
+        "cookies": {
+          "title": "Informativa cookie Eureka Fit",
+          "description": "L'informativa cookie ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Le preferenze di allenamento sono attualmente salvate nella memoria del browser; puoi eliminare questi dati Fit dalle Impostazioni."
+        }
+      }
+    },
+    "desktop": {
+      "workspace": "Spazio di allenamento",
+      "profile": "Il tuo allenamento",
+      "yourPlan": "Il tuo programma",
+      "goal": "Obiettivo",
+      "equipment": "Attrezzatura",
+      "experience": "Esperienza",
+      "schedule": "Calendario settimanale",
+      "exercise": "Esercizio",
+      "prescription": "Serie / ripetizioni",
+      "preferences": "Preferenze di allenamento",
+      "support": "Supporto e dati",
+      "membershipDescription": "Confronta i piani disponibili per il tuo allenamento."
+    },
+    "back": "Indietro",
+    "close": "Chiudi",
+    "next": "Avanti",
+    "retry": "Riprova",
+    "save": "Salva modifiche",
+    "cancel": "Annulla",
+    "backToSite": "Torna al sito Eureka",
+    "privacy": "Informativa privacy",
+    "terms": "Termini di servizio",
+    "nav": {
+      "workout": "Allenamento",
+      "exercises": "Esercizi",
+      "library": "Libreria",
+      "progress": "Progressi",
+      "settings": "Impostazioni"
+    },
+    "welcome": {
+      "imageAlt": "Atleta che si allena con un manubrio",
+      "carousel": "carosello",
+      "carouselLabel": "Introduzione a Eureka! Fit",
+      "slideNavigation": "Scegli una schermata introduttiva",
+      "showSlide": "Mostra la schermata {current}: {title}",
+      "slideCount": "Schermata {current} di {total}",
+      "pauseSlides": "Metti in pausa la presentazione",
+      "playSlides": "Avvia la presentazione",
+      "slides": {
+        "guidance": {
+          "imageAlt": "Atleta che esegue un rematore con manubrio in palestra",
+          "title": "Allenati con metodo",
+          "titleAccent": "una ripetizione alla volta.",
+          "description": "Esplora le indicazioni degli esercizi e ritrova i movimenti del tuo programma, con serie e ripetizioni in un unico posto."
+        },
+        "consistency": {
+          "imageAlt": "Atleta che esegue uno squat con kettlebell",
+          "title": "Trova il tempo per te",
+          "titleAccent": "segui il tuo ritmo.",
+          "description": "Scegli i giorni più adatti a te e tieni il calendario settimanale accanto al tuo programma di allenamento."
+        }
+      },
+      "eyebrow": "IL TUO PROSSIMO CAPITOLO",
+      "title": "Un allenamento",
+      "titleAccent": "costruito su di te.",
+      "description": "Raccontaci di te ed esplora un programma adatto ai tuoi obiettivi, alla tua esperienza e alla tua attrezzatura.",
+      "time": "Circa 2 minuti",
+      "personal": "I tuoi obiettivi. Il tuo ritmo.",
+      "selectedGoal": "Obiettivo selezionato",
+      "openWorkout": "Apri il mio allenamento",
+      "resume": "Continua la configurazione",
+      "start": "Iniziamo",
+      "startOver": "Aggiorna il profilo di allenamento"
+    },
+    "onboarding": {
+      "progress": "Avanzamento del profilo di allenamento",
+      "step": "Passaggio {current} di {total}",
+      "chooseError": "Scegli un'opzione per continuare.",
+      "scheduleError": "Scegli esattamente {count} giorni per rispettare la frequenza settimanale.",
+      "scheduleLimitError": "Il tuo programma prevede {count, plural, one {# giorno di allenamento} other {# giorni di allenamento}} a settimana. Deseleziona un giorno prima di sceglierne un altro.",
+      "timeError": "Scegli un orario di allenamento valido.",
+      "fewerDays": "Meno giorni di allenamento",
+      "moreDays": "Più giorni di allenamento",
+      "daysPerWeek": "giorni a settimana",
+      "selectedDays": "{selected} di {count} giorni selezionati",
+      "frequencyValue": "{count} giorni a settimana",
+      "building": "Preparazione dell'anteprima…",
+      "getStarted": "Esplora il mio programma",
+      "saveSchedule": "Salva il calendario",
+      "skipReminders": "Continua senza promemoria",
+      "autoSave": "Le risposte vengono salvate su questo dispositivo.",
+      "gender": {
+        "title": "Cominciamo da te.",
+        "description": "Scegli un profilo per iniziare. Potrai modificarlo in seguito."
+      },
+      "experience": {
+        "title": "Da quanto tempo ti alleni con i pesi?",
+        "description": "Useremo questa informazione per scegliere il livello iniziale."
+      },
+      "goal": {
+        "title": "Qual è il tuo obiettivo attuale?",
+        "description": "Scegli l'obiettivo su cui vuoi lavorare."
+      },
+      "frequency": {
+        "title": "Quanti giorni a settimana vuoi allenarti?",
+        "description": "Scegli una routine adatta alla tua settimana."
+      },
+      "lifestyle": {
+        "title": "Che stile di vita conduci?",
+        "description": "Raccontaci com'è una tua giornata tipo."
+      },
+      "equipment": {
+        "title": "Dove vuoi allenarti?",
+        "description": "Ci aiuta a scegliere esercizi adatti alla tua attrezzatura."
+      },
+      "motivation": {
+        "title": "Un programma chiaro. Una routine da costruire.",
+        "description": "Piccoli passi, ripetuti con costanza, fanno la differenza.",
+        "before": "Il punto di partenza",
+        "caption": "Un obiettivo, una routine settimanale e un prossimo passo chiaro. Costruiamo il tuo programma."
+      },
+      "height": {
+        "title": "Qual è la tua altezza?",
+        "description": "Tocca il numero per modificarlo. Scegli l'unità di misura qui sotto."
+      },
+      "weight": {
+        "title": "Qual è il tuo peso?",
+        "description": "Inserisci il peso attuale. Potrai aggiornarlo nel tuo profilo."
+      },
+      "age": {
+        "title": "Quanti anni hai?",
+        "description": "Questa anteprima è destinata a persone di almeno 18 anni."
+      },
+      "schedule": {
+        "title": "In quali giorni vuoi allenarti?",
+        "description": "Trova spazio per l'allenamento nella tua settimana.",
+        "days": "Giorni di allenamento",
+        "time": "Imposta l'orario",
+        "reminders": "Salva preferenza promemoria",
+        "notice": "Il calendario viene salvato su questo dispositivo. Esportalo dalle Impostazioni nel tuo calendario per ricevere promemoria."
+      },
+      "ready": {
+        "title": "Pronto per il prossimo capitolo?",
+        "description": "Ecco il punto di partenza per l'anteprima del tuo programma.",
+        "badge": "Costruisci la tua routine"
+      }
+    },
+    "gender": {
+      "male": "Uomo",
+      "female": "Donna",
+      "other": "Preferisco non indicarlo"
+    },
+    "experience": {
+      "new": "Meno di un mese",
+      "months": "1–6 mesi",
+      "year": "6–12 mesi",
+      "years": "1–2 anni",
+      "advanced": "Più di 2 anni"
+    },
+    "goals": {
+      "shape": "Rimettermi in forma",
+      "shapeDescription": "Costruisci una routine di allenamento costante.",
+      "fitness": "Forma fisica generale",
+      "fitnessDescription": "Lavora sulla forza e sui movimenti quotidiani.",
+      "lean": "Definizione",
+      "leanDescription": "Unisci esercizi di forza a una routine regolare.",
+      "muscle": "Massa muscolare",
+      "muscleDescription": "Concentrati sull'allenamento contro resistenza.",
+      "weight": "Dimagrimento",
+      "weightDescription": "Costruisci una routine attiva intorno al tuo obiettivo.",
+      "strength": "Forza",
+      "strengthDescription": "Sviluppa le basi dell'allenamento di forza.",
+      "mobility": "Mobilità",
+      "mobilityDescription": "Esplora il movimento controllato e la mobilità articolare.",
+      "calisthenics": "Calisthenics",
+      "calisthenicsDescription": "Allenati con movimenti a corpo libero.",
+      "wellbeing": "Benessere",
+      "wellbeingDescription": "Rendi il movimento parte della tua giornata."
+    },
+    "lifestyle": {
+      "sedentary": "Lavoro d'ufficio · prevalentemente seduto",
+      "active": "Moderatamente attivo",
+      "standing": "Quasi sempre in piedi"
+    },
+    "equipment": {
+      "commercial": "Palestra completa",
+      "commercialDescription": "Macchine, pesi liberi e cavi a disposizione.",
+      "small": "Piccola palestra",
+      "smallDescription": "Macchine essenziali e pesi liberi.",
+      "home": "Palestra a casa",
+      "homeDescription": "Una coppia di manubri e una panca.",
+      "bodyweight": "Corpo libero",
+      "bodyweightDescription": "Nessuna attrezzatura necessaria."
+    },
+    "units": {
+      "metric": "Metrico · cm / kg",
+      "imperial": "Imperiale · in / lb"
+    },
+    "weekdays": {
+      "short0": "Dom",
+      "short1": "Lun",
+      "short2": "Mar",
+      "short3": "Mer",
+      "short4": "Gio",
+      "short5": "Ven",
+      "short6": "Sab",
+      "full0": "Domenica",
+      "full1": "Lunedì",
+      "full2": "Martedì",
+      "full3": "Mercoledì",
+      "full4": "Giovedì",
+      "full5": "Venerdì",
+      "full6": "Sabato"
+    },
+    "profile": {
+      "name": "Nome visualizzato",
+      "namePlaceholder": "Atleta Eureka",
+      "gender": "Genere",
+      "age": "Età",
+      "height": "Altezza",
+      "weight": "Peso",
+      "goal": "Obiettivo",
+      "frequency": "Frequenza",
+      "equipment": "Attrezzatura",
+      "avatar": "La tua foto profilo",
+      "changeAvatar": "Scegli una foto profilo",
+      "removeAvatar": "Rimuovi foto",
+      "imageError": "Scegli un'immagine JPG, PNG o WebP inferiore a 2 MB.",
+      "localNotice": "Il profilo e la foto vengono salvati su questo dispositivo."
+    },
+    "membership": {
+      "close": "Chiudi le offerte di abbonamento",
+      "memberCard": "IL TUO ALLENAMENTO. UN PASSO AVANTI.",
+      "title": "Dai spazio a qualcosa in più.",
+      "description": "Esplora gli abbonamenti di allenamento Eureka Fit.",
+      "billing": "Periodo di fatturazione",
+      "monthly": "Mensile",
+      "yearly": "Annuale",
+      "choosePlan": "Scegli il tuo abbonamento",
+      "perMonth": "al mese",
+      "annualTotal": "{amount} fatturati annualmente",
+      "previewNotice": "Anteprima degli abbonamenti. Nessun pagamento o abbonamento viene attivato.",
+      "select": "Scegli {plan}",
+      "unavailableTitle": "Gli abbonamenti sono in arrivo",
+      "unavailable": "Il pagamento non è ancora disponibile. Continua a esplorare l'anteprima del programma o apri l'aiuto Eureka Fit per informazioni su questa anteprima.",
+      "contact": "Aiuto Eureka Fit",
+      "continuePreview": "Continua a esplorare",
+      "upgrade": "Premium"
+    },
+    "workout": {
+      "myPlan": "Il mio programma",
+      "preview": "Anteprima",
+      "editPlan": "Aggiorna il profilo di allenamento",
+      "selectDay": "Scegli un giorno di allenamento",
+      "day": "Giorno {day}",
+      "foundation": "LE TUE BASI",
+      "today": "Allenamento di oggi",
+      "fullBody": "Corpo intero",
+      "upperBody": "Parte superiore",
+      "lowerBody": "Parte inferiore",
+      "mobility": "Mobilità e movimento",
+      "exerciseList": "Esercizi del programma",
+      "prescription": "{sets} serie × {reps} ripetizioni",
+      "holdPrescription": "{sets} serie × {seconds} secondi",
+      "exerciseCount": "{count} esercizi",
+      "duration": "~{count} min",
+      "previewNote": "Un programma illustrativo basato su obiettivo, esperienza e attrezzatura. Questa anteprima non prescrive carichi e non registra gli allenamenti.",
+      "unlock": "Esplora gli abbonamenti",
+      "exercisesDescription": "Esplora gli esercizi dell'anteprima del tuo programma.",
+      "libraryDescription": "Il tuo programma iniziale e la raccolta di esercizi.",
+      "search": "Cerca esercizi",
+      "noResults": "Nessun esercizio corrisponde alla ricerca.",
+      "progressTitle": "I tuoi progressi iniziano qui.",
+      "progressDescription": "L'anteprima non registra le sessioni completate. Il tuo profilo è pronto: il monitoraggio arriverà con il servizio di allenamento completo.",
+      "viewPlan": "Visualizza il programma",
+      "error": "Impossibile caricare l'anteprima del programma. Riprova.",
+      "exerciseNotice": "Indicazioni illustrative. Usa un movimento confortevole e un carico adeguato alla tua esperienza."
+    },
+    "muscles": {
+      "chest": "Petto",
+      "back": "Dorso",
+      "shoulders": "Spalle",
+      "quadriceps": "Gambe",
+      "glutes": "Glutei",
+      "core": "Core",
+      "full-body": "Corpo intero"
+    },
+    "exercises": {
+      "kneePushup": "Piegamenti sulle ginocchia",
+      "squat": "Squat a corpo libero",
+      "bridge": "Ponte glutei",
+      "birdDog": "Bird dog",
+      "deadBug": "Dead bug",
+      "plank": "Plank sugli avambracci",
+      "benchPress": "Distensioni con manubri su panca",
+      "dumbbellRow": "Rematore con manubrio in appoggio",
+      "gobletSquat": "Goblet squat",
+      "shoulderPress": "Distensioni sopra la testa con manubri",
+      "romanianDeadlift": "Stacco rumeno con manubri",
+      "catCow": "Gatto–mucca",
+      "hipRotation": "Rotazioni delle anche da seduto",
+      "thoracicRotation": "Rotazione toracica sul fianco",
+      "ankleRock": "Mobilità della caviglia"
+    },
+    "cues": {
+      "pushupCue": "Tieni le ginocchia in appoggio e il busto allineato. Scendi con controllo, poi spingi sulle mani.",
+      "squatCue": "Mantieni i piedi a una distanza confortevole. Scendi tra le anche senza sollevare i piedi, poi torna in piedi.",
+      "bridgeCue": "Sdraiati sulla schiena con ginocchia piegate e piedi a terra. Solleva il bacino senza inarcare la zona lombare.",
+      "birdDogCue": "In quadrupedia, estendi braccio e gamba opposti mantenendo il busto stabile. Alterna i lati.",
+      "deadBugCue": "Sdraiati sulla schiena con le braccia in alto e le ginocchia piegate. Estendi lentamente gli arti opposti mantenendo stabile il busto.",
+      "plankCue": "Appoggiati sugli avambracci. Mantieni il busto allineato e respira regolarmente. Tieni la posizione per il tempo indicato.",
+      "pressCue": "Sdraiati su una panca stabile. Abbassa i manubri ai lati del petto con controllo, poi spingili verso l'alto.",
+      "rowCue": "Appoggia una mano su una panca stabile. Tira il manubrio verso l'anca senza ruotare il busto.",
+      "shoulderCue": "Mantieni il busto controllato mentre spingi i manubri sopra la testa in un movimento confortevole.",
+      "hingeCue": "Tieni i manubri vicino alle gambe. Sposta le anche indietro con ginocchia leggermente piegate, poi torna in piedi.",
+      "catCowCue": "In quadrupedia, arrotonda ed estendi lentamente la colonna in un movimento confortevole, respirando regolarmente.",
+      "hipCue": "Siediti con le ginocchia piegate. Ruota delicatamente le anche da un lato all'altro senza forzare.",
+      "rotationCue": "Sdraiati sul fianco con ginocchia piegate. Ruota la parte alta della schiena aprendo il petto e tenendo unite le ginocchia.",
+      "ankleCue": "Mantieni il tallone a terra e guida delicatamente il ginocchio in avanti sopra il piede. Ripeti su entrambi i lati."
+    },
+    "settings": {
+      "title": "Il tuo spazio.",
+      "description": "Il tuo profilo, le tue preferenze, la tua routine.",
+      "profile": "Il mio profilo",
+      "experience": "Livello di esperienza",
+      "experienceDescription": "Scegli la tua esperienza attuale di allenamento.",
+      "units": "Unità di misura",
+      "reminders": "Calendario allenamenti",
+      "membership": "Abbonamento",
+      "help": "Aiuto e contatti",
+      "editProfile": "Aggiorna il mio programma",
+      "deviceNote": "La configurazione è salvata in questo browser. Sincronizzazione dell'account, pagamenti e notifiche automatiche non sono ancora collegati.",
+      "reset": "Cancella la configurazione",
+      "resetConfirm": "Cancellare il profilo e le risposte salvate in questo browser?",
+      "saved": "Calendario salvato.",
+      "exportCalendar": "Esporta nel calendario"
+    },
+    "calendar": {
+      "title": "Allenamento Eureka! Fit",
+      "description": "È ora dell'allenamento Eureka! Fit. Apri l'anteprima del programma sul sito Eureka."
+    }
+  }
 }

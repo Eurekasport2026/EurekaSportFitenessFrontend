@@ -353,5 +353,371 @@
   "GLUTEI": "GLUTES",
   "POLPACCI": "CALVES",
   "AVAMBRACCI & PRESA": "FOREARMS & GRIP",
-  "CORPO INTERO": "FULL BODY"
+  "CORPO INTERO": "FULL BODY",
+  "TrainingApp": {
+    "skipContent": "Skip to content",
+    "storageNotice": "Browser storage is unavailable. Your changes will last for this visit.",
+    "loading": "Loading your training space…",
+    "language": "Language",
+    "navigation": "Training navigation",
+    "measurements": {
+      "adjust": "Adjust {label}",
+      "hint": "Drag, swipe, or use arrow keys to adjust."
+    },
+    "product": {
+      "byEureka": "A product by Eureka",
+      "legal": "Eureka Fit legal information",
+      "cookies": "Cookie policy",
+      "info": {
+        "help": {
+          "title": "Eureka Fit help",
+          "description": "Complete your training profile to explore a workout plan. Use Workout to choose a training day, Exercises and Library to browse movements, and Settings to update your profile, units, or schedule. Membership offers are a preview; checkout and workout logging are not available yet."
+        },
+        "privacy": {
+          "title": "Eureka Fit privacy policy",
+          "description": "The official Eureka Fit privacy policy will be available before the service launches. This preview keeps your training profile and photo in this browser and does not upload them to an account."
+        },
+        "terms": {
+          "title": "Eureka Fit terms of service",
+          "description": "The official Eureka Fit terms will be available before the service launches. Workout plans and memberships shown here are previews; choosing an offer does not collect payment or activate a subscription."
+        },
+        "cookies": {
+          "title": "Eureka Fit cookie policy",
+          "description": "The official Eureka Fit cookie policy will be available before the service launches. Your training preferences are currently saved in browser storage; you can clear this Fit data from Settings."
+        }
+      }
+    },
+    "desktop": {
+      "workspace": "Training workspace",
+      "profile": "Your training",
+      "yourPlan": "Plan overview",
+      "goal": "Goal",
+      "equipment": "Equipment",
+      "experience": "Experience",
+      "schedule": "Weekly schedule",
+      "exercise": "Exercise",
+      "prescription": "Sets / reps",
+      "preferences": "Training preferences",
+      "support": "Support & data",
+      "membershipDescription": "Compare the available plans for your training."
+    },
+    "back": "Back",
+    "close": "Close",
+    "next": "Next",
+    "retry": "Try again",
+    "save": "Save changes",
+    "cancel": "Cancel",
+    "backToSite": "Back to the Eureka website",
+    "privacy": "Privacy policy",
+    "terms": "Terms of service",
+    "nav": {
+      "workout": "Workout",
+      "exercises": "Exercises",
+      "library": "Library",
+      "progress": "Progress",
+      "settings": "Settings"
+    },
+    "welcome": {
+      "imageAlt": "Athlete training with a dumbbell",
+      "carousel": "carousel",
+      "carouselLabel": "Introduction to Eureka! Fit",
+      "slideNavigation": "Choose an introduction slide",
+      "showSlide": "Show slide {current}: {title}",
+      "slideCount": "Slide {current} of {total}",
+      "pauseSlides": "Pause slideshow",
+      "playSlides": "Play slideshow",
+      "slides": {
+        "guidance": {
+          "imageAlt": "Athlete performing a dumbbell row in a gym",
+          "title": "Move with purpose",
+          "titleAccent": "one rep at a time.",
+          "description": "Explore exercise guidance and find the movements in your plan, with sets and repetitions in one place."
+        },
+        "consistency": {
+          "imageAlt": "Athlete performing a kettlebell squat",
+          "title": "Make room to train",
+          "titleAccent": "at your own pace.",
+          "description": "Choose the days that work for you and keep your weekly schedule alongside your training plan."
+        }
+      },
+      "eyebrow": "YOUR NEXT CHAPTER",
+      "title": "Train with a plan",
+      "titleAccent": "built around you.",
+      "description": "Tell us about yourself and explore a workout plan that fits your goals, experience and equipment.",
+      "time": "About 2 minutes",
+      "personal": "Your goals. Your pace.",
+      "selectedGoal": "Your selected goal",
+      "openWorkout": "Open my workout",
+      "resume": "Continue setup",
+      "start": "Let's get started",
+      "startOver": "Update my training profile"
+    },
+    "onboarding": {
+      "progress": "Training profile progress",
+      "step": "Step {current} of {total}",
+      "chooseError": "Choose an option to continue.",
+      "scheduleError": "Choose exactly {count} workout days to match your weekly frequency.",
+      "scheduleLimitError": "Your plan has {count, plural, one {# workout day} other {# workout days}} per week. Deselect a day before choosing another.",
+      "timeError": "Choose a valid workout time.",
+      "fewerDays": "Fewer workout days",
+      "moreDays": "More workout days",
+      "daysPerWeek": "days per week",
+      "selectedDays": "{selected} of {count} workout days selected",
+      "frequencyValue": "{count} days per week",
+      "building": "Preparing your preview…",
+      "getStarted": "Explore my plan",
+      "saveSchedule": "Save my schedule",
+      "skipReminders": "Continue without reminders",
+      "autoSave": "Your answers are saved on this device.",
+      "gender": {
+        "title": "Let's start with you.",
+        "description": "Choose a profile to get started. You can change this later."
+      },
+      "experience": {
+        "title": "How long have you been weight training?",
+        "description": "We'll use this to select a starting level."
+      },
+      "goal": {
+        "title": "What's your current fitness goal?",
+        "description": "Choose the goal you'd like to work towards."
+      },
+      "frequency": {
+        "title": "How many days a week would you like to train?",
+        "description": "Choose a routine that fits your week."
+      },
+      "lifestyle": {
+        "title": "What kind of lifestyle do you lead?",
+        "description": "Tell us what a typical day looks like."
+      },
+      "equipment": {
+        "title": "Where do you plan to work out?",
+        "description": "This helps us choose exercises for your available equipment."
+      },
+      "motivation": {
+        "title": "A clear plan. A routine you can build.",
+        "description": "Small steps, repeated consistently, make a difference.",
+        "before": "Your starting point",
+        "caption": "A goal, a weekly routine and a clear next step. Let's put your plan together."
+      },
+      "height": {
+        "title": "What's your height?",
+        "description": "Tap the number to edit. Choose your preferred units below."
+      },
+      "weight": {
+        "title": "What's your weight?",
+        "description": "Enter your current weight. You can update it in your profile."
+      },
+      "age": {
+        "title": "What's your age?",
+        "description": "This training preview is intended for adults aged 18 and over."
+      },
+      "schedule": {
+        "title": "Which days work best for you?",
+        "description": "Make room for your workouts in your weekly routine.",
+        "days": "Workout days",
+        "time": "Set the time",
+        "reminders": "Save reminder preference",
+        "notice": "Your schedule is saved on this device. Export it from Settings to your calendar for reminders."
+      },
+      "ready": {
+        "title": "Ready for your next chapter?",
+        "description": "Here's the starting point for your workout preview.",
+        "badge": "Build your routine"
+      }
+    },
+    "gender": {
+      "male": "Male",
+      "female": "Female",
+      "other": "Prefer not to say"
+    },
+    "experience": {
+      "new": "Less than a month",
+      "months": "1–6 months",
+      "year": "6–12 months",
+      "years": "1–2 years",
+      "advanced": "More than 2 years"
+    },
+    "goals": {
+      "shape": "Get in shape",
+      "shapeDescription": "Build a consistent fitness routine.",
+      "fitness": "Overall fitness",
+      "fitnessDescription": "Work on strength and everyday movement.",
+      "lean": "Get lean",
+      "leanDescription": "Combine strength work with a regular routine.",
+      "muscle": "Build muscle",
+      "muscleDescription": "Focus on resistance training.",
+      "weight": "Lose weight",
+      "weightDescription": "Build an active routine around your goal.",
+      "strength": "Build strength",
+      "strengthDescription": "Develop your foundation in strength training.",
+      "mobility": "Mobility",
+      "mobilityDescription": "Explore controlled movement and range of motion.",
+      "calisthenics": "Calisthenics",
+      "calisthenicsDescription": "Train with bodyweight movements.",
+      "wellbeing": "Well-being",
+      "wellbeingDescription": "Make regular movement part of your day."
+    },
+    "lifestyle": {
+      "sedentary": "Desk job · mostly sitting",
+      "active": "Somewhat active",
+      "standing": "Mostly on my feet"
+    },
+    "equipment": {
+      "commercial": "Commercial gym",
+      "commercialDescription": "A full range of machines, free weights and cables.",
+      "small": "Small gym",
+      "smallDescription": "Essential machines and free weights.",
+      "home": "Home gym",
+      "homeDescription": "A pair of dumbbells and a bench.",
+      "bodyweight": "Bodyweight",
+      "bodyweightDescription": "No equipment required."
+    },
+    "units": {
+      "metric": "Metric · cm / kg",
+      "imperial": "Imperial · in / lb"
+    },
+    "weekdays": {
+      "short0": "Sun",
+      "short1": "Mon",
+      "short2": "Tue",
+      "short3": "Wed",
+      "short4": "Thu",
+      "short5": "Fri",
+      "short6": "Sat",
+      "full0": "Sunday",
+      "full1": "Monday",
+      "full2": "Tuesday",
+      "full3": "Wednesday",
+      "full4": "Thursday",
+      "full5": "Friday",
+      "full6": "Saturday"
+    },
+    "profile": {
+      "name": "Display name",
+      "namePlaceholder": "Eureka athlete",
+      "gender": "Gender",
+      "age": "Age",
+      "height": "Height",
+      "weight": "Weight",
+      "goal": "Goal",
+      "frequency": "Frequency",
+      "equipment": "Equipment",
+      "avatar": "Your profile photo",
+      "changeAvatar": "Choose a profile photo",
+      "removeAvatar": "Remove photo",
+      "imageError": "Choose a JPG, PNG or WebP image smaller than 2 MB.",
+      "localNotice": "Your profile and photo are stored on this device."
+    },
+    "membership": {
+      "close": "Close membership offers",
+      "memberCard": "YOUR TRAINING. ELEVATED.",
+      "title": "Make room for more.",
+      "description": "Explore Eureka Fit training memberships.",
+      "billing": "Billing period",
+      "monthly": "Monthly",
+      "yearly": "Yearly",
+      "choosePlan": "Choose your membership",
+      "perMonth": "per month",
+      "annualTotal": "{amount} billed yearly",
+      "previewNotice": "Membership preview. No payment is collected and no subscription is activated.",
+      "select": "Choose {plan}",
+      "unavailableTitle": "Subscriptions are coming soon",
+      "unavailable": "Checkout is not available yet. Continue exploring your workout preview or open Eureka Fit help for information about this preview.",
+      "contact": "Eureka Fit help",
+      "continuePreview": "Continue exploring",
+      "upgrade": "Premium"
+    },
+    "workout": {
+      "myPlan": "My plan",
+      "preview": "Preview",
+      "editPlan": "Update training profile",
+      "selectDay": "Choose a workout day",
+      "day": "Day {day}",
+      "foundation": "YOUR FOUNDATION",
+      "today": "Today's workout",
+      "fullBody": "Full body",
+      "upperBody": "Upper body",
+      "lowerBody": "Lower body",
+      "mobility": "Mobility & movement",
+      "exerciseList": "Workout exercises",
+      "prescription": "{sets} sets × {reps} reps",
+      "holdPrescription": "{sets} sets × {seconds} seconds",
+      "exerciseCount": "{count} exercises",
+      "duration": "~{count} min",
+      "previewNote": "An illustrative starting plan based on your goal, experience and equipment. Working weights and training history are not prescribed in this preview.",
+      "unlock": "Explore membership",
+      "exercisesDescription": "Explore the exercises in your workout preview.",
+      "libraryDescription": "Your starting plan and its exercise collection.",
+      "search": "Search exercises",
+      "noResults": "No exercises match your search.",
+      "progressTitle": "Your progress starts here.",
+      "progressDescription": "This preview doesn't record completed sessions. Your training profile is ready; session tracking will arrive with the full training service.",
+      "viewPlan": "View my plan",
+      "error": "We couldn't load your workout preview. Please try again.",
+      "exerciseNotice": "Illustrative exercise guidance. Use a comfortable range of motion and a load suited to your experience."
+    },
+    "muscles": {
+      "chest": "Chest",
+      "back": "Back",
+      "shoulders": "Shoulders",
+      "quadriceps": "Legs",
+      "glutes": "Glutes",
+      "core": "Core",
+      "full-body": "Full body"
+    },
+    "exercises": {
+      "kneePushup": "Knee push-up",
+      "squat": "Bodyweight squat",
+      "bridge": "Glute bridge",
+      "birdDog": "Bird dog",
+      "deadBug": "Dead bug",
+      "plank": "Forearm plank",
+      "benchPress": "Dumbbell bench press",
+      "dumbbellRow": "Supported dumbbell row",
+      "gobletSquat": "Goblet squat",
+      "shoulderPress": "Dumbbell shoulder press",
+      "romanianDeadlift": "Dumbbell Romanian deadlift",
+      "catCow": "Cat–cow",
+      "hipRotation": "Seated hip rotation",
+      "thoracicRotation": "Side-lying thoracic rotation",
+      "ankleRock": "Ankle mobility rock"
+    },
+    "cues": {
+      "pushupCue": "Keep your knees supported and your trunk aligned. Lower with control, then press through your hands.",
+      "squatCue": "Stand with your feet comfortably apart. Sit down between your hips, keeping your feet grounded, then stand tall.",
+      "bridgeCue": "Lie on your back with knees bent and feet grounded. Lift your hips without arching your lower back.",
+      "birdDogCue": "From hands and knees, extend the opposite arm and leg while keeping your trunk steady. Alternate sides.",
+      "deadBugCue": "Lie on your back with your arms up and knees bent. Slowly extend opposite limbs while keeping your trunk steady.",
+      "plankCue": "Support yourself on your forearms. Maintain a straight line through your trunk and breathe steadily. Hold for the displayed time.",
+      "pressCue": "Lie on a stable bench. Lower the dumbbells beside your chest with control, then press them upward.",
+      "rowCue": "Support one hand on a stable bench. Pull the dumbbell towards your hip without rotating your trunk.",
+      "shoulderCue": "Keep your ribs controlled as you press the dumbbells overhead through a comfortable range.",
+      "hingeCue": "Keep the dumbbells close to your legs. Move your hips back with softly bent knees, then return to standing.",
+      "catCowCue": "From hands and knees, slowly round and extend your spine through a comfortable range while breathing steadily.",
+      "hipCue": "Sit with your knees bent. Gently rotate your hips from side to side without forcing the movement.",
+      "rotationCue": "Lie on your side with knees bent. Rotate your upper back to open your chest while keeping your knees together.",
+      "ankleCue": "With your heel grounded, gently guide your knee forward over your foot. Repeat on both sides."
+    },
+    "settings": {
+      "title": "Make it yours.",
+      "description": "Your profile, your preferences, your routine.",
+      "profile": "My profile",
+      "experience": "Experience level",
+      "experienceDescription": "Choose your current training experience.",
+      "units": "Units of measurement",
+      "reminders": "Workout schedule",
+      "membership": "Subscription membership",
+      "help": "Help & contact",
+      "editProfile": "Update my training plan",
+      "deviceNote": "Your setup is saved in this browser. Account sync, payments and automatic notifications are not connected yet.",
+      "reset": "Clear saved setup",
+      "resetConfirm": "Clear your profile and questionnaire answers from this browser?",
+      "saved": "Schedule saved.",
+      "exportCalendar": "Export to calendar"
+    },
+    "calendar": {
+      "title": "Eureka! Fit workout",
+      "description": "Time for your planned Eureka! Fit workout. Open your workout preview on the Eureka website."
+    }
+  }
 }

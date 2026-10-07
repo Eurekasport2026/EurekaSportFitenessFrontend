@@ -60,7 +60,7 @@ export default async function AppPage({
               <HomeAction kind="training" className={styles.storeBadge} label="App Store"><HomeIcon name="apple" /><span><small><T>Scarica su</T></small><strong>App Store</strong></span></HomeAction>
               <HomeAction kind="training" className={styles.storeBadge} label="Google Play"><HomeIcon name="playstore" /><span><small><T>Disponibile su</T></small><strong>Google Play</strong></span></HomeAction>
             </div>
-            <HomeAction kind="login" className={styles.webButton}><T>Accedi alla versione Web</T> <HomeIcon name="arrow" /></HomeAction>
+            <Link href="/training/app" className={styles.webButton}><T>Accedi alla versione Web</T> <HomeIcon name="arrow" /></Link>
           </div>
         </section>
         <section className={styles.features} aria-label={isEn ? "Eureka! Fit features" : "Funzioni di Eureka! Fit"}>

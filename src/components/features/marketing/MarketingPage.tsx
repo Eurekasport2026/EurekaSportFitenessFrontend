@@ -45,9 +45,9 @@ export function MarketingPage({ variant }: MarketingPageProps) {
                 <T>Scopri tutti i corsi</T><HomeIcon name="arrow" />
               </Link>
             ) : (
-              <a href={`#${sectionId}`} className={styles.heroButton}>
+              <Link href="/training/app" className={styles.heroButton}>
                 <T>Inizia ora</T><HomeIcon name="arrow" />
-              </a>
+              </Link>
             )}
             {!isAcademy && <div className={styles.stores} aria-label={t("Scarica l'app Eureka! Allenamento")}>
               <HomeAction kind="training" className={styles.storeBadge} label={t("Disponibilità su App Store")}>
@@ -99,6 +99,10 @@ export function MarketingPage({ variant }: MarketingPageProps) {
                 </>
               );
 
+              if (!isAcademy) {
+                const goalMap: Record<string, string> = { Dimagrimento: "weight", "Massa muscolare": "muscle", Forza: "strength", Mobilità: "mobility", Calisthenics: "calisthenics", Benessere: "wellbeing" };
+                return <Link key={card.title} href={{ pathname: "/training/app", query: { goal: goalMap[card.title] || "fitness" } }} className={styles.card} aria-label={`${language === "en" ? "Explore goal" : "Esplora l'obiettivo"} ${t(card.title)}`}>{cardContent}</Link>;
+              }
               if (targetHref) {
                 return (
                   <Link

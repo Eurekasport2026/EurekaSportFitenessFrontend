@@ -22,6 +22,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   function setLanguage(nextLanguage: Language) {
     if (nextLanguage === locale) return;
+    if (pathname === "/training/app" || pathname.startsWith("/training/app/")) {
+      router.replace({
+        pathname: pathname as any,
+        query: Object.fromEntries(new URLSearchParams(window.location.search)),
+      }, { locale: nextLanguage });
+      return;
+    }
     router.replace(pathname as any, { locale: nextLanguage });
   }
 
