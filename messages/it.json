@@ -428,29 +428,36 @@
       "playSlides": "Avvia la presentazione",
       "slides": {
         "guidance": {
-          "imageAlt": "Atleta che esegue un rematore con manubrio in palestra",
-          "title": "Allenati con metodo",
-          "titleAccent": "una ripetizione alla volta.",
-          "description": "Esplora le indicazioni degli esercizi e ritrova i movimenti del tuo programma, con serie e ripetizioni in un unico posto."
+          "imageAlt": "Donna adulta che si allena con un manubrio a casa",
+          "title": "Il tuo spazio.",
+          "titleAccent": "La tua routine.",
+          "description": "Scegli l'attrezzatura che hai. Esplora un programma iniziale per casa o palestra."
         },
         "consistency": {
-          "imageAlt": "Atleta che esegue uno squat con kettlebell",
-          "title": "Trova il tempo per te",
-          "titleAccent": "segui il tuo ritmo.",
-          "description": "Scegli i giorni più adatti a te e tieni il calendario settimanale accanto al tuo programma di allenamento."
+          "imageAlt": "Uomo adulto che fa stretching su un tappetino in uno studio",
+          "title": "Muoviti",
+          "titleAccent": "al tuo ritmo.",
+          "description": "Trova i giorni adatti alla tua vita e tieni il calendario settimanale accanto al programma."
         }
       },
       "eyebrow": "IL TUO PROSSIMO CAPITOLO",
-      "title": "Un allenamento",
-      "titleAccent": "costruito su di te.",
-      "description": "Raccontaci di te ed esplora un programma adatto ai tuoi obiettivi, alla tua esperienza e alla tua attrezzatura.",
-      "time": "Circa 2 minuti",
-      "personal": "I tuoi obiettivi. Il tuo ritmo.",
+      "title": "Il tuo allenamento.",
+      "titleAccent": "Il tuo punto di partenza.",
+      "description": "Qualche domanda su obiettivi e abitudini. Poi un'anteprima chiara del tuo allenamento da esplorare.",
+      "time": "Bastano pochi minuti",
+      "personal": "In palestra o a casa",
       "selectedGoal": "Obiettivo selezionato",
       "openWorkout": "Apri il mio allenamento",
       "resume": "Continua la configurazione",
-      "start": "Iniziamo",
-      "startOver": "Aggiorna il profilo di allenamento"
+      "start": "Crea il mio programma",
+      "startOver": "Aggiorna il profilo di allenamento",
+      "journeyLabel": "I tuoi primi passi",
+      "journey": {
+        "setup": "Raccontaci di te",
+        "review": "Rivedi il programma",
+        "preview": "Esplora l'allenamento"
+      },
+      "reassurance": "Scopri l'anteprima prima di esplorare gli abbonamenti."
     },
     "onboarding": {
       "progress": "Avanzamento del profilo di allenamento",
@@ -465,7 +472,7 @@
       "selectedDays": "{selected} di {count} giorni selezionati",
       "frequencyValue": "{count} giorni a settimana",
       "building": "Preparazione dell'anteprima…",
-      "getStarted": "Esplora il mio programma",
+      "getStarted": "Visualizza l'anteprima",
       "saveSchedule": "Salva il calendario",
       "skipReminders": "Continua senza promemoria",
       "autoSave": "Le risposte vengono salvate su questo dispositivo.",
@@ -497,7 +504,8 @@
         "title": "Un programma chiaro. Una routine da costruire.",
         "description": "Piccoli passi, ripetuti con costanza, fanno la differenza.",
         "before": "Il punto di partenza",
-        "caption": "Un obiettivo, una routine settimanale e un prossimo passo chiaro. Costruiamo il tuo programma."
+        "caption": "Un obiettivo, una routine settimanale e un prossimo passo chiaro. Costruiamo il tuo programma.",
+        "photoCaption": "Una routine adatta alla tua settimana"
       },
       "height": {
         "title": "Qual è la tua altezza?",
@@ -520,10 +528,33 @@
         "notice": "Il calendario viene salvato su questo dispositivo. Esportalo dalle Impostazioni nel tuo calendario per ricevere promemoria."
       },
       "ready": {
-        "title": "Pronto per il prossimo capitolo?",
-        "description": "Ecco il punto di partenza per l'anteprima del tuo programma.",
-        "badge": "Costruisci la tua routine"
-      }
+        "title": "Il programma parte da qui.",
+        "description": "Rivedi le tue scelte. Tocca l'icona di modifica per correggere una risposta prima di esplorare l'allenamento.",
+        "badge": "Pronto da esplorare",
+        "previewNotice": "Il prossimo passo è un'anteprima illustrativa. Puoi esplorare gli abbonamenti quando vuoi."
+      },
+      "returnToReview": "Salva e rivedi il programma",
+      "editAnswer": "Modifica: {field}",
+      "phasesLabel": "Fasi della configurazione",
+      "phases": {
+        "startingPoint": "Il tuo punto di partenza",
+        "routine": "La tua routine",
+        "measurements": "Qualcosa su di te",
+        "plan": "Il tuo programma"
+      },
+      "review": {
+        "goal": "Obiettivo",
+        "experience": "Esperienza",
+        "gender": "Profilo",
+        "lifestyle": "Attività quotidiana",
+        "equipment": "Attrezzatura",
+        "frequency": "Frequenza",
+        "schedule": "Calendario settimanale",
+        "height": "Altezza",
+        "weight": "Peso",
+        "age": "Età"
+      },
+      "reviewBack": "Torna al riepilogo"
     },
     "gender": {
       "male": "Uomo",
@@ -606,7 +637,8 @@
       "changeAvatar": "Scegli una foto profilo",
       "removeAvatar": "Rimuovi foto",
       "imageError": "Scegli un'immagine JPG, PNG o WebP inferiore a 2 MB.",
-      "localNotice": "Il profilo e la foto vengono salvati su questo dispositivo."
+      "localNotice": "Il profilo e la foto vengono salvati su questo dispositivo.",
+      "description": "Tieni aggiornati i tuoi dati per il prossimo programma di allenamento."
     },
     "membership": {
       "close": "Chiudi le offerte di abbonamento",
@@ -624,8 +656,10 @@
       "unavailableTitle": "Gli abbonamenti sono in arrivo",
       "unavailable": "Il pagamento non è ancora disponibile. Continua a esplorare l'anteprima del programma o apri l'aiuto Eureka Fit per informazioni su questa anteprima.",
       "contact": "Aiuto Eureka Fit",
-      "continuePreview": "Continua a esplorare",
-      "upgrade": "Premium"
+      "continuePreview": "Torna all'anteprima del programma",
+      "upgrade": "Premium",
+      "optional": "Puoi continuare a esplorare l'anteprima senza scegliere un abbonamento.",
+      "startSetup": "Crea l'anteprima del programma"
     },
     "workout": {
       "myPlan": "Il mio programma",
@@ -654,7 +688,15 @@
       "progressDescription": "L'anteprima non registra le sessioni completate. Il tuo profilo è pronto: il monitoraggio arriverà con il servizio di allenamento completo.",
       "viewPlan": "Visualizza il programma",
       "error": "Impossibile caricare l'anteprima del programma. Riprova.",
-      "exerciseNotice": "Indicazioni illustrative. Usa un movimento confortevole e un carico adeguato alla tua esperienza."
+      "exerciseNotice": "Indicazioni illustrative. Usa un movimento confortevole e un carico adeguato alla tua esperienza.",
+      "intro": "Inizia dalle indicazioni degli esercizi, poi esplora il resto del programma.",
+      "exploreExercises": "Esplora il primo esercizio",
+      "membershipTitle": "Scopri il prossimo passo",
+      "membershipOptional": "L'abbonamento è facoltativo. L'anteprima resta disponibile qui.",
+      "previousExercise": "Esercizio precedente",
+      "nextExercise": "Esercizio successivo",
+      "exercisePosition": "Esercizio {current} di {total}",
+      "backToExercises": "Torna agli esercizi"
     },
     "muscles": {
       "chest": "Petto",

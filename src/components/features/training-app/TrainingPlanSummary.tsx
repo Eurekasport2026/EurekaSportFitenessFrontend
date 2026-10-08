@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useTraining } from "./TrainingProvider";
 import { TrainingIcon } from "./TrainingIcon";
+import { trainingPlanPhoto } from "./trainingVisuals";
 import styles from "./training-app.module.css";
 
 export function TrainingPlanSummary({ onEdit }: { onEdit: () => void }) {
@@ -15,6 +17,7 @@ export function TrainingPlanSummary({ onEdit }: { onEdit: () => void }) {
     ["experience", t(`experience.${profile.experience || "new"}`)],
   ] as const;
   return <aside className={styles.planSummary} aria-labelledby="training-plan-summary">
+    <div className={styles.summaryPhoto}><Image src={trainingPlanPhoto(profile)} alt="" fill sizes="320px" unoptimized /></div>
     <span className={styles.eyebrow}>{t("workout.myPlan")}</span>
     <h2 id="training-plan-summary">{t("desktop.yourPlan")}</h2>
     <dl className={styles.planDetails}>{details.map(([key, value]) => <div key={key}><dt>{t(`desktop.${key}`)}</dt><dd>{value}</dd></div>)}</dl>

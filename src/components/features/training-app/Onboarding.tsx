@@ -1,20 +1,28 @@
 "use client";
 
-import { useEffect, useRef, useState, type FormEvent } from "react";
+import Image from "next/image";
+import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { useRouter } from "@/i18n/routing";
-import { steps, type TrainingProfile, type OnboardingStep } from "@/lib/training/types";
-import { isProfileComplete, isTrainingTimeValid } from "@/lib/training/state";
+import { steps, type TrainingProfile, type OnboardingStep, type TrainingGoal, type Equipment } from "@/lib/training/types";
+import { displayMeasurement, isProfileComplete, isTrainingTimeValid } from "@/lib/training/state";
 import { useTraining } from "./TrainingProvider";
 import { TrainingIcon } from "./TrainingIcon";
 import { MeasurementInput } from "./MeasurementInput";
 import { TrainingLanguage, TrainingLoading } from "./TrainingShell";
+import { equipmentPhotos, goalPhotos, profilePhotos, trainingPlanPhoto } from "./trainingVisuals";
 import { cn } from "@/lib/utils";
 import styles from "./training-app.module.css";
 
 const validationToastId = "fit-onboarding-validation";
+const phases = [
+  { key: "startingPoint", start: 0 },
+  { key: "routine", start: 3 },
+  { key: "measurements", start: 7 },
+  { key: "plan", start: 10 },
+] as const;
 
 const choices: Partial<Record<OnboardingStep, readonly string[]>> = {
   experience: ["new", "months", "year", "years", "advanced"],
@@ -22,18 +30,6 @@ const choices: Partial<Record<OnboardingStep, readonly string[]>> = {
   lifestyle: ["sedentary", "active", "standing"],
   equipment: ["commercial", "small", "home", "bodyweight"],
 };
-
-function AthleteFigure({ female }: { female: boolean }) {
-  return <svg viewBox="0 0 110 180" fill="none" aria-hidden="true" className={styles.athleteFigure}>
-    <circle cx="55" cy="25" r="13" fill="#b3c3cc" />
-    <path d={female ? "M39 43Q55 36 71 43L67 70 73 94H37l6-24z" : "M31 44Q55 33 79 44L69 89H41z"} fill="#748d9e" />
-    <path d="M37 90h36l-5 37-5 39H51l-1-56-5 56H33l6-42z" fill="#253d50" />
-    <path d={female ? "M38 46 29 75 23 97M72 46l9 29 6 22" : "M32 47 22 74 18 99M78 47l10 27 4 25"} stroke="#b3c3cc" strokeWidth="10" strokeLinecap="round" />
-    <path d="M44 68h22M47 77h16" stroke="#00c48c" strokeWidth="2" />
-    <path d="M33 169h13m7 0h13" stroke="#b3c3cc" strokeWidth="6" strokeLinecap="round" />
-    {female && <path d="M42 19Q55 1 68 19l3 24-10-6V17H49v20l-10 6z" fill="#253d50" />}
-  </svg>;
-}
 
 export function Onboarding() {
   const t = useTranslations("TrainingApp");
@@ -44,6 +40,8 @@ export function Onboarding() {
   const content = useRef<HTMLElement>(null);
   const [error, setError] = useState("");
   const [building, setBuilding] = useState(false);
+  const submitting = useRef(false);
+  const reviewing = search.get("review") === "1";
   const requestedStep = steps.indexOf(search.get("step") as OnboardingStep);
   const index = requestedStep >= 0 ? requestedStep : state.step;
   const step = steps[index];
@@ -63,24 +61,15 @@ export function Onboarding() {
     window.scrollTo({ top: 0, behavior: "instant" });
     return () => { toast.dismiss(validationToastId); };
   }, [step, hydrated]);
-  useEffect(() => {
-    if (!building) return;
-    const timer = window.setTimeout(() => {
-      dispatch({ type: "complete" });
-      router.replace("/training/app/membership");
-    }, 850);
-    return () => window.clearTimeout(timer);
-  }, [building, dispatch, router]);
-
   if (!hydrated) return <TrainingLoading />;
 
-  function move(next: number) {
+  function move(next: number, returnToReview = reviewing) {
     clearError();
-    router.push({ pathname: "/training/app/onboarding", query: { step: steps[next] } });
+    router.push({ pathname: "/training/app/onboarding", query: { step: steps[next], ...(returnToReview && steps[next] !== "ready" ? { review: "1" } : {}) } });
   }
   function choose(field: keyof TrainingProfile, value: string) {
+    clearError();
     dispatch({ type: "profile", patch: { [field]: value } });
-    move(index + 1);
   }
   function valid() {
     if (["gender", "experience", "goal", "lifestyle", "equipment"].includes(step)) return Boolean(profile[step as keyof TrainingProfile]);
@@ -110,7 +99,7 @@ export function Onboarding() {
   }
   function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (building) return;
+    if (submitting.current) return;
     if (!valid()) { showError(); return; }
     if (step === "ready") {
       if (!isProfileComplete(profile)) {
@@ -118,38 +107,61 @@ export function Onboarding() {
         move(missing ? steps.indexOf(missing) : steps.indexOf("schedule"));
         return;
       }
+      submitting.current = true;
       setBuilding(true);
+      dispatch({ type: "complete" });
+      router.replace("/training/app/workout");
+    } else if (reviewing) {
+      move(steps.indexOf("ready"));
     } else move(index + 1);
   }
   const optionKeys = step === "goal" && profile.goal && !choices.goal!.includes(profile.goal) ? [...choices.goal!, profile.goal] : choices[step];
-  const continueLabel = t(step === "ready" ? "onboarding.getStarted" : step === "schedule" ? "onboarding.saveSchedule" : "next");
+  const continueLabel = t(step === "ready" ? "onboarding.getStarted" : reviewing ? "onboarding.returnToReview" : step === "schedule" ? "onboarding.saveSchedule" : "next");
+  const activePhase = phases.findLastIndex(phase => index >= phase.start);
+  const photoChoices = step === "goal" || step === "equipment";
+  const reviewItems: { key: string; value: string; step: OnboardingStep }[] = [
+    { key: "goal", value: t(`goals.${profile.goal || "fitness"}`), step: "goal" },
+    { key: "experience", value: t(`experience.${profile.experience || "new"}`), step: "experience" },
+    { key: "gender", value: t(`gender.${profile.gender || "other"}`), step: "gender" },
+    { key: "lifestyle", value: t(`lifestyle.${profile.lifestyle || "sedentary"}`), step: "lifestyle" },
+    { key: "equipment", value: t(`equipment.${profile.equipment || "bodyweight"}`), step: "equipment" },
+    { key: "frequency", value: t("onboarding.frequencyValue", { count: profile.frequency }), step: "frequency" },
+    { key: "schedule", value: `${profile.weekdays.map(day => t(`weekdays.short${day}`)).join(" · ")} / ${profile.time}`, step: "schedule" },
+    { key: "height", value: `${displayMeasurement(profile.heightCm, "heightCm", imperial)} ${imperial ? "in" : "cm"}`, step: "height" },
+    { key: "weight", value: `${displayMeasurement(profile.weightKg, "weightKg", imperial)} ${imperial ? "lb" : "kg"}`, step: "weight" },
+    { key: "age", value: String(profile.age), step: "age" },
+  ];
 
   return <form className={styles.onboarding} onSubmit={submit}>
     <header className={styles.stepHeader}>
-      <button type="button" className={styles.iconButton} disabled={building} aria-label={t("back")} onClick={() => index === 0 ? router.push("/training/app") : move(index - 1)}><TrainingIcon name="back" /></button>
+      <button type="button" className={styles.iconButton} disabled={building} aria-label={t(reviewing ? "onboarding.reviewBack" : "back")} onClick={() => reviewing ? move(steps.indexOf("ready")) : index === 0 ? router.push("/training/app") : move(index - 1)}><TrainingIcon name="back" /></button>
       <div className={styles.stepProgress} role="progressbar" aria-label={t("onboarding.progress")} aria-valuemin={0} aria-valuemax={steps.length} aria-valuenow={index + 1}><span style={{ width: `${(index + 1) / steps.length * 100}%` }} /></div>
       <TrainingLanguage />
-      <button type="submit" className={cn(styles.iconButton, styles.stepForward)} disabled={building} aria-label={building ? t("onboarding.building") : continueLabel}><TrainingIcon name="chevron" /></button>
+      <button type="submit" className={cn(styles.iconButton, styles.stepForward)} disabled={building} aria-label={building ? t("onboarding.building") : continueLabel} aria-describedby={error ? "fit-step-error" : undefined}><TrainingIcon name="chevron" /></button>
     </header>
-    <main ref={content} id="training-main" className={styles.stepMain}>
+    <main ref={content} id="training-main" className={cn(styles.stepMain, photoChoices && styles.photoStepMain)}>
       <div className={styles.stepIntro}>
+        <ol className={styles.setupPhases} aria-label={t("onboarding.phasesLabel")}>
+          {phases.map((phase, phaseIndex) => <li key={phase.key} aria-current={phaseIndex === activePhase ? "step" : undefined} data-complete={phaseIndex < activePhase || undefined}><span aria-hidden="true">{phaseIndex < activePhase ? <TrainingIcon name="check" /> : phaseIndex + 1}</span><small>{t(`onboarding.phases.${phase.key}`)}</small></li>)}
+        </ol>
         <p className={styles.stepCount}>{t("onboarding.step", { current: index + 1, total: steps.length })}</p>
         <h1 ref={heading} tabIndex={-1} className={styles.stepTitle}>{t(`onboarding.${step}.title`)}</h1>
         <p className={styles.stepDescription}>{t(`onboarding.${step}.description`)}</p>
       </div>
-      <div className={styles.stepBody}>
+      <div className={cn(styles.stepBody, photoChoices && styles.photoStepBody)} style={photoChoices ? { "--photo-choice-rows": Math.ceil((optionKeys?.length || 0) / 2) } as CSSProperties : undefined}>
 
       {step === "gender" && <div className={styles.genderSection}><div className={styles.genderGrid} role="group" aria-label={t("onboarding.gender.title")}>
-        {(["male", "female"] as const).map(gender => <button type="button" key={gender} aria-pressed={profile.gender === gender} className={cn(styles.genderCard, profile.gender === gender && styles.choiceSelected)} onClick={() => choose("gender", gender)}><AthleteFigure female={gender === "female"} /><strong>{t(`gender.${gender}`)}</strong><span className={styles.choiceCheck}><TrainingIcon name="check" /></span></button>)}
-      </div><button type="button" className={styles.textButton} onClick={() => choose("gender", "other")}>{t("gender.other")}</button></div>}
+        {(["male", "female"] as const).map(gender => <button type="button" key={gender} aria-pressed={profile.gender === gender} className={cn(styles.genderCard, profile.gender === gender && styles.choiceSelected)} onClick={() => choose("gender", gender)}><span className={styles.athletePortrait}><Image src={profilePhotos[gender]} alt="" fill sizes="140px" unoptimized /></span><strong>{t(`gender.${gender}`)}</strong><span className={styles.choiceCheck}><TrainingIcon name="check" /></span></button>)}
+      </div><button type="button" className={styles.textButton} aria-pressed={profile.gender === "other"} onClick={() => choose("gender", "other")}>{profile.gender === "other" && <TrainingIcon name="check" />}{t("gender.other")}</button></div>}
 
-      {optionKeys && <div className={cn(styles.choiceList, optionKeys.length > 3 && styles.choiceGrid)} role="group" aria-label={t(`onboarding.${step}.title`)}>
+      {optionKeys && <div className={cn(styles.choiceList, optionKeys.length > 3 && styles.choiceGrid, photoChoices && styles.photoChoiceGrid)} role="group" aria-label={t(`onboarding.${step}.title`)}>
         {optionKeys.map(value => {
           const selected = profile[step as keyof TrainingProfile] === value;
           const group = step === "goal" ? "goals" : step;
-          return <button type="button" key={value} className={cn(styles.choice, selected && styles.choiceSelected)} aria-pressed={selected} onClick={() => choose(step as keyof TrainingProfile, value)}>
-            {step === "equipment" && <span className={styles.choiceIcon}><TrainingIcon name={value === "bodyweight" ? "user" : value === "home" ? "dumbbell" : "book"} /></span>}
-            <span><strong>{t(`${group}.${value}`)}</strong>{(step === "goal" || step === "equipment") && <small>{t(`${group}.${value}Description`)}</small>}</span>
+          const photo = step === "goal" ? goalPhotos[value as TrainingGoal] : step === "equipment" ? equipmentPhotos[value as Equipment] : null;
+          return <button type="button" key={value} className={cn(styles.choice, photoChoices && styles.photoChoice, selected && styles.choiceSelected)} aria-pressed={selected} onClick={() => choose(step as keyof TrainingProfile, value)}>
+            {photo && <span className={styles.choicePhoto}><Image src={photo} alt="" fill sizes="(min-width: 900px) 25vw, 45vw" unoptimized /></span>}
+            <span className={styles.choiceCopy}><strong>{t(`${group}.${value}`)}</strong>{photoChoices && <small>{t(`${group}.${value}Description`)}</small>}</span>
             <span className={styles.choiceCheck}><TrainingIcon name="check" /></span>
           </button>;
         })}
@@ -162,7 +174,7 @@ export function Onboarding() {
       </div><span>{t("onboarding.daysPerWeek")}</span><div className={styles.frequencyDots} aria-hidden="true">{Array.from({ length: 7 }, (_, i) => <i key={i} className={i < profile.frequency ? styles.filledDot : undefined} />)}</div></div>}
 
       {step === "motivation" && <div className={styles.motivation}>
-        <div className={styles.motivationChart} aria-hidden="true"><div><span /><small>{t("onboarding.motivation.before")}</small></div><div><TrainingIcon name="chart" /><span /><small>EUREKA! FIT</small></div></div>
+        <div className={styles.routinePhoto}><Image src={trainingPlanPhoto(profile)} alt="" fill sizes="(min-width: 900px) 45vw, 90vw" unoptimized /><span><TrainingIcon name="calendar" />{t("onboarding.motivation.photoCaption")}</span></div>
         <p>{t("onboarding.motivation.caption")}</p>
         <div className={styles.miniStats}><span><strong>{profile.frequency}</strong>{t("onboarding.daysPerWeek")}</span><span><TrainingIcon name="check" />{t(`goals.${profile.goal || "fitness"}`)}</span></div>
       </div>}
@@ -184,16 +196,19 @@ export function Onboarding() {
         <p className={styles.supportingText}>{t("onboarding.schedule.notice")}</p>
       </div>}
 
-      {step === "ready" && <div className={styles.ready}>
-        <div className={styles.readyBadge}><TrainingIcon name="dumbbell" /><span>EUREKA! FIT</span><strong>{t("onboarding.ready.badge")}</strong><span>★ ★ ★</span></div>
-        <div className={styles.summary}><p><span>{t("profile.goal")}</span><strong>{t(`goals.${profile.goal || "fitness"}`)}</strong></p><p><span>{t("profile.frequency")}</span><strong>{t("onboarding.frequencyValue", { count: profile.frequency })}</strong></p><p><span>{t("profile.equipment")}</span><strong>{t(`equipment.${profile.equipment || "bodyweight"}`)}</strong></p></div>
+      {step === "ready" && <div className={styles.planReview}>
+        <div className={styles.reviewBanner}><Image src={trainingPlanPhoto(profile)} alt="" fill sizes="(min-width: 900px) 45vw, 90vw" unoptimized /><span><TrainingIcon name="check" />{t("onboarding.ready.badge")}</span></div>
+        <dl className={styles.reviewDetails}>{reviewItems.map(item => <div key={item.key}><dt>{t(`onboarding.review.${item.key}`)}</dt><dd>{item.value}<button type="button" className={styles.reviewEdit} aria-label={t("onboarding.editAnswer", { field: t(`onboarding.review.${item.key}`) })} onClick={() => move(steps.indexOf(item.step), true)}><TrainingIcon name="edit" /></button></dd></div>)}</dl>
+        <p className={styles.supportingText}>{t("onboarding.ready.previewNotice")}</p>
       </div>}
       </div>
     </main>
     <footer className={styles.stepFooter}>
-      {error && <p role="alert" className={styles.error}>{error}</p>}
-      <button type="submit" className={styles.primaryButton} disabled={building}>{building ? <><span className={styles.smallSpinner} />{t("onboarding.building")}</> : <>{continueLabel}<TrainingIcon name="arrow" /></>}</button>
-      {step === "schedule" && <button type="button" className={styles.textButton} onClick={() => { if (!valid()) { showError(); return; } dispatch({ type: "preferences", patch: { reminders: false } }); move(index + 1); }}>{t("onboarding.skipReminders")}</button>}
+      {error && <p id="fit-step-error" role="alert" className={styles.error}>{error}</p>}
+      <div className={styles.stepActions}>
+        <button type="submit" className={styles.primaryButton} disabled={building} aria-describedby={error ? "fit-step-error" : undefined}>{building ? <><span className={styles.smallSpinner} />{t("onboarding.building")}</> : <>{continueLabel}<TrainingIcon name="arrow" /></>}</button>
+        {step === "schedule" && <button type="button" className={cn(styles.textButton, styles.scheduleSkipButton)} aria-describedby={error ? "fit-step-error" : undefined} onClick={() => { if (!valid()) { showError(); return; } dispatch({ type: "preferences", patch: { reminders: false } }); move(index + 1); }}>{t("onboarding.skipReminders")}</button>}
+      </div>
       <p className={styles.autoSave}>{t("onboarding.autoSave")}</p>
     </footer>
   </form>;

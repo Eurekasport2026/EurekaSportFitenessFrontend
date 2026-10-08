@@ -428,29 +428,36 @@
       "playSlides": "Play slideshow",
       "slides": {
         "guidance": {
-          "imageAlt": "Athlete performing a dumbbell row in a gym",
-          "title": "Move with purpose",
-          "titleAccent": "one rep at a time.",
-          "description": "Explore exercise guidance and find the movements in your plan, with sets and repetitions in one place."
+          "imageAlt": "Adult woman training with a dumbbell at home",
+          "title": "Your space.",
+          "titleAccent": "Your routine.",
+          "description": "Choose the equipment you have. Explore a starting plan for your home or gym."
         },
         "consistency": {
-          "imageAlt": "Athlete performing a kettlebell squat",
-          "title": "Make room to train",
-          "titleAccent": "at your own pace.",
-          "description": "Choose the days that work for you and keep your weekly schedule alongside your training plan."
+          "imageAlt": "Adult man stretching on a mat in a training studio",
+          "title": "Move at",
+          "titleAccent": "your own pace.",
+          "description": "Find the days that fit your life and keep your weekly schedule close to your plan."
         }
       },
       "eyebrow": "YOUR NEXT CHAPTER",
-      "title": "Train with a plan",
-      "titleAccent": "built around you.",
-      "description": "Tell us about yourself and explore a workout plan that fits your goals, experience and equipment.",
-      "time": "About 2 minutes",
-      "personal": "Your goals. Your pace.",
+      "title": "Your training.",
+      "titleAccent": "Your starting point.",
+      "description": "A few questions about your goals and routine. A clear workout preview to explore next.",
+      "time": "A few minutes",
+      "personal": "At the gym or at home",
       "selectedGoal": "Your selected goal",
       "openWorkout": "Open my workout",
       "resume": "Continue setup",
-      "start": "Let's get started",
-      "startOver": "Update my training profile"
+      "start": "Create my plan",
+      "startOver": "Update my training profile",
+      "journeyLabel": "Your first steps",
+      "journey": {
+        "setup": "Tell us about you",
+        "review": "Review your plan",
+        "preview": "Explore your workout"
+      },
+      "reassurance": "See your workout preview before exploring membership."
     },
     "onboarding": {
       "progress": "Training profile progress",
@@ -465,7 +472,7 @@
       "selectedDays": "{selected} of {count} workout days selected",
       "frequencyValue": "{count} days per week",
       "building": "Preparing your preview…",
-      "getStarted": "Explore my plan",
+      "getStarted": "View my workout preview",
       "saveSchedule": "Save my schedule",
       "skipReminders": "Continue without reminders",
       "autoSave": "Your answers are saved on this device.",
@@ -497,7 +504,8 @@
         "title": "A clear plan. A routine you can build.",
         "description": "Small steps, repeated consistently, make a difference.",
         "before": "Your starting point",
-        "caption": "A goal, a weekly routine and a clear next step. Let's put your plan together."
+        "caption": "A goal, a weekly routine and a clear next step. Let's put your plan together.",
+        "photoCaption": "A routine that fits your week"
       },
       "height": {
         "title": "What's your height?",
@@ -520,10 +528,33 @@
         "notice": "Your schedule is saved on this device. Export it from Settings to your calendar for reminders."
       },
       "ready": {
-        "title": "Ready for your next chapter?",
-        "description": "Here's the starting point for your workout preview.",
-        "badge": "Build your routine"
-      }
+        "title": "Your plan starts here.",
+        "description": "Review your choices. Tap the edit icon to adjust any answer before exploring your workout.",
+        "badge": "Ready to explore",
+        "previewNotice": "Next: an illustrative workout preview. You can explore membership whenever you choose."
+      },
+      "returnToReview": "Save and review plan",
+      "editAnswer": "Edit {field}",
+      "phasesLabel": "Setup stages",
+      "phases": {
+        "startingPoint": "Your starting point",
+        "routine": "Your routine",
+        "measurements": "About you",
+        "plan": "Your plan"
+      },
+      "review": {
+        "goal": "Goal",
+        "experience": "Experience",
+        "gender": "Profile",
+        "lifestyle": "Daily activity",
+        "equipment": "Equipment",
+        "frequency": "Training frequency",
+        "schedule": "Weekly schedule",
+        "height": "Height",
+        "weight": "Weight",
+        "age": "Age"
+      },
+      "reviewBack": "Back to plan review"
     },
     "gender": {
       "male": "Male",
@@ -606,7 +637,8 @@
       "changeAvatar": "Choose a profile photo",
       "removeAvatar": "Remove photo",
       "imageError": "Choose a JPG, PNG or WebP image smaller than 2 MB.",
-      "localNotice": "Your profile and photo are stored on this device."
+      "localNotice": "Your profile and photo are stored on this device.",
+      "description": "Keep your details up to date for your next training plan."
     },
     "membership": {
       "close": "Close membership offers",
@@ -624,8 +656,10 @@
       "unavailableTitle": "Subscriptions are coming soon",
       "unavailable": "Checkout is not available yet. Continue exploring your workout preview or open Eureka Fit help for information about this preview.",
       "contact": "Eureka Fit help",
-      "continuePreview": "Continue exploring",
-      "upgrade": "Premium"
+      "continuePreview": "Back to my workout preview",
+      "upgrade": "Premium",
+      "optional": "You can keep exploring your workout preview without choosing a membership.",
+      "startSetup": "Create my workout preview"
     },
     "workout": {
       "myPlan": "My plan",
@@ -654,7 +688,15 @@
       "progressDescription": "This preview doesn't record completed sessions. Your training profile is ready; session tracking will arrive with the full training service.",
       "viewPlan": "View my plan",
       "error": "We couldn't load your workout preview. Please try again.",
-      "exerciseNotice": "Illustrative exercise guidance. Use a comfortable range of motion and a load suited to your experience."
+      "exerciseNotice": "Illustrative exercise guidance. Use a comfortable range of motion and a load suited to your experience.",
+      "intro": "Start with the exercise guidance, then explore the rest of your plan.",
+      "exploreExercises": "Explore the first exercise",
+      "membershipTitle": "Explore your next step",
+      "membershipOptional": "Membership is optional. Your workout preview stays available here.",
+      "previousExercise": "Previous exercise",
+      "nextExercise": "Next exercise",
+      "exercisePosition": "Exercise {current} of {total}",
+      "backToExercises": "Back to exercises"
     },
     "muscles": {
       "chest": "Chest",

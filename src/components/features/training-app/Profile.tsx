@@ -7,7 +7,6 @@ import { useTraining } from "./TrainingProvider";
 import { MeasurementInput } from "./MeasurementInput";
 import { TrainingHeader, TrainingNav } from "./TrainingShell";
 import { TrainingIcon } from "./TrainingIcon";
-import { cn } from "@/lib/utils";
 import styles from "./training-app.module.css";
 
 export function Profile() {
@@ -38,7 +37,7 @@ export function Profile() {
     <TrainingNav active="settings" />
     <TrainingHeader title={t("settings.profile")} back="/training/app/settings" />
     <main id="training-main" className={styles.profileMain}>
-      <h1 className={cn(styles.srOnly, styles.profileTitle)}>{t("settings.profile")}</h1>
+      <div className={styles.profileIntro}><span className={styles.eyebrow}>EUREKA! FIT</span><h1 className={styles.profileTitle}>{t("settings.profile")}</h1><p>{t("profile.description")}</p></div>
       <form onSubmit={save}>
         <div className={styles.avatarSection}><label className={styles.avatarButton} htmlFor="training-avatar">
           {/* User-selected data URLs remain local and do not use the image optimization service. */}

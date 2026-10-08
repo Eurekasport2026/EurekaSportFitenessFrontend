@@ -5,6 +5,18 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Fit photo-choice redesign within the desktop viewport (2026-10-08)**:
+  - Replaced narrow desktop image strips with full-height photo panels beside readable goal/equipment labels and descriptions. Removed the redundant outer frame and retained selection/focus feedback.
+  - Sized the two-column gallery from the actual available onboarding content height using a size container; row count follows all available choices, including a preselected extra goal. Header, footer, and Next remain outside the gallery; existing short/zoomed-screen accessibility scrolling remains available.
+  - Reused local assets and retained mobile cards, saved answers, localization, and validation. Compact container typography and a minimum readable row height protect long labels and extra goals. Documented ADR-045; `npx tsc --noEmit` passes. Browser/device visual review remains pending.
+- **Fit profile-card athlete portraits (2026-10-08)**:
+  - Replaced the simple Male/Female onboarding figures with matching generated athlete portraits, saved locally as transparent WebP assets.
+  - Retained card layout, localized labels, selection/focus states, and the Prefer not to say option. Recorded image prompts and usage in `brain/fit_assets.md`; `npx tsc --noEmit` passes, with browser visual review pending.
+- **Eureka Fit first-visit UI and imagery (2026-10-08)**:
+  - Clarified the welcome journey and added four coordinated local WebP photos for home, gym, mobility, and bodyweight training, with shared goal/equipment image mappings.
+  - Grouped the twelve setup steps into four phases, kept choices selected until Continue, and replaced the final badge with an editable ten-answer review. Review edits preserve their return destination through localized query navigation.
+  - Open the workout preview immediately after valid setup; membership remains optional. Added a photographic workout introduction, sequential exercise-guidance controls, direct saved-plan review from workout/library, and clearer membership return actions.
+  - Matched Library/plan-summary imagery and Profile/shared-card presentation, updated IT/EN copy, and documented ADR-044 and asset prompts. `npx tsc --noEmit` passes; browser/device visual checks remain pending.
 - **Windows launcher from any folder (2026-10-08)**:
   - Added `run.ps1` to start the existing development command independently of the caller's working directory, including when the script is copied to Desktop on this computer.
   - Resolve the checkout beside the script first, then the original checkout; support explicit `-ProjectPath` and optional `-Port`. Validate project/prerequisites, use `npm.cmd`, restore the caller's location, and propagate the server exit code.
@@ -157,6 +169,10 @@ All notable changes to this project will be documented in this file.
   - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
 
 ### Fixed
+- **Fit schedule action spacing and focus (2026-10-08)**:
+  - Grouped Save schedule and Continue without reminders into an aligned, wrapping desktop row and full-width mobile stack. The reminder option now uses a rounded outline matching Fit's pill controls, including its visible keyboard-focus ring.
+  - Added consistent spacing around validation and the saved-device note; associated inline errors with both actions and the forward control. Preserved weekday/time guards, translations, and saved state.
+  - `npx tsc --noEmit` passes; browser/device visual review remains pending.
 - **Windows launcher with multiple npm installations (2026-10-08)**:
   - Select the first `npm.cmd` application in PATH and invoke its scalar executable path. Previously, multiple results became a single invalid command containing both paths, as reported in the client's screenshot.
   - Preserved project discovery, Desktop-copy fallback, arguments, and exit/location handling. Source reviewed; server startup has not been rerun. Replace any existing Desktop copy with the updated root `run.ps1`.

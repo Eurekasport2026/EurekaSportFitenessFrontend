@@ -31,6 +31,7 @@ export function Membership() {
       <div className={styles.membershipIntro}>
       <div className={styles.memberArt}><div className={styles.memberCard}><Image src="/eureka-symbol.svg" alt="" width={50} height={54} /><span>EUREKA! <strong>FIT</strong></span><small>{t("membership.memberCard")}</small><TrainingIcon name="crown" /></div></div>
       <h1 className={styles.memberTitle}>{t("membership.title")}</h1><p className={styles.supportingText}>{t("membership.description")}</p>
+      <p className={styles.membershipOptional}><TrainingIcon name="check" />{t("membership.optional")}</p>
       </div>
       <div className={styles.membershipOffers}>
       <div className={styles.billingSwitch} role="group" aria-label={t("membership.billing")}>
@@ -49,7 +50,7 @@ export function Membership() {
       <p className={styles.membershipNotice}>{t("membership.previewNotice")}</p>
       <button type="button" className={styles.primaryButton} onClick={() => setNotice(true)}>{t("membership.select", { plan: selected })}<TrainingIcon name="arrow" /></button>
       {notice && <div role="status" className={styles.feedback}><strong>{t("membership.unavailableTitle")}</strong><p>{t("membership.unavailable")}</p><TrainingInfoButton kind="help" className={styles.textButton}>{t("membership.contact")}</TrainingInfoButton></div>}
-      <Link href={destination} className={styles.textLink}>{t("membership.continuePreview")}</Link>
+      <Link href={state.complete ? destination : "/training/app/onboarding"} className={styles.secondaryButton}>{t(state.complete ? "membership.continuePreview" : "membership.startSetup")}</Link>
       <div className={styles.legal}><TrainingInfoButton kind="terms">{t("terms")}</TrainingInfoButton><span aria-hidden="true">·</span><TrainingInfoButton kind="privacy">{t("privacy")}</TrainingInfoButton><span aria-hidden="true">·</span><TrainingInfoButton kind="cookies">{t("product.cookies")}</TrainingInfoButton></div>
       </div>
     </main>

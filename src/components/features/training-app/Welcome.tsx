@@ -8,13 +8,14 @@ import type { TrainingGoal } from "@/lib/training/types";
 import { useTraining } from "./TrainingProvider";
 import { TrainingHeader, TrainingLoading } from "./TrainingShell";
 import { TrainingIcon } from "./TrainingIcon";
+import { trainingPhotos } from "./trainingVisuals";
 import { cn } from "@/lib/utils";
 import styles from "./training-app.module.css";
 
 const slides = [
   { image: "/images/eureka-training-hero.webp", copy: "welcome", position: "66% center" },
-  { image: "/images/eureka-personal-trainer-hero.webp", copy: "welcome.slides.guidance", position: "70% center" },
-  { image: "/images/eureka-functional-training.webp", copy: "welcome.slides.consistency", position: "50% 25%" },
+  { image: trainingPhotos.home, copy: "welcome.slides.guidance", position: "62% center" },
+  { image: trainingPhotos.mobility, copy: "welcome.slides.consistency", position: "58% center" },
 ] as const;
 const SLIDE_DURATION_MS = 5000;
 
@@ -103,12 +104,16 @@ export function Welcome({ initialGoal }: WelcomeProps) {
         </div>)}
       </div>
       <div className={styles.welcomeFacts}><span><TrainingIcon name="clock" />{t("welcome.time")}</span><span><TrainingIcon name="dumbbell" />{t("welcome.personal")}</span></div>
+      <ol className={styles.welcomeJourney} aria-label={t("welcome.journeyLabel")}>
+        {(["setup", "review", "preview"] as const).map((stage, index) => <li key={stage}><span aria-hidden="true">0{index + 1}</span>{t(`welcome.journey.${stage}`)}</li>)}
+      </ol>
       {initialGoal && <p className={styles.goalHint}>{t("welcome.selectedGoal")}: <strong>{t(`goals.${initialGoal}`)}</strong></p>}
       <div className={styles.introControls} onPointerEnter={event => { if (event.pointerType !== "touch") setControlsHovered(true); }} onPointerLeave={() => setControlsHovered(false)} onPointerCancel={() => setControlsHovered(false)}>
         <button ref={playbackControl} type="button" className={styles.carouselToggle} aria-label={t(isPlaying ? "welcome.pauseSlides" : "welcome.playSlides")} title={t(isPlaying ? "welcome.pauseSlides" : "welcome.playSlides")} aria-controls="training-welcome-slide training-welcome-photo" onClick={() => setIsPlaying(current => !current)}><TrainingIcon name={isPlaying ? "pause" : "play"} /></button>
         <div className={styles.introProgress} role="group" aria-label={t("welcome.slideNavigation")}>{slides.map((item, index) => <button key={item.image} type="button" ref={element => { indicators.current[index] = element; }} aria-label={t("welcome.showSlide", { current: index + 1, title: `${t(`${item.copy}.title`)} ${t(`${item.copy}.titleAccent`)}` })} aria-pressed={index === activeSlide} aria-controls="training-welcome-slide training-welcome-photo" onClick={() => setActiveSlide(index)} onKeyDown={event => navigateIndicator(event, index)} />)}</div>
       </div>
       <button type="button" className={styles.primaryButton} onClick={start}>{resumeWorkout ? t("welcome.openWorkout") : state.step > 0 && !initialGoal ? t("welcome.resume") : t("welcome.start")}<TrainingIcon name="arrow" /></button>
+      <p className={styles.welcomeReassurance}>{t("welcome.reassurance")}</p>
       {state.complete && <button type="button" className={styles.textButton} onClick={() => { dispatch({ type: "restart" }); router.push("/training/app/onboarding"); }}>{t("welcome.startOver")}</button>}
       <Link href="/" className={styles.backToSite}>{t("backToSite")}</Link>
     </main>
