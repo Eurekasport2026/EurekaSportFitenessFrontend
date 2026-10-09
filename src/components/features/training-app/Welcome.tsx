@@ -105,7 +105,7 @@ export function Welcome({ initialGoal }: WelcomeProps) {
       </div>
       <div className={styles.welcomeFacts}><span><TrainingIcon name="clock" />{t("welcome.time")}</span><span><TrainingIcon name="dumbbell" />{t("welcome.personal")}</span></div>
       <ol className={styles.welcomeJourney} aria-label={t("welcome.journeyLabel")}>
-        {(["setup", "review", "preview"] as const).map((stage, index) => <li key={stage}><span aria-hidden="true">0{index + 1}</span>{t(`welcome.journey.${stage}`)}</li>)}
+        {(["setup", "review", "login"] as const).map((stage, index) => <li key={stage}><span aria-hidden="true">0{index + 1}</span>{t(`welcome.journey.${stage}`)}</li>)}
       </ol>
       {initialGoal && <p className={styles.goalHint}>{t("welcome.selectedGoal")}: <strong>{t(`goals.${initialGoal}`)}</strong></p>}
       <div className={styles.introControls} onPointerEnter={event => { if (event.pointerType !== "touch") setControlsHovered(true); }} onPointerLeave={() => setControlsHovered(false)} onPointerCancel={() => setControlsHovered(false)}>

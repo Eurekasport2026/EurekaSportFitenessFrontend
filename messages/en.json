@@ -3,6 +3,7 @@
   "Contatti": "Contact",
   "Prezzi": "Pricing",
   "Accedi": "Log in",
+  "Crea programma": "Create plan",
   "Vai al contenuto": "Skip to content",
   "Cerca nel sito": "Search this site",
   "Apri menu": "Open menu",
@@ -371,7 +372,7 @@
       "info": {
         "help": {
           "title": "Eureka Fit help",
-          "description": "Complete your training profile to explore a workout plan. Use Workout to choose a training day, Exercises and Library to browse movements, and Settings to update your profile, units, or schedule. Membership offers are a preview; checkout and workout logging are not available yet."
+          "description": "Use Create plan to answer the training questions and review your preferences. Enter any email address and password in the demo login form to open your workout preview. Use Workout to choose a training day, Exercises and Library to browse movements, and Settings to update your profile, units, or schedule. Checkout and workout logging are not available yet."
         },
         "privacy": {
           "title": "Eureka Fit privacy policy",
@@ -443,7 +444,7 @@
       "eyebrow": "YOUR NEXT CHAPTER",
       "title": "Your training.",
       "titleAccent": "Your starting point.",
-      "description": "A few questions about your goals and routine. A clear workout preview to explore next.",
+      "description": "Answer a few questions about your goals and routine. Review your plan, then continue to log in.",
       "time": "A few minutes",
       "personal": "At the gym or at home",
       "selectedGoal": "Your selected goal",
@@ -455,9 +456,9 @@
       "journey": {
         "setup": "Tell us about you",
         "review": "Review your plan",
-        "preview": "Explore your workout"
+        "login": "Log in after setup"
       },
-      "reassurance": "See your workout preview before exploring membership."
+      "reassurance": "Complete your plan first. The login form comes after your answers."
     },
     "onboarding": {
       "progress": "Training profile progress",
@@ -471,11 +472,10 @@
       "daysPerWeek": "days per week",
       "selectedDays": "{selected} of {count} workout days selected",
       "frequencyValue": "{count} days per week",
-      "building": "Preparing your preview…",
-      "getStarted": "View my workout preview",
+      "building": "Opening login…",
+      "getStarted": "Continue to log in",
       "saveSchedule": "Save my schedule",
       "skipReminders": "Continue without reminders",
-      "autoSave": "Your answers are saved on this device.",
       "gender": {
         "title": "Let's start with you.",
         "description": "Choose a profile to get started. You can change this later."
@@ -525,13 +525,13 @@
         "days": "Workout days",
         "time": "Set the time",
         "reminders": "Save reminder preference",
-        "notice": "Your schedule is saved on this device. Export it from Settings to your calendar for reminders."
+        "notice": "Export your schedule to your calendar to get workout reminders."
       },
       "ready": {
         "title": "Your plan starts here.",
-        "description": "Review your choices. Tap the edit icon to adjust any answer before exploring your workout.",
-        "badge": "Ready to explore",
-        "previewNotice": "Next: an illustrative workout preview. You can explore membership whenever you choose."
+        "description": "Review your choices. Tap the edit icon to adjust any answer before continuing to log in.",
+        "badge": "Your preferences are ready",
+        "previewNotice": "Next: log in to explore your workout plan."
       },
       "returnToReview": "Save and review plan",
       "editAnswer": "Edit {field}",
@@ -555,6 +555,28 @@
         "age": "Age"
       },
       "reviewBack": "Back to plan review"
+    },
+    "login": {
+      "eyebrow": "SETUP COMPLETE",
+      "title": "Your plan is ready.",
+      "description": "A training routine built around you.",
+      "backToReview": "Back to plan review",
+      "journeyLabel": "Your plan setup progress",
+      "journeyProfile": "Profile",
+      "journeyReview": "Review",
+      "journeyLogin": "Log in",
+      "accessLabel": "ONE LAST STEP",
+      "formTitle": "Log in to Eureka Fit",
+      "email": "Email address",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter a password",
+      "show": "Show",
+      "hide": "Hide",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submit": "Open my workout",
+      "notice": "Demo preview: enter any email and password."
     },
     "gender": {
       "male": "Male",

@@ -17,7 +17,7 @@ export function TrainingShell({ children }: TrainingShellProps) {
   const t = useTranslations("TrainingApp");
   const { persistent, hydrated } = useTraining();
   const pathname = usePathname();
-  return <div className={cn(styles.backdrop, pathname === "/training/app/onboarding" && styles.onboardingViewport)}>
+  return <div className={cn(styles.backdrop, (pathname === "/training/app/onboarding" || pathname === "/training/app/login") && styles.onboardingViewport)}>
     <a className={styles.skipLink} href="#training-main">{t("skipContent")}</a>
     <TrainingProductHeader />
     <div className={styles.shell}>

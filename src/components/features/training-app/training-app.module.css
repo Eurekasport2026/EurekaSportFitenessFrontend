@@ -163,9 +163,53 @@
 .stepActions .scheduleSkipButton { width: 100%; min-height: 52px; margin: 0; padding: 14px 20px; border: 1px solid var(--fit-line); border-radius: 999px; font-weight: 600; transition: background .18s, border-color .18s; }
 .stepActions .scheduleSkipButton:hover { border-color: var(--eureka-mint); background: var(--fit-raised); }
 .stepFooter > .error { margin-block: 0; text-align: left; overflow-wrap: anywhere; }
-.stepFooter > .autoSave { margin-block: 0; }
-.autoSave { margin: 12px 0 0; color: #8196aa; font-size: 10px; text-align: center; line-height: 1.5; }
 .error, .invalid { color: #fca5a5 !important; font-size: 12px; line-height: 1.5; text-align: center; }
+.loginPage { display: flex; flex: 1; flex-direction: column; min-height: calc(100svh - var(--safe-area-top)); }
+.loginMain { display: grid; flex: 1; align-content: start; width: 100%; max-width: 680px; min-width: 0; min-height: 0; gap: 16px; margin-inline: auto; padding: 20px 20px calc(24px + var(--safe-area-bottom)); }
+.loginToolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; min-width: 0; }
+.loginBack { display: inline-flex; align-items: center; gap: 8px; min-width: 0; min-height: 44px; color: var(--fit-muted); font-size: 12px; line-height: 1.5; }
+.loginBack:hover { color: var(--eureka-mint); }
+.loginBack svg { flex-shrink: 0; width: 18px; height: 18px; }
+.loginJourney { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 0; margin: 0; padding: 0; list-style: none; }
+.loginJourney li { display: flex; align-items: center; gap: 6px; color: var(--fit-muted); font-size: 11px; line-height: 1.4; }
+.loginJourney li:not(:last-child)::after { width: 18px; height: 1px; margin-left: 8px; margin-right: 8px; background: var(--fit-line); content: ""; }
+.loginJourney li > span { display: grid; flex-shrink: 0; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: #00c48c14; color: var(--eureka-mint); font-size: 10px; font-weight: 800; }
+.loginJourney svg { width: 13px; height: 13px; }
+.loginJourney li[aria-current="step"] { color: #f8fafc; font-weight: 700; }
+.loginJourney li[aria-current="step"] > span { background: var(--eureka-mint); color: #03251c; }
+.loginWorkspace { display: grid; grid-template-columns: minmax(0, 1fr); min-width: 0; width: 100%; border: 1px solid var(--fit-line); border-radius: 24px; background: var(--fit-surface); box-shadow: 0 24px 80px #00000026; }
+.loginIntro { display: grid; min-width: 0; gap: 18px; padding: 24px; border-radius: 23px 23px 0 0; background: linear-gradient(145deg, #00c48c0a, transparent 55%), var(--fit-canvas); }
+.loginPlanHeading { display: grid; align-content: start; gap: 10px; min-width: 0; }
+.loginStatus { display: inline-flex; align-items: center; justify-self: start; gap: 6px; min-height: 24px; padding: 4px 9px; border: 1px solid #00c48c30; border-radius: 999px; background: #00c48c0a; color: var(--eureka-mint); font-size: 9px; font-weight: 700; line-height: 1.4; letter-spacing: 1px; }
+.loginStatus svg { flex-shrink: 0; width: 13px; height: 13px; }
+.loginPlanTitle { margin: 0; font-size: clamp(26px, 3.5vw, 32px); font-weight: 800; line-height: 1.18; letter-spacing: -.7px; text-wrap: balance; }
+.loginPlanDescription { margin: 0; color: var(--fit-muted); font-size: 13px; line-height: 1.5; }
+.loginPlanPhoto { position: relative; width: 100%; aspect-ratio: 3 / 2; overflow: hidden; border-radius: 14px; background: #050e13; }
+.loginPlanPhoto img { object-fit: contain; object-position: center; }
+.loginPlanDetails { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin: 0; }
+.loginPlanDetails > div { display: grid; align-content: start; gap: 8px; min-width: 0; padding: 12px; border: 1px solid var(--fit-line); border-radius: 12px; background: var(--fit-surface); }
+.loginPlanDetails dt { display: flex; align-items: flex-start; gap: 5px; min-width: 0; color: var(--fit-muted); font-size: 10px; line-height: 1.4; }
+.loginPlanDetails dt svg { flex-shrink: 0; width: 14px; height: 14px; color: var(--eureka-mint); }
+.loginPlanDetails dd { min-width: 0; margin: 0; font-size: 12px; font-weight: 700; line-height: 1.5; }
+.loginCard { display: flex; flex-direction: column; justify-content: center; min-width: 0; padding: 28px; border-top: 1px solid var(--fit-line); border-radius: 0 0 23px 23px; background: var(--fit-surface); }
+.loginFormIntro { display: flex; align-items: center; gap: 12px; }
+.loginFormIntro > div { min-width: 0; }
+.loginAccessIcon { display: grid; flex: 0 0 44px; place-items: center; width: 44px; height: 44px; border: 1px solid #00c48c25; border-radius: 14px; background: #00c48c0a; color: var(--eureka-mint); }
+.loginAccessIcon svg { width: 22px; height: 22px; }
+.loginFormEyebrow { display: block; margin-bottom: 5px; color: var(--fit-muted); font-size: 9px; font-weight: 700; line-height: 1.4; letter-spacing: 1.3px; }
+.loginCard h2 { margin: 0; font-size: clamp(22px, 2vw, 26px); font-weight: 800; line-height: 1.2; letter-spacing: -.4px; }
+.loginNotice { margin: 16px 0 0; color: var(--fit-muted); font-size: 12px; line-height: 1.5; }
+.loginForm { display: grid; gap: 18px; margin-top: 24px; }
+.loginField { display: grid; gap: 8px; min-width: 0; color: #cbd5e1; font-size: 12px; font-weight: 600; line-height: 1.4; }
+.loginField input { width: 100%; min-width: 0; min-height: 52px; padding: 12px 14px; border: 1px solid var(--fit-line); border-radius: 12px; background: var(--fit-canvas); color: #f8fafc; font-size: 16px; font-weight: 400; transition: border-color .18s; }
+.loginField input::placeholder { color: #8196aa; opacity: 1; }
+.loginField input:focus { border-color: var(--eureka-mint); }
+.loginPassword { position: relative; min-width: 0; }
+.loginPassword input { padding-right: 80px; }
+.loginPassword button { position: absolute; top: 4px; right: 6px; bottom: 4px; min-width: 60px; min-height: 44px; padding: 8px; border: 0; border-radius: 8px; background: none; color: var(--fit-muted); font-size: 12px; }
+.loginPassword button:hover { color: var(--eureka-mint); }
+.loginForm > .primaryButton { margin-top: 4px; }
+.loginLegal { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 12px; }
 .measurement { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; padding-top: 30px; }
 .measurement > label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .measurementControl { display: flex; align-items: baseline; justify-content: center; gap: 8px; min-width: 0; max-width: 100%; }
@@ -462,6 +506,14 @@
   .shell { min-height: 0; padding-top: 0; }
   .mobileParentLink, .welcomeContent > .backToSite { display: none; }
   .welcome, .onboarding, .dashboard { min-height: 0; }
+  .loginPage { min-height: 0; overflow: hidden; }
+  .loginMain { container: fit-login / size; flex: 1 1 0; grid-template-rows: auto minmax(0, 1fr); align-content: stretch; max-width: 1180px; gap: 14px; padding: 16px var(--web-gutter); overflow-y: auto; overflow-x: hidden; }
+  .loginToolbar { flex-wrap: nowrap; }
+  .loginJourney { flex-shrink: 0; }
+  .loginWorkspace { grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr); grid-template-rows: minmax(0, 1fr); align-self: safe center; height: min(100%, 560px); min-height: 460px; }
+  .loginIntro { grid-template-rows: auto minmax(150px, 1fr) auto; min-height: 0; padding: 28px; border-radius: 23px 0 0 23px; }
+  .loginPlanPhoto { justify-self: center; width: auto; max-width: 100%; height: 100%; }
+  .loginCard { padding: clamp(24px, 3vw, 36px); border-top: 0; border-left: 1px solid var(--fit-line); border-radius: 0 23px 23px 0; }
   .appHeader { justify-content: flex-end; min-height: 72px; padding-inline: var(--web-gutter); }
   .appHeader.introHeader, .appHeader .miniBrand, .appHeader .language, .stepHeader .language, .membershipHeader .language { display: none; }
   .headerTitle { display: none; }
@@ -493,7 +545,6 @@
   .stepFooter > .stepActions { flex-flow: row wrap; align-items: center; width: 100%; justify-self: stretch; }
   .stepActions > .primaryButton { width: auto; min-width: min(200px, 100%); min-height: 48px; padding-block: 12px; }
   .stepActions > .scheduleSkipButton { width: auto; min-height: 48px; padding-block: 12px; }
-  .stepFooter .autoSave { margin-top: 0; font-size: 12px; text-align: left; }
   .motivation { padding-top: 0; }
   .onboarding .motivationChart { height: 180px; margin-bottom: 14px; padding: 14px; }
   .onboarding .motivationChart > div:nth-child(2) > span { height: 90px; }
@@ -783,6 +834,18 @@
   .profileIntro h1 { font-size: 32px; font-style: normal; text-transform: none; }
   .profileIntro p { font-size: 14px; }
 }
+@container fit-login (max-height: 540px) {
+  .loginWorkspace { min-height: 440px; }
+  .loginIntro { grid-template-rows: auto minmax(140px, 1fr) auto; gap: 14px; padding: 20px; }
+  .loginPlanHeading { gap: 8px; }
+  .loginPlanTitle { font-size: 26px; }
+  .loginPlanDetails > div { gap: 6px; padding: 10px; }
+  .loginCard { padding: 24px; }
+  .loginCard h2 { font-size: 24px; }
+  .loginNotice { margin-top: 12px; }
+  .loginForm { gap: 16px; margin-top: 18px; }
+  .loginForm > .primaryButton { margin-top: 0; }
+}
 @container photo-choice (max-height: 118px) {
   .photoChoice > .choiceCopy { padding: 10px; }
   .photoChoice strong { font-size: 12px; }
@@ -795,6 +858,13 @@
 @media (max-width: 359px) {
   .reviewDetails { grid-template-columns: minmax(0, 1fr); }
   .setupPhases { gap: 6px; }
+}
+@media (max-width: 400px) {
+  .loginMain { padding-inline: 16px; }
+  .loginIntro, .loginCard { padding: 20px; }
+  .loginPlanDetails { grid-template-columns: minmax(0, 1fr); }
+  .loginPlanDetails > div { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; }
+  .loginPlanDetails dd { text-align: right; }
 }
 @media (max-width: 360px) { .stepMain, .membershipMain { padding-inline: 16px; } .stepFooter { padding-inline: 16px; } .welcomeContent { padding-inline: 20px; } .dashboardMain { padding-inline: 12px; } .exerciseRow { gap: 8px; padding-inline: 5px; } .exerciseCopy strong { font-size: 11px; } .navItem { font-size: 8px; } .settingsMain { padding-inline: 12px; } .planOption { padding: 12px 10px; } .planOption strong { font-size: 12px; } }
 @media (max-height: 650px) { .genderCard { min-height: 200px; } .athletePortrait { height: 145px; } .frequency { min-height: 220px; } .measurement { min-height: 200px; } .schedule { margin-top: 20px; } .readyBadge { height: 150px; width: 150px; } }

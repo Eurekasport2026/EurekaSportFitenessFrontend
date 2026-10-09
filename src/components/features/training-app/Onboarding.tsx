@@ -110,7 +110,7 @@ export function Onboarding() {
       submitting.current = true;
       setBuilding(true);
       dispatch({ type: "complete" });
-      router.replace("/training/app/workout");
+      router.push("/training/app/login");
     } else if (reviewing) {
       move(steps.indexOf("ready"));
     } else move(index + 1);
@@ -209,7 +209,6 @@ export function Onboarding() {
         <button type="submit" className={styles.primaryButton} disabled={building} aria-describedby={error ? "fit-step-error" : undefined}>{building ? <><span className={styles.smallSpinner} />{t("onboarding.building")}</> : <>{continueLabel}<TrainingIcon name="arrow" /></>}</button>
         {step === "schedule" && <button type="button" className={cn(styles.textButton, styles.scheduleSkipButton)} aria-describedby={error ? "fit-step-error" : undefined} onClick={() => { if (!valid()) { showError(); return; } dispatch({ type: "preferences", patch: { reminders: false } }); move(index + 1); }}>{t("onboarding.skipReminders")}</button>}
       </div>
-      <p className={styles.autoSave}>{t("onboarding.autoSave")}</p>
     </footer>
   </form>;
 }

@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **Fit demo login continuation (2026-10-09)**:
+  - Any syntactically valid email and non-empty password now open the saved workout preview from the post-setup login form, as requested. Native required/email validation and plan-review navigation remain in place.
+  - Replaced unavailable-sign-in feedback with IT/EN demo instructions. Credentials are cleared before navigation and never saved or sent; no backend, token, or authenticated session is created.
+  - Recorded ADR-047 and updated flow memory. `npx tsc --noEmit` passes; browser interaction review remains pending.
+- **Create plan before login (2026-10-09)**:
+  - Replaced the shared marketing header's Login placeholder with a localized Create plan link opening the existing questionnaire directly, retaining saved answers and allowing the longer label to wrap safely in compact headers.
+  - Valid final review now opens `/training/app/login` after collecting all setup data. Added a matching Fit login form with the saved plan summary, email/password validation, password visibility, review return, and product legal controls. Updated IT/EN welcome, review, and help copy.
+  - Guarded the login form behind valid questionnaire completion and reused the reserved desktop viewport with accessible content scrolling on short screens. Credentials are never persisted or transmitted; the subsequently approved demo continuation opens Workout without creating an authenticated session.
+  - Recorded ADR-046 and updated route/flow memory. `npx tsc --noEmit` passes; browser/device review and authentication integration remain pending.
 - **Fit photo-choice redesign within the desktop viewport (2026-10-08)**:
   - Replaced narrow desktop image strips with full-height photo panels beside readable goal/equipment labels and descriptions. Removed the redundant outer frame and retained selection/focus feedback.
   - Sized the two-column gallery from the actual available onboarding content height using a size container; row count follows all available choices, including a preselected extra goal. Header, footer, and Next remain outside the gallery; existing short/zoomed-screen accessibility scrolling remains available.
@@ -169,6 +178,18 @@ All notable changes to this project will be documented in this file.
   - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
 
 ### Fixed
+- **Fit plan review and login redesign (2026-10-09)**:
+  - Rebuilt the screen as a centered, unified two-panel workspace with a Profile → Review → Login indicator and a clear return to the saved review.
+  - Grouped the complete athlete photo, compact completion heading, and three icon-led plan tiles together. Refined the form heading, input/focus styling, localized placeholders, concise demo guidance, and Open my workout action.
+  - Bound desktop panels to available viewport space, with a flexible photo row and compact-height variant. Mobile stacks naturally, and narrow plan tiles become readable rows. Very short/zoomed screens retain accessible overflow.
+  - Preserved Fit chrome/theme, saved answers, native validation, Show/Hide, legal dialogs, and the existing demo continuation without credential storage or network requests. `npx tsc --noEmit` passes; browser/device visual review remains pending.
+- **Fit login photo crop (2026-10-09)**:
+  - Display the complete saved-plan photo with centered `object-fit: contain` in a larger 3:2 frame, replacing the tiny 140px presentation. Mobile uses the summary width; desktop aligns the image with the text, adds separation from the description, and caps its height according to viewport space.
+  - Restored the previous login layout, heading sizes, Back placement, and summary rows after the client clarified that only the photo needed correction. Existing assets, theme, demo login, saved answers, and review navigation remain intact.
+  - `npx tsc --noEmit` passes; browser/device visual review remains pending.
+- **Fit setup copy cleanup (2026-10-09)**:
+  - Removed the repeated device-save note beneath onboarding and demo login actions, together with its unused translations/styles. Review now explains the next action; schedule guidance focuses on calendar reminders in IT/EN.
+  - Retained background answer persistence, storage-failure feedback, validation, and navigation. Updated UI memory; `npx tsc --noEmit` passes. Browser visual review remains pending.
 - **Fit schedule action spacing and focus (2026-10-08)**:
   - Grouped Save schedule and Continue without reminders into an aligned, wrapping desktop row and full-width mobile stack. The reminder option now uses a rounded outline matching Fit's pill controls, including its visible keyboard-focus ring.
   - Added consistent spacing around validation and the saved-device note; associated inline errors with both actions and the forward control. Preserved weekday/time guards, translations, and saved state.

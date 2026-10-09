@@ -3,6 +3,7 @@
   "Contatti": "Contatti",
   "Prezzi": "Prezzi",
   "Accedi": "Accedi",
+  "Crea programma": "Crea programma",
   "Vai al contenuto": "Vai al contenuto",
   "Cerca nel sito": "Cerca nel sito",
   "Apri menu": "Apri menu",
@@ -371,7 +372,7 @@
       "info": {
         "help": {
           "title": "Aiuto Eureka Fit",
-          "description": "Completa il profilo di allenamento per esplorare un programma. Usa Allenamento per scegliere un giorno, Esercizi e Libreria per consultare i movimenti e Impostazioni per aggiornare profilo, unità o calendario. Gli abbonamenti sono un'anteprima; pagamenti e registrazione degli allenamenti non sono ancora disponibili."
+          "description": "Usa Crea programma per rispondere alle domande e rivedere le preferenze. Inserisci un indirizzo email e una password qualsiasi nel modulo demo per aprire l'anteprima. Usa Allenamento per scegliere un giorno, Esercizi e Libreria per consultare i movimenti e Impostazioni per aggiornare profilo, unità o calendario. Acquisto e registrazione degli allenamenti non sono ancora disponibili."
         },
         "privacy": {
           "title": "Informativa privacy Eureka Fit",
@@ -443,7 +444,7 @@
       "eyebrow": "IL TUO PROSSIMO CAPITOLO",
       "title": "Il tuo allenamento.",
       "titleAccent": "Il tuo punto di partenza.",
-      "description": "Qualche domanda su obiettivi e abitudini. Poi un'anteprima chiara del tuo allenamento da esplorare.",
+      "description": "Rispondi a qualche domanda su obiettivi e abitudini. Rivedi il programma, poi continua per accedere.",
       "time": "Bastano pochi minuti",
       "personal": "In palestra o a casa",
       "selectedGoal": "Obiettivo selezionato",
@@ -455,9 +456,9 @@
       "journey": {
         "setup": "Raccontaci di te",
         "review": "Rivedi il programma",
-        "preview": "Esplora l'allenamento"
+        "login": "Accedi dopo la configurazione"
       },
-      "reassurance": "Scopri l'anteprima prima di esplorare gli abbonamenti."
+      "reassurance": "Completa prima il programma. Il modulo di accesso arriva dopo le tue risposte."
     },
     "onboarding": {
       "progress": "Avanzamento del profilo di allenamento",
@@ -471,11 +472,10 @@
       "daysPerWeek": "giorni a settimana",
       "selectedDays": "{selected} di {count} giorni selezionati",
       "frequencyValue": "{count} giorni a settimana",
-      "building": "Preparazione dell'anteprima…",
-      "getStarted": "Visualizza l'anteprima",
+      "building": "Apertura dell'accesso…",
+      "getStarted": "Continua per accedere",
       "saveSchedule": "Salva il calendario",
       "skipReminders": "Continua senza promemoria",
-      "autoSave": "Le risposte vengono salvate su questo dispositivo.",
       "gender": {
         "title": "Cominciamo da te.",
         "description": "Scegli un profilo per iniziare. Potrai modificarlo in seguito."
@@ -525,13 +525,13 @@
         "days": "Giorni di allenamento",
         "time": "Imposta l'orario",
         "reminders": "Salva preferenza promemoria",
-        "notice": "Il calendario viene salvato su questo dispositivo. Esportalo dalle Impostazioni nel tuo calendario per ricevere promemoria."
+        "notice": "Esporta gli allenamenti nel tuo calendario per ricevere promemoria."
       },
       "ready": {
         "title": "Il programma parte da qui.",
-        "description": "Rivedi le tue scelte. Tocca l'icona di modifica per correggere una risposta prima di esplorare l'allenamento.",
-        "badge": "Pronto da esplorare",
-        "previewNotice": "Il prossimo passo è un'anteprima illustrativa. Puoi esplorare gli abbonamenti quando vuoi."
+        "description": "Rivedi le tue scelte. Tocca l'icona di modifica per correggere una risposta prima di accedere.",
+        "badge": "Le tue preferenze sono pronte",
+        "previewNotice": "Il prossimo passo è accedere per esplorare il tuo programma di allenamento."
       },
       "returnToReview": "Salva e rivedi il programma",
       "editAnswer": "Modifica: {field}",
@@ -555,6 +555,28 @@
         "age": "Età"
       },
       "reviewBack": "Torna al riepilogo"
+    },
+    "login": {
+      "eyebrow": "CONFIGURAZIONE COMPLETATA",
+      "title": "Il tuo programma è pronto.",
+      "description": "Un programma di allenamento costruito su di te.",
+      "backToReview": "Torna alla revisione del programma",
+      "journeyLabel": "Avanzamento della creazione del programma",
+      "journeyProfile": "Profilo",
+      "journeyReview": "Riepilogo",
+      "journeyLogin": "Accedi",
+      "accessLabel": "UN ULTIMO PASSO",
+      "formTitle": "Accedi a Eureka Fit",
+      "email": "Indirizzo email",
+      "emailPlaceholder": "tu@esempio.it",
+      "password": "Password",
+      "passwordPlaceholder": "Inserisci una password",
+      "show": "Mostra",
+      "hide": "Nascondi",
+      "showPassword": "Mostra password",
+      "hidePassword": "Nascondi password",
+      "submit": "Apri il mio allenamento",
+      "notice": "Anteprima demo: inserisci qualsiasi email e password."
     },
     "gender": {
       "male": "Uomo",
