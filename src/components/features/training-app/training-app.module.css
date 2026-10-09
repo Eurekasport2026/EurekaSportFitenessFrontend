@@ -859,12 +859,29 @@
   .reviewDetails { grid-template-columns: minmax(0, 1fr); }
   .setupPhases { gap: 6px; }
 }
+@media (width < 900px) {
+  .loginPage { display: grid; grid-template-rows: auto minmax(min-content, 1fr); }
+  .loginJourney, .loginIntro { display: none; }
+  .loginMain { grid-template-rows: auto minmax(min-content, 1fr); align-content: stretch; max-width: 480px; gap: 12px; padding: 12px 20px calc(24px + var(--safe-area-bottom)); }
+  .loginBack { max-width: 100%; padding-block: 8px; font-size: 13px; }
+  .loginWorkspace { align-self: safe center; border-radius: 20px; box-shadow: 0 12px 36px #00000018; }
+  .loginCard { padding: 24px; border-top: 0; border-radius: 19px; }
+  .loginFormIntro { align-items: flex-start; }
+  .loginFormIntro > div { flex: 1; }
+  .loginAccessIcon { flex-basis: 40px; width: 40px; height: 40px; border-radius: 12px; }
+  .loginFormEyebrow { margin-bottom: 6px; font-size: 10px; letter-spacing: 1px; }
+  .loginCard h2 { font-size: clamp(22px, 6vw, 24px); line-height: 1.25; text-wrap: balance; }
+  .loginNotice { margin-top: 12px; font-size: 13px; }
+  .loginForm { gap: 20px; margin-top: 20px; }
+  .loginField { font-size: 13px; }
+  .loginPassword input { padding-right: 92px; }
+  .loginPassword button { right: 4px; width: 72px; min-width: 72px; padding-inline: 4px; }
+  .loginLegal { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; padding-top: 8px; border-top: 1px solid var(--fit-line); }
+  .loginLegal .productFooterControl { width: 100%; min-width: 0; padding-inline: 4px; line-height: 1.5; text-align: center; }
+}
 @media (max-width: 400px) {
   .loginMain { padding-inline: 16px; }
-  .loginIntro, .loginCard { padding: 20px; }
-  .loginPlanDetails { grid-template-columns: minmax(0, 1fr); }
-  .loginPlanDetails > div { grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); align-items: center; }
-  .loginPlanDetails dd { text-align: right; }
+  .loginCard { padding: 20px; }
 }
 @media (max-width: 360px) { .stepMain, .membershipMain { padding-inline: 16px; } .stepFooter { padding-inline: 16px; } .welcomeContent { padding-inline: 20px; } .dashboardMain { padding-inline: 12px; } .exerciseRow { gap: 8px; padding-inline: 5px; } .exerciseCopy strong { font-size: 11px; } .navItem { font-size: 8px; } .settingsMain { padding-inline: 12px; } .planOption { padding: 12px 10px; } .planOption strong { font-size: 12px; } }
 @media (max-height: 650px) { .genderCard { min-height: 200px; } .athletePortrait { height: 145px; } .frequency { min-height: 220px; } .measurement { min-height: 200px; } .schedule { margin-top: 20px; } .readyBadge { height: 150px; width: 150px; } }

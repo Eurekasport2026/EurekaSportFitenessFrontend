@@ -178,6 +178,16 @@ All notable changes to this project will be documented in this file.
   - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
 
 ### Fixed
+- **Mobile login vertical centering (2026-10-10)**:
+  - Correct the top-positioned form shown in the client's screenshot: mobile page/main grids reserve the header and Back row, then center the login card in the remaining space.
+  - Retain intrinsic minimum row heights so short screens and keyboard use can scroll naturally without clipping controls. Desktop and demo behavior remain unchanged. `npx tsc --noEmit` passes; mobile browser visual review remains pending.
+- **Consistent mobile Fit login layout (2026-10-10)**:
+  - Constrain the form to a centered 480px column, with coordinated card corners, gutters, heading size, and field/action spacing. Keep the progress and plan/photo summary hidden on mobile.
+  - Stabilize the Show/Hide button width across IT/EN and align legal controls in equal columns. Preserve 16px native inputs, 52px fields, 44px control targets, safe-area padding, desktop layout, and demo behavior.
+  - Remove obsolete narrow-screen summary styles. `npx tsc --noEmit` passes; mobile browser visual review remains pending.
+- **Mobile Fit login focus (2026-10-09)**:
+  - Hide the progress indicator and entire plan/photo summary below 900px, as requested. Retain Back to plan review and the login form with rounded corners on all sides.
+  - Preserve the desktop composition, saved profile, validation, and demo continuation. `npx tsc --noEmit` passes; mobile browser review remains pending.
 - **Fit plan review and login redesign (2026-10-09)**:
   - Rebuilt the screen as a centered, unified two-panel workspace with a Profile → Review → Login indicator and a clear return to the saved review.
   - Grouped the complete athlete photo, compact completion heading, and three icon-led plan tiles together. Refined the form heading, input/focus styling, localized placeholders, concise demo guidance, and Open my workout action.
