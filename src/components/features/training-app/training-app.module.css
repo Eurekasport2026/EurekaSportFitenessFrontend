@@ -22,8 +22,16 @@
 .productActions .language { padding: 2px; border: 1px solid var(--fit-line); border-radius: 9px; }
 .productActions .language button { min-width: 40px; border-radius: 6px; }
 .productActions .language button[aria-pressed="true"] { background: #00c48c14; }
-.productProfile { display: grid; place-items: center; width: 44px; height: 44px; overflow: hidden; border: 1px solid var(--fit-line); border-radius: 50%; background: var(--fit-raised); color: #f8fafc; }
+.productProfile { display: grid; place-items: center; width: 44px; height: 44px; padding: 0; overflow: hidden; border: 1px solid var(--fit-line); border-radius: 50%; background: var(--fit-raised); color: #f8fafc; }
 .productProfile img { width: 100%; height: 100%; object-fit: cover; }
+.productProfile[aria-expanded="true"] { border-color: var(--eureka-mint); }
+.accountControl { position: relative; flex-shrink: 0; }
+.accountMenu { position: absolute; top: calc(100% + 12px); right: 0; z-index: 40; width: 240px; max-width: calc(100vw - 32px); max-height: calc(100dvh - 112px); padding: 8px; overflow-y: auto; border: 1px solid var(--fit-line); border-radius: 14px; background: var(--fit-surface); box-shadow: 0 16px 40px #0006; }
+.accountMenu .accountMenuItem { display: flex; align-items: center; justify-content: flex-start; gap: 12px; width: 100%; min-width: 0; min-height: 48px; margin: 0; padding: 12px; border: 0; border-radius: 9px; color: #f8fafc; font-size: 14px; font-weight: 700; line-height: 1.5; text-align: left; text-decoration: none; }
+.accountMenuItem > svg { flex-shrink: 0; width: 20px; height: 20px; }
+.accountMenuItem > span { min-width: 0; overflow-wrap: anywhere; }
+.accountMenuItem:not(.dangerButton):hover { background: var(--fit-raised); }
+.accountMenu .dangerButton { margin-top: 4px; }
 .productFooterIdentity { display: flex; align-items: center; gap: 16px; }
 .productFooterIdentity > span { color: var(--fit-muted); font-size: 11px; }
 .productFooter .productBrand { font-size: 16px; }
@@ -210,6 +218,10 @@
 .loginPassword button:hover { color: var(--eureka-mint); }
 .loginForm > .primaryButton { margin-top: 4px; }
 .loginLegal { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 20px; margin-top: 12px; }
+.loginFooter { display: contents; }
+.signupHint { color: var(--fit-muted); font-size: 12px; font-weight: 400; line-height: 1.5; }
+.signupStatus { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.signupContinue { margin-top: 24px; }
 .measurement { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px; padding-top: 30px; }
 .measurement > label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
 .measurementControl { display: flex; align-items: baseline; justify-content: center; gap: 8px; min-width: 0; max-width: 100%; }
@@ -421,7 +433,15 @@
 .buttonRow { display: flex; align-items: center; gap: 12px; margin-top: 18px; }
 .buttonRow > * { flex: 1; min-width: 0; }
 .dangerButton { background: #7f1d1d; color: white; }
+.dangerButton:hover:not(:disabled) { background: #991b1b; }
 .profileMain { flex: 1; padding: 22px 20px 32px; }
+.profileMain > form { width: 100%; max-width: 1120px; }
+.profileDetails { display: grid; align-content: start; gap: 20px; min-width: 0; }
+.profileDetails .nameField { display: flex; flex-direction: column; gap: 12px; min-width: 0; margin: 0; padding: 20px; border: 1px solid var(--fit-line); border-radius: 12px; background: var(--fit-surface); text-align: left; }
+.profileDetails .nameField > span { margin: 0; font-size: 12px; line-height: 1.5; text-transform: none; letter-spacing: .5px; }
+.profileDetails .nameField input { min-width: 0; min-height: 48px; padding: 10px 12px; background: var(--fit-raised); font-size: 16px; text-align: left; }
+.profileDetails .deviceNote, .profileDetails .error { margin: 0; text-align: left; }
+.profileDetails .buttonRow { align-items: stretch; margin: 0; }
 .avatarSection { display: flex; flex-direction: column; align-items: center; padding: 5px 0 22px; }
 .avatarButton { position: relative; display: flex; align-items: center; justify-content: center; width: 106px; height: 106px; border: 1px solid #91a5bb; border-radius: 50%; background: var(--fit-raised); cursor: pointer; }
 .avatarButton > svg { width: 36px; height: 36px; color: #cbd5e1; }
@@ -439,6 +459,7 @@
 .profileField .measurementControl { flex: 0 1 160px; gap: 6px; }
 .profileField input { width: 100%; max-width: 115px; min-height: 44px; padding: 8px; border-radius: 8px; background: var(--fit-raised); color: white; font-size: 14px; font-weight: 400; text-align: right; }
 .profileField .measurementControl > span { font-size: 11px; }
+.profileField .measurementControl > span:empty { display: none; }
 @keyframes enter { from { opacity: .5; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 .trainingSidebar, .sidebarContent { display: contents; }
 .sidebarProfile, .sidebarCaption, .sidebarMembership, .desktopBackLabel, .planSummary, .exerciseDose, .exerciseArrow, .exerciseTableHead, .planCardFeatures, .settingsGroupTitle { display: none; }
@@ -514,6 +535,19 @@
   .loginIntro { grid-template-rows: auto minmax(150px, 1fr) auto; min-height: 0; padding: 28px; border-radius: 23px 0 0 23px; }
   .loginPlanPhoto { justify-self: center; width: auto; max-width: 100%; height: 100%; }
   .loginCard { padding: clamp(24px, 3vw, 36px); border-top: 0; border-left: 1px solid var(--fit-line); border-radius: 0 23px 23px 0; }
+  .signupPage .loginWorkspace { height: min(100%, 560px); min-height: 440px; }
+  .signupPage .loginIntro { grid-template-rows: auto minmax(100px, 1fr) auto; align-content: stretch; }
+  .signupPage .loginCard { min-height: 0; padding: 24px; }
+  .signupPage .loginCard h2 { font-size: clamp(20px, 1.7vw, 24px); }
+  .signupPage .loginNotice { margin-top: 12px; }
+  .signupPage .loginForm { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 16px; }
+  .signupPage .loginForm > :not(label) { grid-column: 1 / -1; }
+  .signupPage .loginForm > .error { margin: 0; }
+  .signupPage .loginField input { min-height: 48px; padding-block: 10px; }
+  .signupPage .loginPassword button { top: 2px; bottom: 2px; }
+  .signupPage .loginFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 12px; margin-top: 8px; }
+  .signupPage .loginFooter .textLink { margin: 0; padding-inline: 0; }
+  .signupPage .loginLegal { gap: 8px 12px; margin-top: 0; }
   .appHeader { justify-content: flex-end; min-height: 72px; padding-inline: var(--web-gutter); }
   .appHeader.introHeader, .appHeader .miniBrand, .appHeader .language, .stepHeader .language, .membershipHeader .language { display: none; }
   .headerTitle { display: none; }
@@ -701,21 +735,21 @@
   .settingsSchedule .weekdayGrid button { font-size: 12px; }
   .profileTitle { position: static; width: auto; height: auto; margin: 0 0 28px; overflow: visible; clip-path: none; white-space: normal; font-size: 32px; font-weight: 800; }
   .profileMain > form { display: grid; grid-template-columns: 180px minmax(0, 1fr); align-items: start; gap: 24px; }
-  .profileMain .avatarSection { grid-column: 1; grid-row: 1 / span 4; padding: 24px 16px; border: 1px solid var(--fit-line); border-radius: 16px; background: var(--fit-surface); }
+  .profileMain .avatarSection { grid-column: 1; padding: 24px 16px; border: 1px solid var(--fit-line); border-radius: 16px; background: var(--fit-surface); }
   .profileMain .avatarButton { width: 120px; height: 120px; }
-  .profileMain .nameField, .profileMain .profileFields, .profileMain .deviceNote, .profileMain .buttonRow, .profileMain .error { grid-column: 2; margin: 0; }
+  .profileMain .profileDetails { grid-column: 2; }
   .profileMain .nameField { min-width: 0; text-align: left; }
   .nameField > span { font-size: 12px; text-transform: none; }
   .profileMain .nameField input { text-align: left; padding-inline: 16px; }
   .profileMain .profileFields { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .profileField { min-width: 0; flex-direction: column; align-items: stretch; gap: 12px; padding: 20px; border: 1px solid var(--fit-line); }
-  .profileField > label, .profileField > span { font-size: 12px; text-transform: none; }
-  .profileField select { width: 100%; font-size: 14px; }
+  .profileField > label, .profileField > span { font-size: 12px; line-height: 1.5; text-transform: none; }
+  .profileField select { width: 100%; min-height: 48px; font-size: 14px; }
   .profileField .measurementControl { flex: 0 1 auto; justify-content: flex-start; }
-  .profileField input { max-width: none; min-width: 0; text-align: left; }
+  .profileField input { max-width: none; min-width: 0; min-height: 48px; text-align: left; }
   .profileMain .deviceNote { text-align: left; }
-  .profileMain .buttonRow { justify-self: start; }
-  .profileMain .buttonRow > * { min-width: 140px; width: auto; }
+  .profileMain .buttonRow { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; justify-self: start; width: min(100%, 420px); }
+  .profileMain .buttonRow > * { min-width: 0; width: 100%; min-height: 52px; }
 }
 @media (min-width: 1200px) {
   .dashboard { grid-template-columns: 240px minmax(0, 1fr); }
@@ -845,6 +879,11 @@
   .loginNotice { margin-top: 12px; }
   .loginForm { gap: 16px; margin-top: 18px; }
   .loginForm > .primaryButton { margin-top: 0; }
+  .signupPage .loginWorkspace { min-height: 420px; }
+  .signupPage .loginIntro { gap: 12px; grid-template-rows: auto minmax(96px, 1fr) auto; }
+  .signupPage .loginCard { padding: 20px; }
+  .signupPage .loginCard h2 { font-size: 20px; }
+  .signupPage .loginForm { gap: 10px; margin-top: 12px; }
 }
 @container photo-choice (max-height: 118px) {
   .photoChoice > .choiceCopy { padding: 10px; }

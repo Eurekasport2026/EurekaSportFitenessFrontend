@@ -38,7 +38,6 @@ export function Onboarding() {
   const search = useSearchParams();
   const heading = useRef<HTMLHeadingElement>(null);
   const content = useRef<HTMLElement>(null);
-  const [error, setError] = useState("");
   const [building, setBuilding] = useState(false);
   const submitting = useRef(false);
   const reviewing = search.get("review") === "1";
@@ -54,7 +53,6 @@ export function Onboarding() {
     else if (requestedStep !== state.step) dispatch({ type: "step", step: requestedStep });
   }, [requestedStep, state.step, hydrated, dispatch, router]);
   useEffect(() => {
-    setError("");
     toast.dismiss(validationToastId);
     heading.current?.focus({ preventScroll: true });
     content.current?.scrollTo({ top: 0, behavior: "instant" });
@@ -81,11 +79,9 @@ export function Onboarding() {
     return t(key, { count: profile.frequency });
   }
   function showError(message = validationMessage()) {
-    setError(message);
     toast.error(message, { id: validationToastId });
   }
   function clearError() {
-    setError("");
     toast.dismiss(validationToastId);
   }
   function toggleDay(day: number) {
@@ -110,7 +106,7 @@ export function Onboarding() {
       submitting.current = true;
       setBuilding(true);
       dispatch({ type: "complete" });
-      router.push("/training/app/login");
+      router.push("/training/app/signup");
     } else if (reviewing) {
       move(steps.indexOf("ready"));
     } else move(index + 1);
@@ -132,12 +128,19 @@ export function Onboarding() {
     { key: "age", value: String(profile.age), step: "age" },
   ];
 
-  return <form className={styles.onboarding} onSubmit={submit}>
+  return <form className={styles.onboarding} onSubmit={submit} onInvalidCapture={event => {
+    event.preventDefault();
+    const input = event.target;
+    if (input instanceof HTMLInputElement && input === event.currentTarget.querySelector("input:invalid")) {
+      input.focus();
+      showError(t(step === "schedule" ? "onboarding.timeError" : "notifications.profileInvalid"));
+    }
+  }}>
     <header className={styles.stepHeader}>
       <button type="button" className={styles.iconButton} disabled={building} aria-label={t(reviewing ? "onboarding.reviewBack" : "back")} onClick={() => reviewing ? move(steps.indexOf("ready")) : index === 0 ? router.push("/training/app") : move(index - 1)}><TrainingIcon name="back" /></button>
       <div className={styles.stepProgress} role="progressbar" aria-label={t("onboarding.progress")} aria-valuemin={0} aria-valuemax={steps.length} aria-valuenow={index + 1}><span style={{ width: `${(index + 1) / steps.length * 100}%` }} /></div>
       <TrainingLanguage />
-      <button type="submit" className={cn(styles.iconButton, styles.stepForward)} disabled={building} aria-label={building ? t("onboarding.building") : continueLabel} aria-describedby={error ? "fit-step-error" : undefined}><TrainingIcon name="chevron" /></button>
+      <button type="submit" className={cn(styles.iconButton, styles.stepForward)} disabled={building} aria-label={building ? t("onboarding.building") : continueLabel}><TrainingIcon name="chevron" /></button>
     </header>
     <main ref={content} id="training-main" className={cn(styles.stepMain, photoChoices && styles.photoStepMain)}>
       <div className={styles.stepIntro}>
@@ -191,7 +194,7 @@ export function Onboarding() {
           {[1, 2, 3, 4, 5, 6, 0].map(day => <button type="button" key={day} aria-pressed={profile.weekdays.includes(day)} aria-label={t(`weekdays.full${day}`)} onClick={() => toggleDay(day)}>{t(`weekdays.short${day}`)}</button>)}
         </div>
         <p className={cn(styles.scheduleCount, profile.weekdays.length !== profile.frequency && styles.invalid)}>{t("onboarding.selectedDays", { selected: profile.weekdays.length, count: profile.frequency })}</p>
-        <label className={styles.timeField} htmlFor="training-time"><span><TrainingIcon name="clock" />{t("onboarding.schedule.time")}</span><input id="training-time" type="time" required value={profile.time} onInvalid={() => showError(t("onboarding.timeError"))} onChange={event => { clearError(); dispatch({ type: "profile", patch: { time: event.target.value } }); }} /></label>
+        <label className={styles.timeField} htmlFor="training-time"><span><TrainingIcon name="clock" />{t("onboarding.schedule.time")}</span><input id="training-time" type="time" required value={profile.time} onChange={event => { clearError(); dispatch({ type: "profile", patch: { time: event.target.value } }); }} /></label>
         <label className={styles.toggleRow}><span>{t("onboarding.schedule.reminders")}</span><input type="checkbox" checked={state.reminders} onChange={event => dispatch({ type: "preferences", patch: { reminders: event.target.checked } })} /><span className={styles.toggle} aria-hidden="true" /></label>
         <p className={styles.supportingText}>{t("onboarding.schedule.notice")}</p>
       </div>}
@@ -204,10 +207,9 @@ export function Onboarding() {
       </div>
     </main>
     <footer className={styles.stepFooter}>
-      {error && <p id="fit-step-error" role="alert" className={styles.error}>{error}</p>}
       <div className={styles.stepActions}>
-        <button type="submit" className={styles.primaryButton} disabled={building} aria-describedby={error ? "fit-step-error" : undefined}>{building ? <><span className={styles.smallSpinner} />{t("onboarding.building")}</> : <>{continueLabel}<TrainingIcon name="arrow" /></>}</button>
-        {step === "schedule" && <button type="button" className={cn(styles.textButton, styles.scheduleSkipButton)} aria-describedby={error ? "fit-step-error" : undefined} onClick={() => { if (!valid()) { showError(); return; } dispatch({ type: "preferences", patch: { reminders: false } }); move(index + 1); }}>{t("onboarding.skipReminders")}</button>}
+        <button type="submit" className={styles.primaryButton} disabled={building}>{building ? <><span className={styles.smallSpinner} />{t("onboarding.building")}</> : <>{continueLabel}<TrainingIcon name="arrow" /></>}</button>
+        {step === "schedule" && <button type="button" className={cn(styles.textButton, styles.scheduleSkipButton)} onClick={() => { if (!valid()) { showError(); return; } dispatch({ type: "preferences", patch: { reminders: false } }); move(index + 1); }}>{t("onboarding.skipReminders")}</button>}
       </div>
     </footer>
   </form>;

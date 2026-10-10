@@ -5,6 +5,63 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- **API account name authority (2026-10-11)**:
+  - Corrected Profile and sidebar to display the current API session name rather than an older saved local nickname. Removed the independent name draft/local fallback so session verification updates are reflected directly.
+  - Made the existing Account name field read-only; profile saves now include only editable training details/photo, without copying account identity into browser storage. Updated IT/EN labels/local-data copy while preserving layout and training data.
+  - Added the API identity rule to AGENTS.md and updated root/topic memory, index, and ADR-058, superseding ADR-053's local-name priority. `npx tsc --noEmit` passes; browser/account interaction review remains pending.
+- **Protected training redirect toasts (2026-10-11)**:
+  - Added localized info feedback before RequireTraining redirects signed-out users to login or incomplete profiles to onboarding. Shared protected pages retain existing access blocking and loading/retry behavior, with one redirect per blocked access attempt and a stable notification ID.
+  - Mark explicit Logout clearing in ephemeral provider state to keep its success toast without an extra login warning. Preserved route destinations, auth/setup checks, API/storage behavior, and toast-only presentation.
+  - Updated root/topic memory, routing, index, and ADR-057. `npx tsc --noEmit` passes; browser redirect/visibility review remains pending.
+- **Toast-only feedback correction (2026-10-11)**:
+  - Removed duplicate inline login/signup errors, onboarding validation, profile photo errors, Settings logout errors, and schedule validation/Saved messages. Preserved one localized toast per action, shared logout ownership, blocking validation, field focus, and request guards.
+  - Suppressed browser validation popups where toast feedback handles invalid inputs and removed unused feedback state and obsolete error-description references. Schedule success/error/download feedback shares one ID; recovery/retry screens and confirmation flows remain available.
+  - Added the client's mandatory toast-only rule to AGENTS.md and updated root/topic memory, index, and ADR-056, superseding ADR-055's duplicate inline guidance. `npx tsc --noEmit` passes; corrected browser interaction review remains pending.
+- **Fit action toast feedback (2026-10-11)**:
+  - Added localized success/error toasts for signup, login, and logout, including native form validation. Centralized logout feedback in AuthProvider for header and Settings and kept existing inline errors and request guards.
+  - Added feedback for local profile/preferences/schedule updates, profile validation/photo errors, confirmed reset, and calendar download initiation. Stable notification IDs prevent repeated stacks; background session checks remain quiet.
+  - Reused the existing locale-root Sonner toaster without layout changes. Updated root/topic memory, index, and ADR-055, including the correct toaster layout path. `npx tsc --noEmit` passes; browser toast visibility/interaction review remains pending.
+- **Header account menu (2026-10-11)**:
+  - Changed the desktop account/avatar icon into a dropdown with My profile and a red Log out action for authenticated users. Reused the existing profile route and logout/session-clearing flow, with pending duplicate-submit prevention and localized failure feedback.
+  - Added IT/EN labels and a matching logout icon, initial keyboard focus, Escape/trigger focus restoration, outside pointer/focus dismissal, and route-change closure. Preserved avatar sizing, help/language controls, header visibility, and mobile Settings logout.
+  - Updated root/topic memory, routing, index, and ADR-054. `npx tsc --noEmit` passes; browser visual/keyboard/logout review remains pending.
+- **Profile name, alignment, and red logout (2026-10-11)**:
+  - Show the authenticated account name in Profile and the desktop sidebar when no local display name is saved. Keep explicit nickname edits local and avoid copying the account-name fallback into training storage when saving other fields.
+  - Group profile details beside the avatar, constrain the form width, align name/measurement cards and desktop controls, and give Save/Cancel equal widths and minimum heights. Retain narrow-screen action stacking and hide empty measurement-unit gaps.
+  - Change Settings Sign out to the existing red danger button with hover/disabled/focus behavior. Updated root/topic memory, index, and ADR-053. `npx tsc --noEmit` passes; browser visual/interaction review remains pending.
+- **Current-user response confirmed (2026-10-11)**:
+  - Recorded the client's Bearer-authenticated `GET /api/v1/auth/me` screenshot confirming `200 OK` with the user directly in `data`. Reviewed the existing parser and session route; they already support this envelope and check the user ID against the JWT subject, so no runtime/UI change is needed.
+  - Updated API handoff/contracts, root/topic memory, index, and ADR-051/052 evidence. Stored schema details only, without personal values or credentials. The wrapped-user alternative and frontend restoration/renewal/cookie/browser behavior remain unverified. Documentation-only follow-up; no backend request or new execution check was performed.
+- **Logout response confirmed (2026-10-11)**:
+  - Recorded the client's Postman `200 OK` screenshot for `POST /api/v1/auth/logout` with `{ success: true, data: null }`. Reviewed the existing route, server helper, client service, and provider; they already support this response and clear both frontend auth cookies for local sign-out, so no runtime/UI change is needed.
+  - Updated root memory, API handoff/contracts, index, and ADR-051. The screenshot confirms the response shape, not frontend behavior or backend revocation. Documentation-only follow-up; no mutating backend request or new execution check was performed.
+- **Refresh response confirmed (2026-10-11)**:
+  - Recorded the client's additional Postman `200 OK` screenshot confirming the existing token-only bearer response with a 1800-second lifetime and one reported response cookie. Reviewed the current parser; no runtime or UI change is needed.
+  - Updated API handoff/contracts, index, and ADR-052 with schema evidence only. Cookie attributes and frontend renewal remain unverified; no real token was saved. Documentation-only follow-up; no new execution check was needed.
+- **Cookie-based JWT refresh support (2026-10-11)**:
+  - Added same-origin `POST /api/auth/refresh` for the client-confirmed empty-body endpoint and token-only success envelope. Refresh uses backend-issued HTTP-only cookies, validates the renewed token, verifies its user through `/auth/me`, and returns only session metadata. Missing credentials fail locally; tokens are never exposed to client JSON or stored in project files.
+  - Signup/login now capture HTTP-only backend cookies from `Set-Cookie`, including names, backend domain/path, lifetime, rotation, and deletion, in a frontend HTTP-only cookie scoped to auth routes. New sign-in discards old account credentials; logout clears both access and backend credential cookies. Authentication POSTs remain same-origin, uncached, bounded, and mock-free.
+  - Renew sessions about one minute before access-token expiry, restore through refresh after expiry when a cookie is available, and prevent overlapping provider requests. Web Locks serialize auth cookie mutations across supported browser tabs and recheck existing sessions before renewing. Client deadlines now allow 35 seconds for lock waits and requests; server refresh has a shared 15-second deadline. Updated IT/EN cookie copy without layout changes.
+  - Updated API handoff/contracts, architecture/flow memory, index, and ADR-052. Live OpenAPI verified read-only; refresh-cookie authentication is conditional on actual backend headers because the client described it as most likely. Existing sessions need a fresh login to capture the backend cookie. `npx tsc --noEmit` passes; live refresh/cookie rotation/browser checks remain unverified.
+- **Login JWT response confirmed (2026-10-11)**:
+  - Recorded the client's successful login screenshot confirming the existing signup-compatible `success/data/user/access_token/token_type/expires_in` contract with bearer type and a 1800-second lifetime. Reviewed the current login handler and session parser; no runtime or UI change is needed.
+  - Updated API handoff, contract, route, architecture, flow, index, and ADR-051 memory. Saved only schema details; no real credentials, personal example, or token values. Documentation-only follow-up; browser/session verification and `/auth/me` response review remain pending, and no new execution check was needed.
+- **Fit JWT sessions (2026-10-11)**:
+  - Used the client's signup success envelope to create HTTP-only, SameSite=Lax JWT cookies, Secure in production and bounded by token expiry. Signup/login now require valid token responses; browser JSON contains only allowlisted user/expiry metadata, with no token storage or logging.
+  - Added server-only Bearer forwarding, backend `/auth/me` session verification, provider reload/navigation/focus checks, expiry handling, protected preview UX guards, localized verification retry, and Settings logout through `/auth/logout` with reliable local cookie clearing. Signup confirmation now continues directly to Workout. Preserved the existing layout and local training answers.
+  - Updated IT/EN help/privacy/cookie copy, contract/flow memory, and ADR-051. Live OpenAPI confirms protected me/logout routes; login's matching JWT envelope and me's response shape are runtime-checked assumptions. No refresh flow is inferred. `npx tsc --noEmit` passes; live credential/browser checks remain unverified.
+- **Railway login integration (2026-10-11)**:
+  - Connected the existing login form to `POST /api/v1/auth/login` through `authService.login` and same-origin `/api/auth/login`, using the existing auth backend configuration. Forward only email/password and enforce the documented email/1–72-character password constraints.
+  - Replaced any-credentials demo continuation with backend `200` acceptance, localized field/credential/network errors, bounded requests, duplicate-submit prevention, and credential clearing. Signup confirmation now opens login; updated IT/EN help/privacy and account links without changing layout.
+  - Updated contract/flow memory and ADR-050. Live OpenAPI verified read-only; `npx tsc --noEmit` passes. Live credential/browser checks remain unverified. Session persistence awaits the successful payload/cookie contract requested from the client; the generic schema defines neither.
+- **Railway signup integration (2026-10-11)**:
+  - Connected the post-review `/training/app/signup` form to `POST /api/v1/auth/signup` through `authService.signup` and same-origin `/api/auth/signup`. Added server-only `EUREKA_AUTH_API_URL` with a Railway default, independent of Academy mock switches, and excluded API paths from locale redirects.
+  - Reused the Fit form design with name/email/password validation, IT/EN locale, duplicate-submit prevention, bounded requests, localized field/API errors, and account-created confirmation only after upstream `201`. Credentials are cleared on success; generic success data does not create a frontend token/cookie/session. Optional demo login and local Workout preview remain available.
+  - Updated welcome/review/help/privacy copy, contract and route memory, and ADR-049. Verified the live OpenAPI schema read-only; `npx tsc --noEmit` passes. Browser review and live account creation remain unverified.
+- **API information handoff guide (2026-10-11)**:
+  - Added `brain/api_handoff.md` with a copyable client template, accepted Swagger/OpenAPI/screenshot inputs, and contract verification and implementation steps. Linked the guide from `AGENTS.md`, `BRAIN.md`, and the memory index.
+  - Recorded the client's Railway signup screenshot and explicitly unconfirmed request constraints, responses, and authentication details. Distinguished older proposed API paths/envelopes from backend evidence and documented ADR-048.
+  - Documentation only; no frontend integration or runtime changes. Reviewed the documentation diff; live Swagger/OpenAPI retrieval was unavailable and contract verification remains pending.
 - **Fit demo login continuation (2026-10-09)**:
   - Any syntactically valid email and non-empty password now open the saved workout preview from the post-setup login form, as requested. Native required/email validation and plan-review navigation remain in place.
   - Replaced unavailable-sign-in feedback with IT/EN demo instructions. Credentials are cleared before navigation and never saved or sent; no backend, token, or authenticated session is created.
@@ -178,6 +235,10 @@ All notable changes to this project will be documented in this file.
   - Implemented sleek micro-interaction: arrow icon smoothly translates rightwards (`translateX(4px)`) on card hover with cubic-bezier spring physics and transitions to rich brand blue (`#004ecc` / `#0052cc`), with full `prefers-reduced-motion` accessibility support.
 
 ### Fixed
+- **Fit desktop signup height (2026-10-11)**:
+  - Replaced signup's natural-height/580px minimum with a workspace bounded to the available desktop area, retaining the left/right panels and a flexible contained photo.
+  - Paired name/email fields horizontally, kept password/errors/submit full width, and grouped demo/legal controls in one bottom row. Added compact-height spacing and a visually hidden pending announcement to reduce vertical demand while retaining accessible controls and short-screen overflow.
+  - Preserved mobile layout and signup behavior, updated memory and ADR-049's layout follow-up. `npx tsc --noEmit` passes; browser visual verification remains pending.
 - **Mobile login vertical centering (2026-10-10)**:
   - Correct the top-positioned form shown in the client's screenshot: mobile page/main grids reserve the header and Back row, then center the login card in the remaining space.
   - Retain intrinsic minimum row heights so short screens and keyboard use can scroll naturally without clipping controls. Desktop and demo behavior remain unchanged. `npx tsc --noEmit` passes; mobile browser visual review remains pending.

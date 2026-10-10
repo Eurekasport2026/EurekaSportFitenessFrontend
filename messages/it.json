@@ -372,11 +372,11 @@
       "info": {
         "help": {
           "title": "Aiuto Eureka Fit",
-          "description": "Usa Crea programma per rispondere alle domande e rivedere le preferenze. Inserisci un indirizzo email e una password qualsiasi nel modulo demo per aprire l'anteprima. Usa Allenamento per scegliere un giorno, Esercizi e Libreria per consultare i movimenti e Impostazioni per aggiornare profilo, unità o calendario. Acquisto e registrazione degli allenamenti non sono ancora disponibili."
+          "description": "Usa Crea programma per rispondere alle domande e rivedere le preferenze, poi crea il tuo account e continua all'anteprima del tuo allenamento. Se hai già un account, scegli Accedi nella pagina di registrazione. Usa Allenamento per scegliere un giorno, Esercizi e Libreria per consultare i movimenti e Impostazioni per aggiornare profilo, unità o calendario oppure uscire dall'account. Quando la sessione scade, accedi di nuovo. Acquisto e registrazione degli allenamenti non sono ancora disponibili."
         },
         "privacy": {
           "title": "Informativa privacy Eureka Fit",
-          "description": "L'informativa privacy ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Questa anteprima conserva il profilo di allenamento e la foto in questo browser senza caricarli su un account."
+          "description": "L'informativa privacy ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. La creazione dell'account invia nome, email, password e lingua al backend Eureka. L'accesso invia email e password allo stesso backend. I cookie di accesso mantengono attiva la sessione fino alla scadenza o all'uscita dall'account. Le preferenze di allenamento e la foto restano in questo browser."
         },
         "terms": {
           "title": "Termini di servizio Eureka Fit",
@@ -384,7 +384,7 @@
         },
         "cookies": {
           "title": "Informativa cookie Eureka Fit",
-          "description": "L'informativa cookie ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Le preferenze di allenamento sono attualmente salvate nella memoria del browser; puoi eliminare questi dati Fit dalle Impostazioni."
+          "description": "L'informativa cookie ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Fit usa cookie di accesso per mantenere attiva la sessione. Scadono automaticamente e vengono rimossi quando esci dall'account. Le preferenze di allenamento sono salvate nella memoria del browser; puoi eliminare questi dati Fit dalle Impostazioni."
         }
       }
     },
@@ -456,9 +456,9 @@
       "journey": {
         "setup": "Raccontaci di te",
         "review": "Rivedi il programma",
-        "login": "Accedi dopo la configurazione"
+        "login": "Crea il tuo account"
       },
-      "reassurance": "Completa prima il programma. Il modulo di accesso arriva dopo le tue risposte."
+      "reassurance": "Completa prima il programma, poi crea il tuo account."
     },
     "onboarding": {
       "progress": "Avanzamento del profilo di allenamento",
@@ -472,8 +472,8 @@
       "daysPerWeek": "giorni a settimana",
       "selectedDays": "{selected} di {count} giorni selezionati",
       "frequencyValue": "{count} giorni a settimana",
-      "building": "Apertura dell'accesso…",
-      "getStarted": "Continua per accedere",
+      "building": "Apertura della registrazione…",
+      "getStarted": "Continua per creare l'account",
       "saveSchedule": "Salva il calendario",
       "skipReminders": "Continua senza promemoria",
       "gender": {
@@ -529,9 +529,9 @@
       },
       "ready": {
         "title": "Il programma parte da qui.",
-        "description": "Rivedi le tue scelte. Tocca l'icona di modifica per correggere una risposta prima di accedere.",
+        "description": "Rivedi le tue scelte. Tocca l'icona di modifica per correggere una risposta prima di creare il tuo account.",
         "badge": "Le tue preferenze sono pronte",
-        "previewNotice": "Il prossimo passo è accedere per esplorare il tuo programma di allenamento."
+        "previewNotice": "Il prossimo passo è creare il tuo account, poi esplorare il programma di allenamento."
       },
       "returnToReview": "Salva e rivedi il programma",
       "editAnswer": "Modifica: {field}",
@@ -575,8 +575,68 @@
       "hide": "Nascondi",
       "showPassword": "Mostra password",
       "hidePassword": "Nascondi password",
-      "submit": "Apri il mio allenamento",
-      "notice": "Anteprima demo: inserisci qualsiasi email e password."
+      "submit": "Accedi",
+      "notice": "Usa l'email e la password del tuo account Eureka Fit.",
+      "submitting": "Accesso in corso…",
+      "validation": {
+        "email": "Inserisci un indirizzo email valido.",
+        "password": "Inserisci una password da 1 a 72 caratteri."
+      },
+      "errors": {
+        "validation": "Controlla email e password e riprova.",
+        "credentials": "Non è possibile accedere con questi dati. Controlla email e password.",
+        "rateLimit": "Troppi tentativi. Attendi un momento prima di riprovare.",
+        "unavailable": "Non è stato possibile confermare l'accesso. Riprova tra poco.",
+        "unexpected": "Non è stato possibile accedere. Riprova."
+      }
+    },
+    "signup": {
+      "journeySignup": "Crea account",
+      "formTitle": "Crea il tuo account Eureka Fit",
+      "notice": "Inserisci i tuoi dati per creare l'account.",
+      "name": "Nome completo",
+      "namePlaceholder": "Il tuo nome completo",
+      "passwordHint": "Usa da 8 a 72 caratteri.",
+      "submit": "Crea account",
+      "submitting": "Creazione dell'account…",
+      "createLink": "Crea un account",
+      "loginLink": "Accedi",
+      "successTitle": "Il tuo account è stato creato",
+      "successDescription": "Hai effettuato l'accesso. L'anteprima del tuo allenamento è pronta.",
+      "continue": "Continua al mio allenamento",
+      "validation": {
+        "name": "Inserisci un nome da 1 a 120 caratteri.",
+        "email": "Inserisci un indirizzo email valido.",
+        "password": "Usa una password da 8 a 72 caratteri."
+      },
+      "errors": {
+        "validation": "Controlla i tuoi dati e riprova.",
+        "exists": "Esiste già un account con questa email. Usa un altro indirizzo.",
+        "rateLimit": "Troppi tentativi. Attendi un momento prima di riprovare.",
+        "unavailable": "Non è stato possibile confermare la creazione dell'account. Riprova tra poco.",
+        "unexpected": "Non è stato possibile creare l'account. Controlla i dati e riprova."
+      }
+    },
+    "session": {
+      "accountMenu": "Menu account",
+      "logout": "Esci",
+      "loginRequired": "Accedi per visualizzare il tuo allenamento.",
+      "setupRequired": "Completa il tuo profilo di allenamento per continuare.",
+      "unavailable": "Non è stato possibile verificare la sessione. Riprova.",
+      "retry": "Riprova",
+      "signOut": "Esci dall'account",
+      "signingOut": "Uscita dall'account…",
+      "signOutFailed": "Non è stato possibile uscire dall'account. Controlla la connessione e riprova."
+    },
+    "notifications": {
+      "loggedIn": "Accesso effettuato.",
+      "signedOut": "Uscita dall'account completata.",
+      "profileUpdated": "Profilo aggiornato.",
+      "profileInvalid": "Controlla i dati del profilo e riprova.",
+      "preferencesUpdated": "Preferenze aggiornate.",
+      "scheduleUpdated": "Calendario di allenamento aggiornato.",
+      "calendarDownload": "Download del calendario avviato.",
+      "preferencesReset": "Preferenze di allenamento reimpostate."
     },
     "gender": {
       "male": "Uomo",
@@ -646,8 +706,7 @@
       "full6": "Sabato"
     },
     "profile": {
-      "name": "Nome visualizzato",
-      "namePlaceholder": "Atleta Eureka",
+      "name": "Nome account",
       "gender": "Genere",
       "age": "Età",
       "height": "Altezza",
@@ -659,7 +718,7 @@
       "changeAvatar": "Scegli una foto profilo",
       "removeAvatar": "Rimuovi foto",
       "imageError": "Scegli un'immagine JPG, PNG o WebP inferiore a 2 MB.",
-      "localNotice": "Il profilo e la foto vengono salvati su questo dispositivo.",
+      "localNotice": "I dati di allenamento e la foto vengono salvati su questo dispositivo.",
       "description": "Tieni aggiornati i tuoi dati per il prossimo programma di allenamento."
     },
     "membership": {

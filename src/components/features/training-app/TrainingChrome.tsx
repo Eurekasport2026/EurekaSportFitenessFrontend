@@ -1,11 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useId, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
-import { Link } from "@/i18n/routing";
+import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useLanguage } from "@/components/layout/LanguageProvider";
 import { cn } from "@/lib/utils";
 import { useTraining } from "./TrainingProvider";
+import { useAuth } from "./AuthProvider";
 import { TrainingIcon } from "./TrainingIcon";
 import { TrainingInfoButton } from "./TrainingInfoButton";
 import styles from "./training-app.module.css";
@@ -27,6 +29,64 @@ export function TrainingLanguage() {
   </div>;
 }
 
+function TrainingAccountMenu() {
+  const t = useTranslations("TrainingApp");
+  const { state } = useTraining();
+  const { status, logout } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
+  const menuId = useId();
+  const container = useRef<HTMLDivElement>(null);
+  const trigger = useRef<HTMLButtonElement>(null);
+  const profileLink = useRef<HTMLAnchorElement>(null);
+  const [open, setOpen] = useState(false);
+  const [signingOut, setSigningOut] = useState(false);
+
+  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!open) return;
+    profileLink.current?.focus();
+    function dismissOutside(event: PointerEvent) {
+      if (event.target instanceof Node && !container.current?.contains(event.target)) setOpen(false);
+    }
+    function dismissEscape(event: KeyboardEvent) {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      setOpen(false);
+      trigger.current?.focus();
+    }
+    document.addEventListener("pointerdown", dismissOutside);
+    document.addEventListener("keydown", dismissEscape);
+    return () => {
+      document.removeEventListener("pointerdown", dismissOutside);
+      document.removeEventListener("keydown", dismissEscape);
+    };
+  }, [open]);
+
+  async function signOut() {
+    if (signingOut) return;
+    setSigningOut(true);
+    try {
+      await logout();
+      setOpen(false);
+      router.replace("/training/app/login");
+    } catch { /* AuthProvider displays the shared logout failure toast. */ }
+    finally { setSigningOut(false); }
+  }
+
+  return <div ref={container} className={styles.accountControl} onBlur={event => {
+    if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false);
+  }}>
+    <button ref={trigger} type="button" className={styles.productProfile} aria-label={t("session.accountMenu")} aria-expanded={open} aria-controls={menuId} aria-busy={signingOut} onClick={() => setOpen(value => !value)}>
+      {state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}
+    </button>
+    {open && <nav id={menuId} className={styles.accountMenu} aria-label={t("session.accountMenu")}>
+      <Link ref={profileLink} href="/training/app/profile" className={styles.accountMenuItem} onClick={() => setOpen(false)}><TrainingIcon name="user" /><span>{t("settings.profile")}</span></Link>
+      {status === "authenticated" && <button type="button" className={cn(styles.accountMenuItem, styles.dangerButton)} disabled={signingOut} onClick={() => void signOut()}><TrainingIcon name="logout" /><span>{t(signingOut ? "session.signingOut" : "session.logout")}</span></button>}
+    </nav>}
+  </div>;
+}
+
 export function TrainingProductHeader() {
   const t = useTranslations("TrainingApp");
   const { state, hydrated } = useTraining();
@@ -39,9 +99,7 @@ export function TrainingProductHeader() {
     <div className={styles.productActions}>
       <TrainingInfoButton kind="help" className={styles.iconButton}><TrainingIcon name="help" /><span className={styles.srOnly}>{t("settings.help")}</span></TrainingInfoButton>
       <TrainingLanguage />
-      {hasProfile && <Link href="/training/app/profile" className={styles.productProfile} aria-label={t("settings.profile")}>
-        {state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}
-      </Link>}
+      {hasProfile && <TrainingAccountMenu />}
     </div>
   </header>;
 }

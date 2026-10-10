@@ -372,11 +372,11 @@
       "info": {
         "help": {
           "title": "Eureka Fit help",
-          "description": "Use Create plan to answer the training questions and review your preferences. Enter any email address and password in the demo login form to open your workout preview. Use Workout to choose a training day, Exercises and Library to browse movements, and Settings to update your profile, units, or schedule. Checkout and workout logging are not available yet."
+          "description": "Use Create plan to answer the training questions and review your preferences, then create your account and continue to your workout preview. If you already have an account, choose Log in on the signup page. Use Workout to choose a training day, Exercises and Library to browse movements, and Settings to update your profile, units, or schedule or sign out. When your session expires, log in again. Checkout and workout logging are not available yet."
         },
         "privacy": {
           "title": "Eureka Fit privacy policy",
-          "description": "The official Eureka Fit privacy policy will be available before the service launches. This preview keeps your training profile and photo in this browser and does not upload them to an account."
+          "description": "The official Eureka Fit privacy policy will be available before the service launches. Creating an account sends your name, email, password, and language to the Eureka backend. Logging in sends your email and password to the same backend. Sign-in cookies keep your session active until it expires or you sign out. Your training preferences and photo remain in this browser."
         },
         "terms": {
           "title": "Eureka Fit terms of service",
@@ -384,7 +384,7 @@
         },
         "cookies": {
           "title": "Eureka Fit cookie policy",
-          "description": "The official Eureka Fit cookie policy will be available before the service launches. Your training preferences are currently saved in browser storage; you can clear this Fit data from Settings."
+          "description": "The official Eureka Fit cookie policy will be available before the service launches. Fit uses sign-in cookies to keep your session active. They expire automatically and are removed when you sign out. Your training preferences are saved in browser storage; you can clear this Fit data from Settings."
         }
       }
     },
@@ -456,9 +456,9 @@
       "journey": {
         "setup": "Tell us about you",
         "review": "Review your plan",
-        "login": "Log in after setup"
+        "login": "Create your account"
       },
-      "reassurance": "Complete your plan first. The login form comes after your answers."
+      "reassurance": "Complete your plan first, then create your account."
     },
     "onboarding": {
       "progress": "Training profile progress",
@@ -472,8 +472,8 @@
       "daysPerWeek": "days per week",
       "selectedDays": "{selected} of {count} workout days selected",
       "frequencyValue": "{count} days per week",
-      "building": "Opening login…",
-      "getStarted": "Continue to log in",
+      "building": "Opening signup…",
+      "getStarted": "Continue to create account",
       "saveSchedule": "Save my schedule",
       "skipReminders": "Continue without reminders",
       "gender": {
@@ -529,9 +529,9 @@
       },
       "ready": {
         "title": "Your plan starts here.",
-        "description": "Review your choices. Tap the edit icon to adjust any answer before continuing to log in.",
+        "description": "Review your choices. Tap the edit icon to adjust any answer before creating your account.",
         "badge": "Your preferences are ready",
-        "previewNotice": "Next: log in to explore your workout plan."
+        "previewNotice": "Next: create your account, then explore your workout plan."
       },
       "returnToReview": "Save and review plan",
       "editAnswer": "Edit {field}",
@@ -575,8 +575,68 @@
       "hide": "Hide",
       "showPassword": "Show password",
       "hidePassword": "Hide password",
-      "submit": "Open my workout",
-      "notice": "Demo preview: enter any email and password."
+      "submit": "Log in",
+      "notice": "Use the email and password for your Eureka Fit account.",
+      "submitting": "Logging in…",
+      "validation": {
+        "email": "Enter a valid email address.",
+        "password": "Enter a password between 1 and 72 characters."
+      },
+      "errors": {
+        "validation": "Check your email and password and try again.",
+        "credentials": "Unable to log in with these details. Check your email and password.",
+        "rateLimit": "Too many attempts. Wait a moment before trying again.",
+        "unavailable": "We couldn't confirm login. Please try again shortly.",
+        "unexpected": "We couldn't log you in. Please try again."
+      }
+    },
+    "signup": {
+      "journeySignup": "Create account",
+      "formTitle": "Create your Eureka Fit account",
+      "notice": "Enter your details to create your account.",
+      "name": "Full name",
+      "namePlaceholder": "Your full name",
+      "passwordHint": "Use 8–72 characters.",
+      "submit": "Create account",
+      "submitting": "Creating your account…",
+      "createLink": "Create an account",
+      "loginLink": "Log in",
+      "successTitle": "Your account is created",
+      "successDescription": "You're signed in. Your workout preview is ready.",
+      "continue": "Continue to my workout",
+      "validation": {
+        "name": "Enter a name between 1 and 120 characters.",
+        "email": "Enter a valid email address.",
+        "password": "Use a password between 8 and 72 characters."
+      },
+      "errors": {
+        "validation": "Check your details and try again.",
+        "exists": "An account with this email already exists. Use a different email.",
+        "rateLimit": "Too many attempts. Wait a moment before trying again.",
+        "unavailable": "We couldn't confirm account creation. Please try again shortly.",
+        "unexpected": "We couldn't create your account. Check your details and try again."
+      }
+    },
+    "session": {
+      "accountMenu": "Account menu",
+      "logout": "Log out",
+      "loginRequired": "Please log in to access your training.",
+      "setupRequired": "Complete your training profile to continue.",
+      "unavailable": "We couldn't verify your session. Please try again.",
+      "retry": "Try again",
+      "signOut": "Sign out",
+      "signingOut": "Signing out…",
+      "signOutFailed": "We couldn't sign you out. Check your connection and try again."
+    },
+    "notifications": {
+      "loggedIn": "Logged in successfully.",
+      "signedOut": "Logged out successfully.",
+      "profileUpdated": "Profile updated.",
+      "profileInvalid": "Check your profile details and try again.",
+      "preferencesUpdated": "Preferences updated.",
+      "scheduleUpdated": "Training schedule updated.",
+      "calendarDownload": "Calendar download started.",
+      "preferencesReset": "Training preferences reset."
     },
     "gender": {
       "male": "Male",
@@ -646,8 +706,7 @@
       "full6": "Saturday"
     },
     "profile": {
-      "name": "Display name",
-      "namePlaceholder": "Eureka athlete",
+      "name": "Account name",
       "gender": "Gender",
       "age": "Age",
       "height": "Height",
@@ -659,7 +718,7 @@
       "changeAvatar": "Choose a profile photo",
       "removeAvatar": "Remove photo",
       "imageError": "Choose a JPG, PNG or WebP image smaller than 2 MB.",
-      "localNotice": "Your profile and photo are stored on this device.",
+      "localNotice": "Your training details and photo are stored on this device.",
       "description": "Keep your details up to date for your next training plan."
     },
     "membership": {

@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useRef, type ReactNode } from "react";
 import { useTranslations } from "next-intl";
+import { toast } from "sonner";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useTraining } from "./TrainingProvider";
+import { useAuth } from "./AuthProvider";
 import { TrainingBrand, TrainingLanguage, TrainingProductHeader, TrainingProductFooter } from "./TrainingChrome";
 import { TrainingIcon } from "./TrainingIcon";
 import { cn } from "@/lib/utils";
@@ -17,7 +19,7 @@ export function TrainingShell({ children }: TrainingShellProps) {
   const t = useTranslations("TrainingApp");
   const { persistent, hydrated } = useTraining();
   const pathname = usePathname();
-  return <div className={cn(styles.backdrop, (pathname === "/training/app/onboarding" || pathname === "/training/app/login") && styles.onboardingViewport)}>
+  return <div className={cn(styles.backdrop, (pathname === "/training/app/onboarding" || pathname === "/training/app/login" || pathname === "/training/app/signup") && styles.onboardingViewport)}>
     <a className={styles.skipLink} href="#training-main">{t("skipContent")}</a>
     <TrainingProductHeader />
     <div className={styles.shell}>
@@ -33,12 +35,33 @@ export function TrainingLoading() {
   return <main id="training-main" className={styles.loading} aria-busy="true"><span className={styles.spinner} /><p role="status">{t("loading")}</p></main>;
 }
 
-export interface RequireTrainingProps { children: ReactNode }
-export function RequireTraining({ children }: RequireTrainingProps) {
+export interface RequireTrainingProps { children: ReactNode; requireAuth?: boolean }
+const guardToastId = "fit-access-required";
+export function RequireTraining({ children, requireAuth = true }: RequireTrainingProps) {
   const { hydrated, state } = useTraining();
+  const { status, refresh, signedOutIntentionally } = useAuth();
+  const t = useTranslations("TrainingApp");
   const router = useRouter();
-  useEffect(() => { if (hydrated && !state.complete) router.replace("/training/app/onboarding"); }, [hydrated, state.complete, router]);
+  const redirecting = useRef(false);
+  useEffect(() => {
+    if (!hydrated) return;
+    if (state.complete && (!requireAuth || status === "authenticated")) { redirecting.current = false; return; }
+    if (redirecting.current) return;
+    const needsSetup = !state.complete;
+    const needsLogin = requireAuth && status === "anonymous";
+    if (!needsSetup && !needsLogin) return;
+    redirecting.current = true;
+    if (needsSetup) {
+      toast.info(t("session.setupRequired"), { id: guardToastId });
+      router.replace("/training/app/onboarding");
+    } else {
+      if (!signedOutIntentionally) toast.info(t("session.loginRequired"), { id: guardToastId });
+      router.replace("/training/app/login");
+    }
+  }, [hydrated, state.complete, requireAuth, status, signedOutIntentionally, router, t]);
   if (!hydrated || !state.complete) return <TrainingLoading />;
+  if (requireAuth && status === "error") return <main id="training-main" className={styles.loading}><p role="alert">{t("session.unavailable")}</p><button type="button" className={styles.secondaryButton} onClick={() => void refresh()}>{t("session.retry")}</button></main>;
+  if (requireAuth && status !== "authenticated") return <TrainingLoading />;
   return children;
 }
 
@@ -57,13 +80,14 @@ export interface TrainingNavProps { active: TrainingTab }
 export function TrainingNav({ active }: TrainingNavProps) {
   const t = useTranslations("TrainingApp");
   const { state } = useTraining();
+  const { session } = useAuth();
   const items = [
     { key: "workout", icon: "dumbbell" }, { key: "exercises", icon: "user" }, { key: "library", icon: "book" }, { key: "progress", icon: "chart" }, { key: "settings", icon: "settings" },
   ] as const;
   return <aside className={styles.trainingSidebar}><div className={styles.sidebarContent}>
     <Link href="/training/app/profile" className={styles.sidebarProfile}>
       <span className={styles.sidebarAvatar}>{state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}</span>
-      <span><strong>{state.profile.name || t("desktop.profile")}</strong><small>{t(`goals.${state.profile.goal || "fitness"}`)}</small></span>
+      <span><strong>{session?.user.name.trim() || t("desktop.profile")}</strong><small>{t(`goals.${state.profile.goal || "fitness"}`)}</small></span>
     </Link>
     <p className={styles.sidebarCaption}>{t("desktop.workspace")}</p>
     <nav className={styles.bottomNav} aria-label={t("navigation")}>

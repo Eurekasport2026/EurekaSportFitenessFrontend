@@ -12,6 +12,7 @@ export const routing = defineRouting({
     "/training/app": "/training/app",
     "/training/app/onboarding": "/training/app/onboarding",
     "/training/app/login": "/training/app/login",
+    "/training/app/signup": "/training/app/signup",
     "/training/app/workout": "/training/app/workout",
     "/training/app/membership": "/training/app/membership",
     "/training/app/settings": "/training/app/settings",
