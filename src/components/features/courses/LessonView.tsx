@@ -78,9 +78,12 @@ export function LessonView({
       });
     });
   }, [lessons, dynamicDurations]);
-  const [completedLessonIds, setCompletedLessonIds] = useState<string[]>(() => {
-    return loadUserProgress(course.slug).completedLessonIds;
-  });
+
+  const [completedLessonIds, setCompletedLessonIds] = useState<string[]>([]);
+
+  useEffect(() => {
+    setCompletedLessonIds(loadUserProgress(course.slug).completedLessonIds);
+  }, [course.slug]);
 
   const isCurrentLessonComplete = activeLesson
     ? completedLessonIds.includes(activeLesson.id)
@@ -88,7 +91,7 @@ export function LessonView({
 
   const handleToggleComplete = () => {
     if (!activeLesson) return;
-    const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id);
+    const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id, lessons);
     setCompletedLessonIds(updated.completedLessonIds);
   };
 
@@ -98,7 +101,7 @@ export function LessonView({
   const displayDuration =
     (activeLesson && dynamicDurations[activeLesson.id]) ||
     activeLesson?.videoDuration ||
-    `${activeLesson?.durationMinutes || 20}:00`;
+    (activeLesson ? `${activeLesson.durationMinutes}:00` : "");
 
   return (
     <div className={styles.main}>
@@ -108,9 +111,9 @@ export function LessonView({
         <span aria-hidden="true">›</span>
         <Link href="/academy/corsi">{isEn ? "Courses" : "Corsi"}</Link>
         <span aria-hidden="true">›</span>
-        <Link href={`/academy/corsi/${course.slug}` as any}>{course.title}</Link>
+        <Link href={{ pathname: "/academy/corsi/[slug]", params: { slug: course.slug } }}>{course.title}</Link>
         <span aria-hidden="true">›</span>
-        <Link href={`/academy/corsi/${course.slug}/learn` as any}>{isEn ? "Modules" : "Moduli"}</Link>
+        <Link href={{ pathname: "/academy/corsi/[slug]/learn", params: { slug: course.slug } }}>{isEn ? "Modules" : "Moduli"}</Link>
         <span aria-hidden="true">›</span>
         <span aria-current="page">{isEn ? `Module ${module.number}` : `Modulo ${module.number}`}</span>
       </nav>
@@ -152,7 +155,7 @@ export function LessonView({
               return (
                 <Link
                   key={l.id}
-                  href={`/academy/corsi/${course.slug}/learn/${module.id}?lesson=${l.id}` as any}
+                  href={{ pathname: "/academy/corsi/[slug]/learn/[moduleId]", params: { slug: course.slug, moduleId: module.id }, query: { lesson: l.id } }}
                   style={{
                     padding: "0.45em 0.85em",
                     borderRadius: "0.45em",
@@ -555,7 +558,7 @@ export function LessonView({
       ) : (
         <div className={styles.contentSection} style={{ textAlign: "center", padding: "3em" }}>
           <p>{isEn ? "No lessons available for this module." : "Nessuna lezione disponibile per questo modulo."}</p>
-          <Link href={`/academy/corsi/${course.slug}/learn` as any} className={styles.btnPrimary}>
+          <Link href={{ pathname: "/academy/corsi/[slug]/learn", params: { slug: course.slug } }} className={styles.btnPrimary}>
             {isEn ? "Return to Module List" : "Torna all'Elenco Moduli"}
           </Link>
         </div>

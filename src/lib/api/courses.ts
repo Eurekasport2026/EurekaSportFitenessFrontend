@@ -1,54 +1,79 @@
-import type { Course } from "./types";
-import itCourses from "./data/it/courses.json";
-import enCourses from "./data/en/courses.json";
+import "server-only";
 
-const coursesData: Record<string, Course[]> = {
-  it: itCourses as unknown as Course[],
-  en: enCourses as unknown as Course[],
-};
+import { cache } from "react";
+import type { Course, CourseFact } from "./types";
+import { courseRecord, parseCatalogCourse, requestCourseApi } from "./course-api-server";
 
-export const courses: Course[] = coursesData.it;
+type CourseDetailState =
+  | { status: "ready"; course: Course }
+  | { status: "not_found" }
+  | { status: "error" };
 
-export function getAllCourses(locale: string = "it"): Course[] {
-  return coursesData[locale] || coursesData.it;
+function nonNegativeNumber(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
 }
 
-export function getCourseBySlug(slug: string, locale: string = "it"): Course | undefined {
-  const list = getAllCourses(locale);
-  return list.find((c) => c.slug === slug);
+function nonNegativeInteger(value: unknown): value is number {
+  return typeof value === "number" && Number.isSafeInteger(value) && value >= 0;
 }
 
-import { apiConfig } from "./config";
-import { apiClient } from "./client";
+function parseCourse(payload: unknown, slug: string): Course | null {
+  const envelope = courseRecord(payload);
+  const course = courseRecord(envelope?.data);
+  const catalog = parseCatalogCourse(course);
+  if (envelope?.success !== true || !course || !catalog || catalog.slug !== slug ||
+      (course.level !== 1 && course.level !== 2 && course.level !== 3) ||
+      typeof course.subtitle !== "string" || typeof course.description !== "string" ||
+      typeof course.longDescription !== "string" || typeof course.duration !== "string" ||
+      typeof course.mode !== "string" || typeof course.certification !== "string" ||
+      typeof course.access !== "string" || typeof course.badgeText !== "string" ||
+      !nonNegativeNumber(course.price) || !nonNegativeNumber(course.originalPrice) ||
+      !nonNegativeInteger(course.modulesCount) || !nonNegativeInteger(course.totalLessonsCount) ||
+      typeof course.hasPractical !== "boolean" || typeof course.hasExam !== "boolean" ||
+      typeof course.hasProjectWork !== "boolean" || typeof course.hasPracticalSubmission !== "boolean" ||
+      !Array.isArray(course.facts) || !Array.isArray(course.topics) ||
+      !course.topics.every((topic: unknown) => typeof topic === "string") ||
+      (course.practicalType !== null && course.practicalType !== undefined &&
+       typeof course.practicalType !== "string")) return null;
 
-export const coursesService = {
-  getAll: async (locale: string = "it"): Promise<Course[]> => {
-    if (apiConfig.useMockData) {
-      return getAllCourses(locale);
-    }
-    try {
-      return await apiClient.get<Course[]>("/courses", { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn("[coursesService.getAll] Live API unavailable, falling back to mock dataset", err);
-        return getAllCourses(locale);
-      }
-      throw err;
-    }
-  },
+  const facts: CourseFact[] = [];
+  for (const value of course.facts) {
+    const fact = courseRecord(value);
+    if (!fact || typeof fact.label !== "string" || typeof fact.value !== "string" ||
+        typeof fact.icon !== "string") return null;
+    facts.push({ icon: fact.icon, label: fact.label, value: fact.value });
+  }
 
-  getBySlug: async (slug: string, locale: string = "it"): Promise<Course | undefined> => {
-    if (apiConfig.useMockData) {
-      return getCourseBySlug(slug, locale);
-    }
-    try {
-      return await apiClient.get<Course>(`/courses/${slug}`, { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[coursesService.getBySlug] Live API unavailable for ${slug}, falling back to mock dataset`, err);
-        return getCourseBySlug(slug, locale);
-      }
-      throw err;
-    }
-  },
-};
+  return {
+    ...catalog,
+    level: course.level,
+    subtitle: course.subtitle,
+    description: course.description,
+    longDescription: course.longDescription,
+    duration: course.duration,
+    mode: course.mode,
+    certification: course.certification,
+    access: course.access,
+    price: course.price,
+    originalPrice: course.originalPrice,
+    badgeText: course.badgeText,
+    facts,
+    topics: course.topics as string[],
+    modulesCount: course.modulesCount,
+    totalLessonsCount: course.totalLessonsCount,
+    hasPractical: course.hasPractical,
+    hasExam: course.hasExam,
+    hasProjectWork: course.hasProjectWork,
+    hasPracticalSubmission: course.hasPracticalSubmission,
+    practicalType: typeof course.practicalType === "string" ? course.practicalType : null,
+  };
+}
+
+// Request-scoped memoization shares the verified response between metadata and page.
+export const getCourseDetail = cache(async (slug: string, locale: string): Promise<CourseDetailState> => {
+  if (!/^[a-z0-9-]+$/.test(slug)) return { status: "not_found" };
+  const response = await requestCourseApi(`courses/${slug}`, locale === "en" ? "en" : "it");
+  if (response.status !== "ready") return response;
+  const course = parseCourse(response.payload, slug);
+  return course ? { status: "ready", course } : { status: "error" };
+});

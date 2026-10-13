@@ -10,23 +10,15 @@ const tabs = ["Descrizione", "Programma", "Docenti", "FAQ"] as const;
 type CourseTab = typeof tabs[number];
 
 interface CourseTabsProps {
-  course?: Course;
-  modules?: CourseModule[];
+  course: Course;
+  modules?: CourseModule[] | null;
+  modulesError?: boolean;
 }
 
-export function CourseTabs({ course, modules }: CourseTabsProps) {
+export function CourseTabs({ course, modules, modulesError }: CourseTabsProps) {
   const [active, setActive] = useState<CourseTab>("Descrizione");
   const { language } = useLanguage();
   const isEn = language === "en";
-
-  const topics = course?.topics || [
-    "Anatomia e fisiologia",
-    "Valutazione funzionale",
-    "Programmazione dell'allenamento",
-    "Tecnica pratica",
-    "Alimentazione sportiva",
-    "Rilascio diploma",
-  ];
 
   return (
     <section className={styles.tabsSection} aria-label={isEn ? "Course Information" : "Informazioni sul corso"}>
@@ -47,19 +39,12 @@ export function CourseTabs({ course, modules }: CourseTabsProps) {
         {active === "Descrizione" && (
           <>
             <p>
-              {course ? (
-                course.longDescription
-              ) : (
-                <T>
-                  Il corso di Personal Trainer di Eureka! Academy ti fornisce una formazione completa,
-                  pratica e aggiornata, con il supporto di professionisti del settore.
-                </T>
-              )}
+              {course.longDescription}
             </p>
             <ul className={styles.topicGrid}>
-              {topics.map((topic, i) => (
+              {course.topics.map((topic, i) => (
                 <li key={i}>
-                  <T>{topic}</T>
+                  {topic}
                 </li>
               ))}
             </ul>
@@ -68,18 +53,54 @@ export function CourseTabs({ course, modules }: CourseTabsProps) {
         {active === "Programma" && (
           <>
             <p>
-              {course ? (
-                isEn
-                  ? `The curriculum features ${course.modulesCount} structured modules with video lessons, downloadable study guides, and practical exercises.`
-                  : `Il percorso si articola in ${course.modulesCount} moduli didattici progressivi con video lezioni, dispense scaricabili ed esercitazioni pratiche.`
-              ) : (
-                <T>
-                  Il percorso approfondisce i fondamenti del movimento e la progettazione di allenamenti
-                  personalizzati.
-                </T>
-              )}
+              {isEn
+                ? `The curriculum features ${course.modulesCount} structured modules with video lessons, downloadable study guides, and practical exercises.`
+                : `Il percorso si articola in ${course.modulesCount} moduli didattici progressivi con video lezioni, dispense scaricabili ed esercitazioni pratiche.`}
             </p>
-            {modules && modules.length > 0 ? (
+            {modulesError ? (
+              <div
+                style={{
+                  background: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  borderRadius: "0.55em",
+                  padding: "1.25em",
+                  marginTop: "1em",
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  flexWrap: "wrap",
+                  gap: "1em",
+                }}
+                role="alert"
+              >
+                <div>
+                  <h4 style={{ margin: "0 0 0.25em", color: "#991b1b", fontWeight: 700, fontSize: "0.92rem" }}>
+                    {isEn ? "Unable to load curriculum modules" : "Impossibile caricare i moduli del programma"}
+                  </h4>
+                  <p style={{ margin: 0, color: "#7f1d1d", fontSize: "0.8rem" }}>
+                    {isEn
+                      ? "A temporary network issue occurred. Please retry to view the syllabus."
+                      : "Si è verificato un errore di rete temporaneo. Riprova per consultare il programma completo."}
+                  </p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  style={{
+                    padding: "0.5em 1.1em",
+                    borderRadius: "0.45em",
+                    background: "#b91c1c",
+                    color: "#ffffff",
+                    border: "none",
+                    fontSize: "0.78rem",
+                    fontWeight: 700,
+                    cursor: "pointer",
+                  }}
+                >
+                  {isEn ? "Retry" : "Riprova"}
+                </button>
+              </div>
+            ) : modules && modules.length > 0 ? (
               <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: "0.85em", marginTop: "1em" }}>
                 {modules.map((m) => (
                   <div
@@ -101,12 +122,20 @@ export function CourseTabs({ course, modules }: CourseTabsProps) {
                 ))}
               </div>
             ) : (
-              <ul className={styles.topicGrid}>
-                <li><T>Anatomia e fisiologia</T></li>
-                <li><T>Valutazione funzionale</T></li>
-                <li><T>Tecnica degli esercizi</T></li>
-                <li><T>Programmazione dell'allenamento</T></li>
-              </ul>
+              <div
+                style={{
+                  background: "#f8fafc",
+                  border: "1px solid #e2e8f0",
+                  borderRadius: "0.55em",
+                  padding: "1.5em",
+                  marginTop: "1em",
+                  textAlign: "center",
+                }}
+              >
+                <p style={{ color: "#64748b", margin: 0, fontSize: "0.85rem" }}>
+                  {isEn ? "No curriculum modules available for this course yet." : "Nessun modulo didattico disponibile per questo corso al momento."}
+                </p>
+              </div>
             )}
           </>
         )}
@@ -120,11 +149,11 @@ export function CourseTabs({ course, modules }: CourseTabsProps) {
         {active === "FAQ" && (
           <dl className={styles.faq}>
             <dt><T>Quanto dura il corso?</T></dt>
-            <dd>{course ? course.duration : <T>6 mesi.</T>}</dd>
+            <dd>{course.duration}</dd>
             <dt><T>Come si svolge?</T></dt>
-            <dd>{course ? course.mode : <T>Online e con attività pratiche.</T>}</dd>
+            <dd>{course.mode}</dd>
             <dt><T>Quale titolo viene rilasciato?</T></dt>
-            <dd>{course ? course.certification : <T>Diploma Nazionale Tecnico EPS CONI.</T>}</dd>
+            <dd>{course.certification}</dd>
             <dt><T>Quando aprono le iscrizioni?</T></dt>
             <dd><T>Le iscrizioni sono aperte tutto l'anno con accesso immediato alle video lezioni.</T></dd>
           </dl>

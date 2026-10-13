@@ -4,7 +4,104 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Fixed
+- **Admin Video Management authorization loop & role permission differentiation (2026-10-12, ADR-067)**:
+  - Resolved infinite login loop on `/admin/videos` where standard accounts (`role: 'user'`) were lumped with unauthenticated visitors (`401`) upon receiving backend `403 Forbidden` (`Admin access required`).
+  - Updated `fetchAdminVideos`, `createAdminVideo`, and `updateAdminVideo` in `src/lib/api/admin-videos-server.ts` to explicitly differentiate `unauthenticated` (`401`) from `forbidden` (`403`).
+  - Updated `src/app/api/admin/videos/route.ts` to return HTTP `403` with `{ code: 'FORBIDDEN', error: 'Admin access required' }` when non-admin credentials are provided.
+  - Enhanced `adminVideosService.list` in `src/lib/api/client.ts` to parse and propagate backend error messages and statuses.
+  - Updated `AdminVideosManager.tsx` to:
+    - Display current authenticated session user and role badge.
+    - Provide a tailored `403 Forbidden` screen showing the current account's role (`user`), an explanation that Railway requires `role: 'admin'`, and SQL snippet for database role promotion.
+    - Provide a one-click "Log Out & Switch Account" button to break out of the session and allow authenticating with administrator credentials.
+  - Verified cleanly with `npx tsc --noEmit`.
+
 ### Added
+- **Admin Courses & Curriculum API integration (2026-10-13, ADR-068)**:
+  - Implemented the 5 Admin Course and Curriculum endpoints from `api.json`:
+    - `GET /api/v1/admin/courses` (list all courses including drafts for administrators)
+    - `POST /api/v1/admin/courses` (create new course with `CourseCreate` payload)
+    - `GET /api/v1/admin/courses/{slug}/design` (fetch complete editable curriculum tree)
+    - `PATCH /api/v1/admin/courses/{slug}` (update course details and publishing state with `CourseUpdate` payload)
+    - `POST /api/v1/admin/courses/{slug}/modules` (add new module with `ModuleCreate` payload)
+  - Added types `TranslationText`, `CourseFactInput`, `CourseCreateInput`, `CourseUpdateInput`, `ModuleCreateInput`, `AdminCourse`, and `AdminCourseDesign` in `src/lib/api/types.ts`.
+  - Created server-only adapter in `src/lib/api/admin-courses-server.ts` with `fetchAdminCourses`, `createAdminCourse`, `fetchAdminCourseDesign`, `updateAdminCourse`, and `createAdminModule` using `authenticatedFetch` and slug pattern validation (`^[a-z0-9-]+$`).
+  - Created Next.js same-origin Route Handlers:
+    - `src/app/api/admin/courses/route.ts` (`GET`, `POST`)
+    - `src/app/api/admin/courses/[slug]/route.ts` (`PATCH`)
+    - `src/app/api/admin/courses/[slug]/design/route.ts` (`GET`)
+    - `src/app/api/admin/courses/[slug]/modules/route.ts` (`POST`)
+    with CSRF origin verification, input validation, and 401 unauthenticated vs 403 forbidden error mapping per ADR-067.
+  - Added isomorphic client service `adminCoursesService` (`list`, `create`, `getDesign`, `update`, `createModule`) in `src/lib/api/client.ts`.
+  - Documented ADR-068 in `brain/decisions.md` and updated `brain/api_contracts.md`, `BRAIN.md`, and `brain/index.md`. Verified with `npx tsc --noEmit` (clean exit 0).
+- **Admin Video Management Studio UI (2026-10-12, ADR-066)**:
+  - Created administrative console at `/[locale]/admin/videos` for managing Eureka! Academy streaming video assets.
+  - Implemented `AdminVideosManager` component with:
+    - Inventory table displaying video ID, localized title, provider, duration, status badges, and management actions.
+    - Status badges for `APPROVED`, `REVIEW`, `DRAFT`, and `ARCHIVED` matching Eureka design tokens.
+    - Quick metrics bar displaying real-time video counts (Total, Approved, In Review, Drafts).
+    - Status filtering tab bar (`ALL`, `APPROVED`, `REVIEW`, `DRAFT`, `ARCHIVED`) and instant title search input.
+    - Create Video modal with strict `video_id` pattern validation (`^[A-Z0-9][A-Z0-9-]{2,31}$`), localized titles, provider, embed URL, and duration in seconds.
+    - Edit Video modal for updating existing video metadata, publishing status, duration, embed URL, and administrative notes.
+    - Video Stream Preview modal supporting direct embed playback iframe.
+    - Authentication state guard that redirects unauthenticated users to `/training/app/login` with an informative admin credential requirement card.
+    - Toast-only action feedback via Sonner for create and update operations, respecting ADR-056.
+  - Registered route `"/admin/videos": "/admin/videos"` in `src/i18n/routing.ts`.
+  - Created page route at `src/app/[locale]/admin/videos/page.tsx` with robots `{ index: false, follow: false }` metadata.
+  - Documented ADR-066 in `brain/decisions.md` and updated `brain/routing_and_navigation.md`, `BRAIN.md`, and `brain/index.md`. Verified with `npx tsc --noEmit` (clean exit 0).
+- **Admin Video Management API integration (2026-10-12, ADR-065)**:
+  - Implemented the three Admin Video endpoints from `api.json`:
+    - `GET /api/v1/admin/videos` (list/filter videos by `locale`, `status`, and `q` search query)
+    - `POST /api/v1/admin/videos` (create video with `VideoCreate` payload)
+    - `PATCH /api/v1/admin/videos/{video_id}` (update video with `VideoUpdate` payload)
+  - Added types `AdminVideo`, `VideoCreateInput`, `VideoUpdateInput`, and `AdminVideoQuery` in `src/lib/api/types.ts`.
+  - Updated `authenticatedFetch` in `src/lib/api/auth-server.ts` to support safe query string forwarding.
+  - Implemented server-only adapters `fetchAdminVideos`, `createAdminVideo`, and `updateAdminVideo` in `src/lib/api/admin-videos-server.ts`.
+  - Created Next.js same-origin Route Handlers `src/app/api/admin/videos/route.ts` (`GET`, `POST`) and `src/app/api/admin/videos/[videoId]/route.ts` (`PATCH`) with CSRF/origin verification and identifier validation.
+  - Added isomorphic client helper `adminVideosService` (`list`, `create`, `update`) in `src/lib/api/client.ts`.
+  - Documented ADR-065 in `brain/decisions.md` and updated `brain/api_contracts.md`, `BRAIN.md`, and `brain/index.md`. Verified with `npx tsc --noEmit` (clean exit 0).
+- **Completed remaining public Academy APIs (2026-10-12, ADR-064)**:
+  - Connected `GET /api/v1/modules` (List all modules) and `GET /api/v1/lessons/{lesson_id}` (Get single lesson by ID) to achieve 100% completion of the public Academy API contract from `api.json`.
+  - Added server-only React-cached loader `getAllModules(locale?: string)` to `src/lib/api/modules.ts` using `parseCurriculumList` and `parseCourseModule`.
+  - Added server-only React-cached loader `getLessonById(lessonId: string, locale?: string)` to `src/lib/api/lessons.ts` with `curriculumId` validation and `parseLesson`.
+  - Added isomorphic client service helpers `modulesService` (`list`, `getById`, `getByCourse`) and `lessonsService` (`list`, `getById`, `getByModule`, `getAdjacent`) to `src/lib/api/client.ts`.
+  - Verified with live Railway responses for `GET /modules?locale=it` (68 modules) and `GET /lessons/pt1-mod-1-lesson-1?locale=it`.
+  - Documented ADR-064 in `brain/decisions.md` and updated `brain/api_contracts.md` and `BRAIN.md`. Verified with `npx tsc --noEmit` (clean exit 0).
+- **Verified Videos API integration (2026-10-12, ADR-063)**:
+  - Implemented server-only cached loaders and client-side helpers for all four OpenAPI video endpoints:
+    - `GET /api/v1/videos` (search/list with `locale` and `q` filter)
+    - `GET /api/v1/videos/{video_id}` (single video by ID)
+    - `GET /api/v1/courses/{slug}/videos` (course-scoped videos)
+    - `GET /api/v1/modules/{module_id}/videos` (module-scoped videos)
+  - Created `src/lib/api/videos.ts` exposing `getVideos`, `getVideoById`, `getVideosByCourse`, and `getVideosByModule` using `React.cache()` and 8-second timeout/no-store requests.
+  - Added `AcademyVideo` and `VideoStatus` interfaces to `src/lib/api/types.ts`.
+  - Added runtime validators `parseAcademyVideo` and `parseAcademyVideoList` in `src/lib/api/curriculum-api-server.ts` with safe URL validation and null-coalescing.
+  - Extended `requestCourseApi` in `src/lib/api/course-api-server.ts` to accept optional query parameter dictionaries (`extraParams`).
+  - Added `videosService` helper to `src/lib/api/client.ts` for dual-mode client usage.
+  - Exported all video loaders and types from `src/lib/api/index.ts`.
+  - Documented ADR-063 in `brain/decisions.md` and updated `brain/api_contracts.md`, `BRAIN.md`, and `brain/index.md`. Verified with `npx tsc --noEmit` (0 errors).
+- **Academy course & learning alignment; dynamic marketing & availability states (2026-10-12)**:
+  - Aligned public Academy courses, curriculum loading, and landing page with verified live Railway API endpoints.
+  - Relaxed course validation schemas (`types.ts`, `course-api-server.ts`, `courses.ts`) to permit optional/empty `heroImage` with neutral gradient fallbacks (`#d6e1e9`), arbitrary fact icons with `"certificate"` fallback, free-form `practicalType`, and expanded authoring slugs (`^[a-z0-9-]+$`).
+  - Updated Academy marketing landing page (`/academy`) to dynamically stream catalog courses from `getCourseCatalog(locale)` with loading, empty, and retry states; removed deprecated static `academyCourses` array.
+  - Concurrent course detail loading (`Promise.all` in `[slug]/page.tsx`) with isolated module tab failure recovery UI and retry button in `CourseTabs.tsx`, ensuring course details remain accessible even if modules fail to load. Added active locale currency formatting and true discount `<del>` logic to `CourseDetailDynamic.tsx`.
+  - Implemented course-scoped curriculum loader `getCourseCurriculum(courseSlug, locale)` in `lessons.ts` with bounded concurrency (limit 3), validating course slug ownership, matching module lesson counts, and unique lesson IDs, eliminating global 407-lesson fetches on `learn/page.tsx`.
+  - Scoped retained workout plans in `practical.ts` strictly to matching course slugs, rendering explicit empty states for courses without practical templates.
+  - Added in-preparation status copy for courses lacking an exam definition in `CourseHome.tsx`.
+  - Prevented React SSR hydration mismatches in `CourseHome.tsx` and `LessonView.tsx` by initializing client progress to clean defaults and populating from `localStorage` within `useEffect`.
+  - Recorded ADR-062 in `brain/decisions.md` and updated `brain/api_contracts.md` and `BRAIN.md`. Verified with `npx tsc --noEmit` (clean exit 0).
+- **Live modules and lessons; curriculum JSON audit (2026-10-11)**:
+  - Replaced module/lesson JSON getters, mock service fallbacks, and generated lesson content with validated, request-cached public API reads for course modules, module details/lessons, the lesson index, and adjacent lessons. Detail/learning/module pages now use backend curriculum, including localized text, exercise details, media, and metadata; ownership and query selections are validated.
+  - Pass only current-course lesson identities to client progress calculations and use actual module relationships for counts, completion, and exam unlocks. Keep browser persistence and exam/assignment/practical implementations; safely handle empty curricula and provide localized persistent recovery without duplicate toasts.
+  - Removed IT/EN `modules.json` and `lessons.json`. After auditing data consumers and Swagger, the client chose to retain the six exam/assignment/practical JSON files temporarily. Added the data-folder inventory and updated API/architecture/routing memory and ADR-061. Anonymous IT/EN responses contained 68 modules and 407 lessons; missing module/lesson reads returned `404/NOT_FOUND`. `npx tsc --noEmit` passes; browser navigation, progress, playback, and outage checks remain pending.
+- **Live course details and removal of course JSON (2026-10-11)**:
+  - Connected `GET /api/v1/courses/{slug}` to detail, learning-home, module pages, and metadata through a shared public server transport and request-cached validated course adapter. API fields now supply course titles/images, prices, descriptions, facts/topics, and completion requirements without mock fallback; nullable practical type is supported.
+  - Added localized loading/not-found/retry views in existing styles and kept transient failures separate from confirmed missing courses. Removed static course-content fallbacks and both IT/EN `courses.json` files after migrating page and client-progress dependencies. Module/lesson/exam/practical JSON, browser progress persistence, auth, and enrollment retain their existing implementation.
+  - Registered typed IT/EN learning/module routes, fixed internal links/legacy redirect, preserved slug/module/lesson/tab on locale switches, and checked module ownership. Verified upstream IT/EN `200` and unknown-slug `404/NOT_FOUND`, updated memory and ADR-060, and passed `npx tsc --noEmit`. Browser visual/retry/locale/query/completion/outage checks remain pending.
+- **Live public course catalog (2026-10-11)**:
+  - Connected `/academy/corsi` and its English locale to public Railway course-list responses through a server-only adapter with strict envelope/consumed-field validation, no-store/eight-second requests, unique IDs/slugs, and generic failure handling without mock fallback.
+  - Render backend-localized titles/images and typed locale-aware course links, remove four hardcoded extras, and preserve existing filters, card styles, focus, and responsive layout. Added localized streaming/loading, empty-category/catalog, and persistent retry states with pending disablement and no duplicate toast.
+  - Verified the supplied five image paths exist and reviewed the complete client JSON against the live IT/EN contract. Updated API handoff/contracts, architecture/routing/design memory, root/index, and ADR-059. Course detail/learning data, auth, and global mock flags remain in their existing scope. `npx tsc --noEmit` passes; browser review remains pending.
 - **API account name authority (2026-10-11)**:
   - Corrected Profile and sidebar to display the current API session name rather than an older saved local nickname. Removed the independent name draft/local fallback so session verification updates are reflected directly.
   - Made the existing Account name field read-only; profile saves now include only editable training details/photo, without copying account identity into browser storage. Updated IT/EN labels/local-data copy while preserving layout and training data.

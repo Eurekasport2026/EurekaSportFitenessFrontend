@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
-import type { Course, CourseModule, CourseExam, UserCourseProgress } from "@/lib/api/types";
+import type { Course, CourseModule, CourseExam, LessonReference, UserCourseProgress } from "@/lib/api/types";
 import { loadUserProgress, calculateCourseProgress } from "@/lib/api/progress";
 import { ProgressBar } from "./ProgressBar";
 import { ModuleCard } from "./ModuleCard";
@@ -18,6 +18,7 @@ import styles from "./course-home.module.css";
 interface CourseHomeProps {
   course: Course;
   modules: CourseModule[];
+  lessons: LessonReference[];
   exam?: CourseExam;
   initialTab?: string;
   isCompletedQuery?: boolean;
@@ -28,13 +29,22 @@ type TabType = "modules" | "practical" | "assignment" | "exam";
 export function CourseHome({
   course,
   modules,
+  lessons,
   exam,
   initialTab,
 }: CourseHomeProps) {
   const locale = useLocale() || "it";
   const isEn = locale === "en";
 
-  const [progress, setProgress] = useState<UserCourseProgress>(() => loadUserProgress(course.slug));
+  const [progress, setProgress] = useState<UserCourseProgress>(() => ({
+    version: 2,
+    courseSlug: course.slug,
+    completedLessonIds: [],
+    completedModuleIds: [],
+    examPassed: false,
+    assignmentStatus: "not_submitted",
+    updatedAt: "",
+  }));
   const [activeTab, setActiveTab] = useState<TabType>(() => {
     if (initialTab === "exam") return "exam";
     if (initialTab === "practical") return "practical";
@@ -47,26 +57,32 @@ export function CourseHome({
 
   useEffect(() => {
     setProgress(loadUserProgress(course.slug));
-  }, [course.slug]);
+    setShowCertificateView(false);
+    if (!initialTab) {
+      setActiveTab("modules");
+    }
+  }, [course.slug, initialTab]);
 
   const {
     percent,
     completedLessonsCount,
     totalLessonsCount,
+    completedModuleIds,
     isExamUnlocked,
     isCompleted,
-  } = calculateCourseProgress(course.slug, progress);
+  } = calculateCourseProgress(course, progress, modules, lessons);
 
   // Determine current active module to continue
   const firstUnfinishedModule =
-    modules.find((m) => !progress.completedModuleIds.includes(m.id)) || modules[0];
+    modules.find((m) => !completedModuleIds.includes(m.id)) || modules[0];
 
   const getModuleStatus = (module: CourseModule): ModuleStatus => {
-    if (progress.completedModuleIds.includes(module.id)) {
+    if (completedModuleIds.includes(module.id)) {
       return "completed";
     }
     // Check if any lesson belonging specifically to this module was completed
-    const hasStarted = progress.completedLessonIds.some((id) => id.startsWith(`${module.id}-`));
+    const hasStarted = lessons.some((lesson) => lesson.moduleId === module.id &&
+      progress.completedLessonIds.includes(lesson.id));
     if (hasStarted || progress.lastAccessedModuleId === module.id) {
       return "in_progress";
     }
@@ -74,7 +90,8 @@ export function CourseHome({
   };
 
   const getCompletedLessonsForModule = (moduleId: string): number => {
-    return progress.completedLessonIds.filter((id) => id.startsWith(`${moduleId}-`)).length;
+    return lessons.filter((lesson) => lesson.moduleId === moduleId &&
+      progress.completedLessonIds.includes(lesson.id)).length;
   };
 
   if (showCertificateView) {
@@ -85,7 +102,7 @@ export function CourseHome({
           <span aria-hidden="true">›</span>
           <Link href="/academy/corsi">{isEn ? "Courses" : "Corsi"}</Link>
           <span aria-hidden="true">›</span>
-          <Link href={`/academy/corsi/${course.slug}` as any}>{course.title}</Link>
+          <Link href={{ pathname: "/academy/corsi/[slug]", params: { slug: course.slug } }}>{course.title}</Link>
           <span aria-hidden="true">›</span>
           <span aria-current="page">{isEn ? "Certification" : "Diploma e Certificazione"}</span>
         </nav>
@@ -102,7 +119,7 @@ export function CourseHome({
         <span aria-hidden="true">›</span>
         <Link href="/academy/corsi">{isEn ? "Courses" : "Corsi"}</Link>
         <span aria-hidden="true">›</span>
-        <Link href={`/academy/corsi/${course.slug}` as any}>{course.title}</Link>
+        <Link href={{ pathname: "/academy/corsi/[slug]", params: { slug: course.slug } }}>{course.title}</Link>
         <span aria-hidden="true">›</span>
         <span aria-current="page">{isEn ? "Learning Path" : "Percorso Didattico"}</span>
       </nav>
@@ -192,7 +209,9 @@ export function CourseHome({
                 : { background: "#ffffff", color: "#475569", border: "1px solid #cbd5e1", boxShadow: "none" }
             }
           >
-            📝 {isEn ? "Final Exam (30 Questions)" : "Esame Finale (30 Domande)"}
+            📝 {exam
+              ? (isEn ? `Final Exam (${exam.questionsCount || exam.questions.length} Questions)` : `Esame Finale (${exam.questionsCount || exam.questions.length} Domande)`)
+              : (isEn ? "Final Exam" : "Esame Finale")}
             {!isExamUnlocked && " 🔒"}
             {progress.examPassed && " ✓"}
           </button>
@@ -252,13 +271,15 @@ export function CourseHome({
                   {percent}% {isEn ? "Completed" : "Completato"}
                 </span>
               </div>
-              <Link
-                href={`/academy/corsi/${course.slug}/learn/${firstUnfinishedModule.id}` as any}
-                className={styles.overviewAction}
-              >
-                <span>{isEn ? (percent > 0 ? "Continue Course" : "Start Course") : (percent > 0 ? "Continua Corso" : "Inizia Corso")}</span>
-                <span aria-hidden="true">→</span>
-              </Link>
+              {firstUnfinishedModule && (
+                <Link
+                  href={{ pathname: "/academy/corsi/[slug]/learn/[moduleId]", params: { slug: course.slug, moduleId: firstUnfinishedModule.id } }}
+                  className={styles.overviewAction}
+                >
+                  <span>{isEn ? (percent > 0 ? "Continue Course" : "Start Course") : (percent > 0 ? "Continua Corso" : "Inizia Corso")}</span>
+                  <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </div>
             <ProgressBar
               percent={percent}
@@ -272,6 +293,11 @@ export function CourseHome({
             <span>{isEn ? "Structured Learning Path" : "Percorso Didattico Strutturato"}</span>
           </h2>
           <div className={styles.modulesGrid}>
+            {modules.length === 0 && (
+              <p className={styles.courseSubtitle} role="status">
+                {isEn ? "No modules have been published for this course yet." : "Non sono ancora stati pubblicati moduli per questo corso."}
+              </p>
+            )}
             {modules.map((m) => (
               <ModuleCard
                 key={m.id}
@@ -471,7 +497,9 @@ export function CourseHome({
           ) : (
             <div className={styles.overviewCard} style={{ textAlign: "center", padding: "3em" }}>
               <p style={{ color: "#64748b", margin: 0 }}>
-                {isEn ? "No final exam available for this course." : "Nessun esame finale disponibile per questo corso."}
+                {isEn
+                  ? "The final exam for this course is currently in preparation."
+                  : "L'esame finale per questo corso è attualmente in fase di preparazione."}
               </p>
             </div>
           )}

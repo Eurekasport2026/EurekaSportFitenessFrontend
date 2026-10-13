@@ -3,6 +3,9 @@
 .main { width: 91%; max-width: 1380px; margin: 0 auto; padding: 2.1em 0 3em; }
 .main > h1 { margin: 0 0 .3em; font-size: 1.85em; line-height: 1.15; font-weight: 800; color: #0b2348; }
 .subtitle { margin: 0 0 1.8em; color: #62748b; font-size: .76em; line-height: 1.5; }
+.catalogState { display: grid; justify-items: start; gap: .85em; padding: 1.25em 0; }
+.catalogState p { margin: 0; color: #62748b; font-size: .76em; line-height: 1.5; }
+.catalogState button:disabled { cursor: wait; opacity: .7; }
 .filters { display: flex; flex-wrap: wrap; gap: .6em; margin-bottom: 1.1em; }
 .filter { min-height: 2.3em; padding: .52em 1.35em; border: 1px solid #dce7f1; border-radius: .5em; background: #fff; color: #43556a; font-size: .7em; font-weight: 600; transition: background 180ms, color 180ms; }
 .filter:hover { background: #eaf3ff; }

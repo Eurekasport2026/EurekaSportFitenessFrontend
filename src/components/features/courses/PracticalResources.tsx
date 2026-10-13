@@ -128,51 +128,61 @@ export function PracticalResources({ courseSlug }: PracticalResourcesProps) {
               ? "Practical workout plan templates ready for client programming, with structured progressions and exercise protocols."
               : "Esempi pratici di schede di allenamento pronte all'uso per i clienti in palestra, con progressioni e linee guida dettagliate."}
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "1.25em" }}>
-            {workoutPlans.map((plan) => (
-              <div key={plan.id} className={styles.contentSection} style={{ marginBottom: 0 }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5em" }}>
-                  <span className={styles.pillBadge} style={{ background: "#e0f2fe", color: "#0369a1" }}>
-                    {plan.level}
-                  </span>
-                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>⏱ {plan.durationWeeks}</span>
-                </div>
-                <h3 style={{ margin: "0 0 0.35em", fontSize: "1.05rem", fontWeight: 700, color: "#0d2345" }}>
-                  {plan.title}
-                </h3>
-                <p style={{ margin: "0 0 0.75em", fontSize: "0.8rem", color: "#52667b" }}>{plan.subtitle}</p>
-                <p style={{ fontSize: "0.78rem", color: "#334960", lineHeight: 1.5, marginBottom: "1.25em" }}>
-                  {plan.description}
-                </p>
-                <div style={{ display: "flex", gap: "0.5em", flexWrap: "wrap", borderTop: "1px solid #f1f5f9", paddingTop: "0.85em" }}>
-                  {plan.pdfUrl ? (
-                    <>
-                      <button
-                        type="button"
-                        onClick={() => setSelectedPlanForModal(plan)}
-                        className={styles.btnSecondary}
-                        style={{ fontSize: "0.75rem", cursor: "pointer" }}
-                      >
-                        👁 {isEn ? "View Online" : "Visualizza Online"}
-                      </button>
-                      <a
-                        href={plan.pdfUrl}
-                        download
-                        className={styles.btnPrimary}
-                        style={{ fontSize: "0.75rem", textDecoration: "none" }}
-                      >
-                        ⇩ {isEn ? `Download PDF (${plan.pdfSize})` : `Scarica PDF (${plan.pdfSize})`}
-                      </a>
-                    </>
-                  ) : (
-                    <span style={{ fontSize: "0.75rem", color: "#64748b", background: "#f8fafc", padding: "0.4em 0.7em", borderRadius: "4px" }}>
-                      ℹ️ {isEn ? "Protocol specifications available in student portal" : "Specifiche tecniche incluse nel dossier didattico"}
+          {workoutPlans.length === 0 ? (
+            <div className={styles.contentSection} style={{ textAlign: "center", padding: "2.5em" }}>
+              <p style={{ color: "#64748b", margin: 0 }}>
+                {isEn
+                  ? "Practical resources for this course are currently being finalized and will be published shortly."
+                  : "Le risorse pratiche e le schede per questo corso sono in fase di predisposizione e saranno pubblicate a breve."}
+              </p>
+            </div>
+          ) : (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(min(100%, 320px), 1fr))", gap: "1.25em" }}>
+              {workoutPlans.map((plan) => (
+                <div key={plan.id} className={styles.contentSection} style={{ marginBottom: 0 }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: "0.5em" }}>
+                    <span className={styles.pillBadge} style={{ background: "#e0f2fe", color: "#0369a1" }}>
+                      {plan.level}
                     </span>
-                  )}
+                    <span style={{ fontSize: "0.75rem", color: "#64748b" }}>⏱ {plan.durationWeeks}</span>
+                  </div>
+                  <h3 style={{ margin: "0 0 0.35em", fontSize: "1.05rem", fontWeight: 700, color: "#0d2345" }}>
+                    {plan.title}
+                  </h3>
+                  <p style={{ margin: "0 0 0.75em", fontSize: "0.8rem", color: "#52667b" }}>{plan.subtitle}</p>
+                  <p style={{ fontSize: "0.78rem", color: "#334960", lineHeight: 1.5, marginBottom: "1.25em" }}>
+                    {plan.description}
+                  </p>
+                  <div style={{ display: "flex", gap: "0.5em", flexWrap: "wrap", borderTop: "1px solid #f1f5f9", paddingTop: "0.85em" }}>
+                    {plan.pdfUrl ? (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => setSelectedPlanForModal(plan)}
+                          className={styles.btnSecondary}
+                          style={{ fontSize: "0.75rem", cursor: "pointer" }}
+                        >
+                          👁 {isEn ? "View Online" : "Visualizza Online"}
+                        </button>
+                        <a
+                          href={plan.pdfUrl}
+                          download
+                          className={styles.btnPrimary}
+                          style={{ fontSize: "0.75rem", textDecoration: "none" }}
+                        >
+                          ⇩ {isEn ? `Download PDF (${plan.pdfSize})` : `Scarica PDF (${plan.pdfSize})`}
+                        </a>
+                      </>
+                    ) : (
+                      <span style={{ fontSize: "0.75rem", color: "#64748b", background: "#f8fafc", padding: "0.4em 0.7em", borderRadius: "4px" }}>
+                        ℹ️ {isEn ? "Protocol specifications available in student portal" : "Specifiche tecniche incluse nel dossier didattico"}
+                      </span>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 

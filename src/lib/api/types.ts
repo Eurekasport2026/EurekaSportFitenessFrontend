@@ -1,18 +1,31 @@
 export type CourseLevel = 1 | 2 | 3;
 
+export interface CatalogCourse {
+  id: string;
+  slug: string;
+  title: string;
+  category: string;
+  heroImage: string;
+  description?: string;
+}
+
+export type CourseCatalogState =
+  | { status: "ready"; courses: CatalogCourse[] }
+  | { status: "error" };
+
 export interface CourseFact {
-  icon: "medal" | "video" | "certificate" | "clipboard" | "growth" | "people";
+  icon: string;
   label: string;
   value: string;
 }
 
-export type PracticalType = "gym_library" | "advanced_resources" | "case_studies_project" | "skill_library";
+export type PracticalType = "gym_library" | "advanced_resources" | "case_studies_project" | "skill_library" | (string & {});
 
 export interface Course {
   id: string;
   slug: string;
   title: string;
-  category: "Personal Trainer" | "Calisthenics";
+  category: string;
   level: CourseLevel;
   subtitle: string;
   description: string;
@@ -33,7 +46,7 @@ export interface Course {
   hasExam: boolean;
   hasProjectWork?: boolean;
   hasPracticalSubmission?: boolean;
-  practicalType?: PracticalType;
+  practicalType?: PracticalType | null;
 }
 
 export type ModuleType = "theory" | "skill" | "practical" | "case_study";
@@ -51,6 +64,11 @@ export interface CourseModule {
   isPractical?: boolean;
   skillLevel?: string;
 }
+
+export type AcademyDataState<T> =
+  | { status: "ready"; data: T }
+  | { status: "not_found" }
+  | { status: "error" };
 
 export interface ExerciseDetail {
   code?: string;
@@ -101,6 +119,8 @@ export interface Lesson {
     outcomeMetrics: string;
   };
 }
+
+export type LessonReference = Pick<Lesson, "id" | "moduleId" | "courseSlug">;
 
 export interface ExamQuestion {
   id: string;
@@ -200,3 +220,160 @@ export interface UserCourseProgress {
   lastAccessedLessonId?: string;
   updatedAt: string;
 }
+
+export type VideoStatus = "DRAFT" | "REVIEW" | "APPROVED" | "ARCHIVED";
+
+export interface AcademyVideo {
+  id: string;
+  videoId: string;
+  title: string;
+  titleIt: string;
+  titleEn: string;
+  category: string;
+  equipment?: string | null;
+  provider: string;
+  version: string;
+  status: VideoStatus | string;
+  durationSec?: number | null;
+  thumbnailUrl?: string | null;
+  providerVideoId?: string | null;
+  embedUrl?: string | null;
+  localeFallback?: boolean;
+}
+
+export interface AdminVideo extends AcademyVideo {
+  notes?: string | null;
+  aliases?: string[];
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface VideoCreateInput {
+  video_id: string;
+  title_it: string;
+  title_en?: string;
+  category?: string;
+  equipment?: string | null;
+  provider?: string;
+  provider_video_id?: string | null;
+  embed_url?: string | null;
+  version?: string;
+  status?: VideoStatus;
+  duration_sec?: number | null;
+  thumbnail_url?: string | null;
+  notes?: string | null;
+  aliases?: string[];
+}
+
+export interface VideoUpdateInput {
+  title_it?: string | null;
+  title_en?: string | null;
+  category?: string | null;
+  equipment?: string | null;
+  provider?: string | null;
+  provider_video_id?: string | null;
+  embed_url?: string | null;
+  version?: string | null;
+  status?: VideoStatus | null;
+  duration_sec?: number | null;
+  thumbnail_url?: string | null;
+  notes?: string | null;
+}
+
+export interface AdminVideoQuery {
+  locale?: string | null;
+  status?: VideoStatus | string | null;
+  q?: string | null;
+}
+
+export interface TranslationText {
+  it?: string;
+  en?: string;
+}
+
+export interface CourseFactInput {
+  icon: string;
+  label: string;
+  value: string;
+}
+
+export interface CourseCreateInput {
+  id: string;
+  slug: string;
+  category: string;
+  level: CourseLevel | number;
+  price: number;
+  originalPrice: number;
+  heroImage?: string | null;
+  hasPractical?: boolean;
+  hasExam?: boolean;
+  hasProjectWork?: boolean;
+  hasPracticalSubmission?: boolean;
+  practicalType?: string | null;
+  published?: boolean;
+  title: TranslationText;
+  subtitle?: TranslationText;
+  description?: TranslationText;
+  longDescription?: TranslationText;
+  duration?: TranslationText;
+  mode?: TranslationText;
+  certification?: TranslationText;
+  access?: TranslationText;
+  badgeText?: TranslationText;
+  facts?: Record<string, CourseFactInput[]>;
+  topics?: Record<string, string[]>;
+}
+
+export interface CourseUpdateInput {
+  category?: string | null;
+  level?: number | null;
+  price?: number | null;
+  originalPrice?: number | null;
+  heroImage?: string | null;
+  hasPractical?: boolean | null;
+  hasExam?: boolean | null;
+  hasProjectWork?: boolean | null;
+  hasPracticalSubmission?: boolean | null;
+  practicalType?: string | null;
+  published?: boolean | null;
+  title?: TranslationText | null;
+  subtitle?: TranslationText | null;
+  description?: TranslationText | null;
+  longDescription?: TranslationText | null;
+  duration?: TranslationText | null;
+  mode?: TranslationText | null;
+  certification?: TranslationText | null;
+  access?: TranslationText | null;
+  badgeText?: TranslationText | null;
+  facts?: Record<string, CourseFactInput[]> | null;
+  topics?: Record<string, string[]> | null;
+}
+
+export interface ModuleCreateInput {
+  id?: string | null;
+  number: number;
+  type?: "theory" | "skill" | "practical" | "case_study" | string;
+  durationMinutes?: number;
+  isPractical?: boolean;
+  skillLevel?: string | null;
+  title: TranslationText;
+  subtitle?: TranslationText;
+  description?: TranslationText;
+}
+
+export interface AdminCourse extends Course {
+  published?: boolean;
+  translations?: {
+    title?: TranslationText;
+    subtitle?: TranslationText;
+    description?: TranslationText;
+    longDescription?: TranslationText;
+  };
+}
+
+export interface AdminCourseDesign {
+  course: AdminCourse;
+  modules: CourseModule[];
+}
+
+

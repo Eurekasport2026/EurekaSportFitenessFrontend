@@ -20,27 +20,27 @@ export function LessonNav({ prevLesson, nextLesson, courseSlug, moduleId }: Less
     <nav className={styles.lessonNav} aria-label={isEn ? "Lesson navigation" : "Navigazione tra lezioni"}>
       {prevLesson ? (
         <Link
-          href={`/academy/corsi/${courseSlug}/learn/${prevLesson.moduleId}?lesson=${prevLesson.id}` as any}
+          href={{ pathname: "/academy/corsi/[slug]/learn/[moduleId]", params: { slug: courseSlug, moduleId: prevLesson.moduleId }, query: { lesson: prevLesson.id } }}
           className={styles.navLink}
         >
           <span aria-hidden="true">←</span> {isEn ? "Previous Lesson" : "Lezione Precedente"}
         </Link>
       ) : (
-        <Link href={`/academy/corsi/${courseSlug}/learn` as any} className={styles.navLink}>
+        <Link href={{ pathname: "/academy/corsi/[slug]/learn", params: { slug: courseSlug } }} className={styles.navLink}>
           <span aria-hidden="true">←</span> {isEn ? "Back to Course" : "Torna al Corso"}
         </Link>
       )}
 
       {nextLesson ? (
         <Link
-          href={`/academy/corsi/${courseSlug}/learn/${nextLesson.moduleId}?lesson=${nextLesson.id}` as any}
+          href={{ pathname: "/academy/corsi/[slug]/learn/[moduleId]", params: { slug: courseSlug, moduleId: nextLesson.moduleId }, query: { lesson: nextLesson.id } }}
           className={`${styles.navLink} ${styles.navLinkPrimary}`}
         >
           {isEn ? "Next Lesson" : "Lezione Successiva"} <span aria-hidden="true">→</span>
         </Link>
       ) : (
         <Link
-          href={`/academy/corsi/${courseSlug}/learn?tab=exam` as any}
+          href={{ pathname: "/academy/corsi/[slug]/learn", params: { slug: courseSlug }, query: { tab: "exam" } }}
           className={`${styles.navLink} ${styles.navLinkPrimary}`}
         >
           {isEn ? "Final Exam" : "Esame Finale"} <span aria-hidden="true">→</span>

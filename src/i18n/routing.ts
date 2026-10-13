@@ -17,6 +17,7 @@ export const routing = defineRouting({
     "/training/app/membership": "/training/app/membership",
     "/training/app/settings": "/training/app/settings",
     "/training/app/profile": "/training/app/profile",
+    "/admin/videos": "/admin/videos",
     "/app": "/app",
     "/prezzi": {
       it: "/prezzi",
@@ -41,6 +42,14 @@ export const routing = defineRouting({
     "/academy/corsi/[slug]": {
       it: "/academy/corsi/[slug]",
       en: "/academy/courses/[slug]",
+    },
+    "/academy/corsi/[slug]/learn": {
+      it: "/academy/corsi/[slug]/learn",
+      en: "/academy/courses/[slug]/learn",
+    },
+    "/academy/corsi/[slug]/learn/[moduleId]": {
+      it: "/academy/corsi/[slug]/learn/[moduleId]",
+      en: "/academy/courses/[slug]/learn/[moduleId]",
     },
   },
 });

@@ -7,5 +7,5 @@ interface PageProps {
 export default async function PersonalTrainerRedirectPage({ params }: PageProps) {
   const { locale } = await params;
   // Redirect legacy /personal-trainer URL to the modular /personal-trainer-1 dynamic route
-  redirect({ href: "/academy/corsi/personal-trainer-1" as any, locale });
+  redirect({ href: { pathname: "/academy/corsi/[slug]", params: { slug: "personal-trainer-1" } }, locale });
 }

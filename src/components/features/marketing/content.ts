@@ -28,14 +28,6 @@ export const trainingBenefits: MarketingBenefit[] = [
   { icon: "location", title: "Allenati ovunque", description: "Palestra, casa, outdoor" },
 ];
 
-export const academyCourses: MarketingCard[] = [
-  { title: "Personal Trainer", description: "Diventa un professionista del fitness", imageAlt: "Personal trainer con un manubrio in palestra", tile: 0, slug: "personal-trainer-1" },
-  { title: "Calisthenics Coach", description: "Teoria e pratica del movimento a corpo libero", imageAlt: "Atleta durante un esercizio di calisthenics", tile: 1, slug: "calisthenics-1" },
-  { title: "Istruttore Nuoto", description: "Formazione completa per il mondo acquatico", imageAlt: "Nuotatore con cuffia e occhialini in piscina", tile: 2 },
-  { title: "Aquagym e Hydrobike", description: "Specializzati nel fitness in acqua", imageAlt: "Allenamento di aquagym in piscina", tile: 3 },
-  { title: "Ginnastica", description: "Tecnica, didattica e programmazione", imageAlt: "Ginnasta impegnata nello stretching a terra", tile: 4 },
-];
-
 export const trainingGoals: MarketingCard[] = [
   { title: "Dimagrimento", imageAlt: "Atleta in abbigliamento da allenamento", tile: 5 },
   { title: "Massa muscolare", imageAlt: "Atleta e sviluppo muscolare", tile: 6 },

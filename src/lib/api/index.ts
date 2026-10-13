@@ -8,4 +8,6 @@ export * from "./exams";
 export * from "./practical";
 export * from "./progress";
 export * from "./assignments";
+export * from "./videos";
+
 

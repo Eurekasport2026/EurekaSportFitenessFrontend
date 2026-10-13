@@ -1,25 +1,29 @@
 "use client";
 
+import { useTransition } from "react";
 import Image from "next/image";
-import { Link } from "@/i18n/routing";
+import { Link, useRouter } from "@/i18n/routing";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
 import { T, useLanguage } from "@/components/layout/LanguageProvider";
 import { cn } from "@/lib/utils";
-import { academyBenefits, academyCourses, trainingBenefits, trainingGoals } from "./content";
+import type { CourseCatalogState } from "@/lib/api/types";
+import { academyBenefits, trainingBenefits, trainingGoals } from "./content";
 import homeStyles from "@/components/features/home/home.module.css";
 import styles from "./marketing.module.css";
 
 export interface MarketingPageProps {
   variant: "academy" | "training";
+  catalogState?: CourseCatalogState;
 }
 
-export function MarketingPage({ variant }: MarketingPageProps) {
+export function MarketingPage({ variant, catalogState }: MarketingPageProps) {
   const { language, t } = useLanguage();
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
   const isAcademy = variant === "academy";
   const benefits = isAcademy ? academyBenefits : trainingBenefits;
-  const cards = isAcademy ? academyCourses : trainingGoals;
   const sectionId = isAcademy ? "corsi" : "obiettivi";
 
   return (
@@ -76,60 +80,95 @@ export function MarketingPage({ variant }: MarketingPageProps) {
             <h2 id="catalog-title"><T>{isAcademy ? "I NOSTRI CORSI" : "SCEGLI IL TUO OBIETTIVO"}</T></h2>
             {isAcademy && <Link href="/academy/corsi"><T>Vedi tutti</T> <HomeIcon name="arrow" /></Link>}
           </div>
-          <div className={cn(styles.cardGrid, !isAcademy && styles.goalGrid)} id={isAcademy ? "lista-corsi" : "lista-obiettivi"}>
-            {cards.map((card) => {
-              const targetSlug = isAcademy ? (card.slug || (card.title === "Personal Trainer" ? "personal-trainer-1" : null)) : null;
-              const targetHref = targetSlug ? `/academy/corsi/${targetSlug}` : null;
 
-              const cardContent = (
-                <>
-                  <div
-                    className={styles.cardPhoto}
-                    role="img"
-                    aria-label={t(card.imageAlt)}
-                    style={{ backgroundPosition: `${(card.tile % 4) * 100 / 3}% ${Math.floor(card.tile / 4) * 50}%` }}
-                  />
-                  <div className={styles.cardBody}>
-                    <h3><T>{card.title}</T></h3>
-                    {card.description && <p><T>{card.description}</T></p>}
-                    <span className={styles.cardAction}>
-                      {isAcademy && <T>Scopri</T>}<HomeIcon name="arrow" />
-                    </span>
-                  </div>
-                </>
-              );
-
-              if (!isAcademy) {
+          {isAcademy ? (
+            catalogState?.status === "error" ? (
+              <div style={{ textAlign: "center", padding: "2.5em 1em", background: "#f8fafc", borderRadius: "0.55em", border: "1px solid #e2e8f0" }} aria-busy={isPending}>
+                <p role="status" style={{ color: "#64748b", margin: "0 0 1em", fontSize: "0.9rem" }}>
+                  {language === "en"
+                    ? "Courses are temporarily unavailable. Please try again."
+                    : "I corsi sono momentaneamente non disponibili. Riprova."}
+                </p>
+                <button
+                  type="button"
+                  className={styles.heroButton}
+                  disabled={isPending}
+                  onClick={() => startTransition(() => router.refresh())}
+                  style={{ cursor: "pointer", border: "none", fontSize: "0.85em", minWidth: "8em", padding: "0.6em 1.2em" }}
+                >
+                  {isPending
+                    ? (language === "en" ? "Loading…" : "Caricamento…")
+                    : (language === "en" ? "Try again" : "Riprova")}
+                </button>
+              </div>
+            ) : catalogState?.status === "ready" && catalogState.courses.length === 0 ? (
+              <div style={{ textAlign: "center", padding: "2.5em 1em", background: "#f8fafc", borderRadius: "0.55em", border: "1px solid #e2e8f0" }}>
+                <p role="status" style={{ color: "#64748b", margin: 0, fontSize: "0.9rem" }}>
+                  {language === "en"
+                    ? "No courses are available at the moment."
+                    : "Al momento non ci sono corsi disponibili."}
+                </p>
+              </div>
+            ) : (
+              <div className={styles.cardGrid} id="lista-corsi">
+                {catalogState?.courses.map((course) => (
+                  <Link
+                    key={course.id}
+                    href={{ pathname: "/academy/corsi/[slug]", params: { slug: course.slug } }}
+                    className={styles.card}
+                    aria-label={`${language === "en" ? "Explore course" : "Scopri il corso"} ${course.title}`}
+                  >
+                    <div
+                      className={styles.cardPhoto}
+                      role="img"
+                      aria-label={course.title}
+                      style={{
+                        backgroundImage: course.heroImage ? `url(${JSON.stringify(course.heroImage)})` : "none",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center top",
+                        backgroundColor: "#d6e1e9",
+                      }}
+                    />
+                    <div className={styles.cardBody}>
+                      <h3>{course.title}</h3>
+                      {course.description && <p>{course.description}</p>}
+                      <span className={styles.cardAction}>
+                        <T>Scopri</T><HomeIcon name="arrow" />
+                      </span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            )
+          ) : (
+            <div className={cn(styles.cardGrid, styles.goalGrid)} id="lista-obiettivi">
+              {trainingGoals.map((card) => {
                 const goalMap: Record<string, string> = { Dimagrimento: "weight", "Massa muscolare": "muscle", Forza: "strength", Mobilità: "mobility", Calisthenics: "calisthenics", Benessere: "wellbeing" };
-                return <Link key={card.title} href={{ pathname: "/training/app", query: { goal: goalMap[card.title] || "fitness" } }} className={styles.card} aria-label={`${language === "en" ? "Explore goal" : "Esplora l'obiettivo"} ${t(card.title)}`}>{cardContent}</Link>;
-              }
-              if (targetHref) {
                 return (
                   <Link
                     key={card.title}
-                    href={targetHref as any}
+                    href={{ pathname: "/training/app", query: { goal: goalMap[card.title] || "fitness" } }}
                     className={styles.card}
-                    aria-label={`${isAcademy ? (language === "en" ? "Explore course" : "Scopri il corso") : (language === "en" ? "Explore goal" : "Esplora l'obiettivo")} ${t(card.title)}`}
+                    aria-label={`${language === "en" ? "Explore goal" : "Esplora l'obiettivo"} ${t(card.title)}`}
                   >
-                    {cardContent}
+                    <div
+                      className={styles.cardPhoto}
+                      role="img"
+                      aria-label={t(card.imageAlt)}
+                      style={{ backgroundPosition: `${(card.tile % 4) * 100 / 3}% ${Math.floor(card.tile / 4) * 50}%` }}
+                    />
+                    <div className={styles.cardBody}>
+                      <h3><T>{card.title}</T></h3>
+                      {card.description && <p><T>{card.description}</T></p>}
+                      <span className={styles.cardAction}>
+                        <HomeIcon name="arrow" />
+                      </span>
+                    </div>
                   </Link>
                 );
-              }
-
-              return (
-                <HomeAction
-                  key={card.title}
-                  kind={isAcademy ? "academy" : "goal"}
-                  title={card.title}
-                  description={card.description}
-                  className={styles.card}
-                  label={`${isAcademy ? (language === "en" ? "Explore course" : "Scopri il corso") : (language === "en" ? "Explore goal" : "Esplora l'obiettivo")} ${t(card.title)}`}
-                >
-                  {cardContent}
-                </HomeAction>
-              );
-            })}
-          </div>
+              })}
+            </div>
+          )}
         </section>
       </main>
     </div>

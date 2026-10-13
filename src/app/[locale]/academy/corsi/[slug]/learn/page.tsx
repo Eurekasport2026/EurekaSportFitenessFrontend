@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { setRequestLocale } from "next-intl/server";
-import { courses, getCourseBySlug } from "@/lib/api/courses";
-import { getModulesByCourse } from "@/lib/api/modules";
+import { getCourseDetail } from "@/lib/api/courses";
+import { getCourseCurriculum } from "@/lib/api/lessons";
 import { getExamByCourse } from "@/lib/api/exams";
 import { HomeHeader } from "@/components/layout/HomeHeader";
 import { CourseHome } from "@/components/features/courses/CourseHome";
+import { CoursePageState } from "@/components/features/courses/CoursePageState";
 import { cn } from "@/lib/utils";
 import homeStyles from "@/components/features/home/home.module.css";
 import styles from "@/components/features/courses/course-home.module.css";
@@ -15,21 +16,17 @@ interface PageProps {
   searchParams: Promise<{ tab?: string; completed?: string }>;
 }
 
-export function generateStaticParams() {
-  return courses.map((course) => ({
-    slug: course.slug,
-  }));
-}
-
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale, slug } = await params;
-  const course = getCourseBySlug(slug, locale);
+  const result = await getCourseDetail(slug, locale);
 
-  if (!course) {
+  if (result.status !== "ready") {
     return {
       title: locale === "en" ? "Course | Eureka! Academy" : "Corso | Eureka! Academy",
+      robots: { index: false, follow: false },
     };
   }
+  const { course } = result;
 
   return {
     title: `${course.title} – ${locale === "en" ? "Study & Modules" : "Studio & Moduli"} | Eureka! Academy`,
@@ -44,12 +41,19 @@ export default async function CourseLearnPage({ params, searchParams }: PageProp
   const { tab } = await searchParams;
   setRequestLocale(locale);
 
-  const course = getCourseBySlug(slug, locale);
-  if (!course) {
-    notFound();
-  }
+  const [courseResult, curriculumResult] = await Promise.all([
+    getCourseDetail(slug, locale),
+    getCourseCurriculum(slug, locale),
+  ]);
 
-  const modules = getModulesByCourse(slug, locale);
+  if (courseResult.status === "not_found") notFound();
+  if (courseResult.status === "error") return <CoursePageState mode="error" />;
+  const { course } = courseResult;
+
+  if (curriculumResult.status !== "ready") {
+    return <CoursePageState mode="error" resource="curriculum" />;
+  }
+  const { modules, lessons } = curriculumResult.data;
   const exam = getExamByCourse(slug, locale);
 
   return (
@@ -59,6 +63,7 @@ export default async function CourseLearnPage({ params, searchParams }: PageProp
         <CourseHome
           course={course}
           modules={modules}
+          lessons={lessons}
           exam={exam}
           initialTab={tab}
         />

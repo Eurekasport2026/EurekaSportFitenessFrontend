@@ -70,7 +70,7 @@ export function ModuleCard({
         </div>
 
         <Link
-          href={`/academy/corsi/${courseSlug}/learn/${module.id}` as any}
+          href={{ pathname: "/academy/corsi/[slug]/learn/[moduleId]", params: { slug: courseSlug, moduleId: module.id } }}
           className={cn(
             styles.moduleAction,
             isCompleted && styles.moduleActionCompleted

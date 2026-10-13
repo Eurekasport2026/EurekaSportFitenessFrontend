@@ -1,72 +1,37 @@
-import type { CourseModule } from "./types";
-import itModules from "./data/it/modules.json";
-import enModules from "./data/en/modules.json";
+import "server-only";
 
-const modulesData: Record<string, CourseModule[]> = {
-  it: itModules as unknown as CourseModule[],
-  en: enModules as unknown as CourseModule[],
-};
+import { cache } from "react";
+import { curriculumId, getCurriculumData, parseCourseModule, parseCurriculumList } from "./curriculum-api-server";
+import type { AcademyDataState, CourseModule } from "./types";
 
-export const courseModules: CourseModule[] = modulesData.it;
+export const getModulesByCourse = cache(async (
+  courseSlug: string,
+  locale: string = "it",
+): Promise<AcademyDataState<CourseModule[]>> => {
+  if (!/^[a-z0-9-]+$/.test(courseSlug)) return { status: "not_found" };
+  return getCurriculumData(`courses/${courseSlug}/modules`, locale, (value) => {
+    const modules = parseCurriculumList(value, parseCourseModule);
+    if (!modules || modules.some((module) => module.courseSlug !== courseSlug)) return null;
+    return modules.sort((a, b) => a.number - b.number);
+  });
+});
 
-export function getAllModules(locale: string = "it"): CourseModule[] {
-  return modulesData[locale] || modulesData.it;
-}
+export const getModuleById = cache(async (
+  moduleId: string,
+  locale: string = "it",
+): Promise<AcademyDataState<CourseModule>> => {
+  if (!curriculumId(moduleId)) return { status: "not_found" };
+  return getCurriculumData(`modules/${moduleId}`, locale, (value) => {
+    const module = parseCourseModule(value);
+    return module?.id === moduleId ? module : null;
+  });
+});
 
-export function getModulesByCourse(courseSlug: string, locale: string = "it"): CourseModule[] {
-  return getAllModules(locale).filter((m) => m.courseSlug === courseSlug);
-}
+export const getAllModules = cache(async (
+  locale: string = "it",
+): Promise<AcademyDataState<CourseModule[]>> => {
+  return getCurriculumData("modules", locale, (value) =>
+    parseCurriculumList(value, parseCourseModule),
+  );
+});
 
-export function getModuleById(moduleId: string, locale: string = "it"): CourseModule | undefined {
-  return getAllModules(locale).find((m) => m.id === moduleId);
-}
-
-import { apiConfig } from "./config";
-import { apiClient } from "./client";
-
-export const modulesService = {
-  getAll: async (locale: string = "it"): Promise<CourseModule[]> => {
-    if (apiConfig.useMockData) {
-      return getAllModules(locale);
-    }
-    try {
-      return await apiClient.get<CourseModule[]>("/modules", { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn("[modulesService.getAll] Live API unavailable, falling back to mock dataset", err);
-        return getAllModules(locale);
-      }
-      throw err;
-    }
-  },
-
-  getByCourse: async (courseSlug: string, locale: string = "it"): Promise<CourseModule[]> => {
-    if (apiConfig.useMockData) {
-      return getModulesByCourse(courseSlug, locale);
-    }
-    try {
-      return await apiClient.get<CourseModule[]>(`/courses/${courseSlug}/modules`, { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[modulesService.getByCourse] Live API unavailable for ${courseSlug}, falling back to mock dataset`, err);
-        return getModulesByCourse(courseSlug, locale);
-      }
-      throw err;
-    }
-  },
-
-  getById: async (moduleId: string, locale: string = "it"): Promise<CourseModule | undefined> => {
-    if (apiConfig.useMockData) {
-      return getModuleById(moduleId, locale);
-    }
-    try {
-      return await apiClient.get<CourseModule>(`/modules/${moduleId}`, { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[modulesService.getById] Live API unavailable for ${moduleId}, falling back to mock dataset`, err);
-        return getModuleById(moduleId, locale);
-      }
-      throw err;
-    }
-  },
-};

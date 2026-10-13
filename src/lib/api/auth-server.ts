@@ -82,21 +82,24 @@ export class SessionUnauthorized extends Error {
 
 /** Server-only helper for authenticated requests to the configured Eureka auth backend. */
 export async function authenticatedFetch(endpoint: string, options: RequestInit = {}): Promise<Response> {
-  const path = endpoint.replace(/^\/+/, "");
-  if (!/^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*$/.test(path)) throw new Error("Invalid backend path");
+  const clean = endpoint.replace(/^\/+/, "");
+  const [pathOnly, queryString] = clean.split("?");
+  if (!/^[A-Za-z0-9_-]+(?:\/[A-Za-z0-9_-]+)*$/.test(pathOnly)) throw new Error("Invalid backend path");
   const token = (await cookies()).get(sessionCookie)?.value;
   if (!token || !tokenClaims(token)) throw new SessionUnauthorized();
   const headers = new Headers(options.headers);
   headers.set("Accept", "application/json");
   headers.set("Authorization", `Bearer ${token}`);
-  const backendCookies = await backendCookieHeader(`${authApiBase}/${path}`);
+  const backendCookies = await backendCookieHeader(`${authApiBase}/${pathOnly}`);
   if (backendCookies) headers.set("Cookie", backendCookies);
   else headers.delete("Cookie");
-  return fetch(`${authApiBase}/${path}`, {
+  const fullUrl = queryString ? `${authApiBase}/${pathOnly}?${queryString}` : `${authApiBase}/${pathOnly}`;
+  return fetch(fullUrl, {
     ...options, headers, cache: "no-store", redirect: "error",
     signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000),
   });
 }
+
 
 export async function readAuthSession(): Promise<AuthSession | null> {
   const token = (await cookies()).get(sessionCookie)?.value;

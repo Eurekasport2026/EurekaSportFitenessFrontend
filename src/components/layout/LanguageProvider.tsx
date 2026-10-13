@@ -2,6 +2,7 @@
 
 import { createContext, useContext, type ReactNode } from "react";
 import { useLocale, useMessages } from "next-intl";
+import { useParams } from "next/navigation";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { english } from "@/lib/translations";
 
@@ -18,10 +19,22 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const locale = (useLocale() || "it") as Language;
   const router = useRouter();
   const pathname = usePathname();
+  const params = useParams();
   const messages = (useMessages() || {}) as Record<string, string>;
 
   function setLanguage(nextLanguage: Language) {
     if (nextLanguage === locale) return;
+    if (typeof params.slug === "string") {
+      const query = Object.fromEntries(new URLSearchParams(window.location.search));
+      if (pathname === "/academy/corsi/[slug]/learn/[moduleId]" && typeof params.moduleId === "string") {
+        router.replace({ pathname, params: { slug: params.slug, moduleId: params.moduleId }, query }, { locale: nextLanguage });
+        return;
+      }
+      if (pathname === "/academy/corsi/[slug]" || pathname === "/academy/corsi/[slug]/learn") {
+        router.replace({ pathname, params: { slug: params.slug }, query }, { locale: nextLanguage });
+        return;
+      }
+    }
     if (pathname === "/training/app" || pathname.startsWith("/training/app/")) {
       router.replace({
         pathname: pathname as any,

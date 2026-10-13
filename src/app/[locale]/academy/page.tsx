@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { getCourseCatalog } from "@/lib/api/course-catalog-server";
 import { MarketingPage } from "@/components/features/marketing/MarketingPage";
 
 export async function generateMetadata({
@@ -13,11 +14,17 @@ export async function generateMetadata({
       ? "Eureka! Academy | Sports & Fitness Education"
       : "Eureka! Academy | Formazione sport e fitness",
     description: isEn
-      ? "Become a sports and fitness professional. Explore Eureka! Academy courses: Personal Trainer, Calisthenics Coach, Swimming, Aquagym and Gymnastics."
-      : "Diventa un professionista dello sport e del fitness. Scopri i corsi Eureka! Academy: Personal Trainer, Calisthenics Coach, Nuoto, Aquagym e Ginnastica.",
+      ? "Become a sports and fitness professional. Explore accredited Eureka! Academy certification courses in personal training, fitness, and athletic coaching."
+      : "Diventa un professionista dello sport e del fitness. Scopri i corsi di certificazione accreditati Eureka! Academy per personal trainer, fitness e coaching atletico.",
   };
 }
 
-export default function AcademyPage() {
-  return <MarketingPage variant="academy" />;
+export default async function AcademyPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const catalogState = await getCourseCatalog(locale === "en" ? "en" : "it");
+  return <MarketingPage variant="academy" catalogState={catalogState} />;
 }

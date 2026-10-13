@@ -36,10 +36,13 @@ const practicalDataByLocale: Record<string, PracticalData> = {
 
 export function getWorkoutPlans(locale: string = "it", courseSlug: string = "personal-trainer-1"): WorkoutPlan[] {
   const data = practicalDataByLocale[locale] || practicalDataByLocale.it;
-  if (courseSlug === "personal-trainer-2" && data.pt2WorkoutPlans) {
-    return data.pt2WorkoutPlans;
+  if (courseSlug === "personal-trainer-2") {
+    return data.pt2WorkoutPlans ?? [];
   }
-  return data.workoutPlans;
+  if (courseSlug === "personal-trainer-1") {
+    return data.workoutPlans ?? [];
+  }
+  return [];
 }
 
 export function getMuscleGroups(locale: string = "it"): MuscleGroupItem[] {
