@@ -5,6 +5,7 @@ import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { adminVideosService } from "@/lib/api/client";
 import { authService, type AuthUser } from "@/lib/api/auth";
+import { AdminNavTabs } from "./AdminNavTabs";
 import type { AdminVideo, VideoCreateInput, VideoStatus, VideoUpdateInput } from "@/lib/api/types";
 
 interface AdminVideosManagerProps {
@@ -334,6 +335,9 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+      {/* Navigation Tabs between Courses & Videos */}
+      <AdminNavTabs activeTab="videos" currentUser={currentUser} locale={locale} />
+
       {/* Header Bar */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8 border-b border-[#1f2937] pb-6">
         <div>

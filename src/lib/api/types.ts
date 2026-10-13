@@ -373,7 +373,55 @@ export interface AdminCourse extends Course {
 
 export interface AdminCourseDesign {
   course: AdminCourse;
-  modules: CourseModule[];
+  modules: (CourseModule & { lessons?: Lesson[] })[];
+}
+
+export interface ModuleUpdateInput {
+  number?: number | null;
+  type?: "theory" | "skill" | "practical" | "case_study" | string | null;
+  durationMinutes?: number | null;
+  isPractical?: boolean | null;
+  skillLevel?: string | null;
+  title?: TranslationText | null;
+  subtitle?: TranslationText | null;
+  description?: TranslationText | null;
+}
+
+export interface LessonCreateInput {
+  id?: string | null;
+  order: number;
+  durationMinutes?: number;
+  itemType?: LearningItemType | string;
+  video_id?: string | null;
+  pdfUrl?: string | null;
+  pdfSize?: string | null;
+  allowsDownload?: boolean;
+  title: TranslationText;
+  description?: TranslationText;
+  summary?: TranslationText;
+  videoDuration?: string | null;
+  pdfTitle?: TranslationText;
+  keyTakeaways?: Record<string, string[]>;
+}
+
+export interface LessonUpdateInput {
+  order?: number | null;
+  durationMinutes?: number | null;
+  itemType?: LearningItemType | string | null;
+  video_id?: string | null;
+  pdfUrl?: string | null;
+  pdfSize?: string | null;
+  allowsDownload?: boolean | null;
+  title?: TranslationText | null;
+  description?: TranslationText | null;
+  summary?: TranslationText | null;
+  videoDuration?: string | null;
+  pdfTitle?: TranslationText | null;
+  keyTakeaways?: Record<string, string[]> | null;
+}
+
+export interface LessonVideoAssignInput {
+  video_id: string;
 }
 
 

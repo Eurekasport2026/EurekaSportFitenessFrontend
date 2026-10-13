@@ -18,6 +18,8 @@ export const routing = defineRouting({
     "/training/app/settings": "/training/app/settings",
     "/training/app/profile": "/training/app/profile",
     "/admin/videos": "/admin/videos",
+    "/admin/courses": "/admin/courses",
+    "/admin/system": "/admin/system",
     "/app": "/app",
     "/prezzi": {
       it: "/prezzi",

@@ -17,6 +17,48 @@ All notable changes to this project will be documented in this file.
   - Verified cleanly with `npx tsc --noEmit`.
 
 ### Added
+- **System Health Diagnostics API & 100% OpenAPI Coverage Studio (2026-10-13, ADR-070)**:
+  - Implemented the 32nd and final endpoint from `api.json`: `GET /health`.
+  - Created Next.js same-origin route handler `src/app/api/health/route.ts` that probes the Railway backend (`https://api-production-c166.up.railway.app/health`), measures roundtrip latency in milliseconds, and returns system health telemetry.
+  - Exported `healthService` in `src/lib/api/client.ts`.
+  - Registered route `"/admin/system": "/admin/system"` in `src/i18n/routing.ts`.
+  - Updated `src/components/features/admin/AdminNavTabs.tsx` to include "System Health" navigation tab.
+  - Built comprehensive Admin System Health & API Diagnostics Studio in `src/components/features/admin/AdminSystemHealth.tsx` and `src/app/[locale]/admin/system/page.tsx` with:
+    - Real-time backend liveness monitor (Railway API status, latency in milliseconds, uptime indicator).
+    - "Run Live Probe" diagnostic action with animated spinner and toast feedback.
+    - Full 32-endpoint catalogue matrix with filter tabs (All, Auth, Academy, Videos, Admin, System) and live search.
+    - Auth state guards for 401 unauthenticated and 403 forbidden with user session details and account switcher button per ADR-067.
+    - Achieved 100% implementation coverage (32/32 endpoints) of the OpenAPI specification.
+  - Verified cleanly with `npx tsc --noEmit` (clean exit code 0).
+
+- **Admin Curriculum Management APIs & Course Studio Console (2026-10-13, ADR-069)**:
+  - Implemented the 5 remaining curriculum management endpoints from `api.json`:
+    - `PATCH /api/v1/admin/modules/{module_id}` (`ModuleUpdate` schema)
+    - `POST /api/v1/admin/modules/{module_id}/lessons` (`LessonCreate` schema)
+    - `PATCH /api/v1/admin/lessons/{lesson_id}` (`LessonUpdate` schema)
+    - `PUT /api/v1/admin/lessons/{lesson_id}/video` (`LessonVideoAssign` schema)
+    - `DELETE /api/v1/admin/lessons/{lesson_id}/video`
+  - Added types `ModuleUpdateInput`, `LessonCreateInput`, `LessonUpdateInput`, and `LessonVideoAssignInput` in `src/lib/api/types.ts`.
+  - Created server-only adapter `src/lib/api/admin-curriculum-server.ts` with `updateAdminModule`, `createAdminLesson`, `updateAdminLesson`, `assignAdminLessonVideo`, and `removeAdminLessonVideo` with `authenticatedFetch`.
+  - Created same-origin Next.js Route Handlers:
+    - `src/app/api/admin/modules/[moduleId]/route.ts` (`PATCH`)
+    - `src/app/api/admin/modules/[moduleId]/lessons/route.ts` (`POST`)
+    - `src/app/api/admin/lessons/[lessonId]/route.ts` (`PATCH`)
+    - `src/app/api/admin/lessons/[lessonId]/video/route.ts` (`PUT`, `DELETE`)
+  - Exported `adminCurriculumService` in `src/lib/api/client.ts`.
+  - Registered route `"/admin/courses": "/admin/courses"` in `src/i18n/routing.ts`.
+  - Created reusable admin navigation tabs `src/components/features/admin/AdminNavTabs.tsx` and integrated into both Courses and Videos consoles.
+  - Built comprehensive Course Management & Curriculum Builder Studio in `src/components/features/admin/AdminCoursesManager.tsx` and `src/app/[locale]/admin/courses/page.tsx` with:
+    - Course overview metrics, search, level and status filtering.
+    - Create and Edit course modals with client-side pattern validation.
+    - Interactive curriculum design tree inspector.
+    - Add/Edit module modals.
+    - Add/Edit lesson modals.
+    - Video library assignment and detachment modals.
+    - Auth state guards for 401 unauthenticated and 403 forbidden with user session details and account switcher button per ADR-067.
+    - Toast-only action feedback adhering to ADR-056.
+  - Verified with `npx tsc --noEmit` (clean exit 0).
+
 - **Admin Courses & Curriculum API integration (2026-10-13, ADR-068)**:
   - Implemented the 5 Admin Course and Curriculum endpoints from `api.json`:
     - `GET /api/v1/admin/courses` (list all courses including drafts for administrators)

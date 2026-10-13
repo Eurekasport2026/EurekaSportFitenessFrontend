@@ -16,7 +16,10 @@ import type {
   CourseModule,
   CourseUpdateInput,
   Lesson,
+  LessonCreateInput,
+  LessonUpdateInput,
   ModuleCreateInput,
+  ModuleUpdateInput,
   VideoCreateInput,
   VideoUpdateInput,
 } from "./types";
@@ -301,6 +304,108 @@ export const adminCoursesService = {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to create module`, res.status, json);
     }
     return json.data as CourseModule;
+  },
+};
+
+export const adminCurriculumService = {
+  updateModule: async (moduleId: string, data: ModuleUpdateInput): Promise<CourseModule> => {
+    const res = await fetch(`/api/admin/modules/${encodeURIComponent(moduleId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok || json?.success !== true) {
+      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to update module`, res.status, json);
+    }
+    return json.data as CourseModule;
+  },
+
+  createLesson: async (moduleId: string, data: LessonCreateInput): Promise<Lesson> => {
+    const res = await fetch(`/api/admin/modules/${encodeURIComponent(moduleId)}/lessons`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok || json?.success !== true) {
+      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to create lesson`, res.status, json);
+    }
+    return json.data as Lesson;
+  },
+
+  updateLesson: async (lessonId: string, data: LessonUpdateInput): Promise<Lesson> => {
+    const res = await fetch(`/api/admin/lessons/${encodeURIComponent(lessonId)}`, {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data),
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok || json?.success !== true) {
+      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to update lesson`, res.status, json);
+    }
+    return json.data as Lesson;
+  },
+
+  assignVideo: async (lessonId: string, videoId: string): Promise<{ success: boolean; lessonId: string; videoId: string }> => {
+    const res = await fetch(`/api/admin/lessons/${encodeURIComponent(lessonId)}/video`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ video_id: videoId }),
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok || json?.success !== true) {
+      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to assign video`, res.status, json);
+    }
+    return json.data;
+  },
+
+  removeVideo: async (lessonId: string): Promise<{ success: boolean; lessonId: string }> => {
+    const res = await fetch(`/api/admin/lessons/${encodeURIComponent(lessonId)}/video`, {
+      method: "DELETE",
+      cache: "no-store",
+      credentials: "same-origin",
+    });
+    const json = await res.json().catch(() => null);
+    if (!res.ok || json?.success !== true) {
+      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to remove video`, res.status, json);
+    }
+    return json.data;
+  },
+};
+
+export interface HealthTelemetry {
+  status: "ok" | "degraded" | "down";
+  backend: string;
+  backendUrl: string;
+  httpStatus: number;
+  latencyMs: number;
+  timestamp: string;
+  version: string;
+  error?: string;
+  coverage: {
+    total: number;
+    implemented: number;
+    percentage: string;
+  };
+}
+
+export const healthService = {
+  check: async (): Promise<HealthTelemetry> => {
+    const res = await fetch("/api/health", { cache: "no-store" });
+    const json = await res.json().catch(() => null);
+    if (!json || typeof json !== "object" || !json.data) {
+      throw new ApiClientError("Invalid health response", res.status);
+    }
+    return json.data as HealthTelemetry;
   },
 };
 
