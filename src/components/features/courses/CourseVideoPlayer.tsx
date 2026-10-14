@@ -19,6 +19,111 @@ interface CourseVideoPlayerProps {
   pdfUrl?: string;
   pdfTitle?: string;
   onDurationChange?: (durationStr: string, durationSec: number) => void;
+  onEnded?: () => void;
+}
+
+function formatClock(seconds: number): string {
+  const totalSec = Math.round(seconds);
+  const mins = Math.floor(totalSec / 60);
+  const secs = totalSec % 60;
+  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
+}
+
+function VimeoLessonPlayer({
+  url,
+  title,
+  isEn,
+  onDurationChange,
+  onEnded,
+  onError,
+}: {
+  url: string;
+  title: string;
+  isEn: boolean;
+  onDurationChange?: (durationStr: string, durationSec: number) => void;
+  onEnded?: () => void;
+  onError: (message: string, details: string) => void;
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const onDurationChangeRef = useRef(onDurationChange);
+  const onEndedRef = useRef(onEnded);
+  const onErrorRef = useRef(onError);
+
+  useEffect(() => {
+    onDurationChangeRef.current = onDurationChange;
+  }, [onDurationChange]);
+
+  useEffect(() => {
+    onEndedRef.current = onEnded;
+  }, [onEnded]);
+
+  useEffect(() => {
+    onErrorRef.current = onError;
+  }, [onError]);
+
+  useEffect(() => {
+    const element = containerRef.current;
+    if (!element) return;
+
+    let destroyed = false;
+    let player: { destroy: () => Promise<void> } | null = null;
+
+    const reportDuration = (seconds: number) => {
+      if (!seconds || !Number.isFinite(seconds) || seconds <= 0) return;
+      onDurationChangeRef.current?.(formatClock(seconds), Math.round(seconds));
+    };
+
+    const reportError = (error: unknown) => {
+      const details = error instanceof Error ? error.message : "Vimeo player error";
+      onErrorRef.current(
+        isEn
+          ? "Vimeo could not play this lesson. Check that this site is allowed to embed the video."
+          : "Vimeo non riesce a riprodurre questa lezione. Verifica che questo sito sia autorizzato a incorporare il video.",
+        details
+      );
+    };
+
+    import("@vimeo/player")
+      .then(({ default: Player }) => {
+        if (destroyed || !containerRef.current) return;
+        // Private library videos 404 on oEmbed. An iframe with the privacy hash
+        // still plays, and the SDK attaches to that iframe for events.
+        const embed = new URL(url);
+        embed.searchParams.set("autoplay", "1");
+        embed.searchParams.set("color", "0066ff");
+        embed.searchParams.set("title", "0");
+        embed.searchParams.set("byline", "0");
+        embed.searchParams.set("portrait", "0");
+        embed.searchParams.set("dnt", "1");
+        const iframe = document.createElement("iframe");
+        iframe.src = embed.toString();
+        iframe.title = title;
+        iframe.allow = "autoplay; fullscreen; picture-in-picture";
+        iframe.setAttribute("allowfullscreen", "");
+        containerRef.current.replaceChildren(iframe);
+        const instance = new Player(iframe);
+        player = instance;
+        instance.on("loaded", () => {
+          instance.getDuration().then(reportDuration).catch(() => undefined);
+        });
+        instance.on("durationchange", (data) => {
+          reportDuration(data.duration);
+        });
+        instance.on("ended", () => {
+          onEndedRef.current?.();
+        });
+        instance.on("error", reportError);
+        instance.ready().catch(reportError);
+      })
+      .catch(reportError);
+
+    return () => {
+      destroyed = true;
+      player?.destroy().catch(() => undefined);
+    };
+  }, [url, title, isEn]);
+
+  return <div ref={containerRef} className={styles.vimeoHost} aria-label={title} />;
 }
 
 export function CourseVideoPlayer({
@@ -29,6 +134,7 @@ export function CourseVideoPlayer({
   pdfUrl,
   pdfTitle,
   onDurationChange,
+  onEnded,
 }: CourseVideoPlayerProps) {
   const plyrRef = useRef<APITypes>(null);
   const hlsRef = useRef<any>(null);
@@ -765,12 +871,27 @@ export function CourseVideoPlayer({
   }
 
   if (isEmbed && embedUrl) {
-    const separator = embedUrl.includes("?") ? "&" : "?";
     const isVimeo = embedUrl.includes("player.vimeo.com/video");
-    const params = isVimeo
-      ? "autoplay=1&color=0066ff&title=0&byline=0&portrait=0&dnt=1"
-      : "autoplay=1";
-    const iframeSrc = `${embedUrl}${separator}${params}`;
+    if (isVimeo) {
+      const vimeoUrl = src.includes("player.vimeo.com/video/") ? src : embedUrl;
+      return (
+        <VimeoLessonPlayer
+          url={vimeoUrl}
+          title={title}
+          isEn={isEn}
+          onDurationChange={onDurationChange}
+          onEnded={onEnded}
+          onError={(message, details) => {
+            setLoadError(true);
+            setErrorMessage(message);
+            setErrorDetails(details);
+          }}
+        />
+      );
+    }
+
+    const separator = embedUrl.includes("?") ? "&" : "?";
+    const iframeSrc = `${embedUrl}${separator}autoplay=1`;
 
     return (
       <iframe

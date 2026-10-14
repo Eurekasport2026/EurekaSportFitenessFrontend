@@ -267,6 +267,11 @@ export function LessonView({
                     [activeLesson.id]: durStr,
                   }));
                 }}
+                onEnded={() => {
+                  if (completedLessonIds.includes(activeLesson.id)) return;
+                  const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id);
+                  setCompletedLessonIds(updated.completedLessonIds);
+                }}
               />
             ) : activeLesson.videoUrl && activeLesson.mediaStatus !== "in_production" ? (
               <div className={styles.videoPlaceholder}>

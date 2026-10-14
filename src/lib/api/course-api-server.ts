@@ -1,5 +1,7 @@
 import "server-only";
 
+import { cookies } from "next/headers";
+
 import { connection } from "next/server";
 import type { CatalogCourse } from "./types";
 
@@ -70,8 +72,13 @@ export async function requestCourseApi(
         }
       }
     }
+    const token = (await cookies()).get("eureka_access_token")?.value;
+    const headers: Record<string, string> = { Accept: "application/json", "Accept-Language": locale };
+    if (token && token.length <= 3500 && /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token)) {
+      headers.Authorization = `Bearer ${token}`;
+    }
     const response = await fetch(url, {
-      headers: { Accept: "application/json", "Accept-Language": locale },
+      headers,
       cache: "no-store",
       credentials: "omit",
       redirect: "error",

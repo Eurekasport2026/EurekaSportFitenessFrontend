@@ -49,6 +49,10 @@ export interface Course {
   practicalType?: PracticalType | null;
 }
 
+export interface CourseDetail extends Course {
+  modules: CourseModule[];
+}
+
 export type ModuleType = "theory" | "skill" | "practical" | "case_study";
 
 export interface CourseModule {

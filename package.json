@@ -12,6 +12,7 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@vimeo/player": "^2.30.4",
     "next": "16.3.6",
     "next-intl": "^4.14.7",
     "plyr": "^3.8.4",
