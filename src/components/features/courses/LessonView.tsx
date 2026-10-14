@@ -269,7 +269,7 @@ export function LessonView({
                 }}
                 onEnded={() => {
                   if (completedLessonIds.includes(activeLesson.id)) return;
-                  const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id);
+                  const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id, lessons);
                   setCompletedLessonIds(updated.completedLessonIds);
                 }}
               />
