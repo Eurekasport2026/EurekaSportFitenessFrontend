@@ -5,6 +5,8 @@ import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { healthService, type HealthTelemetry } from "@/lib/api/client";
 import { authService, type AuthUser } from "@/lib/api/auth";
+import { isReadCancelled } from "@/lib/api/client-reads";
+import { useRequestController } from "@/hooks/use-request-controller";
 import { AdminNavTabs } from "./AdminNavTabs";
 
 interface AdminSystemHealthProps {
@@ -77,17 +79,24 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
   const [authStatus, setAuthStatus] = useState<"checking" | "authenticated" | "unauthenticated" | "forbidden">("checking");
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const beginProbe = useRequestController();
 
   // Filter
   const [searchQuery, setSearchQuery] = useState("");
   const [categoryFilter, setCategoryFilter] = useState<string>("ALL");
 
   const runHealthProbe = useCallback(async (isManual = false) => {
+    const signal = beginProbe();
     if (isManual) setIsProbing(true);
     else setIsLoading(true);
 
     try {
-      const session = await authService.session(new AbortController().signal).catch(() => null);
+      const [sessionResult, healthResult] = await Promise.allSettled([
+        authService.session(signal), healthService.check(signal),
+      ]);
+      if (signal.aborted) return;
+      if (sessionResult.status === "rejected") throw sessionResult.reason;
+      const session = sessionResult.value;
       if (session?.user) {
         setCurrentUser(session.user);
         if (session.user.role === "admin") {
@@ -100,29 +109,38 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
         setAuthStatus("unauthenticated");
       }
 
-      const data = await healthService.check();
+      if (healthResult.status === "rejected") throw healthResult.reason;
+      const data = healthResult.value;
       setHealthData(data);
 
       if (isManual) {
-        toast.success(
+        const notify = data.status === "ok" ? toast.success : toast.error;
+        notify(
           isEn
-            ? `Backend healthy (${data.latencyMs}ms)`
-            : `Backend operativo (${data.latencyMs}ms)`,
+            ? `Backend ${data.status === "ok" ? "healthy" : "unavailable"} (${data.latencyMs}ms)`
+            : `Backend ${data.status === "ok" ? "operativo" : "non disponibile"} (${data.latencyMs}ms)`,
+          { id: "admin-health-probe" },
         );
       }
     } catch (err: unknown) {
+      if (signal.aborted || isReadCancelled(err)) return;
       const msg = err instanceof Error ? err.message : "Health probe failed";
       if (isManual) {
-        toast.error(isEn ? `Probe failed: ${msg}` : `Test fallito: ${msg}`);
+        toast.error(isEn ? `Probe failed: ${msg}` : `Test fallito: ${msg}`, { id: "admin-health-probe" });
       }
     } finally {
-      setIsLoading(false);
-      setIsProbing(false);
+      if (!signal.aborted) {
+        setIsLoading(false);
+        setIsProbing(false);
+      }
     }
-  }, [isEn]);
+  }, [isEn, beginProbe]);
 
   useEffect(() => {
     void runHealthProbe(false);
+    const onAuthChange = () => { setCurrentUser(null); setHealthData(null); void runHealthProbe(false); };
+    window.addEventListener("eureka-auth-changed", onAuthChange);
+    return () => window.removeEventListener("eureka-auth-changed", onAuthChange);
   }, [runHealthProbe]);
 
   // Handle Log Out & Switch Account
@@ -219,6 +237,26 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
               </div>
             </div>
           )}
+
+          {/* Database Role Assignment Tip */}
+          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-6 text-xs text-slate-400">
+            <span className="font-semibold text-slate-300 block mb-1">
+              💡 {isEn ? "How to grant admin access in Railway PostgreSQL:" : "Come concedere l'accesso admin su Railway PostgreSQL:"}
+            </span>
+            <p className="mb-2">
+              {isEn
+                ? "The backend validates admin access via the user record and user_role table. In your Railway PostgreSQL database, execute:"
+                : "Il backend verifica i privilegi admin sia su users che su user_role. Nel database PostgreSQL su Railway, esegui:"}
+            </p>
+            <pre className="p-2.5 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all leading-relaxed whitespace-pre-wrap">
+              {`-- 1. Update role in users table\nUPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';\n\n-- 2. Update role mapping in user_role table\nUPDATE user_role SET role_id = (SELECT id FROM roles WHERE code = 'admin') WHERE user_id = (SELECT id FROM users WHERE email = '${currentUser?.email || "your_email@example.com"}');`}
+            </pre>
+            <p className="mt-2 text-[11px] text-amber-300/90">
+              {isEn
+                ? "Important: After executing the SQL commands, click 'Log Out & Switch Account' and sign back in to issue a fresh administrator session token."
+                : "Importante: Dopo aver eseguito le query, clicca 'Disconnetti e Cambia Account' e accedi nuovamente per generare il nuovo token amministratore."}
+            </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button

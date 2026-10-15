@@ -1,3 +1,5 @@
+import { invalidateClientReads, readClientResource } from "./client-reads";
+
 export interface SignupRequest {
   name: string;
   email: string;
@@ -14,13 +16,19 @@ export type AuthErrorCode = SignupErrorCode | LoginErrorCode;
 export interface AuthUser { id: string; name: string; email: string; locale: "it" | "en"; status: "active"; role: string }
 export interface AuthSession { user: AuthUser; expiresAt: number; canRefresh: boolean }
 
-async function withAuthLock<T>(work: () => Promise<T>, signal: AbortSignal): Promise<T> {
+async function withAuthLock<T>(work: () => Promise<T>, signal: AbortSignal, notifyOnSuccess = true): Promise<T> {
+  const mutate = async () => {
+    invalidateClientReads();
+    const result = await work();
+    if (notifyOnSuccess) invalidateClientReads("auth");
+    return result;
+  };
   // Serialize cookie mutations across tabs where Web Locks is available.
   if (typeof navigator !== "undefined" && navigator.locks) {
-    return navigator.locks.request("eureka-auth-session", { signal }, work);
+    return navigator.locks.request("eureka-auth-session", { signal }, mutate);
   }
   signal.throwIfAborted();
-  return work();
+  return mutate();
 }
 
 function parseSession(body: unknown): AuthSession | null {
@@ -96,14 +104,16 @@ export const authService = {
     return submitAuth("login", { email: input.email.trim(), password: input.password }, signal);
   },
   async session(signal: AbortSignal): Promise<AuthSession | null> {
-    let response: Response;
-    try { response = await fetch("/api/auth/session", { credentials: "same-origin", cache: "no-store", signal }); }
-    catch { throw new AuthError("unavailable"); }
-    if (response.status === 401) return null;
-    if (!response.ok) throw new AuthError("unavailable");
-    const session = parseSession(await response.json().catch(() => null));
-    if (!session) throw new AuthError("unexpected");
-    return session;
+    return readClientResource("/api/auth/session", async sharedSignal => {
+      let response: Response;
+      try { response = await fetch("/api/auth/session", { credentials: "same-origin", cache: "no-store", signal: sharedSignal }); }
+      catch { throw new AuthError("unavailable"); }
+      if (response.status === 401) return null;
+      if (!response.ok) throw new AuthError("unavailable");
+      const session = parseSession(await response.json().catch(() => null));
+      if (!session) throw new AuthError("unexpected");
+      return session;
+    }, signal);
   },
   async logout(signal: AbortSignal): Promise<void> {
     return withAuthLock(async () => {
@@ -125,7 +135,8 @@ export const authService = {
       if (!response.ok) throw new AuthError(response.status === 429 ? "rateLimit" : "unavailable");
       const session = parseSession(await response.json().catch(() => null));
       if (!session) throw new AuthError("unexpected");
+      invalidateClientReads("auth");
       return session;
-    }, signal);
+    }, signal, false);
   },
 };

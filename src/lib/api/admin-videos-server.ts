@@ -1,5 +1,7 @@
 import "server-only";
 
+import { BackendTimeout, backendJson } from "./backend-timing";
+
 import { authenticatedFetch, SessionUnauthorized } from "./auth-server";
 import { parseAcademyVideo } from "./curriculum-api-server";
 import type { AcademyDataState, AdminVideo, AdminVideoQuery, VideoCreateInput, VideoUpdateInput } from "./types";
@@ -46,10 +48,11 @@ export type AdminVideosResult =
   | { status: "ready"; data: AdminVideo[] }
   | { status: "unauthenticated" }
   | { status: "forbidden"; message?: string }
-  | { status: "error"; message?: string };
+  | { status: "error"; message?: string; timeout?: boolean };
 
 export async function fetchAdminVideos(
   query: AdminVideoQuery = {},
+  signal?: AbortSignal,
 ): Promise<AdminVideosResult> {
   const searchParams = new URLSearchParams();
   if (query.locale) searchParams.set("locale", query.locale);
@@ -60,25 +63,25 @@ export async function fetchAdminVideos(
   const endpoint = queryString ? `admin/videos?${queryString}` : "admin/videos";
 
   try {
-    const response = await authenticatedFetch(endpoint);
+    const response = await authenticatedFetch(endpoint, { signal });
     if (response.status === 401) return { status: "unauthenticated" };
     if (response.status === 403) {
-      const payload = await response.json().catch(() => null);
+      const payload = await backendJson(response);
       const msg = payload && typeof payload === "object" && typeof payload.message === "string"
         ? payload.message
         : "Admin access required";
       return { status: "forbidden", message: msg };
     }
-    if (!response.ok) return { status: "error" };
+    if (!response.ok) return { status: "error", timeout: response.status === 504 };
 
-    const payload = await response.json().catch(() => null);
+    const payload = await backendJson(response);
     if (!payload || typeof payload !== "object" || payload.success !== true) return { status: "error" };
 
     const videos = parseAdminVideoList(payload.data);
     return videos ? { status: "ready", data: videos } : { status: "error" };
   } catch (err) {
     if (err instanceof SessionUnauthorized) return { status: "unauthenticated" };
-    return { status: "error" };
+    return { status: "error", timeout: err instanceof BackendTimeout };
   }
 }
 
@@ -92,7 +95,7 @@ export async function createAdminVideo(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 201 && body && typeof body === "object" && body.success === true) {
       const video = parseAdminVideo(body.data);
@@ -116,7 +119,7 @@ export async function createAdminVideo(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -135,7 +138,7 @@ export async function updateAdminVideo(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 200 && body && typeof body === "object" && body.success === true) {
       const video = parseAdminVideo(body.data);
@@ -159,6 +162,6 @@ export async function updateAdminVideo(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }

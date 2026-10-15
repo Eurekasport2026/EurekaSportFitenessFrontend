@@ -1,5 +1,7 @@
 import "server-only";
 
+import { BackendTimeout, backendJson } from "./backend-timing";
+
 import { authenticatedFetch, SessionUnauthorized } from "./auth-server";
 import type {
   CourseModule,
@@ -40,7 +42,7 @@ export async function updateAdminModule(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.ok && body && typeof body === "object") {
       const moduleData = body.data || body;
@@ -68,7 +70,7 @@ export async function updateAdminModule(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -94,7 +96,7 @@ export async function createAdminLesson(
       },
     );
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 201 && body && typeof body === "object") {
       const lessonData = body.data || body;
@@ -122,7 +124,7 @@ export async function createAdminLesson(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -145,7 +147,7 @@ export async function updateAdminLesson(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.ok && body && typeof body === "object") {
       const lessonData = body.data || body;
@@ -173,7 +175,7 @@ export async function updateAdminLesson(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -203,7 +205,7 @@ export async function assignAdminLessonVideo(
       },
     );
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.ok) {
       return {
@@ -233,7 +235,7 @@ export async function assignAdminLessonVideo(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -256,7 +258,7 @@ export async function removeAdminLessonVideo(
       },
     );
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.ok) {
       return {
@@ -286,6 +288,6 @@ export async function removeAdminLessonVideo(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }

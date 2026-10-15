@@ -1,6 +1,7 @@
+import { BackendTimeout, withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin, refreshAuthSession, RefreshFailure, SessionUnauthorized } from "@/lib/api/auth-server";
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   const headers = { "Cache-Control": "no-store" };
   if (!isSameOrigin(request)) return Response.json({ error: { code: "unexpected" } }, { status: 403, headers });
   const signal = AbortSignal.any([request.signal, AbortSignal.timeout(15000)]);
@@ -11,6 +12,8 @@ export async function POST(request: Request) {
     if (error instanceof SessionUnauthorized) return Response.json({ session: null }, { status: 401, headers });
     if (error instanceof RefreshFailure) return Response.json({ error: { code: error.code } }, { status: error.status, headers });
     // Failed refresh never overwrites or deletes a newer sign-in's cookies.
-    return Response.json({ error: { code: "unavailable" } }, { status: signal.aborted ? 504 : 503, headers });
+    return Response.json({ error: { code: "unavailable" } }, { status: signal.aborted || error instanceof BackendTimeout ? 504 : 503, headers });
   }
 }
+
+export const POST = withApiTiming(handlePOST);

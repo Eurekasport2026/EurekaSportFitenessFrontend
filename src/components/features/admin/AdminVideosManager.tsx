@@ -5,6 +5,8 @@ import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { adminVideosService } from "@/lib/api/client";
 import { authService, type AuthUser } from "@/lib/api/auth";
+import { isReadCancelled, invalidateClientReads } from "@/lib/api/client-reads";
+import { useRequestController } from "@/hooks/use-request-controller";
 import { AdminNavTabs } from "./AdminNavTabs";
 import type { AdminVideo, VideoCreateInput, VideoStatus, VideoUpdateInput } from "@/lib/api/types";
 
@@ -21,7 +23,14 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [debouncedSearch, setDebouncedSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState<string>("ALL");
+  const beginLoad = useRequestController();
+
+  useEffect(() => {
+    const timer = setTimeout(() => setDebouncedSearch(searchQuery.trim()), 300);
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
 
   // Modal dialog states
   const [isCreateOpen, setIsCreateOpen] = useState(false);
@@ -48,43 +57,38 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
 
   // Check auth and load videos
   const loadVideos = useCallback(async () => {
+    const signal = beginLoad();
     setIsLoading(true);
     try {
-      const session = await authService.session(new AbortController().signal).catch(() => null);
-      if (session?.user) {
-        setCurrentUser(session.user);
-      } else {
-        setCurrentUser(null);
-      }
-
-      const data = await adminVideosService.list({
-        locale,
-        status: statusFilter === "ALL" ? undefined : (statusFilter as VideoStatus),
-        q: searchQuery.trim() || undefined,
-      });
-      setVideos(data);
+      const [session, result] = await Promise.allSettled([
+        authService.session(signal),
+        adminVideosService.list({
+          locale,
+          status: statusFilter === "ALL" ? undefined : (statusFilter as VideoStatus),
+          q: debouncedSearch || undefined,
+        }, signal),
+      ]);
+      if (signal.aborted) return;
+      if ((session.status === "rejected" && isReadCancelled(session.reason)) ||
+          (result.status === "rejected" && isReadCancelled(result.reason))) return;
+      setCurrentUser(session.status === "fulfilled" ? session.value?.user ?? null : null);
+      if (result.status === "rejected") throw result.reason;
+      setVideos(result.value);
       setAuthStatus("authenticated");
     } catch (err: unknown) {
+      if (signal.aborted || isReadCancelled(err)) return;
       const status = typeof err === "object" && err !== null && "status" in err ? (err as { status: number }).status : 0;
-
-      const session = await authService.session(new AbortController().signal).catch(() => null);
-      if (session?.user) {
-        setCurrentUser(session.user);
-      } else {
-        setCurrentUser(null);
-      }
-
       if (status === 401) {
         setAuthStatus("unauthenticated");
       } else if (status === 403) {
         setAuthStatus("forbidden");
       } else {
-        toast.error(isEn ? "Failed to load admin videos" : "Impossibile caricare i video admin");
+        toast.error(isEn ? "Failed to load admin videos" : "Impossibile caricare i video admin", { id: "admin-videos-load" });
       }
     } finally {
-      setIsLoading(false);
+      if (!signal.aborted) setIsLoading(false);
     }
-  }, [locale, statusFilter, searchQuery, isEn]);
+  }, [locale, statusFilter, debouncedSearch, isEn, beginLoad]);
 
   // Handle Log Out & Switch Account
   const handleLogoutAndSwitch = async () => {
@@ -102,6 +106,9 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
 
   useEffect(() => {
     void loadVideos();
+    const onAuthChange = () => { setVideos([]); setCurrentUser(null); void loadVideos(); };
+    window.addEventListener("eureka-auth-changed", onAuthChange);
+    return () => window.removeEventListener("eureka-auth-changed", onAuthChange);
   }, [loadVideos]);
 
   // Summary Metrics
@@ -297,16 +304,21 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
           {/* Database Role Assignment Tip */}
           <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-6 text-xs text-slate-400">
             <span className="font-semibold text-slate-300 block mb-1">
-              💡 {isEn ? "How to grant admin access in Railway:" : "Come concedere l'accesso admin su Railway:"}
+              💡 {isEn ? "How to grant admin access in Railway PostgreSQL:" : "Come concedere l'accesso admin su Railway PostgreSQL:"}
             </span>
             <p className="mb-2">
               {isEn
-                ? "Standard signups receive role 'user'. In your Railway PostgreSQL database, execute:"
-                : "Le registrazioni standard ricevono il ruolo 'user'. Nel database PostgreSQL su Railway, esegui:"}
+                ? "The backend validates admin access via the user record and user_role table. In your Railway PostgreSQL database, execute:"
+                : "Il backend verifica i privilegi admin sia su users che su user_role. Nel database PostgreSQL su Railway, esegui:"}
             </p>
-            <pre className="p-2 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all">
-              {`UPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';`}
+            <pre className="p-2.5 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all leading-relaxed whitespace-pre-wrap">
+              {`-- 1. Update role in users table\nUPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';\n\n-- 2. Update role mapping in user_role table\nUPDATE user_role SET role_id = (SELECT id FROM roles WHERE code = 'admin') WHERE user_id = (SELECT id FROM users WHERE email = '${currentUser?.email || "your_email@example.com"}');`}
             </pre>
+            <p className="mt-2 text-[11px] text-amber-300/90">
+              {isEn
+                ? "Important: After executing the SQL commands, click 'Log Out & Switch Account' and sign back in to issue a fresh administrator session token."
+                : "Importante: Dopo aver eseguito le query, clicca 'Disconnetti e Cambia Account' e accedi nuovamente per generare il nuovo token amministratore."}
+            </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
@@ -322,7 +334,7 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
             </button>
             <button
               type="button"
-              onClick={() => void loadVideos()}
+              onClick={() => { invalidateClientReads(); void loadVideos(); }}
               className="px-4 py-3 rounded-xl text-sm font-medium text-slate-300 bg-[#1f2937] hover:bg-[#374151] transition"
             >
               {isEn ? "Retry" : "Riprova"}
@@ -369,7 +381,7 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
         <div className="flex items-center gap-3">
           <button
             type="button"
-            onClick={() => void loadVideos()}
+            onClick={() => { invalidateClientReads(); void loadVideos(); }}
             disabled={isLoading}
             className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-medium text-slate-300 bg-[#1e293b] hover:bg-[#334155] border border-[#334155] transition active:scale-95 disabled:opacity-50"
             title={isEn ? "Refresh video list" : "Ricarica elenco video"}

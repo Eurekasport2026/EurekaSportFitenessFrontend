@@ -1,3 +1,4 @@
+import { BackendTimeout, backendFetch, backendJson, withApiTiming } from "@/lib/api/backend-timing";
 import { validateSignup, type SignupErrorCode, type SignupField, type SignupRequest } from "@/lib/api/auth";
 import { authApiBase, createAuthSession, isSameOrigin } from "@/lib/api/auth-server";
 
@@ -5,7 +6,7 @@ function failure(status: number, code: SignupErrorCode, fields: SignupField[] = 
   return Response.json({ error: { code, fields } }, { status, headers: { "Cache-Control": "no-store" } });
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (!isSameOrigin(request)) return failure(403, "unexpected");
   let body: unknown;
   try { body = await request.json(); } catch { return failure(400, "validation"); }
@@ -26,21 +27,20 @@ export async function POST(request: Request) {
   const invalid = validateSignup(input);
   if (invalid.length) return failure(422, "validation", invalid);
 
-  const controller = new AbortController();
-  const timeout = setTimeout(() => controller.abort(), 15000);
+  const signal = AbortSignal.any([request.signal, AbortSignal.timeout(15000)]);
   try {
     // Separate from Academy's mock switch: signup always requires a real backend response.
-    const response = await fetch(`${authApiBase}/auth/signup`, {
+    const response = await backendFetch(`${authApiBase}/auth/signup`, {
       method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify(input), cache: "no-store", signal: controller.signal, redirect: "error",
+      body: JSON.stringify(input), cache: "no-store", signal, redirect: "error",
     });
     if (response.status === 201) {
-      const session = await createAuthSession(await response.json().catch(() => null), response);
+      const session = await createAuthSession(await backendJson(response), response);
       if (!session) return failure(502, "unexpected");
       return Response.json({ created: true, session }, { status: 201, headers: { "Cache-Control": "no-store" } });
     }
     if (response.status === 422) {
-      const payload: unknown = await response.json().catch(() => null);
+      const payload: unknown = await backendJson(response);
       const detail = payload && typeof payload === "object" && "detail" in payload ? payload.detail : null;
       const invalidFields: SignupField[] = [];
       if (Array.isArray(detail)) {
@@ -56,7 +56,9 @@ export async function POST(request: Request) {
     if (response.status === 409) return failure(409, "exists", ["email"]);
     if (response.status === 429) return failure(429, "rateLimit");
     return failure(response.status >= 500 ? 502 : 400, response.status >= 500 ? "unavailable" : "unexpected");
-  } catch {
-    return failure(controller.signal.aborted ? 504 : 502, "unavailable");
-  } finally { clearTimeout(timeout); }
+  } catch (error) {
+    return failure(signal.aborted || error instanceof BackendTimeout ? 504 : 502, "unavailable");
+  }
 }
+
+export const POST = withApiTiming(handlePOST);

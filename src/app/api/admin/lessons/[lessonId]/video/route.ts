@@ -1,3 +1,4 @@
+import { withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin } from "@/lib/api/auth-server";
 import {
   assignAdminLessonVideo,
@@ -6,7 +7,7 @@ import {
   validateVideoId,
 } from "@/lib/api/admin-curriculum-server";
 
-export async function PUT(
+async function handlePUT(
   request: Request,
   { params }: { params: Promise<{ lessonId: string }> },
 ) {
@@ -64,7 +65,7 @@ export async function PUT(
   );
 }
 
-export async function DELETE(
+async function handleDELETE(
   request: Request,
   { params }: { params: Promise<{ lessonId: string }> },
 ) {
@@ -96,3 +97,6 @@ export async function DELETE(
     { status: result.status, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const PUT = withApiTiming(handlePUT);
+export const DELETE = withApiTiming(handleDELETE);

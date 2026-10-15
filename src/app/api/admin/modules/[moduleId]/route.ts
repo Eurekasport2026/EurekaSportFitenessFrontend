@@ -1,8 +1,9 @@
+import { withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin } from "@/lib/api/auth-server";
 import { updateAdminModule, validateEntityId } from "@/lib/api/admin-curriculum-server";
 import type { ModuleUpdateInput } from "@/lib/api/types";
 
-export async function PATCH(
+async function handlePATCH(
   request: Request,
   { params }: { params: Promise<{ moduleId: string }> },
 ) {
@@ -51,3 +52,5 @@ export async function PATCH(
     { status: result.status, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const PATCH = withApiTiming(handlePATCH);

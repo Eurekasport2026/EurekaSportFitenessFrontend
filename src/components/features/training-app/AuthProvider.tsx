@@ -45,12 +45,21 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     void refresh();
+    let authChangeTimer: ReturnType<typeof setTimeout> | undefined;
     const onFocus = () => { if (!active.current && document.visibilityState === "visible") void refresh(); };
+    const onAuthChange = () => {
+      // Let an invalidated shared read settle before verifying the new cookies.
+      clearTimeout(authChangeTimer);
+      authChangeTimer = setTimeout(() => void refresh(), 0);
+    };
     window.addEventListener("focus", onFocus);
+    window.addEventListener("eureka-auth-changed", onAuthChange);
     document.addEventListener("visibilitychange", onFocus);
     return () => {
       active.current?.abort(); active.current = null;
+      clearTimeout(authChangeTimer);
       window.removeEventListener("focus", onFocus);
+      window.removeEventListener("eureka-auth-changed", onAuthChange);
       document.removeEventListener("visibilitychange", onFocus);
     };
   }, [refresh]);

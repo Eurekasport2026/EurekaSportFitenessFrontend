@@ -1,8 +1,9 @@
+import { withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin } from "@/lib/api/auth-server";
 import { updateAdminVideo, validateAdminVideoId } from "@/lib/api/admin-videos-server";
 import type { VideoUpdateInput } from "@/lib/api/types";
 
-export async function PATCH(
+async function handlePATCH(
   request: Request,
   { params }: { params: Promise<{ videoId: string }> },
 ) {
@@ -39,3 +40,5 @@ export async function PATCH(
     { status: result.status, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const PATCH = withApiTiming(handlePATCH);

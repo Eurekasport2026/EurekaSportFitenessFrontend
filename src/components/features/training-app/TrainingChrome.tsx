@@ -32,7 +32,7 @@ export function TrainingLanguage() {
 function TrainingAccountMenu() {
   const t = useTranslations("TrainingApp");
   const { state } = useTraining();
-  const { status, logout } = useAuth();
+  const { status, logout, session } = useAuth();
   const router = useRouter();
   const pathname = usePathname();
   const menuId = useId();
@@ -81,6 +81,12 @@ function TrainingAccountMenu() {
       {state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}
     </button>
     {open && <nav id={menuId} className={styles.accountMenu} aria-label={t("session.accountMenu")}>
+      {session?.user?.role === "admin" && (
+        <Link href="/admin/videos" className={styles.accountMenuItem} onClick={() => setOpen(false)}>
+          <TrainingIcon name="settings" />
+          <span>Admin Console</span>
+        </Link>
+      )}
       <Link ref={profileLink} href="/training/app/profile" className={styles.accountMenuItem} onClick={() => setOpen(false)}><TrainingIcon name="user" /><span>{t("settings.profile")}</span></Link>
       {status === "authenticated" && <button type="button" className={cn(styles.accountMenuItem, styles.dangerButton)} disabled={signingOut} onClick={() => void signOut()}><TrainingIcon name="logout" /><span>{t(signingOut ? "session.signingOut" : "session.logout")}</span></button>}
     </nav>}

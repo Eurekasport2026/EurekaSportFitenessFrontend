@@ -3,6 +3,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import type { AuthSession, AuthUser } from "./auth";
 import { backendCookieHeader, clearBackendCookies, preserveBackendCookies } from "./auth-cookies";
+import { backendFetch, backendJson } from "./backend-timing";
 
 const sessionCookie = "eureka_access_token";
 const cookieOptions = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax" as const, path: "/" };
@@ -94,18 +95,18 @@ export async function authenticatedFetch(endpoint: string, options: RequestInit 
   if (backendCookies) headers.set("Cookie", backendCookies);
   else headers.delete("Cookie");
   const fullUrl = queryString ? `${authApiBase}/${pathOnly}?${queryString}` : `${authApiBase}/${pathOnly}`;
-  return fetch(fullUrl, {
+  return backendFetch(fullUrl, {
     ...options, headers, cache: "no-store", redirect: "error",
     signal: options.signal ? AbortSignal.any([options.signal, AbortSignal.timeout(15000)]) : AbortSignal.timeout(15000),
   });
 }
 
 
-export async function readAuthSession(): Promise<AuthSession | null> {
+export async function readAuthSession(signal?: AbortSignal): Promise<AuthSession | null> {
   const token = (await cookies()).get(sessionCookie)?.value;
   const claims = tokenClaims(token);
   if (!claims) return null;
-  const response = await authenticatedFetch("/auth/me");
+  const response = await authenticatedFetch("/auth/me", { signal });
   const user = await verifiedUser(response, claims.subject);
   if (!user || claims.expiresAt <= Date.now()) return null;
   return sessionMetadata(user, claims.expiresAt);
@@ -114,7 +115,7 @@ export async function readAuthSession(): Promise<AuthSession | null> {
 async function verifiedUser(response: Response, subject: string): Promise<AuthUser | null> {
   if (response.status === 401 || response.status === 403) return null;
   if (!response.ok) throw new Error("Session verification unavailable");
-  const envelope = record(await response.json());
+  const envelope = record(await backendJson(response));
   const data = record(envelope?.data);
   // /auth/me's schema is generic. Support a wrapped user or a direct user in data.
   const user = parseUser(data?.user ?? data);
@@ -132,17 +133,17 @@ export async function refreshAuthSession(signal: AbortSignal): Promise<AuthSessi
   // No speculative Bearer/body authentication or unauthenticated upstream refresh calls.
   if (!credential) throw new SessionUnauthorized();
   const previous = tokenClaims((await cookies()).get(sessionCookie)?.value);
-  const response = await fetch(url, {
+  const response = await backendFetch(url, {
     method: "POST", headers: { Accept: "*/*", Cookie: credential }, body: "",
     cache: "no-store", redirect: "error", signal,
   });
   if (response.status === 401 || response.status === 403) throw new SessionUnauthorized();
   if (response.status === 429) throw new RefreshFailure("rateLimit", 429);
-  if (response.status !== 200) throw new RefreshFailure(response.status >= 500 ? "unavailable" : "unexpected", 502);
+  if (response.status !== 200) throw new RefreshFailure(response.status >= 500 ? "unavailable" : "unexpected", response.status === 504 ? 504 : 502);
   // Refresh omits user data. Validate the token-only envelope, then verify identity with the backend.
-  const access = parseAccessToken(await response.json().catch(() => null), previous?.subject);
+  const access = parseAccessToken(await backendJson(response), previous?.subject);
   if (!access) throw new RefreshFailure("unexpected", 502);
-  const me = await fetch(`${authApiBase}/auth/me`, {
+  const me = await backendFetch(`${authApiBase}/auth/me`, {
     headers: { Accept: "application/json", Authorization: `Bearer ${access.token}` },
     cache: "no-store", redirect: "error", signal,
   });

@@ -1,8 +1,9 @@
+import { withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin } from "@/lib/api/auth-server";
 import { createAdminLesson, validateEntityId } from "@/lib/api/admin-curriculum-server";
 import type { LessonCreateInput } from "@/lib/api/types";
 
-export async function POST(
+async function handlePOST(
   request: Request,
   { params }: { params: Promise<{ moduleId: string }> },
 ) {
@@ -66,3 +67,5 @@ export async function POST(
     { status: result.status, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const POST = withApiTiming(handlePOST);

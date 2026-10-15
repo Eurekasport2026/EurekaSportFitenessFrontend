@@ -1,20 +1,21 @@
+import { backendFetch, backendJson, withApiTiming } from "@/lib/api/backend-timing";
 import { NextResponse } from "next/server";
 import { authApiBase } from "@/lib/api/auth-server";
 
-export async function GET() {
+async function handleGET(request: Request) {
   const rootHost = authApiBase.replace(/\/api\/v1\/?$/, "");
   const healthUrl = `${rootHost}/health`;
 
   const startTime = Date.now();
   try {
-    const res = await fetch(healthUrl, {
+    const res = await backendFetch(healthUrl, {
       cache: "no-store",
-      signal: AbortSignal.timeout(6000),
+      signal: AbortSignal.any([request.signal, AbortSignal.timeout(6000)]),
     });
+    const body = await backendJson(res);
     const latencyMs = Date.now() - startTime;
-    const body = await res.json().catch(() => null);
-
-    const isHealthy = res.ok && body?.success === true && body?.data?.status === "ok";
+    const data = body?.data;
+    const isHealthy = res.ok && body?.success === true && data && typeof data === "object" && "status" in data && data.status === "ok";
 
     return NextResponse.json(
       {
@@ -67,3 +68,5 @@ export async function GET() {
     );
   }
 }
+
+export const GET = withApiTiming(handleGET);

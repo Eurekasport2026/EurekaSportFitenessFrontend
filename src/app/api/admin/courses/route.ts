@@ -1,12 +1,13 @@
+import { withApiTiming } from "@/lib/api/backend-timing";
 import { isSameOrigin } from "@/lib/api/auth-server";
 import { createAdminCourse, fetchAdminCourses, validateCourseSlug } from "@/lib/api/admin-courses-server";
 import type { CourseCreateInput } from "@/lib/api/types";
 
-export async function GET(request: Request) {
+async function handleGET(request: Request) {
   const url = new URL(request.url);
   const locale = url.searchParams.get("locale") || undefined;
 
-  const result = await fetchAdminCourses({ locale });
+  const result = await fetchAdminCourses({ locale }, request.signal);
   if (result.status === "ready") {
     return Response.json({ success: true, data: result.data }, { headers: { "Cache-Control": "no-store" } });
   }
@@ -26,12 +27,12 @@ export async function GET(request: Request) {
   }
 
   return Response.json(
-    { success: false, error: result.message || "Failed to fetch admin courses" },
-    { status: 502, headers: { "Cache-Control": "no-store" } },
+    { success: false, error: result.timeout ? "Backend request timed out" : result.message || "Failed to fetch admin courses" },
+    { status: result.timeout ? 504 : 502, headers: { "Cache-Control": "no-store" } },
   );
 }
 
-export async function POST(request: Request) {
+async function handlePOST(request: Request) {
   if (!isSameOrigin(request)) {
     return Response.json({ success: false, error: "Invalid origin" }, { status: 403, headers: { "Cache-Control": "no-store" } });
   }
@@ -79,3 +80,6 @@ export async function POST(request: Request) {
     { status: result.status, headers: { "Cache-Control": "no-store" } },
   );
 }
+
+export const GET = withApiTiming(handleGET);
+export const POST = withApiTiming(handlePOST);

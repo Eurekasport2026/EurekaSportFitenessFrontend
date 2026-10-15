@@ -14,11 +14,15 @@ import { TrainingInfoButton } from "./TrainingInfoButton";
 import { trainingPlanPhoto } from "./trainingVisuals";
 import styles from "./training-app.module.css";
 
+function getRoleHomePath(role?: string): "/admin/videos" | "/training/app/workout" {
+  return role === "admin" ? "/admin/videos" : "/training/app/workout";
+}
+
 export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" }) {
   const t = useTranslations("TrainingApp");
   const locale = useLocale();
   const { state } = useTraining();
-  const { acceptSession, status } = useAuth();
+  const { acceptSession, status, session } = useAuth();
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [pending, setPending] = useState(false);
@@ -33,8 +37,10 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
   useEffect(() => () => { activeRequest.current?.abort(); activeRequest.current = null; }, []);
   useEffect(() => { if (created) successHeading.current?.focus(); }, [created]);
   useEffect(() => {
-    if (status === "authenticated" && !created && !pending) router.replace("/training/app/workout");
-  }, [status, created, pending, router]);
+    if (status === "authenticated" && !created && !pending) {
+      router.replace(getRoleHomePath(session?.user?.role));
+    }
+  }, [status, created, pending, session, router]);
 
   function invalid(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -69,7 +75,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
       acceptSession(session);
       toast.success(t(signup ? "signup.successTitle" : "notifications.loggedIn"), { id: authToastId });
       if (signup) setCreated(true);
-      else router.replace("/training/app/workout");
+      else router.replace(getRoleHomePath(session.user.role));
     } catch (error) {
       if (activeRequest.current !== controller) return;
       const failure = error instanceof AuthError ? error : new AuthError("unexpected");
@@ -117,7 +123,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
             </div>
           </div>
           <p id="fit-login-notice" className={styles.loginNotice}>{t(created ? "signup.successDescription" : signup ? "signup.notice" : "login.notice")}</p>
-          {created ? <Link href="/training/app/workout" className={`${styles.primaryButton} ${styles.signupContinue}`}>{t("signup.continue")}<TrainingIcon name="arrow" /></Link> : <>
+          {created ? <Link href={getRoleHomePath(session?.user?.role)} className={`${styles.primaryButton} ${styles.signupContinue}`}>{t("signup.continue")}<TrainingIcon name="arrow" /></Link> : <>
           <form method="post" className={styles.loginForm} onSubmit={submit} onInvalidCapture={invalid} aria-labelledby="fit-login-form-title" aria-describedby="fit-login-notice" aria-busy={pending} onChange={() => { if (formError) setFormError(null); toast.dismiss(authToastId); }}>
             {signup && <label className={styles.loginField} htmlFor="fit-signup-name">
               <span>{t("signup.name")}</span>

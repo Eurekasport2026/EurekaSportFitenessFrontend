@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo, useRef } from "react";
 import { Link, useRouter } from "@/i18n/routing";
 import { toast } from "sonner";
 import { adminCoursesService, adminCurriculumService, adminVideosService } from "@/lib/api/client";
 import { authService, type AuthUser } from "@/lib/api/auth";
+import { isReadCancelled } from "@/lib/api/client-reads";
+import { useRequestController } from "@/hooks/use-request-controller";
 import { AdminNavTabs } from "./AdminNavTabs";
 import type {
   AdminCourse,
@@ -34,6 +36,11 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
   const [authStatus, setAuthStatus] = useState<"checking" | "authenticated" | "unauthenticated" | "forbidden">("checking");
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(null);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const beginLoad = useRequestController();
+  const beginDesign = useRequestController();
+  const beginVideos = useRequestController();
+  const loadedDesignSlug = useRef<string | null>(null);
+  const [videoAssignments, setVideoAssignments] = useState<Record<string, string | null>>({});
 
   // Filters
   const [searchQuery, setSearchQuery] = useState("");
@@ -112,58 +119,75 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
 
   // Load Courses
   const loadCourses = useCallback(async () => {
+    const signal = beginLoad();
     setIsLoading(true);
     try {
-      const session = await authService.session(new AbortController().signal).catch(() => null);
-      if (session?.user) {
-        setCurrentUser(session.user);
-      } else {
-        setCurrentUser(null);
-      }
-
-      const data = await adminCoursesService.list({ locale });
-      setCourses(data);
+      const [session, result] = await Promise.allSettled([
+        authService.session(signal), adminCoursesService.list({ locale }, signal),
+      ]);
+      if (signal.aborted) return;
+      if ((session.status === "rejected" && isReadCancelled(session.reason)) ||
+          (result.status === "rejected" && isReadCancelled(result.reason))) return;
+      setCurrentUser(session.status === "fulfilled" ? session.value?.user ?? null : null);
+      if (result.status === "rejected") throw result.reason;
+      setCourses(result.value);
       setAuthStatus("authenticated");
     } catch (err: unknown) {
+      if (signal.aborted || isReadCancelled(err)) return;
       const status = typeof err === "object" && err !== null && "status" in err ? (err as { status: number }).status : 0;
-
-      const session = await authService.session(new AbortController().signal).catch(() => null);
-      if (session?.user) {
-        setCurrentUser(session.user);
-      } else {
-        setCurrentUser(null);
-      }
-
       if (status === 401) {
         setAuthStatus("unauthenticated");
       } else if (status === 403) {
         setAuthStatus("forbidden");
       } else {
-        toast.error(isEn ? "Failed to load admin courses" : "Impossibile caricare i corsi admin");
+        toast.error(isEn ? "Failed to load admin courses" : "Impossibile caricare i corsi admin", { id: "admin-courses-load" });
       }
     } finally {
-      setIsLoading(false);
+      if (!signal.aborted) setIsLoading(false);
     }
-  }, [locale, isEn]);
+  }, [locale, isEn, beginLoad]);
 
   // Load Specific Course Design
-  const loadCourseDesign = useCallback(async (slug: string) => {
-    setIsLoadingDesign(true);
-    try {
-      const design = await adminCoursesService.getDesign(slug, locale);
-      setDesignData(design);
+  const loadCourseDesign = useCallback(async (slug: string, background = false) => {
+    if (background && loadedDesignSlug.current !== slug) return;
+    const signal = beginDesign();
+    if (!background) {
+      loadedDesignSlug.current = slug;
       setActiveDesignSlug(slug);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : isEn ? "Failed to load curriculum design" : "Impossibile caricare il curriculum del corso";
-      toast.error(msg);
-    } finally {
-      setIsLoadingDesign(false);
+      setDesignData(null);
+      setVideoAssignments({});
+      setIsLoadingDesign(true);
     }
-  }, [locale, isEn]);
+    try {
+      const design = await adminCoursesService.getDesign(slug, locale, signal);
+      if (signal.aborted) return;
+      setDesignData(design);
+    } catch (err: unknown) {
+      if (signal.aborted || isReadCancelled(err)) return;
+      const msg = err instanceof Error ? err.message : isEn ? "Failed to load curriculum design" : "Impossibile caricare il curriculum del corso";
+      toast.error(msg, { id: "admin-course-design-load" });
+    } finally {
+      if (!signal.aborted) setIsLoadingDesign(false);
+    }
+  }, [locale, isEn, beginDesign]);
 
   useEffect(() => {
     void loadCourses();
-  }, [loadCourses]);
+    const onAuthChange = () => {
+      beginDesign();
+      beginVideos();
+      loadedDesignSlug.current = null;
+      setActiveDesignSlug(null);
+      setDesignData(null);
+      setAssignVideoLesson(null);
+      setVideoAssignments({});
+      setCourses([]);
+      setCurrentUser(null);
+      void loadCourses();
+    };
+    window.addEventListener("eureka-auth-changed", onAuthChange);
+    return () => window.removeEventListener("eureka-auth-changed", onAuthChange);
+  }, [loadCourses, beginDesign, beginVideos]);
 
   // Handle Log Out & Switch Account
   const handleLogoutAndSwitch = async () => {
@@ -204,6 +228,31 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
       return true;
     });
   }, [courses, statusFilter, levelFilter, searchQuery]);
+
+  // Curriculum Design Helpers
+  const currentDesignCourse = useMemo(() => {
+    return courses.find((c) => c.slug === activeDesignSlug);
+  }, [courses, activeDesignSlug]);
+
+  const designCourseTitle = useMemo(() => {
+    const raw =
+      designData?.course?.title ||
+      (designData as unknown as { title?: unknown })?.title ||
+      currentDesignCourse?.title;
+    if (typeof raw === "string" && raw.trim()) return raw.trim();
+    if (raw && typeof raw === "object") {
+      const t = raw as { it?: string; en?: string };
+      return t.it?.trim() || t.en?.trim() || activeDesignSlug || "";
+    }
+    return currentDesignCourse?.title || activeDesignSlug || "";
+  }, [designData, currentDesignCourse, activeDesignSlug]);
+
+  const designModules = useMemo(() => {
+    if (!designData) return [];
+    if (Array.isArray(designData.modules)) return designData.modules;
+    if (Array.isArray(designData)) return designData as unknown as (CourseModule & { lessons?: Lesson[] })[];
+    return [];
+  }, [designData]);
 
   // Handle Create Course
   const handleCreateCourseSubmit = async (e: React.FormEvent) => {
@@ -299,7 +348,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
   // Open Add Module Modal
   const handleOpenAddModule = () => {
     if (!activeDesignSlug) return;
-    const nextNumber = (designData?.modules.length || 0) + 1;
+    const nextNumber = (designModules.length || 0) + 1;
     setModuleForm({
       number: nextNumber,
       type: "theory",
@@ -348,14 +397,23 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
   // Open Edit Module Modal
   const handleOpenEditModule = (mod: CourseModule) => {
     setEditingModule(mod);
+    const itTitle = typeof mod.title === "object"
+      ? ((mod.title as unknown as { it?: string; en?: string })?.it || (mod.title as unknown as { it?: string; en?: string })?.en || "")
+      : (mod.title || "");
+    const enTitle = typeof mod.title === "object"
+      ? ((mod.title as unknown as { en?: string })?.en || "")
+      : "";
+    const itDesc = typeof mod.description === "object"
+      ? ((mod.description as unknown as { it?: string; en?: string })?.it || (mod.description as unknown as { it?: string; en?: string })?.en || "")
+      : (mod.description || "");
     setModuleUpdateForm({
       number: mod.number,
       type: mod.type,
       durationMinutes: mod.durationMinutes,
       isPractical: mod.isPractical,
       skillLevel: mod.skillLevel,
-      title: { it: mod.title, en: "" },
-      description: { it: mod.description || "", en: "" },
+      title: { it: itTitle, en: enTitle },
+      description: { it: itDesc, en: "" },
     });
   };
 
@@ -433,13 +491,22 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
   // Open Edit Lesson Modal
   const handleOpenEditLesson = (lesson: Lesson) => {
     setEditingLesson(lesson);
+    const itLessonTitle = typeof lesson.title === "object"
+      ? ((lesson.title as unknown as { it?: string; en?: string })?.it || (lesson.title as unknown as { it?: string; en?: string })?.en || "")
+      : (lesson.title || "");
+    const enLessonTitle = typeof lesson.title === "object"
+      ? ((lesson.title as unknown as { en?: string })?.en || "")
+      : "";
+    const itLessonDesc = typeof lesson.description === "object"
+      ? ((lesson.description as unknown as { it?: string; en?: string })?.it || (lesson.description as unknown as { it?: string; en?: string })?.en || "")
+      : (lesson.description || "");
     setLessonUpdateForm({
       order: lesson.order,
       durationMinutes: lesson.durationMinutes,
       itemType: lesson.itemType,
       allowsDownload: lesson.allowsDownload,
-      title: { it: lesson.title, en: "" },
-      description: { it: lesson.description || "", en: "" },
+      title: { it: itLessonTitle, en: enLessonTitle },
+      description: { it: itLessonDesc, en: "" },
       pdfUrl: lesson.pdfUrl,
       pdfSize: lesson.pdfSize,
     });
@@ -471,16 +538,21 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
 
   // Open Assign Video Modal
   const handleOpenAssignVideo = async (lesson: Lesson) => {
+    const signal = beginVideos();
     setAssignVideoLesson(lesson);
-    setSelectedVideoId(lesson.rapidCode || "");
+    setSelectedVideoId(Object.prototype.hasOwnProperty.call(videoAssignments, lesson.id)
+      ? videoAssignments[lesson.id] ?? "" : lesson.rapidCode ?? "");
+    setAvailableVideos([]);
     setIsLoadingVideos(true);
     try {
-      const vids = await adminVideosService.list({ locale, status: "APPROVED" });
+      const vids = await adminVideosService.list({ locale, status: "APPROVED" }, signal);
+      if (signal.aborted) return;
       setAvailableVideos(vids);
-    } catch {
-      toast.error(isEn ? "Could not load video library" : "Impossibile caricare catalogo video");
+    } catch (error) {
+      if (signal.aborted || isReadCancelled(error)) return;
+      toast.error(isEn ? "Could not load video library" : "Impossibile caricare catalogo video", { id: "admin-video-library-load" });
     } finally {
-      setIsLoadingVideos(false);
+      if (!signal.aborted) setIsLoadingVideos(false);
     }
   };
 
@@ -488,16 +560,23 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
   const handleAssignVideoSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!assignVideoLesson || !selectedVideoId.trim() || !activeDesignSlug) return;
+    if (selectedVideoId.trim().length < 3 || selectedVideoId.trim().length > 32) {
+      toast.error(isEn ? "Video ID must contain 3 to 32 characters" : "L'ID video deve contenere da 3 a 32 caratteri", { id: "admin-video-assign" });
+      e.currentTarget.querySelector<HTMLInputElement>('input[name="videoId"]')?.focus();
+      return;
+    }
 
     setIsAssigningVideo(true);
     try {
       await adminCurriculumService.assignVideo(assignVideoLesson.id, selectedVideoId.trim());
-      toast.success(isEn ? `Video assigned to lesson` : `Video assegnato alla lezione`);
+      if (loadedDesignSlug.current !== activeDesignSlug) return;
+      setVideoAssignments(current => ({ ...current, [assignVideoLesson.id]: selectedVideoId.trim() }));
+      toast.success(isEn ? `Video assigned to lesson` : `Video assegnato alla lezione`, { id: "admin-video-assign" });
       setAssignVideoLesson(null);
-      void loadCourseDesign(activeDesignSlug);
+      void loadCourseDesign(activeDesignSlug, true);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : isEn ? "Failed to assign video" : "Errore assegnazione video";
-      toast.error(msg);
+      toast.error(msg, { id: "admin-video-assign" });
     } finally {
       setIsAssigningVideo(false);
     }
@@ -508,11 +587,13 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
     if (!activeDesignSlug) return;
     try {
       await adminCurriculumService.removeVideo(lesson.id);
-      toast.success(isEn ? "Video detached from lesson" : "Video rimosso dalla lezione");
-      void loadCourseDesign(activeDesignSlug);
+      if (loadedDesignSlug.current !== activeDesignSlug) return;
+      setVideoAssignments(current => ({ ...current, [lesson.id]: null }));
+      toast.success(isEn ? "Video detached from lesson" : "Video rimosso dalla lezione", { id: "admin-video-detach" });
+      void loadCourseDesign(activeDesignSlug, true);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : isEn ? "Failed to remove video" : "Errore rimozione video";
-      toast.error(msg);
+      toast.error(msg, { id: "admin-video-detach" });
     }
   };
 
@@ -581,6 +662,26 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
               </div>
             </div>
           )}
+
+          {/* Database Role Assignment Tip */}
+          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-6 text-xs text-slate-400">
+            <span className="font-semibold text-slate-300 block mb-1">
+              💡 {isEn ? "How to grant admin access in Railway PostgreSQL:" : "Come concedere l'accesso admin su Railway PostgreSQL:"}
+            </span>
+            <p className="mb-2">
+              {isEn
+                ? "The backend validates admin access via the user record and user_role table. In your Railway PostgreSQL database, execute:"
+                : "Il backend verifica i privilegi admin sia su users che su user_role. Nel database PostgreSQL su Railway, esegui:"}
+            </p>
+            <pre className="p-2.5 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all leading-relaxed whitespace-pre-wrap">
+              {`-- 1. Update role in users table\nUPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';\n\n-- 2. Update role mapping in user_role table\nUPDATE user_role SET role_id = (SELECT id FROM roles WHERE code = 'admin') WHERE user_id = (SELECT id FROM users WHERE email = '${currentUser?.email || "your_email@example.com"}');`}
+            </pre>
+            <p className="mt-2 text-[11px] text-amber-300/90">
+              {isEn
+                ? "Important: After executing the SQL commands, click 'Log Out & Switch Account' and sign back in to issue a fresh administrator session token."
+                : "Importante: Dopo aver eseguito le query, clicca 'Disconnetti e Cambia Account' e accedi nuovamente per generare il nuovo token amministratore."}
+            </p>
+          </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button
@@ -1152,7 +1253,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                 </div>
                 <div>
                   <h3 className="text-base font-bold text-white flex items-center gap-2">
-                    <span>{designData?.course.title || activeDesignSlug}</span>
+                    <span>{designCourseTitle}</span>
                     <span className="text-xs px-2 py-0.5 rounded font-mono bg-[#1e293b] text-slate-300 font-normal">
                       {activeDesignSlug}
                     </span>
@@ -1177,8 +1278,13 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                 <button
                   type="button"
                   onClick={() => {
+                    beginDesign();
+                    beginVideos();
+                    loadedDesignSlug.current = null;
                     setActiveDesignSlug(null);
                     setDesignData(null);
+                    setAssignVideoLesson(null);
+                    setVideoAssignments({});
                   }}
                   className="text-slate-400 hover:text-white p-2 rounded-lg hover:bg-[#1e293b]"
                 >
@@ -1198,7 +1304,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                     <span>{isEn ? "Loading curriculum tree..." : "Caricamento albero curricolare..."}</span>
                   </div>
                 </div>
-              ) : !designData?.modules || designData.modules.length === 0 ? (
+              ) : !designModules || designModules.length === 0 ? (
                 <div className="text-center py-16 bg-[#0b0f17] border border-[#1f2937] rounded-2xl p-8">
                   <p className="text-sm text-slate-400 mb-4">
                     {isEn ? "No modules in this course yet." : "Nessun modulo ancora presente per questo corso."}
@@ -1212,7 +1318,11 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                   </button>
                 </div>
               ) : (
-                designData.modules.map((mod) => (
+                designModules.map((mod) => {
+                  const modTitle = typeof mod.title === "object"
+                    ? ((mod.title as unknown as { it?: string; en?: string })?.it || (mod.title as unknown as { it?: string; en?: string })?.en || "Modulo")
+                    : (mod.title || "Modulo");
+                  return (
                   <div key={mod.id} className="bg-[#0b0f17] border border-[#1f2937] rounded-2xl overflow-hidden">
                     {/* Module Header */}
                     <div className="p-4 bg-[#131b2a] border-b border-[#1f2937] flex items-center justify-between gap-4">
@@ -1222,7 +1332,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                         </span>
                         <div>
                           <div className="flex items-center gap-2">
-                            <h4 className="text-sm font-bold text-white">{mod.title}</h4>
+                            <h4 className="text-sm font-bold text-white">{modTitle}</h4>
                             <span className="text-[10px] uppercase font-bold px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700">
                               {mod.type}
                             </span>
@@ -1267,7 +1377,13 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                           {isEn ? "No lessons in this module. Click 'Add Lesson' above." : "Nessuna lezione presente. Clicca su 'Aggiungi Lezione'."}
                         </p>
                       ) : (
-                        mod.lessons.map((lesson) => (
+                        mod.lessons.map((lesson) => {
+                          const videoId = Object.prototype.hasOwnProperty.call(videoAssignments, lesson.id)
+                            ? videoAssignments[lesson.id] : lesson.rapidCode;
+                          const lessonTitle = typeof lesson.title === "object"
+                            ? ((lesson.title as unknown as { it?: string; en?: string })?.it || (lesson.title as unknown as { it?: string; en?: string })?.en || "Lezione")
+                            : (lesson.title || "Lezione");
+                          return (
                           <div
                             key={lesson.id}
                             className="flex items-center justify-between p-3 rounded-xl bg-[#111827] border border-[#1f2937] hover:border-slate-700 transition"
@@ -1278,7 +1394,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                               </span>
                               <div>
                                 <div className="text-xs font-semibold text-white flex items-center gap-2">
-                                  <span>{lesson.title}</span>
+                                  <span>{lessonTitle}</span>
                                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-slate-800 text-slate-400">
                                     {lesson.itemType || "video"}
                                   </span>
@@ -1286,12 +1402,12 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                                 <div className="text-[11px] text-slate-400 font-mono mt-0.5 flex items-center gap-2">
                                   <span>{lesson.durationMinutes}m</span>
                                   <span className="text-slate-600">•</span>
-                                  {lesson.rapidCode ? (
+                                  {videoId ? (
                                     <span className="text-emerald-400 flex items-center gap-1">
                                       <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
                                       </svg>
-                                      <span>Video: {lesson.rapidCode}</span>
+                                      <span>Video: {videoId}</span>
                                     </span>
                                   ) : (
                                     <span className="text-slate-500 italic">No video assigned</span>
@@ -1302,7 +1418,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
 
                             <div className="flex items-center gap-2">
                               {/* Video Link / Unlink action */}
-                              {lesson.rapidCode ? (
+                              {videoId ? (
                                 <button
                                   type="button"
                                   onClick={() => void handleDetachVideo(lesson)}
@@ -1335,11 +1451,13 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                               </button>
                             </div>
                           </div>
-                        ))
+                        );
+                        })
                       )}
                     </div>
                   </div>
-                ))
+                );
+                })
               )}
             </div>
           </div>
@@ -1730,8 +1848,17 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
                 </label>
                 <input
                   type="text"
+                  name="videoId"
                   placeholder="e.g. ACD-VID-001"
                   value={selectedVideoId}
+                  minLength={3}
+                  maxLength={32}
+                  aria-invalid={Boolean(selectedVideoId.trim() && (selectedVideoId.trim().length < 3 || selectedVideoId.trim().length > 32))}
+                  onInvalid={(event) => {
+                    event.preventDefault();
+                    event.currentTarget.focus();
+                    toast.error(isEn ? "Video ID must contain 3 to 32 characters" : "L'ID video deve contenere da 3 a 32 caratteri", { id: "admin-video-assign" });
+                  }}
                   onChange={(e) => setSelectedVideoId(e.target.value)}
                   className="w-full px-3.5 py-2.5 bg-[#0b0f17] border border-[#1f2937] rounded-xl text-sm text-white font-mono focus:outline-none focus:border-[#0066ff]"
                 />
@@ -1740,7 +1867,7 @@ export function AdminCoursesManager({ locale }: AdminCoursesManagerProps) {
               <div className="flex items-center justify-end gap-3 pt-4 border-t border-[#1f2937]">
                 <button
                   type="button"
-                  onClick={() => setAssignVideoLesson(null)}
+                  onClick={() => { beginVideos(); setAssignVideoLesson(null); }}
                   className="px-4 py-2 rounded-xl text-xs font-medium text-slate-400 hover:text-white"
                 >
                   {isEn ? "Cancel" : "Annulla"}

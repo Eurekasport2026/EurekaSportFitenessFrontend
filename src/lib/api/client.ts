@@ -6,6 +6,7 @@
  */
 
 import { apiConfig, getAuthToken } from "./config";
+import { invalidateClientReads, readClientResource } from "./client-reads";
 import type {
   AcademyVideo,
   AdminCourse,
@@ -192,19 +193,21 @@ export const lessonsService = {
 };
 
 export const adminVideosService = {
-  list: async (query: AdminVideoQuery = {}): Promise<AdminVideo[]> => {
+  list: async (query: AdminVideoQuery = {}, signal?: AbortSignal): Promise<AdminVideo[]> => {
     const params = new URLSearchParams();
     if (query.locale) params.set("locale", query.locale);
     if (query.status) params.set("status", query.status);
     if (query.q) params.set("q", query.q);
     const qs = params.toString();
     const url = qs ? `/api/admin/videos?${qs}` : "/api/admin/videos";
-    const res = await fetch(url, { cache: "no-store", credentials: "same-origin" });
-    const json = await res.json().catch(() => null);
-    if (!res.ok || json?.success !== true) {
-      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch admin videos`, res.status, json);
-    }
-    return json.data as AdminVideo[];
+    return readClientResource(url, async sharedSignal => {
+      const res = await fetch(url, { cache: "no-store", credentials: "same-origin", signal: sharedSignal });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || json?.success !== true) {
+        throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch admin videos`, res.status, json);
+      }
+      return json.data as AdminVideo[];
+    }, signal, query.status === "APPROVED" && !query.q ? 30000 : 0);
   },
 
   create: async (data: VideoCreateInput): Promise<AdminVideo> => {
@@ -219,6 +222,7 @@ export const adminVideosService = {
     if (!res.ok || json.success !== true) {
       throw new ApiClientError(json.error || `HTTP ${res.status}: Failed to create admin video`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as AdminVideo;
   },
 
@@ -234,19 +238,22 @@ export const adminVideosService = {
     if (!res.ok || json.success !== true) {
       throw new ApiClientError(json.error || `HTTP ${res.status}: Failed to update admin video`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as AdminVideo;
   },
 };
 
 export const adminCoursesService = {
-  list: async (options?: { locale?: string }): Promise<AdminCourse[]> => {
+  list: async (options?: { locale?: string }, signal?: AbortSignal): Promise<AdminCourse[]> => {
     const url = options?.locale ? `/api/admin/courses?locale=${encodeURIComponent(options.locale)}` : "/api/admin/courses";
-    const res = await fetch(url, { cache: "no-store", credentials: "same-origin" });
-    const json = await res.json().catch(() => null);
-    if (!res.ok || json?.success !== true) {
-      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch admin courses`, res.status, json);
-    }
-    return json.data as AdminCourse[];
+    return readClientResource(url, async sharedSignal => {
+      const res = await fetch(url, { cache: "no-store", credentials: "same-origin", signal: sharedSignal });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || json?.success !== true) {
+        throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch admin courses`, res.status, json);
+      }
+      return json.data as AdminCourse[];
+    }, signal);
   },
 
   create: async (data: CourseCreateInput): Promise<AdminCourse> => {
@@ -261,19 +268,22 @@ export const adminCoursesService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to create admin course`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as AdminCourse;
   },
 
-  getDesign: async (slug: string, locale?: string): Promise<AdminCourseDesign> => {
+  getDesign: async (slug: string, locale?: string, signal?: AbortSignal): Promise<AdminCourseDesign> => {
     const url = locale
       ? `/api/admin/courses/${encodeURIComponent(slug)}/design?locale=${encodeURIComponent(locale)}`
       : `/api/admin/courses/${encodeURIComponent(slug)}/design`;
-    const res = await fetch(url, { cache: "no-store", credentials: "same-origin" });
-    const json = await res.json().catch(() => null);
-    if (!res.ok || json?.success !== true) {
-      throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch course design`, res.status, json);
-    }
-    return json.data as AdminCourseDesign;
+    return readClientResource(url, async sharedSignal => {
+      const res = await fetch(url, { cache: "no-store", credentials: "same-origin", signal: sharedSignal });
+      const json = await res.json().catch(() => null);
+      if (!res.ok || json?.success !== true) {
+        throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to fetch course design`, res.status, json);
+      }
+      return json.data as AdminCourseDesign;
+    }, signal);
   },
 
   update: async (slug: string, data: CourseUpdateInput): Promise<AdminCourse> => {
@@ -288,6 +298,7 @@ export const adminCoursesService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to update admin course`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as AdminCourse;
   },
 
@@ -303,6 +314,7 @@ export const adminCoursesService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to create module`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as CourseModule;
   },
 };
@@ -320,6 +332,7 @@ export const adminCurriculumService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to update module`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as CourseModule;
   },
 
@@ -335,6 +348,7 @@ export const adminCurriculumService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to create lesson`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as Lesson;
   },
 
@@ -350,10 +364,14 @@ export const adminCurriculumService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to update lesson`, res.status, json);
     }
+    invalidateClientReads();
     return json.data as Lesson;
   },
 
   assignVideo: async (lessonId: string, videoId: string): Promise<{ success: boolean; lessonId: string; videoId: string }> => {
+    if (videoId.trim().length < 3 || videoId.length > 32) {
+      throw new ApiClientError("Video ID must contain 3 to 32 characters", 422);
+    }
     const res = await fetch(`/api/admin/lessons/${encodeURIComponent(lessonId)}/video`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
@@ -365,6 +383,7 @@ export const adminCurriculumService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to assign video`, res.status, json);
     }
+    invalidateClientReads();
     return json.data;
   },
 
@@ -378,6 +397,7 @@ export const adminCurriculumService = {
     if (!res.ok || json?.success !== true) {
       throw new ApiClientError(json?.error || `HTTP ${res.status}: Failed to remove video`, res.status, json);
     }
+    invalidateClientReads();
     return json.data;
   },
 };
@@ -399,13 +419,15 @@ export interface HealthTelemetry {
 }
 
 export const healthService = {
-  check: async (): Promise<HealthTelemetry> => {
-    const res = await fetch("/api/health", { cache: "no-store" });
-    const json = await res.json().catch(() => null);
-    if (!json || typeof json !== "object" || !json.data) {
-      throw new ApiClientError("Invalid health response", res.status);
-    }
-    return json.data as HealthTelemetry;
+  check: async (signal?: AbortSignal): Promise<HealthTelemetry> => {
+    return readClientResource("/api/health", async sharedSignal => {
+      const res = await fetch("/api/health", { cache: "no-store", signal: sharedSignal });
+      const json = await res.json().catch(() => null);
+      if (!json || typeof json !== "object" || !json.data) {
+        throw new ApiClientError("Invalid health response", res.status);
+      }
+      return json.data as HealthTelemetry;
+    }, signal);
   },
 };
 

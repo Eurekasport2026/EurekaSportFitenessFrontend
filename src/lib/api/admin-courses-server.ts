@@ -1,5 +1,7 @@
 import "server-only";
 
+import { BackendTimeout, backendJson } from "./backend-timing";
+
 import { authenticatedFetch, SessionUnauthorized } from "./auth-server";
 import type {
   AdminCourse,
@@ -18,14 +20,14 @@ export type AdminCoursesResult =
   | { status: "ready"; data: AdminCourse[] }
   | { status: "unauthenticated" }
   | { status: "forbidden"; message?: string }
-  | { status: "error"; message?: string };
+  | { status: "error"; message?: string; timeout?: boolean };
 
 export type AdminCourseDesignResult =
   | { status: "ready"; data: AdminCourseDesign }
   | { status: "unauthenticated" }
   | { status: "forbidden"; message?: string }
   | { status: "not_found" }
-  | { status: "error"; message?: string };
+  | { status: "error"; message?: string; timeout?: boolean };
 
 /**
  * Server-only adapter to fetch all courses for administrators.
@@ -33,22 +35,23 @@ export type AdminCourseDesignResult =
  */
 export async function fetchAdminCourses(
   options: { locale?: string } = {},
+  signal?: AbortSignal,
 ): Promise<AdminCoursesResult> {
   const endpoint = options.locale ? `admin/courses?locale=${encodeURIComponent(options.locale)}` : "admin/courses";
 
   try {
-    const response = await authenticatedFetch(endpoint);
+    const response = await authenticatedFetch(endpoint, { signal });
     if (response.status === 401) return { status: "unauthenticated" };
     if (response.status === 403) {
-      const payload = await response.json().catch(() => null);
+      const payload = await backendJson(response);
       const msg = payload && typeof payload === "object" && typeof payload.message === "string"
         ? payload.message
         : "Admin access required";
       return { status: "forbidden", message: msg };
     }
-    if (!response.ok) return { status: "error" };
+    if (!response.ok) return { status: "error", timeout: response.status === 504 };
 
-    const payload = await response.json().catch(() => null);
+    const payload = await backendJson(response);
     if (!payload || typeof payload !== "object" || payload.success !== true || !Array.isArray(payload.data)) {
       return { status: "error" };
     }
@@ -56,7 +59,7 @@ export async function fetchAdminCourses(
     return { status: "ready", data: payload.data as AdminCourse[] };
   } catch (err) {
     if (err instanceof SessionUnauthorized) return { status: "unauthenticated" };
-    return { status: "error" };
+    return { status: "error", timeout: err instanceof BackendTimeout };
   }
 }
 
@@ -78,7 +81,7 @@ export async function createAdminCourse(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 201 && body && typeof body === "object" && body.success === true) {
       return { success: true, data: body.data as AdminCourse };
@@ -101,7 +104,7 @@ export async function createAdminCourse(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -112,6 +115,7 @@ export async function createAdminCourse(
 export async function fetchAdminCourseDesign(
   slug: string,
   locale?: string,
+  signal?: AbortSignal,
 ): Promise<AdminCourseDesignResult> {
   if (!validateCourseSlug(slug)) {
     return { status: "error", message: "Invalid course slug format" };
@@ -122,19 +126,19 @@ export async function fetchAdminCourseDesign(
     : `admin/courses/${slug}/design`;
 
   try {
-    const response = await authenticatedFetch(endpoint);
+    const response = await authenticatedFetch(endpoint, { signal });
     if (response.status === 401) return { status: "unauthenticated" };
     if (response.status === 403) {
-      const payload = await response.json().catch(() => null);
+      const payload = await backendJson(response);
       const msg = payload && typeof payload === "object" && typeof payload.message === "string"
         ? payload.message
         : "Admin access required";
       return { status: "forbidden", message: msg };
     }
     if (response.status === 404) return { status: "not_found" };
-    if (!response.ok) return { status: "error" };
+    if (!response.ok) return { status: "error", timeout: response.status === 504 };
 
-    const payload = await response.json().catch(() => null);
+    const payload = await backendJson(response);
     if (!payload || typeof payload !== "object" || payload.success !== true || !payload.data) {
       return { status: "error" };
     }
@@ -142,7 +146,7 @@ export async function fetchAdminCourseDesign(
     return { status: "ready", data: payload.data as AdminCourseDesign };
   } catch (err) {
     if (err instanceof SessionUnauthorized) return { status: "unauthenticated" };
-    return { status: "error" };
+    return { status: "error", timeout: err instanceof BackendTimeout };
   }
 }
 
@@ -165,7 +169,7 @@ export async function updateAdminCourse(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 200 && body && typeof body === "object" && body.success === true) {
       return { success: true, data: body.data as AdminCourse };
@@ -192,7 +196,7 @@ export async function updateAdminCourse(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }
 
@@ -215,7 +219,7 @@ export async function createAdminModule(
       body: JSON.stringify(data),
     });
 
-    const body = await response.json().catch(() => null);
+    const body = await backendJson(response);
 
     if (response.status === 201 && body && typeof body === "object" && body.success === true) {
       return { success: true, data: body.data as CourseModule };
@@ -242,6 +246,6 @@ export async function createAdminModule(
     if (err instanceof SessionUnauthorized) {
       return { success: false, status: 401, error: "Authentication required" };
     }
-    return { success: false, status: 502, error: "Service unavailable" };
+    return { success: false, status: err instanceof BackendTimeout ? 504 : 502, error: err instanceof BackendTimeout ? "Backend request timed out" : "Service unavailable" };
   }
 }

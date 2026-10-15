@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Fixed
+- **Admin API request overhead and latency diagnostics (2026-10-15, ADR-072)**:
+  - Load admin session metadata and protected lists/health concurrently, share overlapping browser GETs, cancel superseded loads, and debounce video search by 300ms. Failed data loads no longer repeat `/auth/session`.
+  - Reuse successful approved-video lists for at most 30 seconds when cross-tab invalidation is available; clear them on admin/auth mutations and focus. Session results remain uncached, and server requests never share browser data.
+  - Show confirmed video assignment/detachment immediately while reconciling the curriculum in the background, and validate video IDs before submitting with toast-only feedback.
+  - Add generated request IDs, `Server-Timing` headers, and sanitized `[api-timing]` logs for auth, health, and admin proxies. Distinguish deadline failures (504) from service/network failures, without automatic write retries or longer timeouts.
+  - Preserve existing uncommitted routing, RBAC guidance, and curriculum inspector fixes. `npx tsc --noEmit` passes; browser interaction and live Railway latency verification remain pending.
+
+- **Admin Courses Curriculum Tree Inspector TypeError fix (2026-10-15)**:
+  - Resolved client-side runtime error `Cannot read properties of undefined (reading 'title')` in `AdminCoursesManager.tsx` when opening the Curriculum Tree modal.
+  - Replaced unsafe direct property accesses on `designData?.course.title` and `designData.modules` with memoized helpers (`designCourseTitle` and `designModules`) that gracefully handle missing `course` wrappers, direct module arrays, and localized title objects `{ it, en }`.
+  - Added safe title and description unwrappers in `handleOpenEditModule` and `handleOpenEditLesson` to prevent nested object payload corruption.
+  - Updated `loadCourseDesign` to set `activeDesignSlug` immediately to provide instant loading modal feedback with zero latency.
+  - Verified cleanly with `npx tsc --noEmit`.
+
+### Added
+- **Role-based destination routing & multi-table RBAC assignment guidance (2026-10-15, ADR-071)**:
+  - Implemented role-aware post-login redirection in `src/components/features/training-app/TrainingLogin.tsx`:
+    - Accounts with role `admin` are automatically routed to the Admin Console (`/admin/videos`).
+    - Standard accounts (`athlete`, `coach`, `user`) continue to be routed to `/training/app/workout`.
+    - Auto-redirect when navigating to `/training/app/login` while already authenticated now respects user role.
+    - Post-signup continuation button dynamically directs to `/admin/videos` or `/training/app/workout` based on account role.
+  - Added "Admin Console" quick link in `TrainingAccountMenu` (`src/components/features/training-app/TrainingChrome.tsx`) for authenticated users with role `admin`.
+  - Updated PostgreSQL role promotion instructions in `AdminVideosManager.tsx`, `AdminCoursesManager.tsx`, and `AdminSystemHealth.tsx` to include both `users` and `user_role` relational table queries, and explicit instructions to log out and back in to issue a fresh JWT token with admin claims.
+  - Verified cleanly with `npx tsc --noEmit`.
+
+### Fixed
 - **Admin Video Management authorization loop & role permission differentiation (2026-10-12, ADR-067)**:
   - Resolved infinite login loop on `/admin/videos` where standard accounts (`role: 'user'`) were lumped with unauthenticated visitors (`401`) upon receiving backend `403 Forbidden` (`Admin access required`).
   - Updated `fetchAdminVideos`, `createAdminVideo`, and `updateAdminVideo` in `src/lib/api/admin-videos-server.ts` to explicitly differentiate `unauthenticated` (`401`) from `forbidden` (`403`).
