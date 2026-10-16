@@ -14,11 +14,10 @@ import { TrainingInfoButton } from "./TrainingInfoButton";
 import { trainingPlanPhoto } from "./trainingVisuals";
 import styles from "./training-app.module.css";
 
-function getRoleHomePath(role?: string): "/admin/videos" | "/training/app/workout" {
-  return role === "admin" ? "/admin/videos" : "/training/app/workout";
-}
+import { accountHome } from "@/lib/auth/roles";
+import { portalMessage, portalRequest } from "@/lib/api/portal";
 
-export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" }) {
+export function TrainingLogin({ mode = "login", inviteToken }: { mode?: "login" | "signup"; inviteToken?: string }) {
   const t = useTranslations("TrainingApp");
   const locale = useLocale();
   const { state } = useTraining();
@@ -37,10 +36,10 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
   useEffect(() => () => { activeRequest.current?.abort(); activeRequest.current = null; }, []);
   useEffect(() => { if (created) successHeading.current?.focus(); }, [created]);
   useEffect(() => {
-    if (status === "authenticated" && !created && !pending) {
-      router.replace(getRoleHomePath(session?.user?.role));
+    if (status === "authenticated" && !created && !pending && !inviteToken) {
+      router.replace(accountHome(session?.user));
     }
-  }, [status, created, pending, session, router]);
+  }, [status, created, pending, session, router, inviteToken]);
 
   function invalid(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -67,7 +66,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
     try {
       const credentials = { email: String(data.get("email") || ""), password: String(data.get("password") || "") };
       const session = signup
-        ? await authService.signup({ ...credentials, name: String(data.get("name") || ""), locale: locale === "en" ? "en" : "it" }, controller.signal)
+        ? await authService.signup({ ...credentials, name: String(data.get("name") || ""), locale: locale === "en" ? "en" : "it", invite_token: inviteToken }, controller.signal)
         : await authService.login(credentials, controller.signal);
       if (activeRequest.current !== controller || controller.signal.aborted) return;
       form.reset();
@@ -75,7 +74,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
       acceptSession(session);
       toast.success(t(signup ? "signup.successTitle" : "notifications.loggedIn"), { id: authToastId });
       if (signup) setCreated(true);
-      else router.replace(getRoleHomePath(session.user.role));
+      else if (!inviteToken) router.replace(accountHome(session.user));
     } catch (error) {
       if (activeRequest.current !== controller) return;
       const failure = error instanceof AuthError ? error : new AuthError("unexpected");
@@ -89,30 +88,44 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
     }
   }
 
+  if (inviteToken && status === "authenticated" && !created) return <main id="training-main" className={styles.loading}>
+    <h1>{locale === "en" ? "Accept role invitation" : "Accetta invito al ruolo"}</h1>
+    <p>{session?.user.email}</p><button className={styles.primaryButton} type="button" disabled={pending} onClick={async () => {
+      setPending(true);
+      try {
+        await portalRequest("me/invitations/accept", "POST", { token: inviteToken }, undefined, session?.user.id ?? "");
+        const next = await authService.session(AbortSignal.timeout(20000));
+        if (next) { acceptSession(next); router.replace(accountHome(next.user)); }
+        toast.success(locale === "en" ? "Invitation accepted." : "Invito accettato.", { id: "role-invite" });
+      } catch (error) { toast.error(portalMessage(error, locale === "en"), { id: "role-invite" }); }
+      finally { setPending(false); }
+    }}>{locale === "en" ? "Accept invitation" : "Accetta invito"}</button>
+  </main>;
+
   return <div className={`${styles.loginPage}${signup ? ` ${styles.signupPage}` : ""}`}>
     <TrainingHeader />
     <main id="training-main" className={styles.loginMain}>
       <div className={styles.loginToolbar}>
-        <Link href={{ pathname: "/training/app/onboarding", query: { step: "ready" } }} className={styles.loginBack}><TrainingIcon name="back" />{t("login.backToReview")}</Link>
-        <ol className={styles.loginJourney} aria-label={t("login.journeyLabel")}>
+        <Link href={state.complete ? { pathname: "/training/app/onboarding", query: { step: "ready" } } : "/"} className={styles.loginBack}><TrainingIcon name="back" />{state.complete ? t("login.backToReview") : t("backToSite")}</Link>
+        {state.complete && <ol className={styles.loginJourney} aria-label={t("login.journeyLabel")}>
           <li><span><TrainingIcon name="check" /></span>{t("login.journeyProfile")}</li>
           <li><span><TrainingIcon name="check" /></span>{t("login.journeyReview")}</li>
           <li aria-current="step"><span>3</span>{t(signup ? "signup.journeySignup" : "login.journeyLogin")}</li>
-        </ol>
+        </ol>}
       </div>
       <div className={styles.loginWorkspace}>
         <section className={styles.loginIntro} aria-labelledby="fit-login-title">
           <div className={styles.loginPlanHeading}>
-            <span className={styles.loginStatus}><TrainingIcon name="check" />{t("login.eyebrow")}</span>
-            <h1 id="fit-login-title" className={styles.loginPlanTitle}>{t("login.title")}</h1>
-            <p className={styles.loginPlanDescription}>{t("login.description")}</p>
+            <span className={styles.loginStatus}><TrainingIcon name={state.complete ? "check" : "user"} />{state.complete ? t("login.eyebrow") : "EUREKA!"}</span>
+            <h1 id="fit-login-title" className={styles.loginPlanTitle}>{state.complete ? t("login.title") : locale === "en" ? "Your Eureka account" : "Il tuo account Eureka"}</h1>
+            <p className={styles.loginPlanDescription}>{state.complete ? t("login.description") : locale === "en" ? "Sign in to open the portals assigned to your account." : "Accedi alle aree assegnate al tuo account."}</p>
           </div>
           <div className={styles.loginPlanPhoto}><Image src={trainingPlanPhoto(profile)} alt="" fill sizes="(min-width: 900px) 500px, 90vw" unoptimized /></div>
-          <dl className={styles.loginPlanDetails}>
+          {state.complete && <dl className={styles.loginPlanDetails}>
             <div><dt><TrainingIcon name="chart" />{t("onboarding.review.goal")}</dt><dd>{t(`goals.${profile.goal || "fitness"}`)}</dd></div>
             <div><dt><TrainingIcon name="dumbbell" />{t("onboarding.review.equipment")}</dt><dd>{t(`equipment.${profile.equipment || "bodyweight"}`)}</dd></div>
             <div><dt><TrainingIcon name="calendar" />{t("onboarding.review.frequency")}</dt><dd>{t("onboarding.frequencyValue", { count: profile.frequency })}</dd></div>
-          </dl>
+          </dl>}
         </section>
         <section className={styles.loginCard} aria-labelledby="fit-login-form-title">
           <div className={styles.loginFormIntro}>
@@ -123,7 +136,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
             </div>
           </div>
           <p id="fit-login-notice" className={styles.loginNotice}>{t(created ? "signup.successDescription" : signup ? "signup.notice" : "login.notice")}</p>
-          {created ? <Link href={getRoleHomePath(session?.user?.role)} className={`${styles.primaryButton} ${styles.signupContinue}`}>{t("signup.continue")}<TrainingIcon name="arrow" /></Link> : <>
+          {created ? <Link href={accountHome(session?.user)} className={`${styles.primaryButton} ${styles.signupContinue}`}>{locale === "en" ? "Open my account" : "Apri il mio account"}<TrainingIcon name="arrow" /></Link> : <>
           <form method="post" className={styles.loginForm} onSubmit={submit} onInvalidCapture={invalid} aria-labelledby="fit-login-form-title" aria-describedby="fit-login-notice" aria-busy={pending} onChange={() => { if (formError) setFormError(null); toast.dismiss(authToastId); }}>
             {signup && <label className={styles.loginField} htmlFor="fit-signup-name">
               <span>{t("signup.name")}</span>
@@ -146,7 +159,7 @@ export function TrainingLogin({ mode = "login" }: { mode?: "login" | "signup" })
           </form>
           </>}
           <div className={styles.loginFooter}>
-            {!created && <Link href={signup ? "/training/app/login" : "/training/app/signup"} className={styles.textLink} aria-disabled={pending} onClick={event => { if (pending) event.preventDefault(); }}>{t(signup ? "signup.loginLink" : "signup.createLink")}</Link>}
+            {!created && <Link href={{ pathname: signup ? "/training/app/login" : "/training/app/signup", query: inviteToken ? { invite: inviteToken } : {} }} className={styles.textLink} aria-disabled={pending} onClick={event => { if (pending) event.preventDefault(); }}>{t(signup ? "signup.loginLink" : "signup.createLink")}</Link>}
             <div className={styles.loginLegal}>
               <TrainingInfoButton kind="privacy" className={styles.productFooterControl}>{t("privacy")}</TrainingInfoButton>
               <TrainingInfoButton kind="terms" className={styles.productFooterControl}>{t("terms")}</TrainingInfoButton>

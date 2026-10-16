@@ -1,12 +1,14 @@
 "use client";
 
-import { useEffect, useId, useRef, useState, type FormEvent, type ReactNode } from "react";
+import { useId, useRef, useState, type FormEvent, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { Link } from "@/i18n/routing";
 import { HomeIcon } from "./HomeIcon";
 import { useLanguage } from "@/components/layout/LanguageProvider";
-import { apiClient } from "@/lib/api/client";
-import { clearSession, persistSession, readSessionUser, type SessionUser } from "@/lib/auth/session";
+import { authService } from "@/lib/api/auth";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { toast } from "sonner";
+
 import styles from "./home.module.css";
 
 const content = {
@@ -49,60 +51,39 @@ export function HomeAction({ kind, children, className, label, title, descriptio
   const [query, setQuery] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginError, setLoginError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const [session, setSession] = useState<SessionUser | null>(null);
+  const { session: currentSession, acceptSession, logout } = useAuth();
+  const session = currentSession?.user ?? null;
   const router = useRouter();
   const { language, t } = useLanguage();
   const results = destinations.filter((item) => `${item.title} ${item.description} ${t(item.title)} ${t(item.description)}`.toLocaleLowerCase(language).includes(query.trim().toLocaleLowerCase(language)));
 
-  useEffect(() => {
-    setSession(readSessionUser());
-  }, []);
 
   async function onLogin(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setLoginError("");
+    if (submitting) return;
     setSubmitting(true);
     try {
-      const data = await apiClient.post<{
-        access_token: string;
-        expires_in: number;
-        user: SessionUser;
-      }>("/auth/login", { email, password });
-      persistSession(data.access_token, data.expires_in, {
-        name: data.user.name,
-        email: data.user.email,
-        role: data.user.role,
-      });
-      setSession({ name: data.user.name, email: data.user.email, role: data.user.role });
+      const next = await authService.login({ email, password }, AbortSignal.timeout(35000));
+      acceptSession(next);
       setPassword("");
       dialog.current?.close();
+      toast.success(language === "en" ? "Signed in." : "Accesso effettuato.", { id: "home-auth" });
       router.refresh();
     } catch {
-      setLoginError(language === "en" ? "Email or password is not valid." : "Email o password non validi.");
-    } finally {
-      setSubmitting(false);
-    }
+      toast.error(language === "en" ? "Unable to sign in. Check your credentials and try again." : "Accesso non riuscito. Controlla le credenziali e riprova.", { id: "home-auth" });
+    } finally { setSubmitting(false); }
   }
 
   async function onLogout() {
-    try {
-      await apiClient.post("/auth/logout");
-    } catch {
-      // The local session is cleared either way.
-    }
-    clearSession();
-    setSession(null);
-    dialog.current?.close();
-    router.refresh();
+    try { await logout(); dialog.current?.close(); router.refresh(); } catch { /* AuthProvider owns feedback. */ }
   }
 
   const buttonLabel = kind === "login" && session ? session.name : children;
 
   return (
     <>
-      <button className={className} aria-label={label ?? (kind === "login" && session ? session.name : undefined)} type="button" aria-haspopup="dialog" onClick={() => { setQuery(""); setLoginError(""); dialog.current?.showModal(); }}>{buttonLabel}</button>
+      <button className={className} aria-label={label ?? (kind === "login" && session ? session.name : undefined)} type="button" aria-haspopup="dialog" onClick={() => { setQuery(""); dialog.current?.showModal(); }}>{buttonLabel}</button>
       <dialog ref={dialog} className={styles.dialog} aria-labelledby={titleId} aria-describedby={descriptionId} onClick={(event) => {
         if (event.target === event.currentTarget) {
           const bounds = event.currentTarget.getBoundingClientRect();
@@ -122,22 +103,15 @@ export function HomeAction({ kind, children, className, label, title, descriptio
           session ? (
             <div className={styles.loginForm}>
               <p>{session.email}</p>
-              <p>
-                {session.role === "coach"
-                  ? (language === "en" ? "Coach account: only coach videos are shown." : "Account coach: vengono mostrati solo i video coach.")
-                  : session.role === "admin"
-                    ? (language === "en" ? "Admin account: the full video library is shown." : "Account admin: viene mostrata l'intera libreria video.")
-                    : (language === "en" ? "Athlete account: the full video library is shown." : "Account atleta: viene mostrata l'intera libreria video.")}
-              </p>
+              <p>{session.roles.map(role => role === "coach" ? "Trainer" : role).join(" · ")}</p>
               <button type="button" onClick={onLogout}>{language === "en" ? "Log out" : "Esci"}</button>
             </div>
           ) : (
-            <form className={styles.loginForm} onSubmit={onLogin}>
+            <form className={styles.loginForm} onSubmit={onLogin} onInvalidCapture={event => { event.preventDefault(); event.currentTarget.querySelector<HTMLElement>(":invalid")?.focus(); toast.error(language === "en" ? "Check the required fields." : "Controlla i campi obbligatori.", { id: "home-auth" }); }}>
               <label htmlFor={`${titleId}-email`}>{language === "en" ? "Email" : "Email"}</label>
               <input id={`${titleId}-email`} type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} />
               <label htmlFor={`${titleId}-password`}>{language === "en" ? "Password" : "Password"}</label>
               <input id={`${titleId}-password`} type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} />
-              {loginError && <p role="alert">{loginError}</p>}
               <button type="submit" disabled={submitting}>{submitting ? (language === "en" ? "Signing in…" : "Accesso…") : (language === "en" ? "Log in" : "Accedi")}</button>
             </form>
           )

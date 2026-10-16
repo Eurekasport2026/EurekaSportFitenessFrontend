@@ -47,6 +47,14 @@
 .infoDialog, .exerciseDialog { overflow-wrap: anywhere; overscroll-behavior: contain; }
 .infoDialog p { margin: 0 0 16px; color: var(--fit-muted); font-size: 14px; line-height: 1.75; }
 .infoDialog p:last-child { margin-bottom: 0; }
+.providerRoot { --fit-canvas: #0b0f17; --fit-surface: #111827; --fit-raised: #182535; --fit-line: #263648; --fit-muted: #a5b4c5; --eureka-blue: #0066ff; --eureka-mint: #00c48c; min-height: 100svh; }
+.dataDialog { color-scheme: dark; font-family: Arial, Helvetica, sans-serif; }
+.dataDialog .buttonRow { margin-top: 24px; }
+.dataDialog .primaryButton { background: var(--eureka-mint); color: #03251c; }
+.dataDialog .primaryButton:hover:not(:disabled) { background: #35d7aa; }
+.dataDialog .secondaryButton { border-color: var(--fit-line); background: var(--fit-raised); color: #f8fafc; }
+.dataDialog .secondaryButton:hover:not(:disabled) { border-color: var(--eureka-blue); }
+.dataDialog :is(button, a):focus-visible { outline: 2px solid #38bdf8; outline-offset: 4px; }
 .shell {
   position: relative;
   display: flex;
@@ -519,6 +527,8 @@
 }
 @media (min-width: 900px) {
   .backdrop { display: grid; grid-template-rows: auto 1fr auto; }
+  .athleteViewport { grid-template-rows: 1fr auto; }
+  .athleteViewport .productHeader { display: none; }
   .onboardingViewport { height: 100dvh; grid-template-rows: auto minmax(0, 1fr) auto; }
   .onboardingViewport .shell { overflow: hidden; }
   .onboardingViewport .onboarding { min-height: 0; overflow: hidden; }

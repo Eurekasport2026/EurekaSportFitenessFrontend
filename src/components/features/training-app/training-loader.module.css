@@ -1,0 +1,79 @@
+.loader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(320px, 55svh, 600px);
+  padding: 28px 16px;
+  color: #f8fafc;
+  text-align: center;
+}
+.visual { display: grid; justify-items: center; width: min(100%, 300px); }
+.athlete { display: block; width: 100%; height: auto; overflow: visible; }
+.ground { stroke: var(--fit-line, #263648); stroke-width: 2; stroke-linecap: round; }
+.shadow { fill: var(--eureka-mint, #00c48c); opacity: .09; transform-origin: 158px 150px; }
+.body { transform-box: view-box; transform-origin: 52px 135px; }
+.legs { stroke: var(--eureka-blue, #0066ff); stroke-width: 14; stroke-linecap: round; stroke-linejoin: round; }
+.shirt { stroke: var(--eureka-mint, #00c48c); stroke-width: 19; stroke-linecap: round; stroke-linejoin: round; }
+.neck { stroke: #c3e2f6; stroke-width: 9; stroke-linecap: round; }
+.head { fill: #e2edf8; }
+.hair { stroke: #54728d; stroke-width: 5; stroke-linecap: round; }
+.nearArm, .farArm { stroke-linecap: round; stroke-linejoin: round; stroke-width: 8; }
+.nearArm { stroke: #c3e2f6; }
+.farArm { stroke: #36556f; }
+.shoes { stroke: #e2edf8; stroke-width: 6; stroke-linecap: round; stroke-linejoin: round; }
+.brand { margin-top: 5px; color: var(--fit-muted, #a5b4c5); font-size: 10px; font-weight: 700; letter-spacing: 2px; }
+.brand strong { color: var(--eureka-mint, #00c48c); }
+.loader .message { max-width: 34ch; margin: 0; color: #dbe7f4; font-size: 15px; font-weight: 500; line-height: 1.7; text-wrap: balance; }
+.dots { display: flex; align-items: center; gap: 7px; height: 8px; }
+.dots i { width: 5px; height: 5px; border-radius: 50%; background: var(--eureka-mint, #00c48c); opacity: .3; animation: dotPulse 1.8s ease-in-out infinite; }
+.dots i:nth-child(2) { animation-delay: .15s; }
+.dots i:nth-child(3) { animation-delay: .3s; }
+.compact { min-height: 210px; gap: 12px; padding: 20px 12px; }
+.compact .visual { width: min(100%, 190px); }
+.compact .brand { font-size: 8px; }
+.compact .message { font-size: 13px; }
+
+/* Keep all joints in the raised pose if path interpolation is unavailable. */
+@supports (d: path("M0 0L1 1")) {
+  .body { animation: pushUpBody 1.8s ease-in-out infinite; }
+  .nearArm { animation: pushUpNearArm 1.8s ease-in-out infinite; }
+  .farArm { animation: pushUpFarArm 1.8s ease-in-out infinite; }
+  .shadow { animation: pushUpShadow 1.8s ease-in-out infinite; }
+}
+
+@keyframes pushUpBody {
+  0%, 12%, 88%, 100% { transform: rotate(0deg); }
+  45%, 55% { transform: rotate(10deg); }
+}
+@keyframes pushUpNearArm {
+  0%, 12%, 88%, 100% { d: path("M207 82L211 113L244 143"); }
+  45%, 55% { d: path("M214 110L199 137L244 143"); }
+}
+@keyframes pushUpFarArm {
+  0%, 12%, 88%, 100% { d: path("M198 83L200 113L233 143"); }
+  45%, 55% { d: path("M205 109L188 134L233 143"); }
+}
+@keyframes pushUpShadow {
+  0%, 12%, 88%, 100% { opacity: .09; transform: scaleX(.92); }
+  45%, 55% { opacity: .18; transform: scaleX(1.04); }
+}
+@keyframes dotPulse {
+  0%, 100% { opacity: .3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-3px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .body, .nearArm, .farArm, .shadow, .dots i { animation: none; }
+  .dots i { opacity: .65; }
+}
+@media (forced-colors: active) {
+  .head { fill: CanvasText; }
+  .legs, .shirt, .nearArm, .farArm, .neck, .hair, .shoes, .ground { stroke: CanvasText; }
+  .shadow { display: none; }
+  .dots i { background: CanvasText; }
+  .brand, .brand strong, .loader .message { color: CanvasText; }
+}

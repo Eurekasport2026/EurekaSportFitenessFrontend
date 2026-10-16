@@ -17,12 +17,14 @@ async function handlePOST(request: Request) {
   const missing = fields.filter(field => typeof values[field] !== "string");
   if (missing.length) return failure(422, "validation", missing);
   if ((values.locale !== undefined && values.locale !== "it" && values.locale !== "en") ||
-      Object.keys(values).some(key => !["name", "email", "password", "locale"].includes(key))) {
+      (values.invite_token !== undefined && (typeof values.invite_token !== "string" || !/^[A-Za-z0-9_-]{40,100}$/.test(values.invite_token))) ||
+      Object.keys(values).some(key => !["name", "email", "password", "locale", "invite_token"].includes(key))) {
     return failure(422, "validation");
   }
   const input: SignupRequest = {
     name: (values.name as string).trim(), email: (values.email as string).trim(),
     password: values.password as string, locale: values.locale === "en" ? "en" : "it",
+    ...(typeof values.invite_token === "string" ? { invite_token: values.invite_token } : {}),
   };
   const invalid = validateSignup(input);
   if (invalid.length) return failure(422, "validation", invalid);

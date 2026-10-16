@@ -358,6 +358,24 @@
   "TrainingApp": {
     "skipContent": "Vai al contenuto",
     "storageNotice": "La memoria del browser non è disponibile. Le modifiche dureranno per questa visita.",
+    "dataSync": {
+      "error": {
+        "title": "Non è stato possibile sincronizzare il profilo",
+        "reload": "Ricarica il profilo dal server"
+      },
+      "recovery": {
+        "title": "Sono disponibili modifiche salvate",
+        "description": "Le modifiche precedenti all'ultimo aggiornamento dal server sono ancora salvate su questo dispositivo.",
+        "restore": "Ripristina le modifiche salvate",
+        "keep": "Mantieni il profilo del server"
+      },
+      "legacy": {
+        "title": "Controlla i dati di allenamento salvati",
+        "description": "I dati di allenamento salvati su questo dispositivo non sono associati a un account. Importali solo se sono tuoi.",
+        "import": "Importa questi dati",
+        "keep": "Mantieni il profilo attuale"
+      }
+    },
     "loading": "Caricamento del tuo spazio di allenamento…",
     "language": "Lingua",
     "navigation": "Navigazione allenamento",
@@ -376,7 +394,7 @@
         },
         "privacy": {
           "title": "Informativa privacy Eureka Fit",
-          "description": "L'informativa privacy ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. La creazione dell'account invia nome, email, password e lingua al backend Eureka. L'accesso invia email e password allo stesso backend. I cookie di accesso mantengono attiva la sessione fino alla scadenza o all'uscita dall'account. Le preferenze di allenamento e la foto restano in questo browser."
+          "description": "L'informativa privacy ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. La creazione dell'account invia nome, email, password e lingua al backend Eureka. L'accesso invia email e password allo stesso backend. I cookie di accesso mantengono attiva la sessione fino alla scadenza o all'uscita dall'account. I dati di allenamento e la foto sono sincronizzati con il tuo account; una copia è conservata anche nel browser."
         },
         "terms": {
           "title": "Termini di servizio Eureka Fit",
@@ -384,7 +402,7 @@
         },
         "cookies": {
           "title": "Informativa cookie Eureka Fit",
-          "description": "L'informativa cookie ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Fit usa cookie di accesso per mantenere attiva la sessione. Scadono automaticamente e vengono rimossi quando esci dall'account. Le preferenze di allenamento sono salvate nella memoria del browser; puoi eliminare questi dati Fit dalle Impostazioni."
+          "description": "L'informativa cookie ufficiale di Eureka Fit sarà disponibile prima del lancio del servizio. Fit usa cookie di accesso per mantenere attiva la sessione. Scadono automaticamente e vengono rimossi quando esci dall'account. Le preferenze di allenamento sono sincronizzate con il tuo account e conservate anche nel browser. Puoi reimpostare la configurazione di allenamento dalle Impostazioni."
         }
       }
     },
@@ -718,7 +736,7 @@
       "changeAvatar": "Scegli una foto profilo",
       "removeAvatar": "Rimuovi foto",
       "imageError": "Scegli un'immagine JPG, PNG o WebP inferiore a 2 MB.",
-      "localNotice": "I dati di allenamento e la foto vengono salvati su questo dispositivo.",
+      "localNotice": "I dati di allenamento e la foto sono sincronizzati con il tuo account, con una copia su questo dispositivo.",
       "description": "Tieni aggiornati i tuoi dati per il prossimo programma di allenamento."
     },
     "membership": {
@@ -832,9 +850,9 @@
       "membership": "Abbonamento",
       "help": "Aiuto e contatti",
       "editProfile": "Aggiorna il mio programma",
-      "deviceNote": "La configurazione è salvata in questo browser. Sincronizzazione dell'account, pagamenti e notifiche automatiche non sono ancora collegati.",
+      "deviceNote": "La configurazione di allenamento è sincronizzata con il tuo account. Pagamenti e notifiche automatiche non sono ancora collegati.",
       "reset": "Cancella la configurazione",
-      "resetConfirm": "Cancellare il profilo e le risposte salvate in questo browser?",
+      "resetConfirm": "Reimpostare il profilo di allenamento e le risposte del tuo account?",
       "saved": "Calendario salvato.",
       "exportCalendar": "Esporta nel calendario"
     },

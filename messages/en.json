@@ -358,6 +358,24 @@
   "TrainingApp": {
     "skipContent": "Skip to content",
     "storageNotice": "Browser storage is unavailable. Your changes will last for this visit.",
+    "dataSync": {
+      "error": {
+        "title": "We couldn't sync your training profile",
+        "reload": "Reload profile from server"
+      },
+      "recovery": {
+        "title": "Saved changes are available",
+        "description": "Your changes from before the last server reload are still saved on this device.",
+        "restore": "Restore my saved changes",
+        "keep": "Keep server profile"
+      },
+      "legacy": {
+        "title": "Review saved training details",
+        "description": "Saved training details on this device have no account owner. Import them only if they are yours.",
+        "import": "Import these details",
+        "keep": "Keep current profile"
+      }
+    },
     "loading": "Loading your training space…",
     "language": "Language",
     "navigation": "Training navigation",
@@ -376,7 +394,7 @@
         },
         "privacy": {
           "title": "Eureka Fit privacy policy",
-          "description": "The official Eureka Fit privacy policy will be available before the service launches. Creating an account sends your name, email, password, and language to the Eureka backend. Logging in sends your email and password to the same backend. Sign-in cookies keep your session active until it expires or you sign out. Your training preferences and photo remain in this browser."
+          "description": "The official Eureka Fit privacy policy will be available before the service launches. Creating an account sends your name, email, password, and language to the Eureka backend. Logging in sends your email and password to the same backend. Sign-in cookies keep your session active until it expires or you sign out. Training details and your photo sync to your account; browser storage also keeps a local copy."
         },
         "terms": {
           "title": "Eureka Fit terms of service",
@@ -384,7 +402,7 @@
         },
         "cookies": {
           "title": "Eureka Fit cookie policy",
-          "description": "The official Eureka Fit cookie policy will be available before the service launches. Fit uses sign-in cookies to keep your session active. They expire automatically and are removed when you sign out. Your training preferences are saved in browser storage; you can clear this Fit data from Settings."
+          "description": "The official Eureka Fit cookie policy will be available before the service launches. Fit uses sign-in cookies to keep your session active. They expire automatically and are removed when you sign out. Training preferences sync to your account and are also cached in browser storage. Settings can reset your account's training setup."
         }
       }
     },
@@ -718,7 +736,7 @@
       "changeAvatar": "Choose a profile photo",
       "removeAvatar": "Remove photo",
       "imageError": "Choose a JPG, PNG or WebP image smaller than 2 MB.",
-      "localNotice": "Your training details and photo are stored on this device.",
+      "localNotice": "Your training details and photo sync to your account, with a saved copy on this device.",
       "description": "Keep your details up to date for your next training plan."
     },
     "membership": {
@@ -832,9 +850,9 @@
       "membership": "Subscription membership",
       "help": "Help & contact",
       "editProfile": "Update my training plan",
-      "deviceNote": "Your setup is saved in this browser. Account sync, payments and automatic notifications are not connected yet.",
+      "deviceNote": "Your training setup syncs to your account. Payments and automatic notifications are not connected yet.",
       "reset": "Clear saved setup",
-      "resetConfirm": "Clear your profile and questionnaire answers from this browser?",
+      "resetConfirm": "Reset your account's training profile and questionnaire answers?",
       "saved": "Schedule saved.",
       "exportCalendar": "Export to calendar"
     },

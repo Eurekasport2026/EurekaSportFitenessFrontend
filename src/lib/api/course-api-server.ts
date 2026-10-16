@@ -1,15 +1,10 @@
 import "server-only";
 
-import { cookies } from "next/headers";
-
 import { connection } from "next/server";
 import type { CatalogCourse } from "./types";
+import { backendApiBase } from "./backend-config";
 
-const apiBase = (
-  process.env.EUREKA_COURSES_API_URL ||
-  process.env.EUREKA_AUTH_API_URL ||
-  "https://api-production-c166.up.railway.app/api/v1"
-).replace(/\/+$/, "");
+const apiBase = backendApiBase;
 
 export function courseRecord(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -54,6 +49,10 @@ type CourseApiResponse =
   | { status: "not_found" }
   | { status: "error" };
 
+function coursePathLabel(path: string) {
+  return `/${path}`.replace(/\/(courses|modules|lessons|videos)\/[^/]+/g, "/$1/:id");
+}
+
 export async function requestCourseApi(
   path: string,
   locale: "it" | "en",
@@ -61,8 +60,14 @@ export async function requestCourseApi(
 ): Promise<CourseApiResponse> {
   // Keep Next.js request-time control flow outside application error handling.
   await connection();
+  const started = performance.now();
+  let headersMs = 0;
+  let jsonMs = 0;
+  let status = 0;
+  let failure: "timeout" | "network" | undefined;
+  const signal = AbortSignal.timeout(8000);
   try {
-    if (!/^(?:courses(?:\/[a-z0-9-]+(?:\/(?:modules|videos))?)?|modules(?:\/[A-Za-z0-9_-]+(?:\/(?:lessons|videos))?)?|lessons(?:\/[A-Za-z0-9_-]+(?:\/adjacent)?)?|videos(?:\/[A-Za-z0-9_-]+)?)$/.test(path)) return { status: "error" };
+    if (!/^(?:courses(?:\/[a-z0-9-]+(?:\/(?:curriculum|modules|videos|exam))?)?|modules(?:\/[A-Za-z0-9_-]+(?:\/(?:lessons|videos))?)?|lessons(?:\/[A-Za-z0-9_-]+(?:\/adjacent)?)?|videos(?:\/[A-Za-z0-9_-]+)?)$/.test(path)) return { status: "error" };
     const url = new URL(`${apiBase}/${path}`);
     url.searchParams.set("locale", locale);
     if (extraParams) {
@@ -72,20 +77,20 @@ export async function requestCourseApi(
         }
       }
     }
-    const token = (await cookies()).get("eureka_access_token")?.value;
     const headers: Record<string, string> = { Accept: "application/json", "Accept-Language": locale };
-    if (token && token.length <= 3500 && /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(token)) {
-      headers.Authorization = `Bearer ${token}`;
-    }
     const response = await fetch(url, {
       headers,
       cache: "no-store",
       credentials: "omit",
       redirect: "error",
-      signal: AbortSignal.timeout(8000),
+      signal,
     });
+    headersMs = performance.now() - started;
+    status = response.status;
     if (response.status !== 200 && response.status !== 404) return { status: "error" };
+    const jsonStarted = performance.now();
     const payload: unknown = await response.json();
+    jsonMs = performance.now() - jsonStarted;
     if (response.status === 404) {
       const error = courseRecord(payload);
       return error?.success === false && error.code === "NOT_FOUND"
@@ -94,6 +99,15 @@ export async function requestCourseApi(
     }
     return { status: "ready", payload };
   } catch {
+    failure = signal.reason?.name === "TimeoutError" ? "timeout" : "network";
     return { status: "error" };
+  } finally {
+    const totalMs = performance.now() - started;
+    if (process.env.NODE_ENV !== "production" || process.env.EUREKA_API_TIMING === "1" || totalMs >= 1000 || status >= 500) {
+      console.info("[academy-timing]", JSON.stringify({
+        method: "GET", path: coursePathLabel(path), status: status || undefined,
+        totalMs: Math.round(totalMs), headersMs: Math.round(headersMs), jsonMs: Math.round(jsonMs), failure,
+      }));
+    }
   }
 }

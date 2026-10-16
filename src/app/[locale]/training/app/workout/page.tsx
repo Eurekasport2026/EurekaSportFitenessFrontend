@@ -1,7 +1,8 @@
-import { Suspense } from "react";
-import { Workout } from "@/components/features/training-app/Workout";
-import { RequireTraining, TrainingLoading } from "@/components/features/training-app/TrainingShell";
+import { redirect } from "@/i18n/routing";
 
-export default function WorkoutPage() {
-  return <RequireTraining><Suspense fallback={<TrainingLoading />}><Workout /></Suspense></RequireTraining>;
+export default async function WorkoutPage({ params, searchParams }: { params: Promise<{ locale: string }>; searchParams: Promise<{ view?: string | string[] }> }) {
+  const { locale } = await params;
+  const { view } = await searchParams;
+  const href = view === "progress" ? "/athlete/progress" : view === "library" || view === "exercises" ? "/athlete/exercises" : "/athlete/workout";
+  redirect({ href, locale });
 }

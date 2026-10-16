@@ -1,4 +1,6 @@
-import { Settings } from "@/components/features/training-app/Settings";
-import { RequireTraining } from "@/components/features/training-app/TrainingShell";
+import { redirect } from "@/i18n/routing";
 
-export default function SettingsPage() { return <RequireTraining><Settings /></RequireTraining>; }
+export default async function LegacyAthletePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  redirect({ href: "/athlete/settings", locale });
+}

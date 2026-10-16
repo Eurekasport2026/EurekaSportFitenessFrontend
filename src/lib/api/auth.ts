@@ -1,10 +1,12 @@
 import { invalidateClientReads, readClientResource } from "./client-reads";
+import { parseRoles, type Role } from "@/lib/auth/roles";
 
 export interface SignupRequest {
   name: string;
   email: string;
   password: string;
   locale: "it" | "en";
+  invite_token?: string;
 }
 
 export type SignupField = "name" | "email" | "password";
@@ -13,7 +15,7 @@ export interface LoginRequest { email: string; password: string }
 export type LoginField = "email" | "password";
 export type LoginErrorCode = "validation" | "credentials" | "rateLimit" | "unavailable" | "unexpected";
 export type AuthErrorCode = SignupErrorCode | LoginErrorCode;
-export interface AuthUser { id: string; name: string; email: string; locale: "it" | "en"; status: "active"; role: string }
+export interface AuthUser { id: string; name: string; email: string; locale: "it" | "en"; status: "active"; role: string; roles: Role[] }
 export interface AuthSession { user: AuthUser; expiresAt: number; canRefresh: boolean }
 
 async function withAuthLock<T>(work: () => Promise<T>, signal: AbortSignal, notifyOnSuccess = true): Promise<T> {
@@ -41,7 +43,9 @@ function parseSession(body: unknown): AuthSession | null {
       !("name" in user) || typeof user.name !== "string" || !("email" in user) || typeof user.email !== "string" ||
       !("locale" in user) || (user.locale !== "en" && user.locale !== "it") ||
       !("status" in user) || user.status !== "active" || !("role" in user) || typeof user.role !== "string") return null;
-  return { user: { id: user.id, name: user.name, email: user.email, locale: user.locale, status: user.status, role: user.role }, expiresAt: session.expiresAt, canRefresh: "canRefresh" in session && session.canRefresh === true };
+  const roles = parseRoles("roles" in user ? user.roles : undefined, user.role);
+  if (!roles) return null;
+  return { user: { id: user.id, name: user.name, email: user.email, locale: user.locale, status: user.status, role: user.role, roles }, expiresAt: session.expiresAt, canRefresh: "canRefresh" in session && session.canRefresh === true };
 }
 
 export class AuthError extends Error {
@@ -96,7 +100,7 @@ export const authService = {
   async signup(input: SignupRequest, signal: AbortSignal): Promise<AuthSession> {
     const fields = validateSignup(input);
     if (fields.length) throw new AuthError("validation", fields);
-    return submitAuth("signup", { name: input.name.trim(), email: input.email.trim(), password: input.password, locale: input.locale }, signal);
+    return submitAuth("signup", { name: input.name.trim(), email: input.email.trim(), password: input.password, locale: input.locale, ...(input.invite_token ? { invite_token: input.invite_token } : {}) }, signal);
   },
   async login(input: LoginRequest, signal: AbortSignal): Promise<AuthSession> {
     const fields = validateLogin(input);

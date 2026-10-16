@@ -1,71 +1,34 @@
-import type { CourseExam } from "./types";
-import itExams from "./data/it/exams.json";
-import enExams from "./data/en/exams.json";
+import "server-only";
+import { cache } from "react";
+import type { PublicCourseExam } from "./types";
+import { courseRecord, requestCourseApi } from "./course-api-server";
 
-const examsData: Record<string, Record<string, CourseExam>> = {
-  it: itExams as unknown as Record<string, CourseExam>,
-  en: enExams as unknown as Record<string, CourseExam>,
-};
+type ExamResponse = { status: "ready"; exam: PublicCourseExam } | { status: "error" | "not_found" };
 
-export const courseExams: Record<string, CourseExam> = examsData.it;
-
-export function getExamByCourse(courseSlug: string, locale: string = "it"): CourseExam | undefined {
-  const dict = examsData[locale] || examsData.it;
-  return dict[courseSlug];
-}
-
-import { apiConfig } from "./config";
-import { apiClient } from "./client";
-
-export const examsService = {
-  getByCourse: async (courseSlug: string, locale: string = "it"): Promise<CourseExam | undefined> => {
-    if (apiConfig.useMockData) {
-      return getExamByCourse(courseSlug, locale);
-    }
-    try {
-      return await apiClient.get<CourseExam>(`/courses/${courseSlug}/exam`, { locale });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[examsService.getByCourse] Live API unavailable for ${courseSlug}, falling back to mock dataset`, err);
-        return getExamByCourse(courseSlug, locale);
-      }
-      throw err;
-    }
-  },
-
-  submit: async (
-    courseSlug: string,
-    answers: Record<number, boolean>,
-    mode: "exam" | "practice" = "exam"
-  ): Promise<{ score: number; passed: boolean }> => {
-    if (apiConfig.useMockData) {
-      const exam = getExamByCourse(courseSlug);
-      if (!exam) return { score: 0, passed: false };
-      let correct = 0;
-      exam.questions.forEach((q, idx) => {
-        if (answers[idx] === q.correctAnswer) correct++;
-      });
-      const score = Math.round((correct / exam.questions.length) * 100);
-      return { score, passed: score >= exam.passingScorePercent };
-    }
-    try {
-      return await apiClient.post<{ score: number; passed: boolean }>(`/courses/${courseSlug}/exam/submit`, {
-        answers,
-        mode,
-      });
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[examsService.submit] Live API unavailable for ${courseSlug}, falling back to local calculation`, err);
-        const exam = getExamByCourse(courseSlug);
-        if (!exam) return { score: 0, passed: false };
-        let correct = 0;
-        exam.questions.forEach((q, idx) => {
-          if (answers[idx] === q.correctAnswer) correct++;
-        });
-        const score = Math.round((correct / exam.questions.length) * 100);
-        return { score, passed: score >= exam.passingScorePercent };
-      }
-      throw err;
-    }
-  },
-};
+/** Read public questions only. The backend retains answer keys and scores attempts. */
+export const getExamByCourse = cache(async (slug: string, locale = "it"): Promise<ExamResponse> => {
+  const result = await requestCourseApi("courses/" + slug + "/exam", locale === "en" ? "en" : "it");
+  if (result.status !== "ready") return result;
+  const envelope = courseRecord(result.payload);
+  const exam = courseRecord(envelope?.data);
+  if (envelope?.success !== true || !exam || typeof exam.id !== "string" || exam.courseSlug !== slug ||
+      typeof exam.title !== "string" || typeof exam.description !== "string" || typeof exam.certificateBody !== "string" ||
+      typeof exam.passingScorePercent !== "number" || exam.passingScorePercent < 0 || exam.passingScorePercent > 100 ||
+      !Array.isArray(exam.questions) || !exam.questions.length || exam.questions.length > 200) return { status: "error" };
+  const questions: PublicCourseExam["questions"] = [];
+  const ids = new Set<string>();
+  for (const value of exam.questions) {
+    const question = courseRecord(value);
+    if (!question || typeof question.id !== "string" || !question.id || ids.has(question.id) ||
+        typeof question.number !== "number" || !Number.isSafeInteger(question.number) ||
+        typeof question.question !== "string" || !question.question) return { status: "error" };
+    ids.add(question.id);
+    questions.push({ id: question.id, number: question.number, question: question.question });
+  }
+  return { status: "ready", exam: {
+    id: exam.id, courseSlug: slug, title: exam.title, description: exam.description,
+    questionsCount: questions.length, passingScorePercent: exam.passingScorePercent,
+    certificateBody: exam.certificateBody, questions,
+    timeLimitMinutes: typeof exam.timeLimitMinutes === "number" && Number.isSafeInteger(exam.timeLimitMinutes) && exam.timeLimitMinutes > 0 ? exam.timeLimitMinutes : undefined,
+  } };
+});

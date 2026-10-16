@@ -1,5 +1,7 @@
 # Remaining local Academy datasets
 
+**2026-10-16 update (ADR-073):** All six retained JSON files remain intact. IT/EN exam copies in the sibling backend now supply public answer-free questions and server scoring. Assignment briefs/practical resources remain local; progress, exam outcomes and actual submission/review records now use protected account-owned APIs. Unowned browser lesson checkmarks/draft text require explicit import, and legacy exam/approval flags are never authoritative. This source implementation requires the backend/migration release first; deployed/runtime verification is pending. See [role portals](../../../../brain/role_portals.md). Historical migration notes below refer to ADR-061.
+
 Audited against the public Railway OpenAPI and anonymous IT/EN responses on 2026-10-11.
 
 Course, module, and lesson content now comes from validated server API adapters. Their IT/EN JSON files have been removed, including the lesson generator and mock fallbacks. Learning pages read `/courses/{slug}/modules`, `/modules/{id}`, `/modules/{id}/lessons`, `/lessons`, and `/lessons/{id}/adjacent`. Local progress uses the returned lesson IDs and module relationships.

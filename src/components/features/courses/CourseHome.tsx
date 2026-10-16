@@ -3,8 +3,13 @@
 import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
-import type { Course, CourseModule, CourseExam, LessonReference, UserCourseProgress } from "@/lib/api/types";
-import { loadUserProgress, calculateCourseProgress } from "@/lib/api/progress";
+import type { Course, CourseModule, PublicCourseExam, LessonReference } from "@/lib/api/types";
+import { calculateCourseProgress } from "@/lib/api/progress";
+import { useCourseProgress } from "@/hooks/use-course-progress";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { useLearningService } from "@/hooks/use-portal-request";
+import { portalMessage } from "@/lib/api/portal";
+import { toast } from "sonner";
 import { ProgressBar } from "./ProgressBar";
 import { ModuleCard } from "./ModuleCard";
 import { PracticalResources } from "./PracticalResources";
@@ -19,7 +24,7 @@ interface CourseHomeProps {
   course: Course;
   modules: CourseModule[];
   lessons: LessonReference[];
-  exam?: CourseExam;
+  exam?: PublicCourseExam;
   initialTab?: string;
   isCompletedQuery?: boolean;
 }
@@ -33,18 +38,22 @@ export function CourseHome({
   exam,
   initialTab,
 }: CourseHomeProps) {
+  const learningService = useLearningService();
   const locale = useLocale() || "it";
   const isEn = locale === "en";
 
-  const [progress, setProgress] = useState<UserCourseProgress>(() => ({
-    version: 2,
-    courseSlug: course.slug,
-    completedLessonIds: [],
-    completedModuleIds: [],
-    examPassed: false,
-    assignmentStatus: "not_submitted",
-    updatedAt: "",
-  }));
+  const { progress, setProgress, reload: reloadProgress, error: progressError } = useCourseProgress(course.slug);
+  const { status } = useAuth();
+  const [enrolling, setEnrolling] = useState(false);
+  const [legacyLessons, setLegacyLessons] = useState<string[] | null>(null);
+  useEffect(() => {
+    setLegacyLessons(null);
+    try {
+      const raw = localStorage.getItem(`eureka_course_progress_v2_${course.slug}`);
+      const old = raw ? JSON.parse(raw) : null;
+      if (old && Array.isArray(old.completedLessonIds)) setLegacyLessons(old.completedLessonIds.filter((id: unknown): id is string => typeof id === "string"));
+    } catch { /* Keep unidentified legacy records untouched. */ }
+  }, [course.slug]);
   const [activeTab, setActiveTab] = useState<TabType>(() => {
     if (initialTab === "exam") return "exam";
     if (initialTab === "practical") return "practical";
@@ -56,7 +65,6 @@ export function CourseHome({
   const [showCertificateView, setShowCertificateView] = useState(false);
 
   useEffect(() => {
-    setProgress(loadUserProgress(course.slug));
     setShowCertificateView(false);
     if (!initialTab) {
       setActiveTab("modules");
@@ -125,6 +133,20 @@ export function CourseHome({
       </nav>
 
       {/* Course Header */}
+      {status === "authenticated" && legacyLessons && legacyLessons.length > 0 && <div className={styles.courseHeader}><p>{isEn ? "Saved lesson checkmarks on this device have no account owner. Import them only if they are yours." : "Le lezioni salvate su questo dispositivo non sono associate a un account. Importale solo se sono tue."}</p><button type="button" className={styles.overviewAction} disabled={enrolling} onClick={async () => {
+        setEnrolling(true);
+        try { setProgress(await learningService.importLessons(course.slug, legacyLessons)); setLegacyLessons(null); toast.success(isEn ? "Lesson checkmarks imported." : "Lezioni importate.", { id: "academy-import" }); }
+        catch (error) { toast.error(portalMessage(error, isEn), { id: "academy-import" }); }
+        finally { setEnrolling(false); }
+      }}>{isEn ? "Import my lesson checkmarks" : "Importa le mie lezioni"}</button></div>}
+      {progressError != null && <div className={styles.courseHeader}><p>{portalMessage(progressError, isEn)}</p><button type="button" className={styles.overviewAction} onClick={reloadProgress}>{isEn ? "Retry progress" : "Riprova progresso"}</button></div>}
+      {status === "anonymous" && <Link href="/training/app/login">{isEn ? "Sign in to save your learning progress" : "Accedi per salvare il tuo progresso"}</Link>}
+      {status === "authenticated" && !progress.enrolled && <button type="button" className={styles.overviewAction} disabled={enrolling} onClick={async () => {
+        setEnrolling(true);
+        try { setProgress(await learningService.enroll(course.slug)); toast.success(isEn ? "Learning progress enabled." : "Progresso didattico attivato.", { id: "academy-enroll" }); }
+        catch (error) { toast.error(portalMessage(error, isEn), { id: "academy-enroll" }); }
+        finally { setEnrolling(false); }
+      }}>{isEn ? "Start tracking this course" : "Attiva il progresso di questo corso"}</button>}
       <div className={styles.courseHeader}>
         <span className={styles.courseBadge}>{course.badgeText}</span>
         <h1 className={styles.courseTitle}>{course.title}</h1>
@@ -469,7 +491,7 @@ export function CourseHome({
           </div>
           <AssignmentView
             courseSlug={course.slug}
-            onSubmissionUpdated={() => setProgress(loadUserProgress(course.slug))}
+            onSubmissionUpdated={reloadProgress}
           />
         </div>
       )}
@@ -492,7 +514,7 @@ export function CourseHome({
               exam={exam}
               courseSlug={course.slug}
               isLocked={!isExamUnlocked}
-              onExamPassed={() => setProgress(loadUserProgress(course.slug))}
+              onExamPassed={reloadProgress}
             />
           ) : (
             <div className={styles.overviewCard} style={{ textAlign: "center", padding: "3em" }}>

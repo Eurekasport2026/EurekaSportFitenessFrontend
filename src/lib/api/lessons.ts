@@ -3,7 +3,7 @@ import "server-only";
 import { cache } from "react";
 import { courseRecord } from "./course-api-server";
 import { curriculumId, getCurriculumData, parseCurriculumList, parseLesson } from "./curriculum-api-server";
-import { getModulesByCourse } from "./modules";
+import { parseCourseModule } from "./curriculum-api-server";
 import type { AcademyDataState, CourseModule, Lesson, LessonReference } from "./types";
 
 export interface CourseCurriculum {
@@ -58,17 +58,10 @@ export const getAdjacentLessons = cache(async (
   });
 });
 
-async function mapWithConcurrency<T, R>(items: T[], limit: number, fn: (item: T) => Promise<R>): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let index = 0;
-  const workers = Array.from({ length: Math.min(limit, items.length) }, async () => {
-    while (index < items.length) {
-      const currentIndex = index++;
-      results[currentIndex] = await fn(items[currentIndex]);
-    }
-  });
-  await Promise.all(workers);
-  return results;
+function parseLessonReference(value: unknown): LessonReference | null {
+  const lesson = courseRecord(value);
+  if (!lesson || !curriculumId(lesson.id) || !curriculumId(lesson.moduleId) || !curriculumId(lesson.courseSlug)) return null;
+  return { id: lesson.id, moduleId: lesson.moduleId, courseSlug: lesson.courseSlug };
 }
 
 export const getCourseCurriculum = cache(async (
@@ -76,51 +69,18 @@ export const getCourseCurriculum = cache(async (
   locale: string = "it",
 ): Promise<AcademyDataState<CourseCurriculum>> => {
   if (!/^[a-z0-9-]+$/.test(courseSlug)) return { status: "not_found" };
-
-  const modulesResult = await getModulesByCourse(courseSlug, locale);
-  if (modulesResult.status !== "ready") return modulesResult;
-  const modules = modulesResult.data;
-
-  if (modules.length === 0) {
-    return { status: "ready", data: { modules: [], lessons: [] } };
-  }
-
-  const moduleLessonResults = await mapWithConcurrency(
-    modules,
-    3,
-    (m) => getLessonsByModule(m.id, locale),
-  );
-
-  const allLessonRefs: LessonReference[] = [];
-  const seenIds = new Set<string>();
-
-  for (let i = 0; i < modules.length; i++) {
-    const mod = modules[i];
-    const modLessonsRes = moduleLessonResults[i];
-    if (modLessonsRes.status !== "ready") {
-      return { status: "error" };
-    }
-
-    const modLessons = modLessonsRes.data;
-    if (
-      modLessons.length !== mod.lessonsCount ||
-      modLessons.some((l) => l.moduleId !== mod.id || l.courseSlug !== courseSlug)
-    ) {
-      return { status: "error" };
-    }
-
-    for (const l of modLessons) {
-      if (seenIds.has(l.id)) return { status: "error" };
-      seenIds.add(l.id);
-      allLessonRefs.push({ id: l.id, moduleId: l.moduleId, courseSlug: l.courseSlug });
-    }
-  }
-
-  return {
-    status: "ready",
-    data: {
-      modules,
-      lessons: allLessonRefs,
-    },
-  };
+  const response = await getCurriculumData(`courses/${courseSlug}/curriculum`, locale, value => {
+    const data = courseRecord(value);
+    if (!data) return null;
+    const modules = parseCurriculumList(data.modules, parseCourseModule);
+    const lessons = parseCurriculumList(data.lessons, parseLessonReference);
+    if (!modules || !lessons || modules.some(module => module.courseSlug !== courseSlug)) return null;
+    const moduleIds = new Set(modules.map(module => module.id));
+    if (lessons.some(lesson => lesson.courseSlug !== courseSlug || !moduleIds.has(lesson.moduleId))) return null;
+    const lessonCounts = new Map<string, number>();
+    for (const lesson of lessons) lessonCounts.set(lesson.moduleId, (lessonCounts.get(lesson.moduleId) ?? 0) + 1);
+    if (modules.some(module => (lessonCounts.get(module.id) ?? 0) !== module.lessonsCount)) return null;
+    return { modules: modules.sort((a, b) => a.number - b.number), lessons };
+  });
+  return response;
 });

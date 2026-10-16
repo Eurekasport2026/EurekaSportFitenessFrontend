@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useId, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useLanguage } from "@/components/layout/LanguageProvider";
 import { cn } from "@/lib/utils";
@@ -10,11 +10,15 @@ import { useTraining } from "./TrainingProvider";
 import { useAuth } from "./AuthProvider";
 import { TrainingIcon } from "./TrainingIcon";
 import { TrainingInfoButton } from "./TrainingInfoButton";
+import { hasRole, roleHome } from "@/lib/auth/roles";
+import { isAthletePath } from "@/lib/training/athlete-navigation";
 import styles from "./training-app.module.css";
 
-export function TrainingBrand({ className, href }: { className?: string; href?: "/training/app" | "/training/app/workout" }) {
+export function TrainingBrand({ className, href }: { className?: string; href?: "/training/app" | "/training/app/workout" | "/athlete" }) {
   const { state, hydrated } = useTraining();
-  const destination = href ?? (hydrated && state.complete ? "/training/app/workout" : "/training/app");
+  const { status, session } = useAuth();
+  const pathname = usePathname();
+  const destination = href ?? (isAthletePath(pathname) || (status === "authenticated" && hasRole(session?.user, "athlete")) ? "/athlete" : hydrated && state.complete ? "/training/app/workout" : "/training/app");
   return <Link href={destination} className={cn(styles.productBrand, className)} aria-label="Eureka! Fit">
     <Image src="/eureka-symbol.svg" alt="" width={32} height={36} />
     <span>EUREKA! <em>FIT</em></span>
@@ -29,7 +33,8 @@ export function TrainingLanguage() {
   </div>;
 }
 
-function TrainingAccountMenu() {
+export function TrainingAccountMenu() {
+  const en = useLocale() === "en";
   const t = useTranslations("TrainingApp");
   const { state } = useTraining();
   const { status, logout, session } = useAuth();
@@ -45,7 +50,7 @@ function TrainingAccountMenu() {
   useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
     if (!open) return;
-    profileLink.current?.focus();
+    (profileLink.current ?? container.current?.querySelector<HTMLAnchorElement>("nav a"))?.focus();
     function dismissOutside(event: PointerEvent) {
       if (event.target instanceof Node && !container.current?.contains(event.target)) setOpen(false);
     }
@@ -81,13 +86,13 @@ function TrainingAccountMenu() {
       {state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}
     </button>
     {open && <nav id={menuId} className={styles.accountMenu} aria-label={t("session.accountMenu")}>
-      {session?.user?.role === "admin" && (
-        <Link href="/admin/videos" className={styles.accountMenuItem} onClick={() => setOpen(false)}>
+      {session?.user.roles.map(role => (
+        <Link key={role} href={roleHome(role)} className={styles.accountMenuItem} onClick={() => setOpen(false)}>
           <TrainingIcon name="settings" />
-          <span>Admin Console</span>
+          <span>{role === "coach" ? "Trainer" : role === "admin" ? "Admin" : en ? "Athlete" : "Atleta"}</span>
         </Link>
-      )}
-      <Link ref={profileLink} href="/training/app/profile" className={styles.accountMenuItem} onClick={() => setOpen(false)}><TrainingIcon name="user" /><span>{t("settings.profile")}</span></Link>
+      ))}
+      {hasRole(session?.user, "athlete") && <><Link ref={profileLink} href="/athlete/profile" className={styles.accountMenuItem} onClick={() => setOpen(false)}><TrainingIcon name="user" /><span>{t("settings.profile")}</span></Link><Link href="/athlete/settings" className={styles.accountMenuItem} onClick={() => setOpen(false)}><TrainingIcon name="settings" /><span>{t("nav.settings")}</span></Link></>}
       {status === "authenticated" && <button type="button" className={cn(styles.accountMenuItem, styles.dangerButton)} disabled={signingOut} onClick={() => void signOut()}><TrainingIcon name="logout" /><span>{t(signingOut ? "session.signingOut" : "session.logout")}</span></button>}
     </nav>}
   </div>;
@@ -95,17 +100,16 @@ function TrainingAccountMenu() {
 
 export function TrainingProductHeader() {
   const t = useTranslations("TrainingApp");
-  const { state, hydrated } = useTraining();
-  const hasProfile = hydrated && state.complete;
+  const { status } = useAuth();
   return <header className={styles.productHeader}>
     <div className={styles.productIdentity}>
-      <TrainingBrand href={hasProfile ? "/training/app/workout" : "/training/app"} />
+      <TrainingBrand />
       <span className={styles.productParent}>{t("product.byEureka")}</span>
     </div>
     <div className={styles.productActions}>
       <TrainingInfoButton kind="help" className={styles.iconButton}><TrainingIcon name="help" /><span className={styles.srOnly}>{t("settings.help")}</span></TrainingInfoButton>
       <TrainingLanguage />
-      {hasProfile && <TrainingAccountMenu />}
+      {status === "authenticated" && <TrainingAccountMenu />}
     </div>
   </header>;
 }

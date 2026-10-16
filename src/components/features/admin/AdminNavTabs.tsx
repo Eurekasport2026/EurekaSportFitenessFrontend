@@ -2,9 +2,10 @@
 
 import { Link } from "@/i18n/routing";
 import type { AuthUser } from "@/lib/api/auth";
+import { PortalSwitcher } from "@/components/layout/PortalAccess";
 
 interface AdminNavTabsProps {
-  activeTab: "courses" | "videos" | "system";
+  activeTab: "courses" | "videos" | "system" | "users";
   currentUser?: AuthUser | null;
   locale: string;
 }
@@ -15,7 +16,8 @@ export function AdminNavTabs({ activeTab, currentUser, locale }: AdminNavTabsPro
   return (
     <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 mb-8 border-b border-[#1f2937]">
       {/* Navigation Pills */}
-      <div className="flex items-center gap-2 p-1.5 bg-[#111827] border border-[#1f2937] rounded-2xl w-fit">
+      <div className="flex flex-wrap items-center gap-2 p-1.5 bg-[#111827] border border-[#1f2937] rounded-2xl max-w-full">
+        <Link href="/admin/users" className={`px-4 py-2 rounded-xl text-sm font-semibold ${activeTab === "users" ? "bg-[#0066ff] text-white" : "text-slate-400 hover:text-white"}`}>{isEn ? "Users & Access" : "Utenti e accessi"}</Link>
         <Link
           href="/admin/courses"
           className={`flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition ${
@@ -66,10 +68,11 @@ export function AdminNavTabs({ activeTab, currentUser, locale }: AdminNavTabsPro
           <span className="text-slate-400 font-medium">{currentUser.name}</span>
           <span className="text-slate-600">•</span>
           <span className="px-2 py-0.5 rounded-md bg-[#0066ff]/10 text-[#38bdf8] font-mono font-bold uppercase tracking-wider text-[10px] border border-[#0066ff]/20">
-            {currentUser.role}
+            {currentUser.roles.map(role => role === "coach" ? "Trainer" : role).join(" · ")}
           </span>
         </div>
       )}
+      <PortalSwitcher />
     </div>
   );
 }

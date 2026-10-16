@@ -52,13 +52,13 @@ export class ApiClientError extends Error {
 function buildUrl(endpoint: string, locale?: string): string {
   const base = apiConfig.apiUrl.replace(/\/+$/, "");
   const path = endpoint.replace(/^\/+/, "");
-  const url = new URL(`${base}/${path}`);
+  const url = new URL(`${base}/${path}`, "http://same-origin.invalid");
 
   if (locale) {
     url.searchParams.set("locale", locale);
   }
 
-  return url.toString();
+  return base.startsWith("/") ? `${url.pathname}${url.search}` : url.toString();
 }
 
 async function request<T>(endpoint: string, options: RequestOptions = {}): Promise<T> {
@@ -409,13 +409,7 @@ export interface HealthTelemetry {
   httpStatus: number;
   latencyMs: number;
   timestamp: string;
-  version: string;
   error?: string;
-  coverage: {
-    total: number;
-    implemented: number;
-    percentage: string;
-  };
 }
 
 export const healthService = {

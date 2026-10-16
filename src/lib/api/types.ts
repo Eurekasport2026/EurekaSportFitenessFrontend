@@ -146,6 +146,8 @@ export interface CourseExam {
   questions: ExamQuestion[];
 }
 
+export type PublicCourseExam = Omit<CourseExam, "questions"> & { questions: Omit<ExamQuestion, "correctAnswer" | "explanation">[] };
+
 export interface WorkoutPlan {
   id: string;
   courseSlug: string;
@@ -208,6 +210,7 @@ export interface AssignmentSubmission {
   title: string;
   notes?: string;
   fileName?: string;
+  resourceUrl?: string | null;
   reviewerFeedback?: string;
   updatedAt: string;
 }

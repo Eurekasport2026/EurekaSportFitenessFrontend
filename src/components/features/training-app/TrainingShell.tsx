@@ -7,8 +7,12 @@ import { toast } from "sonner";
 import { Link, usePathname, useRouter } from "@/i18n/routing";
 import { useTraining } from "./TrainingProvider";
 import { useAuth } from "./AuthProvider";
+import { hasRole } from "@/lib/auth/roles";
+import { isAthletePath } from "@/lib/training/athlete-navigation";
+import { PortalSwitcher } from "@/components/layout/PortalAccess";
 import { TrainingBrand, TrainingLanguage, TrainingProductHeader, TrainingProductFooter } from "./TrainingChrome";
 import { TrainingIcon } from "./TrainingIcon";
+import { TrainingLoader } from "./TrainingLoader";
 import { cn } from "@/lib/utils";
 import styles from "./training-app.module.css";
 
@@ -18,8 +22,9 @@ export interface TrainingShellProps { children: ReactNode }
 export function TrainingShell({ children }: TrainingShellProps) {
   const t = useTranslations("TrainingApp");
   const { persistent, hydrated } = useTraining();
+  const { session, status } = useAuth();
   const pathname = usePathname();
-  return <div className={cn(styles.backdrop, (pathname === "/training/app/onboarding" || pathname === "/training/app/login" || pathname === "/training/app/signup") && styles.onboardingViewport)}>
+  return <div className={cn(styles.backdrop, isAthletePath(pathname) && status === "authenticated" && hasRole(session?.user, "athlete") && styles.athleteViewport, (pathname === "/training/app/onboarding" || pathname === "/training/app/login" || pathname === "/training/app/signup") && styles.onboardingViewport)}>
     <a className={styles.skipLink} href="#training-main">{t("skipContent")}</a>
     <TrainingProductHeader />
     <div className={styles.shell}>
@@ -31,23 +36,23 @@ export function TrainingShell({ children }: TrainingShellProps) {
 }
 
 export function TrainingLoading() {
-  const t = useTranslations("TrainingApp");
-  return <main id="training-main" className={styles.loading} aria-busy="true"><span className={styles.spinner} /><p role="status">{t("loading")}</p></main>;
+  return <main id="training-main" className={styles.loading}><TrainingLoader /></main>;
 }
 
 export interface RequireTrainingProps { children: ReactNode; requireAuth?: boolean }
 const guardToastId = "fit-access-required";
 export function RequireTraining({ children, requireAuth = true }: RequireTrainingProps) {
   const { hydrated, state } = useTraining();
-  const { status, refresh, signedOutIntentionally } = useAuth();
+  const { status, session, refresh, signedOutIntentionally } = useAuth();
   const t = useTranslations("TrainingApp");
   const router = useRouter();
   const redirecting = useRef(false);
   useEffect(() => {
-    if (!hydrated) return;
+    if (!hydrated || (requireAuth && (status === "loading" || status === "error"))) return;
+    if (requireAuth && status === "authenticated" && !hasRole(session?.user, "athlete")) return;
     if (state.complete && (!requireAuth || status === "authenticated")) { redirecting.current = false; return; }
     if (redirecting.current) return;
-    const needsSetup = !state.complete;
+    const needsSetup = !state.complete && (!requireAuth || status === "authenticated");
     const needsLogin = requireAuth && status === "anonymous";
     if (!needsSetup && !needsLogin) return;
     redirecting.current = true;
@@ -58,9 +63,10 @@ export function RequireTraining({ children, requireAuth = true }: RequireTrainin
       if (!signedOutIntentionally) toast.info(t("session.loginRequired"), { id: guardToastId });
       router.replace("/training/app/login");
     }
-  }, [hydrated, state.complete, requireAuth, status, signedOutIntentionally, router, t]);
-  if (!hydrated || !state.complete) return <TrainingLoading />;
+  }, [hydrated, state.complete, requireAuth, status, session, signedOutIntentionally, router, t]);
+  if (requireAuth && status === "authenticated" && !hasRole(session?.user, "athlete")) return <main id="training-main" className={styles.loading}><PortalSwitcher /></main>;
   if (requireAuth && status === "error") return <main id="training-main" className={styles.loading}><p role="alert">{t("session.unavailable")}</p><button type="button" className={styles.secondaryButton} onClick={() => void refresh()}>{t("session.retry")}</button></main>;
+  if (!hydrated || !state.complete) return <TrainingLoading />;
   if (requireAuth && status !== "authenticated") return <TrainingLoading />;
   return children;
 }
@@ -85,13 +91,13 @@ export function TrainingNav({ active }: TrainingNavProps) {
     { key: "workout", icon: "dumbbell" }, { key: "exercises", icon: "user" }, { key: "library", icon: "book" }, { key: "progress", icon: "chart" }, { key: "settings", icon: "settings" },
   ] as const;
   return <aside className={styles.trainingSidebar}><div className={styles.sidebarContent}>
-    <Link href="/training/app/profile" className={styles.sidebarProfile}>
+    <Link href="/athlete/profile" className={styles.sidebarProfile}>
       <span className={styles.sidebarAvatar}>{state.profile.avatar ? <Image src={state.profile.avatar} alt="" width={40} height={40} unoptimized /> : <TrainingIcon name="user" />}</span>
       <span><strong>{session?.user.name.trim() || t("desktop.profile")}</strong><small>{t(`goals.${state.profile.goal || "fitness"}`)}</small></span>
     </Link>
     <p className={styles.sidebarCaption}>{t("desktop.workspace")}</p>
     <nav className={styles.bottomNav} aria-label={t("navigation")}>
-    {items.map(item => <Link key={item.key} href={item.key === "settings" ? "/training/app/settings" : { pathname: "/training/app/workout", query: item.key === "workout" ? {} : { view: item.key } }} className={cn(styles.navItem, active === item.key && styles.navActive)} aria-current={active === item.key ? "page" : undefined}><TrainingIcon name={item.icon} /><span>{t(`nav.${item.key}`)}</span></Link>)}
+    {items.map(item => <Link key={item.key} href={item.key === "settings" ? "/athlete/settings" : item.key === "progress" ? "/athlete/progress" : item.key === "exercises" || item.key === "library" ? "/athlete/exercises" : "/athlete/workout"} className={cn(styles.navItem, active === item.key && styles.navActive)} aria-current={active === item.key ? "page" : undefined}><TrainingIcon name={item.icon} /><span>{t(`nav.${item.key}`)}</span></Link>)}
     </nav>
     <div className={styles.sidebarMembership}><TrainingIcon name="crown" /><strong>{t("settings.membership")}</strong><p>{t("desktop.membershipDescription")}</p><Link href="/training/app/membership" className={styles.secondaryButton}>{t("workout.unlock")}<TrainingIcon name="arrow" /></Link></div>
   </div></aside>;

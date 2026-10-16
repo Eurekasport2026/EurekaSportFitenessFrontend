@@ -4,10 +4,12 @@ import { cookies } from "next/headers";
 import type { AuthSession, AuthUser } from "./auth";
 import { backendCookieHeader, clearBackendCookies, preserveBackendCookies } from "./auth-cookies";
 import { backendFetch, backendJson } from "./backend-timing";
+import { parseRoles } from "@/lib/auth/roles";
+import { backendApiBase } from "./backend-config";
 
 const sessionCookie = "eureka_access_token";
 const cookieOptions = { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "lax" as const, path: "/" };
-export const authApiBase = (process.env.EUREKA_AUTH_API_URL || "https://api-production-c166.up.railway.app/api/v1").replace(/\/+$/, "");
+export const authApiBase = backendApiBase;
 
 export function isSameOrigin(request: Request): boolean {
   const origin = request.headers.get("origin");
@@ -23,8 +25,10 @@ function parseUser(value: unknown): AuthUser | null {
   if (!user || typeof user.id !== "string" || !user.id || typeof user.name !== "string" ||
       typeof user.email !== "string" || (user.locale !== "it" && user.locale !== "en") ||
       user.status !== "active" || typeof user.role !== "string") return null;
+  const roles = parseRoles(user.roles, user.role);
+  if (!roles) return null;
   // Allowlist fields; never expose the token or unrecognized backend properties.
-  return { id: user.id, name: user.name, email: user.email, locale: user.locale, status: user.status, role: user.role };
+  return { id: user.id, name: user.name, email: user.email, locale: user.locale, status: user.status, role: user.role, roles };
 }
 
 function tokenClaims(token: unknown): { subject: string; expiresAt: number } | null {

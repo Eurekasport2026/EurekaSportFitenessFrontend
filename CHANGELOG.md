@@ -4,6 +4,86 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+### Admin Users & Access presentation — 2026-10-16 (ADR-081)
+- Replace the bare Admin heading/sign-in link on `/[locale]/admin/users` with a dedicated theme-matched access screen, clear sign-in/site actions, account-verification recovery, unauthorized-account portal choices and the shared push-up loader.
+- Recompose the authenticated area into an account directory, role filters, editable role chips/status, Trainer–Athlete connections, an invitation panel, an activity list and an expandable Academy review section. Keep responsive layouts, 44px controls, 16px native fields, API identity and the current slate/blue/mint theme.
+- Show matching-account totals separately from current-page active/Trainer counts. Protect the current Admin's own Admin membership/status in the form, validate nonempty roles, preserve backend permission checks and keep actions under existing stable Sonner owners.
+- Show invitation recipient and actual API expiry, preserve pagination/search and mount Academy reviews only on expansion. Apply the existing dark document scrollbar styling to this workspace without hiding content or changing high-contrast fallback.
+- No backend contract, auth/session flow, database or migration change. Verification: `npx tsc --noEmit` passes; browser/device, live-account and visual checks remain pending.
+
+### Trainer training courses and bilingual resources — 2026-10-16 (ADR-080)
+- Make `/[locale]/trainer/courses` the Trainer role home; redirect old `/trainer` entry links and preserve the existing roster/program/review tools at `/trainer/coaching`. Register course, module, lesson and exercise URLs for IT/EN with breadcrumbs and locale-preserving navigation.
+- Add a theme-matched Trainer course library, paginated title search, module outlines, exercise/lesson resources and the shared push-up loader. Reuse published Academy courses and exact module/lesson relationships; no sample curriculum or simulated completion is added.
+- Support multiple Italian and English videos/PDFs for every course, both at module level and within individual exercises/lessons. Keep explicit missing-media states and preserve original untagged links without inventing their language. Embed only validated Vimeo/YouTube hosts, play direct MP4/WebM/Ogg files and retain source/PDF links.
+- Add lazy-loaded resource controls to the existing Admin Curriculum Studio: attach target, language, kind, title, link, ordering, publication, optimistic revision checks and confirmed removal. Feedback uses stable Sonner ownership and invalid-field focus/accessibility state.
+- Connect typed Trainer reads and Admin resource operations through the closed account-aware proxy and regenerated schemas. Prepare backend migration `0006_course_resources` / SQL `academy-002`; no database migration has been run. Backend/schema must release before these frontend resource screens.
+- Verification: `npx tsc --noEmit`, all 18 backend contract checks and source schema drift checks pass. PostgreSQL migration, browser/device, live media and deployment checks remain pending. Actual hosted IT/EN assets still need to be linked by an Admin.
+
+### Push-up loading animation — 2026-10-16
+- Replace plain account-checking text and Fit loading spinners with a centered SVG person doing push-ups in the existing blue/mint theme. Reuse a compact version for Athlete dashboard, list and Settings/Profile loading.
+- Keep localized status labels in one live region per loader, hide decorative movement from assistive technology, show a still pose with reduced motion and preserve visibility in forced-colors mode. CSS-only animation requires no new package or image request.
+- Keep request timing, authentication, data ownership and persistent error/retry states unchanged. Verification: `npx tsc --noEmit` passes; browser/device/animation checks remain pending.
+
+### Athlete scrollbar polish — 2026-10-16
+- Replace the page/sidebar's wide native tracks with slim dark scrollbars, rounded slate thumbs and mint hover/drag feedback in Chromium/WebKit; use the standard thin scrollbar fallback elsewhere.
+- Scope styling to the mounted verified Athlete page and sidebar, preserve system scrollbars in forced-colors mode, and contain sidebar overscroll with a stable gutter. No scrolling content is hidden.
+- Verification: `npx tsc --noEmit` passes; browser/device visual checks remain pending.
+
+### Athlete URLs and integrated account settings — 2026-10-16 (ADR-079)
+- Move the Athlete home to `/[locale]/athlete` with real Paths, Programs, Exercises, Workout, Progress, Coach, Settings and Profile routes. Keep the workspace in a persistent layout so navigation and browser history retain the active workout form and account-scoped draft.
+- Integrate Settings/Profile into the Athlete sidebar and header using the existing slate, blue and mint theme. Add editable training preferences, units, schedule/calendar export, measurements/photo, support dialogs and confirmed preference reset; reuse the existing account-owned profile sync API and read-only verified account identity.
+- Remove the older Settings/Profile renderers. Preserve locale-aware redirects from old sessions/settings/profile/workout URLs, including workout progress/library query links, and update portal homes, account menus, branding, language switching and footer handling.
+- Preserve stored training data, recorded sessions and coach feedback. No backend contract, storage schema, dependency or database change is needed.
+- Verification: `npx tsc --noEmit` passes. Browser/device, direct-link, back/reload, locale-switch and live API checks remain pending; no production build or deployment was performed.
+
+### Athlete hub expansion from screenshot — 2026-10-16 (ADR-078)
+- Put Education/Training path choices above the hero, move Fit branding into the desktop sidebar and reuse shared language/account controls in the workspace header. Keep the existing slate, blue and mint palette and scoped phone layout.
+- Add a Paths view, published Academy course cards, program search, and a searchable/filterable exercise library sourced from assigned program snapshots. All workout entry points retain draft replacement confirmation and account-scoped logging.
+- Add an accessible three-photo hero carousel with pause/play, manual navigation, arrow keys, touch swipes, reduced-motion handling and hidden-tab suspension. Reuse existing local images.
+- Connect new `GET /me/training/dashboard?locale=it|en&utc_offset_minutes=…` through the closed same-origin portal proxy and generated response validator. Show full-history session/month/feedback totals, seven-day current-week activity, eight weekly chart buckets, current assigned coaches and actual published education counts.
+- Keep same-account data visible during background refresh, cancel obsolete reads, validate calendar-date fields, and replace decrement-only recovery timing with a deadline that remains accurate after background throttling.
+- Verification: `npx tsc --noEmit` and nine backend contract tests pass. Source schema validation passes. Browser/device and live deployment checks remain pending. No database migration, dependency installation or deployment was performed for these additions.
+
+### Athlete workspace reference redesign — 2026-10-16 (ADR-077)
+- Adapt the supplied EurekaFit calisthenics studio reference to `/[locale]/training/app/sessions` using the existing dark slate, Eureka blue, mint, Arial typography, pill actions and local photography.
+- Replace the generic Athlete form stack with a desktop sidebar, photographic overview, Training/Academy entry cards and working Programs, Workout, Progress and Coach views, plus phone navigation and account controls.
+- Preserve verified API identity, Athlete access, account-scoped drafts, replacement confirmation, idempotent workout submission, exercise prescriptions, rest timers, pagination and Trainer feedback. Keep the workout form mounted while changing views and focus the new view heading.
+- Load only real assigned programs and recorded sessions; progress figures explicitly describe the current history page. No sample totals, new backend contracts or changes to Admin/Trainer UI.
+- Split Athlete presentation out of the shared staff workspace and keep Fit brand links on the Athlete overview when viewing this route. Use Next.js 16 eager image loading rather than the deprecated priority prop.
+- Verification: `npx tsc --noEmit` passes. Browser/device, live API and visual comparison checks remain pending; no production build, dependency installation or deployment was performed.
+
+### Dynamic local and production backend resolution — 2026-10-16
+- Update `src/lib/api/backend-config.ts` so `resolveBackendApiBase()` dynamically targets `http://localhost:8000/api/v1` during local development (`NODE_ENV !== "production"`), and automatically defaults to deployed Railway (`https://api-production-c166.up.railway.app/api/v1`) in production.
+- Update development `.env.local` to point to `http://localhost:8000/api/v1` for local pair programming with the sibling backend.
+
+### Academy learning and auth latency correction — 2026-10-16 (ADR-076)
+- Replace the Calisthenics learning page's module-plus-13-lesson HTTP fan-out with typed public `GET /courses/{slug}/curriculum`, returning localized modules and minimal lesson references in one response. Existing individual module/lesson endpoints remain available.
+- Start exam loading as soon as course metadata confirms it is required, overlapping the aggregate curriculum request instead of waiting for it.
+- Add sanitized `[academy-timing]` logs with route templates and header/JSON timing, without query values, credentials or payloads.
+- Coalesce only route-change session verification for 10 seconds after a successful check or accepted login. Initial load, focus/visibility, explicit retry, expiry/refresh and every backend authorization boundary remain unchanged.
+- Optimize sibling-backend auth lookups by eager-loading role memberships and refresh the tracked OpenAPI artifacts. Targeted backend Academy/auth tests pass (16); `npx tsc --noEmit` passes. Railway deployment and browser timing verification remain pending.
+
+### Fit login and account-data prompt correction — 2026-10-16 (ADR-075)
+- Restore this checkout's development login connection with an ignored, server-only `.env.local` `EUREKA_API_URL` pointing to the existing Railway `/api/v1`; no credential or browser-visible API setting was added. Restart the development server to load it.
+- Replace provider-level raw training sync/import text with a localized, accessible Eureka Fit modal that does not shift the product header. Error, conflict-recovery and unowned legacy-data states share the same presentation and only one state is shown at a time.
+- Remember a legacy-data decision per account and dataset without deleting declined data. Import writes the account-owned copy before retiring its source, while API account names remain excluded from training state.
+- Verification: `npx tsc --noEmit` passes. Browser login, modal interaction and live Railway behavior remain pending.
+
+### Frontend/backend separation cleanup — 2026-10-16 (ADR-074)
+- Centralize public/authenticated backend configuration in server-only `EUREKA_API_URL`, default development to localhost, require explicit HTTPS deployment configuration, reject conflicting legacy aliases and retire browser backend URLs. Route generic public reads through a closed same-origin catalog proxy.
+- Validate portal responses against a tracked JSON Schema artifact generated from typed backend response models. Refresh the local OpenAPI reference and document export/check handoff commands.
+- Partition backend authentication counters by normalized email/action or refresh credential, HMAC identifiers before storage, and retain source-address fallback for malformed requests. Remove backend seeding's sibling-frontend fallback.
+- Add backend rate-isolation, response-projection and schema-drift regression checks. A working backend virtual environment was found; backend runtime tests are now executable. The existing SQLite migration test fails in older migration `0003_athlete_role` because SQLite does not support its `ALTER COLUMN`; PostgreSQL/deployment/browser verification remains pending. No deployed database was changed.
+- Verification: `npx tsc --noEmit` and the generated contract `--check` pass. Full backend suite: 33 passed, 1 existing SQLite migration failure described above.
+
+### Role portals and account-owned workflows — 2026-10-16 (ADR-073)
+- Preserve and validate multiple Admin/Trainer/Athlete memberships, use a shared locale-level session/logout provider, remove Athlete setup from account entry and add membership-based portal switching.
+- Add `/admin/users`, `/trainer` and `/training/app/sessions` with role/status management, email-bound invitations, roster assignment, program building/versioning, frozen program assignments, durable workout drafts/logging, rest timer, review and feedback. New private lists are paginated.
+- Add closed same-origin protected API proxies, rendering-account consistency checks, account-scoped training caches, backend profile sync/revision checks and explicit legacy-data import/recovery. Retire the dormant localStorage-token login path while retaining unrelated local data.
+- Connect account-owned Academy lesson progress, backend exam scoring/practice review and actual submission/Admin review; retain existing learning styling and JSON files. Public question responses omit answer keys. Remove simulated upload/approval behavior and preserve old records without importing fabricated scores or approval status.
+- In the sibling backend, prepare migration `0005_training_portals.py`, source contracts, shared auth rate counters, live-session token revocation, readiness queries, SQL video filtering and batched curriculum/history reads. Replace hardcoded coverage claims with a source inventory.
+- TypeScript checks passed during implementation; final check recorded in the task response. Backend tests were added/updated but could not run because the registered Python 3.12 executable is missing. No production migration, browser/device check, live API check or load test was performed. Backend/migration must deploy before frontend. Details: `brain/role_portals.md`.
+
 ### Fixed
 - **Admin API request overhead and latency diagnostics (2026-10-15, ADR-072)**:
   - Load admin session metadata and protected lists/health concurrently, share overlapping browser GETs, cancel superseded loads, and debounce video search by 300ms. Failed data loads no longer repeat `/auth/session`.

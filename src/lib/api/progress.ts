@@ -1,108 +1,5 @@
-import type { Course, CourseModule, LessonReference, UserCourseProgress, AssignmentStatus } from "./types";
-
-const STORAGE_PREFIX = "eureka_course_progress_v2_";
-const CURRENT_VERSION = 2;
-
-function getInitialProgress(courseSlug: string): UserCourseProgress {
-  return {
-    version: CURRENT_VERSION,
-    courseSlug,
-    completedLessonIds: [],
-    completedModuleIds: [],
-    examPassed: false,
-    assignmentStatus: "not_submitted",
-    updatedAt: new Date().toISOString(),
-  };
-}
-
-export function loadUserProgress(courseSlug: string): UserCourseProgress {
-  if (typeof window === "undefined") {
-    return getInitialProgress(courseSlug);
-  }
-
-  try {
-    const raw = localStorage.getItem(`${STORAGE_PREFIX}${courseSlug}`);
-    if (raw) {
-      const parsed = JSON.parse(raw) as UserCourseProgress;
-      if (parsed && Array.isArray(parsed.completedLessonIds) && Array.isArray(parsed.completedModuleIds)) {
-        return parsed;
-      }
-    }
-  } catch (err) {
-    console.error("Failed to load course progress", err);
-  }
-
-  return getInitialProgress(courseSlug);
-}
-
-export function saveUserProgress(progress: UserCourseProgress): void {
-  if (typeof window === "undefined") return;
-
-  try {
-    progress.version = CURRENT_VERSION;
-    progress.updatedAt = new Date().toISOString();
-    localStorage.setItem(`${STORAGE_PREFIX}${progress.courseSlug}`, JSON.stringify(progress));
-  } catch (err) {
-    console.error("Failed to save course progress", err);
-  }
-}
-
-export function toggleLessonCompletion(
-  courseSlug: string,
-  moduleId: string,
-  lessonId: string,
-  lessons: LessonReference[],
-): UserCourseProgress {
-  const progress = loadUserProgress(courseSlug);
-  const moduleLessons = lessons.filter((lesson) => lesson.moduleId === moduleId && lesson.courseSlug === courseSlug);
-  if (!moduleLessons.some((lesson) => lesson.id === lessonId)) return progress;
-  const exists = progress.completedLessonIds.includes(lessonId);
-
-  if (exists) {
-    progress.completedLessonIds = progress.completedLessonIds.filter((id) => id !== lessonId);
-  } else {
-    progress.completedLessonIds.push(lessonId);
-  }
-
-  // Exact module completion validation
-  const allModuleLessonsDone =
-    moduleLessons.length > 0 &&
-    moduleLessons.every((l) => progress.completedLessonIds.includes(l.id));
-
-  if (allModuleLessonsDone && !progress.completedModuleIds.includes(moduleId)) {
-    progress.completedModuleIds.push(moduleId);
-  } else if (!allModuleLessonsDone && progress.completedModuleIds.includes(moduleId)) {
-    progress.completedModuleIds = progress.completedModuleIds.filter((id) => id !== moduleId);
-  }
-
-  progress.lastAccessedModuleId = moduleId;
-  progress.lastAccessedLessonId = lessonId;
-
-  saveUserProgress(progress);
-  return progress;
-}
-
-export function recordExamCompletion(
-  courseSlug: string,
-  scorePercent: number,
-  passed: boolean
-): UserCourseProgress {
-  const progress = loadUserProgress(courseSlug);
-  progress.examScore = scorePercent;
-  progress.examPassed = passed;
-  saveUserProgress(progress);
-  return progress;
-}
-
-export function recordAssignmentStatus(
-  courseSlug: string,
-  status: AssignmentStatus
-): UserCourseProgress {
-  const progress = loadUserProgress(courseSlug);
-  progress.assignmentStatus = status;
-  saveUserProgress(progress);
-  return progress;
-}
+import type { Course, CourseModule, LessonReference, UserCourseProgress } from "./types";
+import { learningService } from "./learning";
 
 export function getCompletedModuleIds(
   modules: CourseModule[],
@@ -161,7 +58,7 @@ export function calculateCourseProgress(
   const requiresAssignment = course.hasProjectWork || course.hasPracticalSubmission;
 
   const examSatisfied = !requiresExam || progress.examPassed;
-  const assignmentSatisfied = !requiresAssignment || (progress.assignmentStatus === "submitted" || progress.assignmentStatus === "approved");
+  const assignmentSatisfied = !requiresAssignment || progress.assignmentStatus === "approved";
 
   const isCompleted = percent === 100 && examUnlocked && examSatisfied && assignmentSatisfied;
 
@@ -177,94 +74,16 @@ export function calculateCourseProgress(
   };
 }
 
-import { apiConfig } from "./config";
-import { apiClient } from "./client";
-
 export const progressService = {
-  load: async (courseSlug: string): Promise<UserCourseProgress> => {
-    if (apiConfig.useMockData) {
-      return loadUserProgress(courseSlug);
-    }
-    try {
-      return await apiClient.get<UserCourseProgress>(`/me/courses/${courseSlug}/progress`);
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        return loadUserProgress(courseSlug);
-      }
-      throw err;
-    }
+  load: learningService.progress,
+  enroll: learningService.enroll,
+  toggleLesson: async (courseSlug: string, _moduleId: string, lessonId: string, _lessons: LessonReference[]) => {
+    let current = await learningService.progress(courseSlug);
+    if (!current.enrolled) current = await learningService.enroll(courseSlug);
+    return learningService.lesson(courseSlug, lessonId, !current.completedLessonIds.includes(lessonId));
   },
-
-  save: async (progress: UserCourseProgress): Promise<void> => {
-    saveUserProgress(progress);
-    if (!apiConfig.useMockData) {
-      try {
-        await apiClient.put(`/me/courses/${progress.courseSlug}/progress`, progress);
-      } catch (err) {
-        console.warn("[progressService.save] Failed to sync progress to live backend", err);
-      }
-    }
-  },
-
-  toggleLesson: async (courseSlug: string, moduleId: string, lessonId: string, lessons: LessonReference[]): Promise<UserCourseProgress> => {
-    if (apiConfig.useMockData) {
-      return toggleLessonCompletion(courseSlug, moduleId, lessonId, lessons);
-    }
-    try {
-      const result = await apiClient.post<UserCourseProgress>(`/me/courses/${courseSlug}/lessons/${lessonId}/toggle`, {
-        moduleId,
-      });
-      // Synchronize with local storage as secondary cache
-      saveUserProgress(result);
-      return result;
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        console.warn(`[progressService.toggleLesson] Live API unavailable, toggling locally`, err);
-        return toggleLessonCompletion(courseSlug, moduleId, lessonId, lessons);
-      }
-      throw err;
-    }
-  },
-
-  recordExam: async (courseSlug: string, scorePercent: number, passed: boolean): Promise<UserCourseProgress> => {
-    if (apiConfig.useMockData) {
-      return recordExamCompletion(courseSlug, scorePercent, passed);
-    }
-    try {
-      const result = await apiClient.post<UserCourseProgress>(`/me/courses/${courseSlug}/exam/record`, {
-        scorePercent,
-        passed,
-      });
-      saveUserProgress(result);
-      return result;
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        return recordExamCompletion(courseSlug, scorePercent, passed);
-      }
-      throw err;
-    }
-  },
-
-  recordAssignment: async (courseSlug: string, status: AssignmentStatus): Promise<UserCourseProgress> => {
-    if (apiConfig.useMockData) {
-      return recordAssignmentStatus(courseSlug, status);
-    }
-    try {
-      const result = await apiClient.post<UserCourseProgress>(`/me/courses/${courseSlug}/assignment/status`, {
-        status,
-      });
-      saveUserProgress(result);
-      return result;
-    } catch (err) {
-      if (apiConfig.mockFallback) {
-        return recordAssignmentStatus(courseSlug, status);
-      }
-      throw err;
-    }
-  },
-
   calculate: async (course: Course, progress: UserCourseProgress, modules: CourseModule[], lessons: LessonReference[]) =>
     calculateCourseProgress(course, progress, modules, lessons),
-  isExamUnlocked: async (modules: CourseModule[], lessons: LessonReference[], progress: UserCourseProgress): Promise<boolean> =>
+  isExamUnlocked: async (modules: CourseModule[], lessons: LessonReference[], progress: UserCourseProgress) =>
     isExamUnlocked(modules, lessons, progress),
 };

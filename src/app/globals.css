@@ -26,6 +26,56 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Document scrollbars live outside the scoped workspace components. */
+html:has([data-athlete-workspace], [data-admin-workspace]) {
+  color-scheme: dark;
+  --fit-scrollbar-track: var(--eureka-canvas);
+  --fit-scrollbar-thumb: #526579;
+}
+
+@media (forced-colors: none) {
+  :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar]) {
+    scrollbar-width: thin;
+    scrollbar-color: var(--fit-scrollbar-thumb) var(--fit-scrollbar-track);
+  }
+
+  @supports selector(::-webkit-scrollbar) {
+    /* Standard non-auto values override the rounded Chromium/WebKit styling. */
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar]) {
+      scrollbar-width: auto;
+      scrollbar-color: auto;
+    }
+
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-track,
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-corner {
+      background: var(--fit-scrollbar-track);
+    }
+
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-thumb {
+      min-height: 40px;
+      border: 2px solid var(--fit-scrollbar-track);
+      border-radius: 999px;
+      background: var(--fit-scrollbar-thumb);
+    }
+
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-thumb:hover,
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-thumb:active {
+      background: var(--eureka-mint);
+    }
+
+    :is(html:has([data-athlete-workspace], [data-admin-workspace]), [data-athlete-sidebar])::-webkit-scrollbar-button {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
 body::before,
 body::after {
   content: "";

@@ -1,7 +1,8 @@
 import type { CSSProperties } from "react";
 
-export interface TrainingIconProps { name: "back" | "arrow" | "check" | "close" | "dumbbell" | "book" | "chart" | "settings" | "user" | "logout" | "bell" | "clock" | "crown" | "camera" | "edit" | "search" | "volume" | "ruler" | "help" | "chevron" | "calendar" | "share" | "play" | "pause"; className?: string; style?: CSSProperties }
+export interface TrainingIconProps { name: "back" | "arrow" | "check" | "close" | "dumbbell" | "book" | "chart" | "settings" | "user" | "logout" | "bell" | "clock" | "crown" | "camera" | "edit" | "search" | "volume" | "ruler" | "help" | "chevron" | "calendar" | "share" | "play" | "pause" | "home" | "message"; className?: string; style?: CSSProperties }
 const paths: Record<TrainingIconProps["name"], string> = {
+  home: "m3 10 9-7 9 7v11h-6v-7H9v7H3z", message: "M4 4h16v12H9l-5 5zM8 8h8M8 12h5",
   back: "m14 5-7 7 7 7", arrow: "M4 12h16m-6-6 6 6-6 6", check: "m5 12 4 4L19 6", close: "m6 6 12 12M6 18 18 6",
   play: "m8 5 11 7-11 7z", pause: "M8 5v14M16 5v14",
   dumbbell: "M6 8v8m-3-6v4m15-6v8m3-6v4M6 12h12M3 12h3m12 0h3",

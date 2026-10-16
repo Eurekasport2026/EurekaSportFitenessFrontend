@@ -7,6 +7,8 @@ import { cn } from "@/lib/utils";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { HomeIcon } from "@/components/features/home/HomeIcon";
 import { useLanguage } from "./LanguageProvider";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { accountHome } from "@/lib/auth/roles";
 import styles from "@/components/features/home/home.module.css";
 
 export interface HomeHeaderProps {
@@ -16,6 +18,7 @@ export interface HomeHeaderProps {
 export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
   const [menuOpen, setMenuOpen] = useState(false);
   const { language, setLanguage, t } = useLanguage();
+  const { session } = useAuth();
   return (
     <header className={styles.header}>
       <Link href="/" className={styles.headerBrand} aria-label={language === "en" ? "Eureka! Sport & Fitness Academy — Home" : "Eureka! Sport & Fitness Academy — Inizio"}>
@@ -43,6 +46,7 @@ export function HomeHeader({ activePage = "home" }: HomeHeaderProps) {
           <button type="button" lang="it" aria-label="Italiano" aria-pressed={language === "it"} className={cn(language === "it" && styles.selectedLanguage)} onClick={() => setLanguage("it")}>IT</button>
           <button type="button" lang="en" aria-label="English" aria-pressed={language === "en"} className={cn(language === "en" && styles.selectedLanguage)} onClick={() => setLanguage("en")}>EN</button>
         </div>
+        <Link href={session ? accountHome(session.user) : "/training/app/login"} className={styles.searchButton} aria-label={language === "en" ? "Open account" : "Apri account"}><HomeIcon name="people" /></Link>
         <Link href="/training/app/onboarding" className={styles.loginButton}>{t("Crea programma")}</Link>
         <button className={styles.menuButton} type="button" aria-expanded={menuOpen} aria-controls="home-navigation" aria-label={t(menuOpen ? "Chiudi menu" : "Apri menu")} onClick={() => setMenuOpen(!menuOpen)} onKeyDown={(event) => { if (event.key === "Escape") setMenuOpen(false); }}><HomeIcon name={menuOpen ? "close" : "menu"} /></button>
       </div>

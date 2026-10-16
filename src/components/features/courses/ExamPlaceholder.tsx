@@ -2,20 +2,35 @@
 
 import { useState } from "react";
 import { useLocale } from "next-intl";
-import type { CourseExam } from "@/lib/api/types";
-import { recordExamCompletion } from "@/lib/api/progress";
+import type { PublicCourseExam } from "@/lib/api/types";
+import type { ExamResult } from "@/lib/api/learning";
+import { useLearningService } from "@/hooks/use-portal-request";
+import { portalMessage } from "@/lib/api/portal";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { Link } from "@/i18n/routing";
+import { toast } from "sonner";
 import styles from "./lesson-view.module.css";
 
 interface ExamPlaceholderProps {
-  exam: CourseExam;
+  exam: PublicCourseExam;
   courseSlug: string;
   isLocked?: boolean;
   onExamPassed?: () => void;
 }
 
-export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPassed }: ExamPlaceholderProps) {
+export function ExamPlaceholder(props: ExamPlaceholderProps) {
+  const { session, status } = useAuth();
+  return <Exam key={String(session?.user.id) + props.courseSlug + status} {...props} />;
+}
+
+function Exam({ exam, courseSlug, isLocked = false, onExamPassed }: ExamPlaceholderProps) {
+  const learningService = useLearningService();
   const locale = useLocale() || "it";
   const isEn = locale === "en";
+  const { status } = useAuth();
+  const [result, setResult] = useState<ExamResult | null>(null);
+  const [pending, setPending] = useState(false);
+  const [practiceReviews, setPracticeReviews] = useState<Record<string, ExamResult["review"][number]>>({});
 
   const [mode, setMode] = useState<"exam" | "practice">("exam");
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -29,6 +44,8 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
   const answeredCount = Object.keys(answers).length;
   const unansweredCount = totalQuestions - answeredCount;
   const progressPercent = Math.round(((currentIdx + 1) / totalQuestions) * 100);
+
+  if (status !== "authenticated") return <Link href="/training/app/login">{isEn ? "Sign in to take the exam" : "Accedi per sostenere l'esame"}</Link>;
 
   if (isLocked) {
     return (
@@ -49,35 +66,37 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
     );
   }
 
-  const handleAnswer = (val: boolean) => {
-    setAnswers((prev) => ({ ...prev, [currentIdx]: val }));
+  const handleAnswer = async (val: boolean) => {
+    if (pending) return;
+    setAnswers(prev => ({ ...prev, [currentIdx]: val }));
     if (mode === "practice") {
-      setPracticeExplanationVisible(true);
+      setPracticeExplanationVisible(false);
+      try {
+        const review = await learningService.practice(courseSlug, currentQuestion.id, val, isEn ? "en" : "it");
+        setPracticeReviews(current => ({ ...current, [review.id]: review }));
+        setPracticeExplanationVisible(true);
+      } catch (error) { toast.error(portalMessage(error, isEn), { id: "academy-practice" }); }
     }
   };
 
-  const calculateScore = () => {
-    let correct = 0;
-    exam.questions.forEach((q, idx) => {
-      if (answers[idx] === q.correctAnswer) {
-        correct++;
-      }
-    });
-    return Math.round((correct / totalQuestions) * 100);
-  };
+  const calculateScore = () => result?.score ?? 0;
 
-  const executeSubmission = () => {
-    const score = calculateScore();
-    const passed = score >= exam.passingScorePercent;
-    setIsSubmitted(true);
-    setShowConfirmModal(false);
-    recordExamCompletion(courseSlug, score, passed);
-    if (passed && onExamPassed) {
-      onExamPassed();
-    }
+  const executeSubmission = async () => {
+    if (pending) return;
+    setPending(true);
+    try {
+      await learningService.enroll(courseSlug);
+      const submitted = Object.fromEntries(exam.questions.flatMap((q, i) => answers[i] === undefined ? [] : [[q.id, answers[i]]]));
+      const outcome = await learningService.exam(courseSlug, submitted, mode === "practice", isEn ? "en" : "it");
+      setResult(outcome); setIsSubmitted(true); setShowConfirmModal(false);
+      if (mode !== "practice") onExamPassed?.();
+      toast.success(isEn ? "Answers evaluated." : "Risposte valutate.", { id: "academy-exam" });
+    } catch (error) { toast.error(portalMessage(error, isEn), { id: "academy-exam" }); }
+    finally { setPending(false); }
   };
 
   const handleRetake = () => {
+    setResult(null); setPracticeReviews({});
     setAnswers({});
     setCurrentIdx(0);
     setIsSubmitted(false);
@@ -86,8 +105,8 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
 
   if (isSubmitted) {
     const score = calculateScore();
-    const passed = score >= exam.passingScorePercent;
-    const correctCount = exam.questions.filter((q, idx) => answers[idx] === q.correctAnswer).length;
+    const passed = result?.passed === true;
+    const correctCount = exam.questions.filter((q, idx) => answers[idx] === result?.review.find(item => item.id === q.id)?.correctAnswer).length;
 
     return (
       <div className={styles.contentSection} style={{ padding: "2.5em 1.5em" }}>
@@ -95,7 +114,7 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
           <div style={{ fontSize: "3.5rem", marginBottom: "0.2em" }}>{passed ? "🎓" : "📚"}</div>
           <h2 style={{ fontSize: "1.8rem", fontWeight: 800, color: "#0d2345", margin: "0 0 0.4em" }}>
             {passed
-              ? (isEn ? "Exam Simulation Passed!" : "Simulazione d'Esame Superata!")
+              ? (isEn ? "Exam Passed!" : "Esame Superato!")
               : (isEn ? "Exam Not Passed" : "Esame non superato")}
           </h2>
           <p style={{ fontSize: "1.1rem", color: "#334960", margin: "0 0 0.5em" }}>
@@ -111,12 +130,12 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
         {/* Honest simulation notice */}
         <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", borderRadius: "0.5em", padding: "1.25em", marginBottom: "2em" }}>
           <h4 style={{ margin: "0 0 0.4em", fontSize: "0.88rem", color: "#0d2345", fontWeight: 700 }}>
-            ℹ️ {isEn ? "Certification Simulation Notice:" : "Nota di Convalida Simulazione:"}
+            ℹ️ {isEn ? "Result recording:" : "Registrazione risultato:"}
           </h4>
           <p style={{ margin: 0, fontSize: "0.82rem", color: "#52667b", lineHeight: 1.5 }}>
             {isEn
-              ? `This exam simulator tests knowledge across all course modules according to ${exam.certificateBody} standards. In live production with backend services, official scores are transmitted to the technical commission for accreditation.`
-              : `Questo simulatore verifica le competenze didattiche secondo i criteri di ${exam.certificateBody}. Nella piattaforma di produzione con backend abilitato, l'esito viene registrato ai fini dell'emissione del diploma ufficiale.`}
+              ? (mode === "practice" ? "Practice results do not change your recorded exam outcome." : "This result has been evaluated and saved to your account. Certification issuance is a separate process.")
+              : (mode === "practice" ? "I risultati di esercitazione non modificano l’esito registrato." : "Questo risultato è stato valutato e salvato nel tuo account. Il rilascio della certificazione è un processo separato.")}
           </p>
         </div>
 
@@ -127,7 +146,7 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
         <div style={{ display: "grid", gap: "1em", marginBottom: "2em" }}>
           {exam.questions.map((q, idx) => {
             const userAnswer = answers[idx];
-            const isCorrect = userAnswer === q.correctAnswer;
+            const isCorrect = userAnswer === result?.review.find(item => item.id === q.id)?.correctAnswer;
             return (
               <div
                 key={q.id}
@@ -152,11 +171,11 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
                   <strong>{userAnswer === undefined ? (isEn ? "Unanswered" : "Non risposta") : userAnswer ? (isEn ? "TRUE" : "VERO") : (isEn ? "FALSE" : "FALSO")}</strong>
                   {" • "}
                   {isEn ? "Correct Solution: " : "Soluzione corretta: "}
-                  <strong>{q.correctAnswer ? (isEn ? "TRUE" : "VERO") : (isEn ? "FALSE" : "FALSO")}</strong>
+                  <strong>{result?.review.find(item => item.id === q.id)?.correctAnswer ? (isEn ? "TRUE" : "VERO") : (isEn ? "FALSE" : "FALSO")}</strong>
                 </p>
-                {q.explanation && (
+                {result?.review.find(item => item.id === q.id)?.explanation && (
                   <p style={{ margin: 0, fontSize: "0.78rem", color: "#64748b", fontStyle: "italic", background: "#ffffff", padding: "0.4em 0.6em", borderRadius: "0.3em" }}>
-                    💡 {q.explanation}
+                    💡 {result?.review.find(item => item.id === q.id)?.explanation}
                   </p>
                 )}
               </div>
@@ -171,7 +190,7 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
             className={styles.btnSecondary}
             style={{ minWidth: "12em" }}
           >
-            ↺ {isEn ? "Retake Exam Simulation" : "Ripeti la Simulazione"}
+            ↺ {isEn ? "Retake Exam" : "Ripeti l'Esame"}
           </button>
         </div>
       </div>
@@ -193,6 +212,7 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
         <div style={{ display: "flex", gap: "0.5em" }}>
           <button
             type="button"
+            disabled={pending}
             onClick={() => { setMode("exam"); setPracticeExplanationVisible(false); }}
             className={styles.btnSecondary}
             style={mode === "exam" ? { background: "#0066ff", color: "#fff", borderColor: "#0066ff", fontSize: "0.75rem" } : { fontSize: "0.75rem" }}
@@ -201,6 +221,7 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
           </button>
           <button
             type="button"
+            disabled={pending}
             onClick={() => { setMode("practice"); }}
             className={styles.btnSecondary}
             style={mode === "practice" ? { background: "#0066ff", color: "#fff", borderColor: "#0066ff", fontSize: "0.75rem" } : { fontSize: "0.75rem" }}
@@ -266,21 +287,21 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
         </div>
 
         {/* Practice mode instant explanation */}
-        {mode === "practice" && practiceExplanationVisible && answers[currentIdx] !== undefined && (
+        {mode === "practice" && practiceExplanationVisible && practiceReviews[currentQuestion.id] && answers[currentIdx] !== undefined && (
           <div
             style={{
-              background: answers[currentIdx] === currentQuestion.correctAnswer ? "#ecfdf5" : "#fff1f2",
-              border: `1px solid ${answers[currentIdx] === currentQuestion.correctAnswer ? "#a7f3d0" : "#fecdd3"}`,
+              background: answers[currentIdx] === practiceReviews[currentQuestion.id]?.correctAnswer ? "#ecfdf5" : "#fff1f2",
+              border: `1px solid ${answers[currentIdx] === practiceReviews[currentQuestion.id]?.correctAnswer ? "#a7f3d0" : "#fecdd3"}`,
               padding: "1em",
               borderRadius: "0.5em",
               marginBottom: "1.5em",
             }}
           >
-            <p style={{ margin: "0 0 0.3em", fontSize: "0.85rem", fontWeight: 700, color: answers[currentIdx] === currentQuestion.correctAnswer ? "#065f46" : "#9f1239" }}>
-              {answers[currentIdx] === currentQuestion.correctAnswer ? (isEn ? "✓ Correct!" : "✓ Risposta Esatta!") : (isEn ? "✕ Incorrect" : "✕ Risposta Errata")}
+            <p style={{ margin: "0 0 0.3em", fontSize: "0.85rem", fontWeight: 700, color: answers[currentIdx] === practiceReviews[currentQuestion.id]?.correctAnswer ? "#065f46" : "#9f1239" }}>
+              {answers[currentIdx] === practiceReviews[currentQuestion.id]?.correctAnswer ? (isEn ? "✓ Correct!" : "✓ Risposta Esatta!") : (isEn ? "✕ Incorrect" : "✕ Risposta Errata")}
             </p>
             <p style={{ margin: 0, fontSize: "0.82rem", color: "#334960" }}>
-              {currentQuestion.explanation}
+              {practiceReviews[currentQuestion.id]?.explanation}
             </p>
           </div>
         )}
@@ -355,7 +376,8 @@ export function ExamPlaceholder({ exam, courseSlug, isLocked = false, onExamPass
               </button>
               <button
                 type="button"
-                onClick={executeSubmission}
+                disabled={pending}
+                onClick={() => void executeSubmission()}
                 className={styles.btnPrimary}
                 style={{ background: "#10b981", borderColor: "#10b981" }}
               >

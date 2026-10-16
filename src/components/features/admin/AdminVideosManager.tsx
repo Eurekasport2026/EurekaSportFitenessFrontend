@@ -8,6 +8,7 @@ import { authService, type AuthUser } from "@/lib/api/auth";
 import { isReadCancelled, invalidateClientReads } from "@/lib/api/client-reads";
 import { useRequestController } from "@/hooks/use-request-controller";
 import { AdminNavTabs } from "./AdminNavTabs";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
 import type { AdminVideo, VideoCreateInput, VideoStatus, VideoUpdateInput } from "@/lib/api/types";
 
 interface AdminVideosManagerProps {
@@ -16,6 +17,7 @@ interface AdminVideosManagerProps {
 
 export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
   const isEn = locale === "en";
+  const { logout } = useAuth();
   const router = useRouter();
   const [videos, setVideos] = useState<AdminVideo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -94,11 +96,10 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
   const handleLogoutAndSwitch = async () => {
     setIsLoggingOut(true);
     try {
-      await authService.logout(new AbortController().signal);
-      toast.success(isEn ? "Logged out successfully" : "Disconnessione effettuata");
+      await logout();
       router.push("/training/app/login");
     } catch {
-      toast.error(isEn ? "Logout failed" : "Errore durante la disconnessione");
+      // AuthProvider owns logout feedback.
     } finally {
       setIsLoggingOut(false);
     }
@@ -301,25 +302,8 @@ export function AdminVideosManager({ locale }: AdminVideosManagerProps) {
             </div>
           </div>
 
-          {/* Database Role Assignment Tip */}
-          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-6 text-xs text-slate-400">
-            <span className="font-semibold text-slate-300 block mb-1">
-              💡 {isEn ? "How to grant admin access in Railway PostgreSQL:" : "Come concedere l'accesso admin su Railway PostgreSQL:"}
-            </span>
-            <p className="mb-2">
-              {isEn
-                ? "The backend validates admin access via the user record and user_role table. In your Railway PostgreSQL database, execute:"
-                : "Il backend verifica i privilegi admin sia su users che su user_role. Nel database PostgreSQL su Railway, esegui:"}
-            </p>
-            <pre className="p-2.5 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all leading-relaxed whitespace-pre-wrap">
-              {`-- 1. Update role in users table\nUPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';\n\n-- 2. Update role mapping in user_role table\nUPDATE user_role SET role_id = (SELECT id FROM roles WHERE code = 'admin') WHERE user_id = (SELECT id FROM users WHERE email = '${currentUser?.email || "your_email@example.com"}');`}
-            </pre>
-            <p className="mt-2 text-[11px] text-amber-300/90">
-              {isEn
-                ? "Important: After executing the SQL commands, click 'Log Out & Switch Account' and sign back in to issue a fresh administrator session token."
-                : "Importante: Dopo aver eseguito le query, clicca 'Disconnetti e Cambia Account' e accedi nuovamente per generare il nuovo token amministratore."}
-            </p>
-          </div>
+          <p className="mb-6 text-sm text-slate-400">{isEn ? "Ask an administrator to update your roles in Users & Access. Role changes take effect on the next account check." : "Chiedi a un amministratore di aggiornare i tuoi ruoli in Utenti e accessi. Le modifiche sono applicate alla prossima verifica account."}</p>
+
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button

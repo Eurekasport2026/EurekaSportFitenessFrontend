@@ -8,6 +8,7 @@ import { authService, type AuthUser } from "@/lib/api/auth";
 import { isReadCancelled } from "@/lib/api/client-reads";
 import { useRequestController } from "@/hooks/use-request-controller";
 import { AdminNavTabs } from "./AdminNavTabs";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
 
 interface AdminSystemHealthProps {
   locale: string;
@@ -16,7 +17,7 @@ interface AdminSystemHealthProps {
 interface EndpointRecord {
   method: "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
   path: string;
-  category: "auth" | "academy" | "videos" | "admin" | "system";
+  category: "auth" | "academy" | "videos" | "admin" | "system" | "trainer" | "learning";
   summary: string;
   implemented: boolean;
 }
@@ -67,10 +68,42 @@ const ALL_ENDPOINTS: EndpointRecord[] = [
 
   // Infrastructure / Health
   { method: "GET", path: "/health", category: "system", summary: "Backend liveness probe & status check", implemented: true },
+  { method: "GET", path: "/api/v1/admin/users", category: "admin", summary: "Paginated account inventory", implemented: true },
+  { method: "PATCH", path: "/api/v1/admin/users/{user_id}", category: "admin", summary: "Manage memberships and account status", implemented: true },
+  { method: "POST", path: "/api/v1/admin/invitations", category: "admin", summary: "Create an email-bound role invitation", implemented: true },
+  { method: "GET", path: "/api/v1/admin/roster", category: "admin", summary: "List Trainer–Athlete relationships", implemented: true },
+  { method: "POST", path: "/api/v1/admin/roster", category: "admin", summary: "Assign an Athlete to a Trainer", implemented: true },
+  { method: "DELETE", path: "/api/v1/admin/roster/{coach_id}/{athlete_id}", category: "admin", summary: "Remove a roster relationship", implemented: true },
+  { method: "GET", path: "/api/v1/admin/audit", category: "admin", summary: "Read administrative and training audit events", implemented: true },
+  { method: "POST", path: "/api/v1/me/invitations/accept", category: "auth", summary: "Accept an invitation for the current account email", implemented: true },
+  { method: "GET", path: "/api/v1/trainer/athletes", category: "trainer", summary: "Assigned Athlete roster", implemented: true },
+  { method: "GET", path: "/api/v1/trainer/programs", category: "trainer", summary: "Trainer-owned program inventory", implemented: true },
+  { method: "POST", path: "/api/v1/trainer/programs", category: "trainer", summary: "Create a training program", implemented: true },
+  { method: "PATCH", path: "/api/v1/trainer/programs/{program_id}", category: "trainer", summary: "Update a program with a version check", implemented: true },
+  { method: "POST", path: "/api/v1/trainer/assignments", category: "trainer", summary: "Assign a frozen program version", implemented: true },
+  { method: "GET", path: "/api/v1/trainer/athletes/{athlete_id}/sessions", category: "trainer", summary: "Review an assigned Athlete's workouts", implemented: true },
+  { method: "POST", path: "/api/v1/trainer/sessions/{session_id}/feedback", category: "trainer", summary: "Record Trainer feedback", implemented: true },
+  { method: "GET", path: "/api/v1/me/training/profile", category: "trainer", summary: "Read own training profile", implemented: true },
+  { method: "PUT", path: "/api/v1/me/training/profile", category: "trainer", summary: "Save own profile with a revision check", implemented: true },
+  { method: "GET", path: "/api/v1/me/training/assignments", category: "trainer", summary: "Read own assigned program versions", implemented: true },
+  { method: "GET", path: "/api/v1/me/training/sessions", category: "trainer", summary: "Read own workout history and feedback", implemented: true },
+  { method: "POST", path: "/api/v1/me/training/sessions", category: "trainer", summary: "Record a workout with an idempotency key", implemented: true },
+  { method: "GET", path: "/api/v1/courses/{slug}/exam", category: "learning", summary: "Public localized questions without answer keys", implemented: true },
+  { method: "GET", path: "/api/v1/me/courses/{slug}/progress", category: "learning", summary: "Read own course progress", implemented: true },
+  { method: "POST", path: "/api/v1/me/courses/{slug}/enrollment", category: "learning", summary: "Enable account-owned course progress", implemented: true },
+  { method: "POST", path: "/api/v1/me/courses/{slug}/progress/import", category: "learning", summary: "Explicitly import valid legacy lesson checkmarks", implemented: true },
+  { method: "PUT", path: "/api/v1/me/courses/{slug}/lessons/{lesson_id}", category: "learning", summary: "Set completion for a lesson in the course", implemented: true },
+  { method: "POST", path: "/api/v1/me/courses/{slug}/exam", category: "learning", summary: "Score answers and persist non-practice results", implemented: true },
+  { method: "POST", path: "/api/v1/me/courses/{slug}/exam/practice", category: "learning", summary: "Review a practice answer without recording an exam outcome", implemented: true },
+  { method: "GET", path: "/api/v1/me/courses/{slug}/assignment", category: "learning", summary: "Read own submission", implemented: true },
+  { method: "POST", path: "/api/v1/me/courses/{slug}/assignment", category: "learning", summary: "Submit work and an optional resource link", implemented: true },
+  { method: "GET", path: "/api/v1/admin/courses/{slug}/submissions", category: "learning", summary: "Paginated submission review inventory", implemented: true },
+  { method: "PATCH", path: "/api/v1/admin/courses/{slug}/submissions/{user_id}", category: "learning", summary: "Approve or request revision as an Admin", implemented: true },
 ];
 
 export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
   const isEn = locale === "en";
+  const { logout } = useAuth();
   const router = useRouter();
 
   const [healthData, setHealthData] = useState<HealthTelemetry | null>(null);
@@ -99,7 +132,7 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
       const session = sessionResult.value;
       if (session?.user) {
         setCurrentUser(session.user);
-        if (session.user.role === "admin") {
+        if (session.user.roles.includes("admin")) {
           setAuthStatus("authenticated");
         } else {
           setAuthStatus("forbidden");
@@ -147,11 +180,10 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
   const handleLogoutAndSwitch = async () => {
     setIsLoggingOut(true);
     try {
-      await authService.logout(new AbortController().signal);
-      toast.success(isEn ? "Logged out successfully" : "Disconnessione effettuata");
+      await logout();
       router.push("/training/app/login");
     } catch {
-      toast.error(isEn ? "Logout failed" : "Errore durante la disconnessione");
+      // AuthProvider owns logout feedback.
     } finally {
       setIsLoggingOut(false);
     }
@@ -238,25 +270,8 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
             </div>
           )}
 
-          {/* Database Role Assignment Tip */}
-          <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-3.5 mb-6 text-xs text-slate-400">
-            <span className="font-semibold text-slate-300 block mb-1">
-              💡 {isEn ? "How to grant admin access in Railway PostgreSQL:" : "Come concedere l'accesso admin su Railway PostgreSQL:"}
-            </span>
-            <p className="mb-2">
-              {isEn
-                ? "The backend validates admin access via the user record and user_role table. In your Railway PostgreSQL database, execute:"
-                : "Il backend verifica i privilegi admin sia su users che su user_role. Nel database PostgreSQL su Railway, esegui:"}
-            </p>
-            <pre className="p-2.5 rounded bg-black/40 text-emerald-400 font-mono text-[11px] overflow-x-auto select-all leading-relaxed whitespace-pre-wrap">
-              {`-- 1. Update role in users table\nUPDATE users SET role = 'admin' WHERE email = '${currentUser?.email || "your_email@example.com"}';\n\n-- 2. Update role mapping in user_role table\nUPDATE user_role SET role_id = (SELECT id FROM roles WHERE code = 'admin') WHERE user_id = (SELECT id FROM users WHERE email = '${currentUser?.email || "your_email@example.com"}');`}
-            </pre>
-            <p className="mt-2 text-[11px] text-amber-300/90">
-              {isEn
-                ? "Important: After executing the SQL commands, click 'Log Out & Switch Account' and sign back in to issue a fresh administrator session token."
-                : "Importante: Dopo aver eseguito le query, clicca 'Disconnetti e Cambia Account' e accedi nuovamente per generare il nuovo token amministratore."}
-            </p>
-          </div>
+          <p className="mb-6 text-sm text-slate-400">{isEn ? "Ask an administrator to update your roles in Users & Access. Role changes take effect on the next account check." : "Chiedi a un amministratore di aggiornare i tuoi ruoli in Utenti e accessi. Le modifiche sono applicate alla prossima verifica account."}</p>
+
 
           <div className="flex flex-col sm:flex-row gap-3">
             <button
@@ -302,8 +317,8 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
           </h1>
           <p className="text-sm text-slate-400 mt-1">
             {isEn
-              ? "Live infrastructure probes, roundtrip latency telemetry, and complete 32-endpoint catalog status."
-              : "Sonde di telemetria dell'infrastruttura, latenza in tempo reale e stato completo di tutti i 32 endpoint."}
+              ? "Live readiness and latency probes. The endpoint inventory below describes source integrations; it does not test every operation."
+              : "Sonde di disponibilità e latenza. L'inventario descrive le integrazioni nel codice e non verifica ogni operazione."}
           </p>
         </div>
 
@@ -349,17 +364,17 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
               {healthData && healthData.latencyMs < 300 ? "Excellent" : "Normal"}
             </span>
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">HTTP 200 via /health probe</p>
+          <p className="text-[11px] text-slate-500 mt-1">HTTP {healthData?.httpStatus ?? "—"} · /health</p>
         </div>
 
         {/* API Coverage */}
         <div className="bg-[#111827] border border-[#1f2937] rounded-2xl p-5">
-          <p className="text-xs font-medium text-emerald-400">{isEn ? "OpenAPI Coverage" : "Copertura OpenAPI"}</p>
+          <p className="text-xs font-medium text-emerald-400">{isEn ? "Source endpoint inventory" : "Inventario endpoint nel codice"}</p>
           <div className="flex items-baseline gap-2 mt-2">
-            <span className="text-2xl font-bold text-emerald-400 font-mono">100%</span>
-            <span className="text-xs text-slate-400">(32 / 32)</span>
+            <span className="text-2xl font-bold text-emerald-400 font-mono">{ALL_ENDPOINTS.length}</span>
+            
           </div>
-          <p className="text-[11px] text-slate-500 mt-1">All endpoints connected</p>
+          <p className="text-[11px] text-slate-500 mt-1">{isEn ? "Reference inventory, not a live coverage measurement" : "Inventario di riferimento, non una misura di copertura live"}</p>
         </div>
 
         {/* Active Session & Role */}
@@ -380,12 +395,8 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
         {/* Category Tabs */}
         <div className="flex items-center gap-1.5 p-1 bg-[#111827] border border-[#1f2937] rounded-xl overflow-x-auto">
           {[
-            { id: "ALL", label: isEn ? "All (32)" : "Tutti (32)" },
-            { id: "auth", label: isEn ? "Auth (5)" : "Auth (5)" },
-            { id: "academy", label: isEn ? "Academy (11)" : "Academy (11)" },
-            { id: "videos", label: isEn ? "Videos (2)" : "Video (2)" },
-            { id: "admin", label: isEn ? "Admin (13)" : "Admin (13)" },
-            { id: "system", label: isEn ? "System (1)" : "Sistema (1)" },
+            { id: "ALL", label: isEn ? `All (${ALL_ENDPOINTS.length})` : `Tutti (${ALL_ENDPOINTS.length})` },
+            ...["auth", "academy", "videos", "admin", "trainer", "learning", "system"].map(id => ({ id, label: `${id} (${ALL_ENDPOINTS.filter(endpoint => endpoint.category === id).length})` })),
           ].map((cat) => (
             <button
               key={cat.id}
@@ -473,7 +484,7 @@ export function AdminSystemHealth({ locale }: AdminSystemHealthProps) {
                   <td className="py-3.5 px-4 text-right">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-                      <span>Connected</span>
+                      <span>{isEn ? "In source" : "Nel codice"}</span>
                     </span>
                   </td>
                 </tr>

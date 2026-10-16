@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { HomeAction } from "@/components/features/home/HomeAction";
 import { Link, usePathname } from "@/i18n/routing";
+import { isAthletePath } from "@/lib/training/athlete-navigation";
 import { useLanguage } from "./LanguageProvider";
 import { SocialIcon } from "./SocialIcon";
 import styles from "./site-footer.module.css";
@@ -10,7 +11,7 @@ import styles from "./site-footer.module.css";
 export function SiteFooter() {
   const { language } = useLanguage();
   const pathname = usePathname();
-  if (pathname === "/training/app" || pathname.startsWith("/training/app/")) return null;
+  if (pathname === "/training/app" || pathname.startsWith("/training/app/") || isAthletePath(pathname)) return null;
 
   return (
     <footer className={styles.footer}>

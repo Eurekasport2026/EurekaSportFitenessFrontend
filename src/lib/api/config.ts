@@ -15,19 +15,16 @@ export interface ApiConfiguration {
 export const apiConfig: ApiConfiguration = {
   // Default to mock data unless explicitly configured to false
   useMockData: process.env.NEXT_PUBLIC_USE_MOCK_DATA !== "false",
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1",
+  // Public browser reads share the same server-only backend configuration as auth.
+  apiUrl: "/api/public",
   mockFallback: process.env.NEXT_PUBLIC_MOCK_FALLBACK !== "false",
   timeoutMs: Number(process.env.NEXT_PUBLIC_API_TIMEOUT_MS) || 8000,
 };
 
 /**
- * Retrieves the current authentication bearer token from client storage
+ * Legacy generic client compatibility. Session credentials stay server-only.
  */
 export function getAuthToken(): string | null {
-  if (typeof window === "undefined") return null;
-  try {
-    return localStorage.getItem("eureka_auth_token") || localStorage.getItem("token") || null;
-  } catch {
-    return null;
-  }
+  // Authenticated requests use same-origin handlers and HTTP-only cookies.
+  return null;
 }

@@ -7,6 +7,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { LanguageProvider } from "@/components/layout/LanguageProvider";
 import { SiteFooter } from "@/components/layout/SiteFooter";
+import { AuthProvider } from "@/components/features/training-app/AuthProvider";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -78,8 +79,10 @@ export default async function LocaleLayout({
       <body className="min-h-full flex flex-col">
         <NextIntlClientProvider messages={messages} locale={locale}>
           <LanguageProvider>
+            <AuthProvider>
             {children}
             <SiteFooter />
+            </AuthProvider>
           </LanguageProvider>
         </NextIntlClientProvider>
         <Toaster position="top-right" richColors closeButton />

@@ -1,0 +1,2395 @@
+{
+  "definitions": {
+    "ActivityBucket": {
+      "properties": {
+        "date": {
+          "format": "date",
+          "title": "Date",
+          "type": "string"
+        },
+        "sessions": {
+          "minimum": 0.0,
+          "title": "Sessions",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "date",
+        "sessions"
+      ],
+      "title": "ActivityBucket",
+      "type": "object"
+    },
+    "AdminSubmission": {
+      "properties": {
+        "courseSlug": {
+          "title": "Courseslug",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "resourceUrl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resourceurl"
+        },
+        "reviewerFeedback": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reviewerfeedback"
+        },
+        "status": {
+          "enum": [
+            "not_submitted",
+            "under_review",
+            "approved",
+            "changes_requested"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "submittedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Submittedat"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "project_work",
+            "practical_video"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "updatedAt": {
+          "title": "Updatedat",
+          "type": "string"
+        },
+        "user_id": {
+          "format": "uuid",
+          "title": "User Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "courseSlug",
+        "type",
+        "status",
+        "title",
+        "updatedAt",
+        "user_id"
+      ],
+      "title": "AdminSubmission",
+      "type": "object"
+    },
+    "Assignment": {
+      "properties": {
+        "athlete_id": {
+          "format": "uuid",
+          "title": "Athlete Id",
+          "type": "string"
+        },
+        "coach_id": {
+          "format": "uuid",
+          "title": "Coach Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "program": {
+          "$ref": "#/components/schemas/Program"
+        }
+      },
+      "required": [
+        "id",
+        "athlete_id",
+        "coach_id",
+        "program",
+        "created_at"
+      ],
+      "title": "Assignment",
+      "type": "object"
+    },
+    "AthleteDashboard": {
+      "properties": {
+        "as_of": {
+          "format": "date-time",
+          "title": "As Of",
+          "type": "string"
+        },
+        "assigned_programs": {
+          "minimum": 0.0,
+          "title": "Assigned Programs",
+          "type": "integer"
+        },
+        "coaches": {
+          "items": {
+            "$ref": "#/components/schemas/AthleteSummary"
+          },
+          "title": "Coaches",
+          "type": "array"
+        },
+        "education": {
+          "items": {
+            "$ref": "#/components/schemas/EducationPath"
+          },
+          "maxItems": 6,
+          "title": "Education",
+          "type": "array"
+        },
+        "education_count": {
+          "minimum": 0.0,
+          "title": "Education Count",
+          "type": "integer"
+        },
+        "feedback_count": {
+          "minimum": 0.0,
+          "title": "Feedback Count",
+          "type": "integer"
+        },
+        "local_date": {
+          "format": "date",
+          "title": "Local Date",
+          "type": "string"
+        },
+        "month_sessions": {
+          "minimum": 0.0,
+          "title": "Month Sessions",
+          "type": "integer"
+        },
+        "total_sessions": {
+          "minimum": 0.0,
+          "title": "Total Sessions",
+          "type": "integer"
+        },
+        "utc_offset_minutes": {
+          "maximum": 840.0,
+          "minimum": -840.0,
+          "title": "Utc Offset Minutes",
+          "type": "integer"
+        },
+        "week_days": {
+          "items": {
+            "$ref": "#/components/schemas/ActivityBucket"
+          },
+          "maxItems": 7,
+          "minItems": 7,
+          "title": "Week Days",
+          "type": "array"
+        },
+        "week_sessions": {
+          "minimum": 0.0,
+          "title": "Week Sessions",
+          "type": "integer"
+        },
+        "weekly_activity": {
+          "items": {
+            "$ref": "#/components/schemas/ActivityBucket"
+          },
+          "maxItems": 8,
+          "minItems": 8,
+          "title": "Weekly Activity",
+          "type": "array"
+        }
+      },
+      "required": [
+        "as_of",
+        "local_date",
+        "utc_offset_minutes",
+        "total_sessions",
+        "month_sessions",
+        "week_sessions",
+        "assigned_programs",
+        "feedback_count",
+        "education_count",
+        "week_days",
+        "weekly_activity",
+        "coaches",
+        "education"
+      ],
+      "title": "AthleteDashboard",
+      "type": "object"
+    },
+    "AthleteSummary": {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "title": "AthleteSummary",
+      "type": "object"
+    },
+    "AuditRecord": {
+      "properties": {
+        "action": {
+          "title": "Action",
+          "type": "string"
+        },
+        "actor_id": {
+          "format": "uuid",
+          "title": "Actor Id",
+          "type": "string"
+        },
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "target_id": {
+          "title": "Target Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "actor_id",
+        "action",
+        "target_id",
+        "created_at"
+      ],
+      "title": "AuditRecord",
+      "type": "object"
+    },
+    "EducationPath": {
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "lessons": {
+          "minimum": 0.0,
+          "title": "Lessons",
+          "type": "integer"
+        },
+        "level": {
+          "title": "Level",
+          "type": "integer"
+        },
+        "modules": {
+          "minimum": 0.0,
+          "title": "Modules",
+          "type": "integer"
+        },
+        "slug": {
+          "maxLength": 80,
+          "minLength": 1,
+          "pattern": "^[a-z0-9-]+$",
+          "title": "Slug",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug",
+        "title",
+        "category",
+        "level",
+        "modules",
+        "lessons"
+      ],
+      "title": "EducationPath",
+      "type": "object"
+    },
+    "Envelope_Assignment_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/Assignment"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[Assignment]",
+      "type": "object"
+    },
+    "Envelope_AthleteDashboard_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/AthleteDashboard"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[AthleteDashboard]",
+      "type": "object"
+    },
+    "Envelope_ExamResult_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/ExamResult"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[ExamResult]",
+      "type": "object"
+    },
+    "Envelope_ExamReview_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/ExamReview"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[ExamReview]",
+      "type": "object"
+    },
+    "Envelope_Invitation_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/Invitation"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[Invitation]",
+      "type": "object"
+    },
+    "Envelope_LearningProgress_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/LearningProgress"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[LearningProgress]",
+      "type": "object"
+    },
+    "Envelope_NoneType_": {
+      "properties": {
+        "data": {
+          "title": "Data",
+          "type": "null"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[NoneType]",
+      "type": "object"
+    },
+    "Envelope_PortalUser_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/PortalUser"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[PortalUser]",
+      "type": "object"
+    },
+    "Envelope_Program_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/Program"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[Program]",
+      "type": "object"
+    },
+    "Envelope_PublicExam_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/PublicExam"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[PublicExam]",
+      "type": "object"
+    },
+    "Envelope_ResourceData_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/ResourceData"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[ResourceData]",
+      "type": "object"
+    },
+    "Envelope_Submission_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/Submission"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[Submission]",
+      "type": "object"
+    },
+    "Envelope_TrainerCourseDetail_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/TrainerCourseDetail"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[TrainerCourseDetail]",
+      "type": "object"
+    },
+    "Envelope_TrainerCoursePage_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/TrainerCoursePage"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[TrainerCoursePage]",
+      "type": "object"
+    },
+    "Envelope_TrainerModuleDetail_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/TrainerModuleDetail"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[TrainerModuleDetail]",
+      "type": "object"
+    },
+    "Envelope_TrainingProfile_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/TrainingProfile"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[TrainingProfile]",
+      "type": "object"
+    },
+    "Envelope_UserPage_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/UserPage"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[UserPage]",
+      "type": "object"
+    },
+    "Envelope_WorkoutRecord_": {
+      "properties": {
+        "data": {
+          "$ref": "#/components/schemas/WorkoutRecord"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[WorkoutRecord]",
+      "type": "object"
+    },
+    "Envelope_list_AdminSubmission__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/AdminSubmission"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[AdminSubmission]]",
+      "type": "object"
+    },
+    "Envelope_list_Assignment__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/Assignment"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[Assignment]]",
+      "type": "object"
+    },
+    "Envelope_list_AthleteSummary__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/AthleteSummary"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[AthleteSummary]]",
+      "type": "object"
+    },
+    "Envelope_list_AuditRecord__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/AuditRecord"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[AuditRecord]]",
+      "type": "object"
+    },
+    "Envelope_list_Program__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/Program"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[Program]]",
+      "type": "object"
+    },
+    "Envelope_list_ResourceData__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/ResourceData"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[ResourceData]]",
+      "type": "object"
+    },
+    "Envelope_list_RosterLink__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/RosterLink"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[RosterLink]]",
+      "type": "object"
+    },
+    "Envelope_list_WorkoutRecord__": {
+      "properties": {
+        "data": {
+          "items": {
+            "$ref": "#/components/schemas/WorkoutRecord"
+          },
+          "title": "Data",
+          "type": "array"
+        },
+        "success": {
+          "const": true,
+          "title": "Success",
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "success",
+        "data"
+      ],
+      "title": "Envelope[list[WorkoutRecord]]",
+      "type": "object"
+    },
+    "ExamResult": {
+      "properties": {
+        "passed": {
+          "title": "Passed",
+          "type": "boolean"
+        },
+        "practice": {
+          "title": "Practice",
+          "type": "boolean"
+        },
+        "review": {
+          "items": {
+            "$ref": "#/components/schemas/ExamReview"
+          },
+          "title": "Review",
+          "type": "array"
+        },
+        "score": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Score",
+          "type": "number"
+        }
+      },
+      "required": [
+        "score",
+        "passed",
+        "practice",
+        "review"
+      ],
+      "title": "ExamResult",
+      "type": "object"
+    },
+    "ExamReview": {
+      "properties": {
+        "correctAnswer": {
+          "title": "Correctanswer",
+          "type": "boolean"
+        },
+        "explanation": {
+          "title": "Explanation",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "correctAnswer",
+        "explanation"
+      ],
+      "title": "ExamReview",
+      "type": "object"
+    },
+    "Exercise": {
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Name",
+          "type": "string"
+        },
+        "reps": {
+          "maxLength": 60,
+          "minLength": 1,
+          "title": "Reps",
+          "type": "string"
+        },
+        "rest_seconds": {
+          "default": 60,
+          "maximum": 1800.0,
+          "minimum": 0.0,
+          "title": "Rest Seconds",
+          "type": "integer"
+        },
+        "sets": {
+          "maximum": 20.0,
+          "minimum": 1.0,
+          "title": "Sets",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "name",
+        "sets",
+        "reps"
+      ],
+      "title": "Exercise",
+      "type": "object"
+    },
+    "Feedback": {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "text": {
+          "title": "Text",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "text",
+        "created_at"
+      ],
+      "title": "Feedback",
+      "type": "object"
+    },
+    "FitnessProfile": {
+      "additionalProperties": false,
+      "properties": {
+        "age": {
+          "maximum": 100.0,
+          "minimum": 18.0,
+          "title": "Age",
+          "type": "integer"
+        },
+        "avatar": {
+          "default": "",
+          "maxLength": 2999999,
+          "title": "Avatar",
+          "type": "string"
+        },
+        "equipment": {
+          "anyOf": [
+            {
+              "enum": [
+                "commercial",
+                "small",
+                "home",
+                "bodyweight"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Equipment"
+        },
+        "experience": {
+          "anyOf": [
+            {
+              "enum": [
+                "new",
+                "months",
+                "year",
+                "years",
+                "advanced"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Experience"
+        },
+        "frequency": {
+          "maximum": 7.0,
+          "minimum": 1.0,
+          "title": "Frequency",
+          "type": "integer"
+        },
+        "gender": {
+          "anyOf": [
+            {
+              "enum": [
+                "male",
+                "female",
+                "other"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Gender"
+        },
+        "goal": {
+          "anyOf": [
+            {
+              "enum": [
+                "shape",
+                "fitness",
+                "lean",
+                "muscle",
+                "weight",
+                "strength",
+                "mobility",
+                "calisthenics",
+                "wellbeing"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Goal"
+        },
+        "heightCm": {
+          "maximum": 250.0,
+          "minimum": 100.0,
+          "title": "Heightcm",
+          "type": "number"
+        },
+        "lifestyle": {
+          "anyOf": [
+            {
+              "enum": [
+                "sedentary",
+                "active",
+                "standing"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Lifestyle"
+        },
+        "time": {
+          "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+          "title": "Time",
+          "type": "string"
+        },
+        "weekdays": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 7,
+          "title": "Weekdays",
+          "type": "array"
+        },
+        "weightKg": {
+          "maximum": 350.0,
+          "minimum": 30.0,
+          "title": "Weightkg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "heightCm",
+        "weightKg",
+        "age",
+        "frequency",
+        "weekdays",
+        "time"
+      ],
+      "title": "FitnessProfile",
+      "type": "object"
+    },
+    "Invitation": {
+      "properties": {
+        "expires_at": {
+          "format": "date-time",
+          "title": "Expires At",
+          "type": "string"
+        },
+        "token": {
+          "title": "Token",
+          "type": "string"
+        }
+      },
+      "required": [
+        "token",
+        "expires_at"
+      ],
+      "title": "Invitation",
+      "type": "object"
+    },
+    "LearningProgress": {
+      "properties": {
+        "assignmentStatus": {
+          "enum": [
+            "not_submitted",
+            "under_review",
+            "approved",
+            "changes_requested"
+          ],
+          "title": "Assignmentstatus",
+          "type": "string"
+        },
+        "completedLessonIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Completedlessonids",
+          "type": "array"
+        },
+        "completedModuleIds": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Completedmoduleids",
+          "type": "array"
+        },
+        "courseSlug": {
+          "title": "Courseslug",
+          "type": "string"
+        },
+        "enrolled": {
+          "title": "Enrolled",
+          "type": "boolean"
+        },
+        "examPassed": {
+          "title": "Exampassed",
+          "type": "boolean"
+        },
+        "examScore": {
+          "anyOf": [
+            {
+              "maximum": 100.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Examscore"
+        },
+        "updatedAt": {
+          "title": "Updatedat",
+          "type": "string"
+        },
+        "version": {
+          "const": 3,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "courseSlug",
+        "enrolled",
+        "completedLessonIds",
+        "completedModuleIds",
+        "examPassed",
+        "assignmentStatus",
+        "updatedAt"
+      ],
+      "title": "LearningProgress",
+      "type": "object"
+    },
+    "LoggedSet": {
+      "additionalProperties": false,
+      "properties": {
+        "exercise_index": {
+          "maximum": 49.0,
+          "minimum": 0.0,
+          "title": "Exercise Index",
+          "type": "integer"
+        },
+        "reps": {
+          "maximum": 1000.0,
+          "minimum": 0.0,
+          "title": "Reps",
+          "type": "integer"
+        },
+        "rpe": {
+          "anyOf": [
+            {
+              "maximum": 10.0,
+              "minimum": 0.0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Rpe"
+        },
+        "set_number": {
+          "maximum": 20.0,
+          "minimum": 1.0,
+          "title": "Set Number",
+          "type": "integer"
+        },
+        "weight_kg": {
+          "maximum": 1500.0,
+          "minimum": 0.0,
+          "title": "Weight Kg",
+          "type": "number"
+        }
+      },
+      "required": [
+        "exercise_index",
+        "set_number",
+        "reps",
+        "weight_kg"
+      ],
+      "title": "LoggedSet",
+      "type": "object"
+    },
+    "PortalUser": {
+      "properties": {
+        "created_at": {
+          "format": "date-time",
+          "title": "Created At",
+          "type": "string"
+        },
+        "email": {
+          "format": "email",
+          "title": "Email",
+          "type": "string"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "last_login_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Last Login At"
+        },
+        "locale": {
+          "enum": [
+            "it",
+            "en"
+          ],
+          "title": "Locale",
+          "type": "string"
+        },
+        "name": {
+          "title": "Name",
+          "type": "string"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string"
+        },
+        "roles": {
+          "items": {
+            "enum": [
+              "admin",
+              "coach",
+              "athlete"
+            ],
+            "type": "string"
+          },
+          "maxItems": 3,
+          "minItems": 1,
+          "title": "Roles",
+          "type": "array"
+        },
+        "status": {
+          "enum": [
+            "active",
+            "suspended"
+          ],
+          "title": "Status",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "email",
+        "locale",
+        "status",
+        "role",
+        "roles",
+        "created_at"
+      ],
+      "title": "PortalUser",
+      "type": "object"
+    },
+    "ProfileState": {
+      "additionalProperties": false,
+      "properties": {
+        "complete": {
+          "title": "Complete",
+          "type": "boolean"
+        },
+        "profile": {
+          "$ref": "#/components/schemas/FitnessProfile"
+        },
+        "reminders": {
+          "title": "Reminders",
+          "type": "boolean"
+        },
+        "selectedDay": {
+          "maximum": 6.0,
+          "minimum": 0.0,
+          "title": "Selectedday",
+          "type": "integer"
+        },
+        "step": {
+          "maximum": 11.0,
+          "minimum": 0.0,
+          "title": "Step",
+          "type": "integer"
+        },
+        "units": {
+          "enum": [
+            "metric",
+            "imperial"
+          ],
+          "title": "Units",
+          "type": "string"
+        },
+        "version": {
+          "const": 1,
+          "title": "Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "version",
+        "profile",
+        "step",
+        "complete",
+        "selectedDay",
+        "units",
+        "reminders"
+      ],
+      "title": "ProfileState",
+      "type": "object"
+    },
+    "Program": {
+      "properties": {
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "version": {
+          "minimum": 1.0,
+          "title": "Version",
+          "type": "integer"
+        },
+        "workouts": {
+          "items": {
+            "$ref": "#/components/schemas/Workout"
+          },
+          "maxItems": 30,
+          "minItems": 1,
+          "title": "Workouts",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "version",
+        "workouts"
+      ],
+      "title": "Program",
+      "type": "object"
+    },
+    "PublicExam": {
+      "properties": {
+        "certificateBody": {
+          "title": "Certificatebody",
+          "type": "string"
+        },
+        "courseSlug": {
+          "title": "Courseslug",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "passingScorePercent": {
+          "maximum": 100.0,
+          "minimum": 0.0,
+          "title": "Passingscorepercent",
+          "type": "number"
+        },
+        "questions": {
+          "items": {
+            "$ref": "#/components/schemas/PublicQuestion"
+          },
+          "maxItems": 200,
+          "minItems": 1,
+          "title": "Questions",
+          "type": "array"
+        },
+        "questionsCount": {
+          "maximum": 200.0,
+          "minimum": 1.0,
+          "title": "Questionscount",
+          "type": "integer"
+        },
+        "timeLimitMinutes": {
+          "anyOf": [
+            {
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Timelimitminutes"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "courseSlug",
+        "title",
+        "description",
+        "questionsCount",
+        "passingScorePercent",
+        "certificateBody",
+        "questions"
+      ],
+      "title": "PublicExam",
+      "type": "object"
+    },
+    "PublicQuestion": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "number": {
+          "title": "Number",
+          "type": "integer"
+        },
+        "question": {
+          "title": "Question",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "question"
+      ],
+      "title": "PublicQuestion",
+      "type": "object"
+    },
+    "ResourceData": {
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "video",
+            "pdf"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "language": {
+          "anyOf": [
+            {
+              "enum": [
+                "it",
+                "en"
+              ],
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Language"
+        },
+        "legacy": {
+          "default": false,
+          "title": "Legacy",
+          "type": "boolean"
+        },
+        "lesson_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Lesson Id"
+        },
+        "position": {
+          "minimum": 0.0,
+          "title": "Position",
+          "type": "integer"
+        },
+        "published": {
+          "title": "Published",
+          "type": "boolean"
+        },
+        "revision": {
+          "minimum": 0.0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "url": {
+          "title": "Url",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "lesson_id",
+        "language",
+        "kind",
+        "title",
+        "url",
+        "position",
+        "published",
+        "revision"
+      ],
+      "title": "ResourceData",
+      "type": "object"
+    },
+    "RosterLink": {
+      "properties": {
+        "athlete_email": {
+          "title": "Athlete Email",
+          "type": "string"
+        },
+        "athlete_id": {
+          "format": "uuid",
+          "title": "Athlete Id",
+          "type": "string"
+        },
+        "athlete_name": {
+          "title": "Athlete Name",
+          "type": "string"
+        },
+        "coach_email": {
+          "title": "Coach Email",
+          "type": "string"
+        },
+        "coach_id": {
+          "format": "uuid",
+          "title": "Coach Id",
+          "type": "string"
+        },
+        "coach_name": {
+          "title": "Coach Name",
+          "type": "string"
+        }
+      },
+      "required": [
+        "coach_id",
+        "athlete_id",
+        "coach_name",
+        "coach_email",
+        "athlete_name",
+        "athlete_email"
+      ],
+      "title": "RosterLink",
+      "type": "object"
+    },
+    "Submission": {
+      "properties": {
+        "courseSlug": {
+          "title": "Courseslug",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Notes"
+        },
+        "resourceUrl": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Resourceurl"
+        },
+        "reviewerFeedback": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Reviewerfeedback"
+        },
+        "status": {
+          "enum": [
+            "not_submitted",
+            "under_review",
+            "approved",
+            "changes_requested"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "submittedAt": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Submittedat"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "project_work",
+            "practical_video"
+          ],
+          "title": "Type",
+          "type": "string"
+        },
+        "updatedAt": {
+          "title": "Updatedat",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "courseSlug",
+        "type",
+        "status",
+        "title",
+        "updatedAt"
+      ],
+      "title": "Submission",
+      "type": "object"
+    },
+    "TrainerCourseDetail": {
+      "properties": {
+        "course": {
+          "$ref": "#/components/schemas/TrainerCourseSummary"
+        },
+        "modules": {
+          "items": {
+            "$ref": "#/components/schemas/TrainerModuleSummary"
+          },
+          "title": "Modules",
+          "type": "array"
+        }
+      },
+      "required": [
+        "course",
+        "modules"
+      ],
+      "title": "TrainerCourseDetail",
+      "type": "object"
+    },
+    "TrainerCourseItem": {
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "duration_minutes": {
+          "minimum": 0.0,
+          "title": "Duration Minutes",
+          "type": "integer"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "item_type": {
+          "title": "Item Type",
+          "type": "string"
+        },
+        "order": {
+          "minimum": 1.0,
+          "title": "Order",
+          "type": "integer"
+        },
+        "resources": {
+          "items": {
+            "$ref": "#/components/schemas/ResourceData"
+          },
+          "title": "Resources",
+          "type": "array"
+        },
+        "summary": {
+          "title": "Summary",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "order",
+        "title",
+        "description",
+        "summary",
+        "item_type",
+        "duration_minutes",
+        "resources"
+      ],
+      "title": "TrainerCourseItem",
+      "type": "object"
+    },
+    "TrainerCoursePage": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/components/schemas/TrainerCourseSummary"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "limit": {
+          "maximum": 100.0,
+          "minimum": 1.0,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "minimum": 0.0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "total": {
+          "minimum": 0.0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "TrainerCoursePage",
+      "type": "object"
+    },
+    "TrainerCourseSummary": {
+      "properties": {
+        "category": {
+          "title": "Category",
+          "type": "string"
+        },
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "hero_image": {
+          "title": "Hero Image",
+          "type": "string"
+        },
+        "item_count": {
+          "minimum": 0.0,
+          "title": "Item Count",
+          "type": "integer"
+        },
+        "level": {
+          "title": "Level",
+          "type": "integer"
+        },
+        "module_count": {
+          "minimum": 0.0,
+          "title": "Module Count",
+          "type": "integer"
+        },
+        "slug": {
+          "title": "Slug",
+          "type": "string"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "slug",
+        "title",
+        "category",
+        "description",
+        "hero_image",
+        "level",
+        "module_count",
+        "item_count"
+      ],
+      "title": "TrainerCourseSummary",
+      "type": "object"
+    },
+    "TrainerModuleDetail": {
+      "properties": {
+        "course": {
+          "$ref": "#/components/schemas/TrainerCourseSummary"
+        },
+        "items": {
+          "items": {
+            "$ref": "#/components/schemas/TrainerCourseItem"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "module": {
+          "$ref": "#/components/schemas/TrainerModuleSummary"
+        },
+        "resources": {
+          "items": {
+            "$ref": "#/components/schemas/ResourceData"
+          },
+          "title": "Resources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "course",
+        "module",
+        "resources",
+        "items"
+      ],
+      "title": "TrainerModuleDetail",
+      "type": "object"
+    },
+    "TrainerModuleSummary": {
+      "properties": {
+        "description": {
+          "title": "Description",
+          "type": "string"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "item_count": {
+          "minimum": 0.0,
+          "title": "Item Count",
+          "type": "integer"
+        },
+        "number": {
+          "minimum": 1.0,
+          "title": "Number",
+          "type": "integer"
+        },
+        "title": {
+          "title": "Title",
+          "type": "string"
+        },
+        "type": {
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "number",
+        "title",
+        "description",
+        "type",
+        "item_count"
+      ],
+      "title": "TrainerModuleSummary",
+      "type": "object"
+    },
+    "TrainingProfile": {
+      "properties": {
+        "revision": {
+          "minimum": 0.0,
+          "title": "Revision",
+          "type": "integer"
+        },
+        "state": {
+          "anyOf": [
+            {
+              "$ref": "#/components/schemas/ProfileState"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "state",
+        "revision"
+      ],
+      "title": "TrainingProfile",
+      "type": "object"
+    },
+    "UserPage": {
+      "properties": {
+        "items": {
+          "items": {
+            "$ref": "#/components/schemas/PortalUser"
+          },
+          "title": "Items",
+          "type": "array"
+        },
+        "limit": {
+          "maximum": 100.0,
+          "minimum": 1.0,
+          "title": "Limit",
+          "type": "integer"
+        },
+        "offset": {
+          "minimum": 0.0,
+          "title": "Offset",
+          "type": "integer"
+        },
+        "total": {
+          "minimum": 0.0,
+          "title": "Total",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "items",
+        "total",
+        "offset",
+        "limit"
+      ],
+      "title": "UserPage",
+      "type": "object"
+    },
+    "Workout": {
+      "additionalProperties": false,
+      "properties": {
+        "exercises": {
+          "items": {
+            "$ref": "#/components/schemas/Exercise"
+          },
+          "maxItems": 50,
+          "minItems": 1,
+          "title": "Exercises",
+          "type": "array"
+        },
+        "title": {
+          "maxLength": 160,
+          "minLength": 1,
+          "title": "Title",
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "exercises"
+      ],
+      "title": "Workout",
+      "type": "object"
+    },
+    "WorkoutRecord": {
+      "properties": {
+        "assignment_id": {
+          "format": "uuid",
+          "title": "Assignment Id",
+          "type": "string"
+        },
+        "athlete_id": {
+          "format": "uuid",
+          "title": "Athlete Id",
+          "type": "string"
+        },
+        "completed_at": {
+          "format": "date-time",
+          "title": "Completed At",
+          "type": "string"
+        },
+        "feedback": {
+          "items": {
+            "$ref": "#/components/schemas/Feedback"
+          },
+          "title": "Feedback",
+          "type": "array"
+        },
+        "id": {
+          "format": "uuid",
+          "title": "Id",
+          "type": "string"
+        },
+        "notes": {
+          "title": "Notes",
+          "type": "string"
+        },
+        "program": {
+          "$ref": "#/components/schemas/Program"
+        },
+        "sets": {
+          "items": {
+            "$ref": "#/components/schemas/LoggedSet"
+          },
+          "maxItems": 1000,
+          "minItems": 1,
+          "title": "Sets",
+          "type": "array"
+        },
+        "workout_index": {
+          "maximum": 29.0,
+          "minimum": 0.0,
+          "title": "Workout Index",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "id",
+        "athlete_id",
+        "assignment_id",
+        "workout_index",
+        "sets",
+        "notes",
+        "completed_at",
+        "program",
+        "feedback"
+      ],
+      "title": "WorkoutRecord",
+      "type": "object"
+    }
+  },
+  "routes": [
+    {
+      "method": "POST",
+      "path": "admin/invitations",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Invitation_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/invitations/accept",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_PortalUser_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "admin/users",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_UserPage_"
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "admin/users/{user_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_PortalUser_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "admin/roster",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_RosterLink__"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "admin/roster",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_NoneType_"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "admin/roster/{coach_id}/{athlete_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_NoneType_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "admin/audit",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_AuditRecord__"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/athletes",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_AthleteSummary__"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/programs",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_Program__"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "trainer/programs",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Program_"
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "trainer/programs/{program_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Program_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "trainer/assignments",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Assignment_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/athletes/{athlete_id}/sessions",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_WorkoutRecord__"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "trainer/sessions/{session_id}/feedback",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_WorkoutRecord_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/training/profile",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_TrainingProfile_"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "me/training/profile",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_TrainingProfile_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/training/dashboard",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_AthleteDashboard_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/training/assignments",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_Assignment__"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/training/sessions",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_WorkoutRecord__"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/training/sessions",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_WorkoutRecord_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "courses/{slug}/exam",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_PublicExam_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/courses/{slug}/progress",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_LearningProgress_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/courses/{slug}/enrollment",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_LearningProgress_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/courses/{slug}/progress/import",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_LearningProgress_"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "me/courses/{slug}/lessons/{lesson_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_LearningProgress_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/courses/{slug}/exam",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_ExamResult_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/courses/{slug}/exam/practice",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_ExamReview_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "me/courses/{slug}/assignment",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Submission_"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "me/courses/{slug}/assignment",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Submission_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "admin/courses/{slug}/submissions",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_AdminSubmission__"
+      }
+    },
+    {
+      "method": "PATCH",
+      "path": "admin/courses/{slug}/submissions/{user_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_Submission_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/courses",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_TrainerCoursePage_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/courses/{slug}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_TrainerCourseDetail_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "trainer/courses/{slug}/modules/{module_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_TrainerModuleDetail_"
+      }
+    },
+    {
+      "method": "GET",
+      "path": "admin/courses/{slug}/modules/{module_id}/resources",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_list_ResourceData__"
+      }
+    },
+    {
+      "method": "POST",
+      "path": "admin/courses/{slug}/modules/{module_id}/resources",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_ResourceData_"
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "admin/courses/{slug}/modules/{module_id}/resources/{resource_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_ResourceData_"
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "admin/courses/{slug}/modules/{module_id}/resources/{resource_id}",
+      "schema": {
+        "$ref": "#/components/schemas/Envelope_NoneType_"
+      }
+    }
+  ]
+}

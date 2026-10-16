@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { toast } from "sonner";
 import { usePathname } from "@/i18n/routing";
 import { authService, type AuthSession } from "@/lib/api/auth";
+import { setStorageOwner } from "@/lib/auth/account-storage";
 
 type AuthState = { status: "loading" | "authenticated" | "anonymous" | "error"; session: AuthSession | null; signedOutIntentionally?: boolean };
 interface AuthContextValue extends AuthState {
@@ -14,16 +15,25 @@ interface AuthContextValue extends AuthState {
 }
 const AuthContext = createContext<AuthContextValue | null>(null);
 const logoutToastId = "fit-auth-logout";
+const routeVerificationWindowMs = 10000;
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const t = useTranslations("TrainingApp");
   const [auth, setAuth] = useState<AuthState>({ status: "loading", session: null });
   const active = useRef<AbortController | null>(null);
+  const lastVerifiedAt = useRef(0);
   const pathname = usePathname();
+  useEffect(() => {
+    // Retire only the named legacy credentials; training and learning data stay intact.
+    try { localStorage.removeItem("eureka_auth_token"); localStorage.removeItem("eureka_user"); } catch { /* Optional browser storage. */ }
+    document.cookie = "eureka_access=; Path=/; Max-Age=0; SameSite=Lax";
+  }, []);
 
   const acceptSession = useCallback((session: AuthSession | null, signedOutIntentionally = false) => {
     active.current?.abort();
     active.current = null;
+    lastVerifiedAt.current = Date.now();
+    setStorageOwner(session?.user.id ?? null);
     setAuth({ status: session ? "authenticated" : "anonymous", session, signedOutIntentionally });
   }, []);
 
@@ -37,9 +47,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let session = renew ? await authService.refresh(signal) : await authService.session(signal);
       if (!session && !renew && active.current === controller) session = await authService.refresh(signal);
       if (active.current !== controller) return;
+      lastVerifiedAt.current = Date.now();
+      setStorageOwner(session?.user.id ?? null);
       setAuth({ status: session ? "authenticated" : "anonymous", session });
     } catch {
-      if (active.current === controller) setAuth({ status: "error", session: null });
+      if (active.current === controller) { setStorageOwner(undefined); setAuth({ status: "error", session: null }); }
     } finally { if (active.current === controller) active.current = null; }
   }, []);
 
@@ -64,7 +76,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, [refresh]);
 
-  useEffect(() => { if (!active.current) void refresh(); }, [pathname, refresh]);
+  useEffect(() => {
+    if (!active.current && Date.now() - lastVerifiedAt.current >= routeVerificationWindowMs) void refresh();
+  }, [pathname, refresh]);
 
   useEffect(() => {
     if (!auth.session) return;

@@ -27,12 +27,6 @@ async function handleGET(request: Request) {
           httpStatus: res.status,
           latencyMs,
           timestamp: new Date().toISOString(),
-          version: "1.0.0",
-          coverage: {
-            total: 32,
-            implemented: 32,
-            percentage: "100%",
-          },
         },
       },
       {
@@ -42,7 +36,6 @@ async function handleGET(request: Request) {
     );
   } catch (err: unknown) {
     const latencyMs = Date.now() - startTime;
-    const message = err instanceof Error ? err.message : "Connection failed";
     return NextResponse.json(
       {
         success: false,
@@ -53,12 +46,7 @@ async function handleGET(request: Request) {
           httpStatus: 503,
           latencyMs,
           timestamp: new Date().toISOString(),
-          error: message,
-          coverage: {
-            total: 32,
-            implemented: 32,
-            percentage: "100%",
-          },
+          error: "Backend health probe unavailable",
         },
       },
       {

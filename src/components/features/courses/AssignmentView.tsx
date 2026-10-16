@@ -1,14 +1,14 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocale } from "next-intl";
-import {
-  getAssignmentBrief,
-  loadAssignmentSubmission,
-  saveAssignmentSubmission,
-} from "@/lib/api/assignments";
+import { getAssignmentBrief } from "@/lib/api/assignments";
 import type { AssignmentSubmission } from "@/lib/api/types";
-import { recordAssignmentStatus } from "@/lib/api/progress";
+import { useLearningService } from "@/hooks/use-portal-request";
+import { portalMessage } from "@/lib/api/portal";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { Link } from "@/i18n/routing";
+import { toast } from "sonner";
 import styles from "./lesson-view.module.css";
 
 interface AssignmentViewProps {
@@ -16,17 +16,46 @@ interface AssignmentViewProps {
   onSubmissionUpdated?: (submission: AssignmentSubmission) => void;
 }
 
-export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentViewProps) {
+export function AssignmentView(props: AssignmentViewProps) {
+  const { session, status } = useAuth();
+  return <Assignment key={String(session?.user.id) + props.courseSlug + status} {...props} />;
+}
+
+function Assignment({ courseSlug, onSubmissionUpdated }: AssignmentViewProps) {
+  const learningService = useLearningService();
   const locale = useLocale() || "it";
   const isEn = locale === "en";
 
   const brief = getAssignmentBrief(courseSlug, locale);
-  const [submission, setSubmission] = useState<AssignmentSubmission>(() => loadAssignmentSubmission(courseSlug));
+  const { status } = useAuth();
+  const [submission, setSubmission] = useState<AssignmentSubmission>({ id: "", courseSlug, title: "", type: courseSlug === "calisthenics-2" ? "practical_video" : "project_work", status: "not_submitted", updatedAt: "" });
+  const [error, setError] = useState<unknown>(null);
+  const [loaded, setLoaded] = useState(false);
+  const [retry, setRetry] = useState(0);
+  const [legacyDraft, setLegacyDraft] = useState<{ title: string; notes: string } | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [projectTitle, setProjectTitle] = useState(submission.title || "");
   const [projectNotes, setProjectNotes] = useState(submission.notes || "");
   const [selectedFile, setSelectedFile] = useState<string>(submission.fileName || "");
-  const [notification, setNotification] = useState<string | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    if (status !== "authenticated") return () => controller.abort();
+    setError(null); setLoaded(false);
+    learningService.submission(courseSlug, controller.signal).then(next => {
+      if (controller.signal.aborted) return;
+      setSubmission(next); setProjectTitle(next.title); setProjectNotes(next.notes || ""); setSelectedFile(next.resourceUrl || ""); setLoaded(true);
+    }).catch(failure => { if (!controller.signal.aborted) setError(failure); });
+    try {
+      const raw = localStorage.getItem("eureka_assignment_v2_" + courseSlug);
+      const draft = raw ? JSON.parse(raw) : null;
+      if (draft && typeof draft.title === "string") setLegacyDraft({ title: draft.title.slice(0, 200), notes: typeof draft.notes === "string" ? draft.notes.slice(0, 4000) : "" });
+    } catch { /* Unidentified legacy records stay untouched. */ }
+    return () => controller.abort();
+  }, [courseSlug, status, retry]);
+
+  if (status !== "authenticated") return <Link href="/training/app/login">{isEn ? "Sign in to submit your work" : "Accedi per inviare il tuo elaborato"}</Link>;
+  if (error) return <div className={styles.contentSection}><p>{portalMessage(error, isEn)}</p><button type="button" className={styles.btnSecondary} onClick={() => setRetry(v => v + 1)}>{isEn ? "Retry" : "Riprova"}</button></div>;
+  if (!loaded) return <p role="status">{isEn ? "Loading…" : "Caricamento…"}</p>;
 
   if (!brief) {
     return (
@@ -38,61 +67,18 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
     );
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!projectTitle.trim()) {
-      setNotification(isEn ? "Please enter a project title." : "Inserisci un titolo per il tuo elaborato.");
-      return;
-    }
-
+    if (isSubmitting) return;
+    if (!projectTitle.trim()) { toast.error(isEn ? "Enter a project title." : "Inserisci un titolo.", { id: "academy-submission" }); return; }
     setIsSubmitting(true);
-    setTimeout(() => {
-      const updated = saveAssignmentSubmission(courseSlug, {
-        title: projectTitle,
-        notes: projectNotes,
-        fileName: selectedFile || (courseSlug === "calisthenics-2" ? "skill_demonstration_video.mp4" : "project_work_final.pdf"),
-        status: "under_review",
-        submittedAt: new Date().toISOString(),
-        reviewerFeedback: isEn
-          ? "Submission received. Faculty committee review typically takes 5 business days."
-          : "Elaborato ricevuto correttamente. La commissione esaminatrice valuterà l'elaborato entro 5 giorni lavorativi.",
-      });
-
-      recordAssignmentStatus(courseSlug, "submitted");
-      setSubmission(updated);
-      setIsSubmitting(false);
-      setNotification(isEn ? "Project work submitted successfully for evaluation." : "Elaborato inviato con successo per la valutazione.");
-      if (onSubmissionUpdated) onSubmissionUpdated(updated);
-    }, 600);
-  };
-
-  const handleSimulateApprove = () => {
-    const approved = saveAssignmentSubmission(courseSlug, {
-      status: "approved",
-      reviewerFeedback: isEn
-        ? "Exemplary submission. Meets all national technical standards (Score: Approved with Honors)."
-        : "Elaborato eccellente. Conforme a tutti gli standard tecnici nazionali Libertas/CONI (Esito: Approvato a pieni voti).",
-    });
-    recordAssignmentStatus(courseSlug, "approved");
-    setSubmission(approved);
-    if (onSubmissionUpdated) onSubmissionUpdated(approved);
-  };
-
-  const handleReset = () => {
-    const reset = saveAssignmentSubmission(courseSlug, {
-      status: "not_submitted",
-      title: "",
-      notes: "",
-      fileName: "",
-      reviewerFeedback: undefined,
-    });
-    recordAssignmentStatus(courseSlug, "not_submitted");
-    setSubmission(reset);
-    setProjectTitle("");
-    setProjectNotes("");
-    setSelectedFile("");
-    setNotification(null);
-    if (onSubmissionUpdated) onSubmissionUpdated(reset);
+    try {
+      await learningService.enroll(courseSlug);
+      const updated = await learningService.submit(courseSlug, projectTitle, projectNotes, selectedFile);
+      setSubmission(updated); onSubmissionUpdated?.(updated);
+      toast.success(isEn ? "Submitted for review." : "Inviato per revisione.", { id: "academy-submission" });
+    } catch (failure) { toast.error(portalMessage(failure, isEn), { id: "academy-submission" }); }
+    finally { setIsSubmitting(false); }
   };
 
   return (
@@ -160,12 +146,8 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
         </div>
       </div>
 
-      {notification && (
-        <div style={{ background: "#ecfdf5", border: "1px solid #a7f3d0", color: "#065f46", padding: "0.85em 1.25em", borderRadius: "0.5em", marginBottom: "1.5em", fontSize: "0.85rem" }}>
-          {notification}
-        </div>
-      )}
 
+      {legacyDraft && (submission.status === "not_submitted" || submission.status === "changes_requested") && <div className={styles.contentSection}><p>{isEn ? "A saved draft on this device has no account owner. Import it only if it is yours." : "La bozza su questo dispositivo non è associata a un account. Importala solo se è tua."}</p><button type="button" className={styles.btnSecondary} onClick={() => { setProjectTitle(legacyDraft.title); setProjectNotes(legacyDraft.notes); setLegacyDraft(null); }}>{isEn ? "Import my draft" : "Importa la mia bozza"}</button></div>}
       {/* Submission status and interaction card */}
       <div className={styles.contentSection}>
         <h3 style={{ margin: "0 0 1em", fontSize: "1.1rem", color: "#0d2345", fontWeight: 700 }}>
@@ -176,8 +158,8 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
             : (isEn ? "Submit Your Work" : "Invia il Tuo Elaborato")}
         </h3>
 
-        {submission.status === "not_submitted" ? (
-          <form onSubmit={handleSubmit} style={{ display: "grid", gap: "1.25em" }}>
+        {(submission.status === "not_submitted" || submission.status === "changes_requested") ? (
+          <form onSubmit={handleSubmit} onInvalidCapture={event => { event.preventDefault(); event.currentTarget.querySelector<HTMLElement>(":invalid")?.focus(); toast.error(isEn ? "Check the required fields and resource link." : "Controlla i campi obbligatori e il collegamento.", { id: "academy-submission" }); }} style={{ display: "grid", gap: "1.25em" }}>
             <div>
               <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#334960", marginBottom: "0.4em" }}>
                 {isEn ? "Project Title / Topic *" : "Titolo dell'Elaborato / Argomento *"}
@@ -185,6 +167,7 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
               <input
                 type="text"
                 required
+                maxLength={200}
                 value={projectTitle}
                 onChange={(e) => setProjectTitle(e.target.value)}
                 placeholder={isEn ? "e.g. Annual Periodization for Elite Athlete" : "es. Pianificazione Annuale Atleta di Potenza"}
@@ -198,6 +181,7 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
               </label>
               <textarea
                 rows={4}
+                maxLength={4000}
                 value={projectNotes}
                 onChange={(e) => setProjectNotes(e.target.value)}
                 placeholder={isEn ? "Describe your methodology and key considerations..." : "Descrivi la metodologia adottata e i punti salienti del progetto..."}
@@ -207,24 +191,19 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
 
             <div>
               <label style={{ display: "block", fontSize: "0.82rem", fontWeight: 700, color: "#334960", marginBottom: "0.4em" }}>
-                {courseSlug === "calisthenics-2" ? (isEn ? "Video File or Video URL *" : "File Video o Link Video *") : (isEn ? "Project Dossier File (PDF) *" : "File Dossier di Progetto (PDF) *")}
+                {courseSlug === "calisthenics-2" ? (isEn ? "Video resource link (HTTPS) *" : "Collegamento video (HTTPS) *") : (isEn ? "Project resource link (HTTPS)" : "Collegamento elaborato (HTTPS)")}
               </label>
               <div style={{ display: "flex", gap: "0.75em", alignItems: "center" }}>
                 <input
-                  type="text"
+                  type="url"
+                  required={courseSlug === "calisthenics-2"}
+                  pattern="https://.*"
+                  maxLength={2000}
                   value={selectedFile}
                   onChange={(e) => setSelectedFile(e.target.value)}
-                  placeholder={courseSlug === "calisthenics-2" ? "https://youtube.com/watch?v=... o file video" : "progetto_finale_eureka.pdf"}
+                  placeholder="https://..."
                   style={{ flex: 1, padding: "0.65em", borderRadius: "0.4em", border: "1px solid #cbd5e1", fontSize: "0.85rem" }}
                 />
-                <button
-                  type="button"
-                  onClick={() => setSelectedFile(courseSlug === "calisthenics-2" ? "dimostrazione_skill_calisthenics.mp4" : "progetto_finale_master_coach.pdf")}
-                  className={styles.btnSecondary}
-                  style={{ fontSize: "0.75rem", whiteSpace: "nowrap" }}
-                >
-                  📎 {isEn ? "Simulate File Selection" : "Seleziona File"}
-                </button>
               </div>
             </div>
 
@@ -247,7 +226,7 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
               </p>
               <h4 style={{ margin: 0, fontSize: "1rem", color: "#0d2345", fontWeight: 700 }}>{submission.title}</h4>
               <p style={{ margin: "0.5em 0 0", fontSize: "0.78rem", color: "#64748b" }}>
-                📁 {submission.fileName} • {isEn ? "Submitted on" : "Inviato il"} {submission.submittedAt ? new Date(submission.submittedAt).toLocaleDateString() : ""}
+                {submission.resourceUrl} • {isEn ? "Submitted on" : "Inviato il"} {submission.submittedAt ? new Date(submission.submittedAt).toLocaleDateString() : ""}
               </p>
             </div>
 
@@ -269,27 +248,6 @@ export function AssignmentView({ courseSlug, onSubmissionUpdated }: AssignmentVi
               </div>
             )}
 
-            {/* Simulation controls for demo testing */}
-            <div style={{ display: "flex", gap: "0.75em", flexWrap: "wrap", borderTop: "1px solid #f1f5f9", paddingTop: "1em", marginTop: "0.5em" }}>
-              {submission.status !== "approved" && (
-                <button
-                  type="button"
-                  onClick={handleSimulateApprove}
-                  className={styles.btnSecondary}
-                  style={{ background: "#10b981", color: "#ffffff", borderColor: "#10b981", fontSize: "0.78rem" }}
-                >
-                  ✓ {isEn ? "Simulate Faculty Approval" : "Simula Approvazione Commissione"}
-                </button>
-              )}
-              <button
-                type="button"
-                onClick={handleReset}
-                className={styles.btnSecondary}
-                style={{ fontSize: "0.78rem", color: "#64748b" }}
-              >
-                ↺ {isEn ? "Reset Submission" : "Reimposta Elaborato"}
-              </button>
-            </div>
           </div>
         )}
       </div>

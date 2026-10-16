@@ -41,20 +41,25 @@ export default async function CourseLearnPage({ params, searchParams }: PageProp
   const { tab } = await searchParams;
   setRequestLocale(locale);
 
-  const [courseResult, curriculumResult] = await Promise.all([
-    getCourseDetail(slug, locale),
-    getCourseCurriculum(slug, locale),
-  ]);
+  const coursePromise = getCourseDetail(slug, locale);
+  const curriculumPromise = getCourseCurriculum(slug, locale);
+  const courseResult = await coursePromise;
 
   if (courseResult.status === "not_found") notFound();
   if (courseResult.status === "error") return <CoursePageState mode="error" />;
   const { course } = courseResult;
 
+  const [curriculumResult, examResult] = await Promise.all([
+    curriculumPromise,
+    course.hasExam ? getExamByCourse(slug, locale) : Promise.resolve(null),
+  ]);
+
   if (curriculumResult.status !== "ready") {
     return <CoursePageState mode="error" resource="curriculum" />;
   }
   const { modules, lessons } = curriculumResult.data;
-  const exam = getExamByCourse(slug, locale);
+  if (examResult && examResult.status !== "ready") return <CoursePageState mode="error" />;
+  const exam = examResult?.status === "ready" ? examResult.exam : undefined;
 
   return (
     <div className={cn(homeStyles.page, styles.page)}>

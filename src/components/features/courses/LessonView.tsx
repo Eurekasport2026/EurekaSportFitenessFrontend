@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 import type { Course, CourseModule, Lesson } from "@/lib/api/types";
-import { toggleLessonCompletion, loadUserProgress } from "@/lib/api/progress";
+import { useCourseProgress } from "@/hooks/use-course-progress";
+import { useLearningService } from "@/hooks/use-portal-request";
+import { useAuth } from "@/components/features/training-app/AuthProvider";
+import { portalMessage } from "@/lib/api/portal";
+import { toast } from "sonner";
 import { ProgressBar } from "./ProgressBar";
 import { LessonNav } from "./LessonNav";
 import { PracticalResources } from "./PracticalResources";
@@ -28,6 +32,7 @@ export function LessonView({
   prevLesson,
   nextLesson,
 }: LessonViewProps) {
+  const learningService = useLearningService();
   const locale = useLocale() || "it";
   const isEn = locale === "en";
 
@@ -79,20 +84,25 @@ export function LessonView({
     });
   }, [lessons, dynamicDurations]);
 
-  const [completedLessonIds, setCompletedLessonIds] = useState<string[]>([]);
-
-  useEffect(() => {
-    setCompletedLessonIds(loadUserProgress(course.slug).completedLessonIds);
-  }, [course.slug]);
+  const { progress, setProgress } = useCourseProgress(course.slug);
+  const { status } = useAuth();
+  const completedLessonIds = progress.completedLessonIds;
+  const [saving, setSaving] = useState(false);
 
   const isCurrentLessonComplete = activeLesson
     ? completedLessonIds.includes(activeLesson.id)
     : false;
 
-  const handleToggleComplete = () => {
-    if (!activeLesson) return;
-    const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id, lessons);
-    setCompletedLessonIds(updated.completedLessonIds);
+  const handleToggleComplete = async (complete = !isCurrentLessonComplete, background = false) => {
+    if (!activeLesson || saving) return;
+    if (status !== "authenticated") { if (!background) toast.info(isEn ? "Sign in to save your progress." : "Accedi per salvare il progresso.", { id: "academy-progress" }); return; }
+    setSaving(true);
+    try {
+      if (!progress.enrolled) await learningService.enroll(course.slug);
+      setProgress(await learningService.lesson(course.slug, activeLesson.id, complete));
+      if (!background) toast.success(isEn ? "Progress saved." : "Progresso salvato.", { id: "academy-progress" });
+    } catch (error) { if (!background) toast.error(portalMessage(error, isEn), { id: "academy-progress" }); }
+    finally { setSaving(false); }
   };
 
   const completedInModule = lessons.filter((l) => completedLessonIds.includes(l.id)).length;
@@ -269,8 +279,7 @@ export function LessonView({
                 }}
                 onEnded={() => {
                   if (completedLessonIds.includes(activeLesson.id)) return;
-                  const updated = toggleLessonCompletion(course.slug, module.id, activeLesson.id, lessons);
-                  setCompletedLessonIds(updated.completedLessonIds);
+                  void handleToggleComplete(true, true);
                 }}
               />
             ) : activeLesson.videoUrl && activeLesson.mediaStatus !== "in_production" ? (
@@ -346,7 +355,8 @@ export function LessonView({
 
             <button
               type="button"
-              onClick={handleToggleComplete}
+              disabled={saving}
+              onClick={() => void handleToggleComplete()}
               className={`${styles.completeButton} ${isCurrentLessonComplete ? styles.completeButtonActive : ""}`}
             >
               {isCurrentLessonComplete ? (

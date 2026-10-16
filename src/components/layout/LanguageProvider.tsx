@@ -5,6 +5,7 @@ import { useLocale, useMessages } from "next-intl";
 import { useParams } from "next/navigation";
 import { useRouter, usePathname } from "@/i18n/routing";
 import { english } from "@/lib/translations";
+import { isAthletePath } from "@/lib/training/athlete-navigation";
 
 type Language = "it" | "en";
 type LanguageContextValue = {
@@ -26,6 +27,22 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     if (nextLanguage === locale) return;
     if (typeof params.slug === "string") {
       const query = Object.fromEntries(new URLSearchParams(window.location.search));
+      if (pathname === "/trainer/courses/[slug]/modules/[moduleId]/lessons/[lessonId]" && typeof params.moduleId === "string" && typeof params.lessonId === "string") {
+        router.replace({ pathname, params: { slug: params.slug, moduleId: params.moduleId, lessonId: params.lessonId }, query }, { locale: nextLanguage });
+        return;
+      }
+      if (pathname === "/trainer/courses/[slug]/modules/[moduleId]/exercises/[exerciseId]" && typeof params.moduleId === "string" && typeof params.exerciseId === "string") {
+        router.replace({ pathname, params: { slug: params.slug, moduleId: params.moduleId, exerciseId: params.exerciseId }, query }, { locale: nextLanguage });
+        return;
+      }
+      if (pathname === "/trainer/courses/[slug]/modules/[moduleId]" && typeof params.moduleId === "string") {
+        router.replace({ pathname, params: { slug: params.slug, moduleId: params.moduleId }, query }, { locale: nextLanguage });
+        return;
+      }
+      if (pathname === "/trainer/courses/[slug]") {
+        router.replace({ pathname, params: { slug: params.slug }, query }, { locale: nextLanguage });
+        return;
+      }
       if (pathname === "/academy/corsi/[slug]/learn/[moduleId]" && typeof params.moduleId === "string") {
         router.replace({ pathname, params: { slug: params.slug, moduleId: params.moduleId }, query }, { locale: nextLanguage });
         return;
@@ -35,7 +52,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
         return;
       }
     }
-    if (pathname === "/training/app" || pathname.startsWith("/training/app/")) {
+    if (pathname === "/training/app" || pathname.startsWith("/training/app/") || pathname === "/trainer" || pathname.startsWith("/trainer/") || isAthletePath(pathname)) {
       router.replace({
         pathname: pathname as any,
         query: Object.fromEntries(new URLSearchParams(window.location.search)),
