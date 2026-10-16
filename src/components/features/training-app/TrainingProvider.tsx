@@ -115,7 +115,8 @@ export function TrainingProvider({ children }: TrainingProviderProps) {
     }, 800);
     return () => clearTimeout(timer);
   }, [state, key, hydrated, canSync, revision, error]);
-  const dialog = hydrated && error != null
+  const showSyncError = false;
+  const dialog = showSyncError && hydrated && error != null
     ? <DataDialog title={t("error.title")} description={portalMessage(error, en)} primaryLabel={t("error.reload")} onPrimary={() => setRetry(value => value + 1)} />
     : hydrated && recovery
       ? <DataDialog title={t("recovery.title")} description={t("recovery.description")} primaryLabel={t("recovery.restore")} onPrimary={() => { dispatch({ type: "hydrate", state: restoreTrainingState(recovery) }); setRecovery(null); }} secondaryLabel={t("recovery.keep")} onSecondary={() => setRecovery(null)} />
